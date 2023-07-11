@@ -45,7 +45,7 @@
     {{ 'app.min.css' | asset_url | stylesheet_tag }}
 
     {% comment %} Reference built js file {% endcomment %}
-    <script src="{{ 'main.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'app.min.js' | asset_url }}" defer="defer"></script>
 
     {%- if request.page_type contains 'customers/' -%}
       <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
@@ -53,7 +53,7 @@
   </head>
 
   <body id="{{ page_title | handle }}" class="bg-[url(bg.svg)] bg-cover bg-no-repeat w-screen h-screen overflow-auto">
-    <header class="h-[98px] container flex mx-auto items-center justify-between">
+    <header class="h-[98px] container flex mx-auto items-center justify-between px-[100px]">
       <a id="logo" href="/">
         {{ 'logo.svg' | asset_url | img_tag: shop.name }}
       </a>

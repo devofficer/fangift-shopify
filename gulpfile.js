@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const run = require("gulp-run");
 const { task, src, dest, series, parallel, watch } = require("gulp");
 const terser = require("gulp-terser");
@@ -16,7 +17,6 @@ const imagemin = require("gulp-imagemin");
 const rollup = require("gulp-better-rollup");
 const { nodeResolve } = require("@rollup/plugin-node-resolve"); //allow rollup to parse npm_modules
 const commonjs = require("@rollup/plugin-commonjs"); //allow rollup to use npm_modules by converting to es6 exports
-const rollupJson = require("@rollup/plugin-json"); //also used to use node modules
 
 //=============================
 // Configuration
@@ -26,8 +26,8 @@ const isProduction = process.env.NODE_ENV === "production" ? true : false;
 //main path ways
 const config = {
   srcImg: "src/images/**/*.{jpg,jpeg,png,gif,svg}",
-  srcJS: "src/js/*.{js, jsx, ts, tsx}",
-  srcStyles: "src/styles/*.css",
+  srcJS: "src/**/*.{js,jsx,ts,tsx}",
+  srcStyles: "src/styles/**/*.css",
   rootDist: "shopify/**/*.{liquid, json}",
   dest: "./shopify/assets",
 };
@@ -104,7 +104,7 @@ task("build:img", async () => {
 
 //build/bundle js
 task("build:js", async () => {
-  jsBuildChannel("src/js/*.{js, jsx, ts, tsx}");
+  jsBuildChannel(config.srcJS);
 });
 
 //build/compile tailwind css

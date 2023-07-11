@@ -1,0 +1,12 @@
+{
+  "current": {
+    "customer_layout": "theme",
+    "example_option": "option"
+  },
+  "presets": {
+    "Bare": {
+      "customer_layout": "theme",
+      "example_option": "option"
+    }
+  }
+}

@@ -2,7 +2,11 @@ module.exports = {
   future: {
     hoverOnlyWhenSupported: true,
   },
-  content: ["shopify/**/*.liquid", "src/**/*.{js,ts,css,svg,jsx,tsx,liquid}"],
+  content: [
+    "shopify/**/*.liquid", 
+    "src/**/*.{js,ts,css,svg,jsx,tsx,liquid}",
+    "./node_modules/flowbite/**/*.js",
+  ],
   theme: {
     screens: {
       'sm': '576px',
@@ -28,5 +32,7 @@ module.exports = {
       },
     }
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 };

@@ -17,6 +17,7 @@ const imagemin = require("gulp-imagemin");
 const rollup = require("gulp-better-rollup");
 const { nodeResolve } = require("@rollup/plugin-node-resolve"); //allow rollup to parse npm_modules
 const commonjs = require("@rollup/plugin-commonjs"); //allow rollup to use npm_modules by converting to es6 exports
+const gulpCopy = require("gulp-copy");
 
 //=============================
 // Configuration
@@ -105,6 +106,7 @@ task("build:img", async () => {
 //build/bundle js
 task("build:js", async () => {
   jsBuildChannel(config.srcJS);
+  src('./node_modules/flowbite/dist/flowbite.min.js').pipe(dest(config.dest));
 });
 
 //build/compile tailwind css

@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: PlusJakartaSans-Regular;
+  src: url(./PlusJakartaSans-Regular.ttf);
+}
+
+@layer base {
+  html {
+    font-family: PlusJakartaSans-Regular, system-ui, sans-serif;
+  }
+}

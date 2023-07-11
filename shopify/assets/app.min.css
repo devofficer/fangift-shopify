@@ -367,6 +367,9 @@ video {
 [hidden] {
   display: none;
 }
+  html {
+    font-family: PlusJakartaSans-Regular, system-ui, sans-serif;
+  }
 
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
@@ -507,6 +510,9 @@ video {
 .h-screen {
   height: 100vh;
 }
+.w-full {
+  width: 100%;
+}
 .w-screen {
   width: 100vw;
 }
@@ -552,4 +558,8 @@ video {
 }
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+@font-face {
+  font-family: PlusJakartaSans-Regular;
+  src: url(./PlusJakartaSans-Regular.ttf);
 }

@@ -1,7 +1,7 @@
 {% comment %}
-  Important notes about pagination:
-  - Never access collection.products before the opening paginate tag.
-  - Never paginate by more than 50.
+Important notes about pagination:
+- Never access collection.products before the opening paginate tag.
+- Never paginate by more than 50.
 {% endcomment %}
 
 {% paginate collection.products by 10 %}
@@ -9,9 +9,8 @@
   <h1>{{ collection.title }}</h1>
 
   {% comment %}
-    Collection sorting. Needs the JavaScript that is at the bottom of this file.
-  {% endcomment %}
-  {% if collection.products_count > 1 %}
+  Collection sorting. Needs the JavaScript that is at the bottom of this file.
+  {% endcomment %}{% if collection.products_count > 1 %}
     <select class="sort-by right">
       <option value="manual">Featured</option>
       <option value="price-ascending">Price: Low to High</option>
@@ -25,10 +24,10 @@
   {% endif %}
 
   {% comment %}
-    Listing all tags within the current collection.
-    Shopify uses product tags to manage subcategories inside collections.
-    See 'How do I create subcategories of products?' at 
-    http://bit.ly/1j1Dti4 for details.
+  Listing all tags within the current collection.
+  Shopify uses product tags to manage subcategories inside collections.
+  See 'How do I create subcategories of products?' at 
+  http://bit.ly/1j1Dti4 for details.
   {% endcomment %}
 
   {% if collection.all_tags.size > 0 %}
@@ -46,7 +45,7 @@
             {{ tag | link_to_tag: tag }}
           </li>
         {% endif %}
-      {% endfor %}  
+      {% endfor %}
     </ul>
   {% endif %}
 
@@ -68,14 +67,12 @@
 
 {% endpaginate %}
 
-{% comment %}
-  JavaScript for collection sorting.
+{% comment %}f
+JavaScript for collection sorting.
 {% endcomment %}
 <script>
-jQuery('.sort-by')
-  .val('{{ collection.sort_by | default: collection.default_sort_by }}')
-  .on('change', function() {
-    Shopify.queryParams.sort_by = jQuery(this).val();
-    location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+  $('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}').on('change', function() {
+    Shopify.queryParams.sort_by = $(this).val();
+    location.search = $.param(Shopify.queryParams).replace(/\+/g, '%20');
   });
 </script>

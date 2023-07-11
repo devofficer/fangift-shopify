@@ -6,14 +6,27 @@ module.exports = {
   theme: {
     screens: {
       'sm': '576px',
-      // => @media (min-width: 576px) { ... }
-
       'md': '960px',
-      // => @media (min-width: 960px) { ... }
-
       'lg': '1440px',
-      // => @media (min-width: 1440px) { ... }
     },
+    extends: {
+      colors: {
+        primary: {
+          back: '#1e1e1e',
+          text: '#575757',
+          white: '#ffffff',
+        },
+        accent: {
+          purple: '#d853f9',
+        }
+      },
+      fontFamily: {
+        'pjs-regular': ['PlusJakartaSans-Regular']
+      },
+      container: {
+        center: true,
+      },
+    }
   },
   plugins: [],
 };

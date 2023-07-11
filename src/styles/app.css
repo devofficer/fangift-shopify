@@ -7,6 +7,11 @@
   src: url(./PlusJakartaSans-Regular.ttf);
 }
 
+@font-face {
+  font-family: PlusJakartaSans-Medium;
+  src: url(./PlusJakartaSans-Medium.ttf);
+}
+
 @layer base {
   html {
     font-family: PlusJakartaSans-Regular, system-ui, sans-serif;

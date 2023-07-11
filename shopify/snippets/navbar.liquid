@@ -8,6 +8,7 @@ The naming convention hack won't work well if a shop's navigation uses non-Engli
 A word on sub-categories: Shopify manages sub-categories using product tags: http://docs.shopify.com/manual/configuration/store-customization/page-specific/collections/subcategories
 {% endcomment %}
 
+
 <nav role="navigation">
   <ul class="flex gap-[40px]">
     {% for link in linklists.main-menu.links %}
@@ -15,6 +16,7 @@ A word on sub-categories: Shopify manages sub-categories using product tags: htt
       {% assign has_sub_categories = false %}
       {% assign parent_link_active = false %}
       {% assign child_list_handle = link.title | handle %}
+
       {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
         {% assign has_sub_menu = true %}
         {% for l in linklists[child_list_handle].links %}
@@ -27,9 +29,30 @@ A word on sub-categories: Shopify manages sub-categories using product tags: htt
       {% elsif link.type == 'collection_link' and link.object.all_tags.size > 0 %}
         {% assign has_sub_categories = true %}
       {% endif %}
-      <li class="{% if link.active or parent_link_active %} active{% endif %}{% if has_sub_menu or has_sub_categories %} has-dropdown{% endif %}{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}">
-        <a href="{{ link.url }}">{{ link.title }}{% if has_sub_menu or has_sub_categories %}
+
+      {% capture clsx -%}
+        {%- if link.active or parent_link_active -%}
+          {%- echo "text-accent-purple font-bold " -%}
+        {% else %}
+          {%- echo "hover:text-accent-purple " -%}
+        {%- endif -%}
+        {%- if has_sub_menu or has_sub_categories -%}
+          {%- echo "has-dropdown " -%}
+        {%- endif -%}
+        {%- if forloop.first -%}
+          {%- echo "first " -%}
+        {%- elsif forloop.last -%}
+          {%- echo "last " -%}
+        {%- endif -%}
+      {%- endcapture %}
+
+      <li class="{{clsx}} text-[16px]">
+        <a href="{{ link.url }}" class="flex gap-[10px] items-center text-primary-black ">
+          {{ link.title }}
+          {% if has_sub_menu or has_sub_categories %}
             <i class="fa fa-angle-down"></i>
+          {% elsif link.url == '/pages/marketplace' %}
+            <img src="assets/icon-external.svg" alt="marketplace extenal icon" />
           {% endif %}
         </a>
         {% if has_sub_menu or has_sub_categories %}
@@ -51,5 +74,11 @@ A word on sub-categories: Shopify manages sub-categories using product tags: htt
         {% endif %}
       </li>
     {% endfor %}
+    <li class="text-[16px] text-accent-purple font-pjs-medium hover:font-bold">
+      <a href="#" class="flex gap-[10px] items-center text-primary-black">
+        FanGift's Marketplace
+        <img src="/assets/icon-external.svg" alt="marketplace extenal icon" />
+      </a>
+    </li>
   </ul>
 </nav>

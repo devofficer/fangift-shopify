@@ -8,27 +8,29 @@ module.exports = {
     "./node_modules/flowbite/**/*.js",
   ],
   theme: {
-    screens: {
-      'sm': '576px',
-      'md': '960px',
-      'lg': '1440px',
-    },
-    extends: {
+    extend: {
       colors: {
         primary: {
+          DEFAULT: '#1e1e1e',
           back: '#1e1e1e',
           text: '#575757',
           white: '#ffffff',
         },
         accent: {
+          DEFAULT: '#d853f9',
           purple: '#d853f9',
+          blue: '#8ebafd',
         }
       },
       fontFamily: {
-        'pjs-regular': ['PlusJakartaSans-Regular']
+        'pjs-regular': ['PlusJakartaSans-Regular'],
+        'pjs-medium': ['PlusJakartaSans-Medium'],
       },
       container: {
         center: true,
+      },
+      screens: {
+        '2xl': '1440px',
       },
     }
   },

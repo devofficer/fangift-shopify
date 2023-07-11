@@ -16,7 +16,7 @@ STAGING_THEME_ID='12300000002'
 LIVE_THEME_ID='12300000001'
 ```
 
-Once you have the _`.env`_ setup you can run `yarn store:login` inside the projects root. This will start development on your dev theme by opening a preview link, starting shopify theme serve to watch for changes, and also start watching for changes in your _`src/`_ folder.
+Once you have the _`.env`_ setup you can run `yarn build` for boostrapping required scripts, styles, and images. Now is time to run `yarn dev` and `yarn watch` inside the projects root. This will start development on your dev theme by opening a preview link, starting shopify theme serve to watch for changes, and also start watching for changes in your _`src/`_ folder.
 
 ### Commands
 
@@ -27,7 +27,7 @@ List of commands you can use with npm
 - `yarn dev` authenticate into your shopify store, start watching src files, & starts local dev server
 - `yarn watch` watch development theme,
 - `yarn open` open preview link for development theme
-- `yarn sync:settings` download live settings_data.json and all json templates files to `/dist`
+- `yarn sync:settings` download live settings_data.json and all json templates files to `/shopify`
 - `yarn build` generates css, js, and images
 - `yarn build:prod` generates production ready css, js, images
 - `yarn build:css` generates tailwind css

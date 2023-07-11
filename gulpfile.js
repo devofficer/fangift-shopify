@@ -47,6 +47,10 @@ function imageBuildChannel(srcPath) {
 
 //js channel
 function jsBuildChannel(srcPath) {
+  // just copy flowbite dist files to shopify assets folder
+  src('./node_modules/flowbite/dist/flowbite.min.js').pipe(dest(config.dest));
+
+  // execute pipelines from src path
   src(srcPath)
     .pipe(sourcemaps.init())
     .pipe(
@@ -106,7 +110,6 @@ task("build:img", async () => {
 //build/bundle js
 task("build:js", async () => {
   jsBuildChannel(config.srcJS);
-  src('./node_modules/flowbite/dist/flowbite.min.js').pipe(dest(config.dest));
 });
 
 //build/compile tailwind css

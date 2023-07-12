@@ -22,17 +22,7 @@
     <script src="{{ 'app.min.js' | asset_url }}" defer></script>
   </head>
 
-  <body id="{{ page_title | handle }}" class="container mx-auto bg-[url(bg.svg)] bg-cover bg-no-repeat w-screen h-screen overflow-auto">
-    <header class="w-full h-[98px] flex items-center justify-between px-[100px]">
-      <a id="logo" href="/">
-        {{ 'logo.svg' | asset_url | img_tag: shop.name }}
-      </a>
-
-      {% render 'navbar' %}
-    </header>
-
-    <main role="main">
-      {{ content_for_layout }}
-    </main>
+  <body id="{{ page_title | handle }}">
+    {{ content_for_layout }}
   </body>
 </html>

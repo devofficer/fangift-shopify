@@ -9,8 +9,8 @@ A word on sub-categories: Shopify manages sub-categories using product tags: htt
 {% endcomment %}
 
 
-<nav role="navigation">
-  <ul class="flex gap-[40px]">
+<nav role="navigation" class="flex items-center">
+  <ul class="hidden xl:flex gap-[40px]">
     {% for link in linklists.main-menu.links %}
       {% assign has_sub_menu = false %}
       {% assign has_sub_categories = false %}

@@ -1,0 +1,55 @@
+{% liquid
+  capture next_role
+    if id == "fan"
+      echo "creator"
+    else
+      echo "fan"
+    endif
+  endcapture
+%}
+
+<form
+  id="form-{{id}}"
+  class="card-register pt-[170px] hidden"
+  onsubmit="return false;">
+  <div class="flex flex-col items-center mb-[32px]">
+    <div class="text-[18px] text-primary-black px-[20px] py-[11px] rounded-[16px] bg-accent-blue/10">
+      {{ title }}
+    </div>
+    <h1 class="text-primary-black font-plus-bold text-[32px] leading-[51px] mb-2">Create your Account</h1>
+    <p class="text-primary-text text-[20px] leading-[32px]">First, choose a username for FanGift</p>
+  </div>
+  <div class="grid grid-cols-1 gap-4 mb-8">
+    <div class="p-4 border border-primary-border bg-primary-white rounded-[16px] flex items-center text-[18px]">
+      <span class="text-primary-black">fangift.com/</span>
+      <input
+        id="username-{{id}}"
+        name="username-{{id}}"
+        type="text"
+        class="p-0 border-none focus:ring-0 placeholder-primary-border"
+        placeholder="@username"
+        autofocus />
+    </div>
+    <button
+      id="btn-next-{{id}}"
+      class="btn btn-primary !font-plus-semi"
+      type="submit"
+      disabled>
+      Next 👉
+    </button>
+    <p class="text-center text-primary-text">
+      <span>Not a {{ id }}?</span>
+      <a
+        href="#"
+        class="text-accent-purple underline capitalize"
+        id="btn-create-{{next_role}}">
+        Create a {{ next_role }} Account
+      </a>
+    </p>
+  </div>
+  <hr class="-mx-5 border-primary-border mb-8" />
+  <div class="text-center text-primary-text">
+    <span>Already have an account?</span>
+    <a href="#" class="text-accent-peach underline">Log in</a>
+  </div>
+</form>

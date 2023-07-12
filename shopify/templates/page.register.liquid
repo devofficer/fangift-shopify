@@ -5,37 +5,65 @@
 
       <div class="pt-[22px] pb-24">
         <div class="grid grid-cols-1 gap-[60px] xl:grid-cols-2">
-          <div class=" bg-primary-white/75 px-[80px] py-[60px] rounded-[16px]">
+          <form
+            id="form-role"
+            class="card-register"
+            onsubmit="return false;">
             <div class="text-center mb-[32px]">
-              <h2 class="text-primary-black font-plus-bold text-[32px] mb-2">Sign-up to FanGift 🎁</h2>
-              <p class="text-primary-text text-[20px]">Please choose your account type</p>
+              <h1 class="text-primary-black font-plus-bold text-[32px] leading-[51px] mb-2">Sign-up to FanGift 🎁</h1>
+              <p class="text-primary-text text-[20px] leading-[32px]">Please choose your account type</p>
             </div>
             <div class="grid grid-cols-1 gap-4 mb-8">
-              <div class="card p-6 grid grid-cols-1 gap-1 cursor-pointer hover:border-accent-purple/80">
-                <div class="text-primary-black font-plus-bold text-[24px]">I&rsquo;m a Creator</div>
-                <div class="text-primary-text text-[18px]">I&rsquo;d like to use Wishlist and sell products</div>
-              </div>
-              <div class="card p-6 grid grid-cols-1 gap-1 cursor-pointer hover:border-accent-purple/80">
-                <div class="text-primary-black font-plus-bold text-[24px]">I&rsquo;m a Fan</div>
-                <div class="text-primary-text text-[18px]">I&rsquo;m here to follow and support creators</div>
-              </div>
+              <ul class="grid gap-4 grid-cols-1">
+                <li>
+                  <input
+                    type="radio"
+                    id="role-creator"
+                    name="role"
+                    value="creator"
+                    class="hidden peer"
+                    checked
+                    required />
+                  <label for="role-creator" class="card p-6 grid grid-cols-1 gap-1 cursor-pointer hover:bg-gray-100 peer-checked:border-accent-purple">
+                    <h2 class="text-primary-black font-plus-bold text-[24px]">I&rsquo;m a Creator</h2>
+                    <p class="text-primary-text text-[18px]">I&rsquo;d like to use Wishlist and sell products</p>
+                  </li>
+                </li>
+                <li>
+                  <input
+                    type="radio"
+                    id="role-fan"
+                    name="role"
+                    value="fan"
+                    class="hidden peer"
+                    required />
+                  <label for="role-fan" class="card p-6 grid grid-cols-1 gap-1 cursor-pointer hover:bg-gray-100 peer-checked:border-accent-purple">
+                    <h2 class="text-primary-black font-plus-bold text-[24px]">I&rsquo;m a Fan</h2>
+                    <p class="text-primary-text text-[18px]">I&rsquo;m here to follow and support creators</p>
+                  </li>
+                </li>
+              </ul>
               <div class="card-info p-6 flex items-center gap-4">
                 {{ 'icon-info.svg' | asset_url | img_tag: 'info icon' }}
                 <span class="font-plus-regular">You can support other creators with either of the account types and can change your account type anytime.</spam>
               </div>
-              <button class="btn btn-primary !font-plus-semi">
+              <button class="btn btn-primary !font-plus-semi" type="submit">
                 Next 👉
               </button>
             </div>
             <hr class="-mx-5 border-primary-border mb-8" />
             <div class="text-center text-primary-text">
-              Already have an account?
+              <span>Already have an account?</span>
               <a href="#" class="text-accent-peach underline">Log in</a>
             </div>
-          </div>
-          {{ 'bg-signup.png' | asset_url | img_tag | class: 'w-full' }}
+          </form>
+          {% render "register-form", id: "creator", title: "💡️ Creator" %}
+          {% render "register-form", id: "fan", title: "🎉️ Fan" %}
+          <img src="{{ 'bg-signup.png' | asset_url }}" class="hidden xl:block" />
         </div>
       </div>
     </div>
   </div>
 </main>
+
+<script src="{{'register.min.js' | asset_url}}" defer></script>

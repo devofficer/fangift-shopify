@@ -6,4 +6,8 @@
   .card-info {
     @apply rounded-[16px] bg-accent-blue/10;
   }
+
+  .card-register {
+    @apply bg-primary-white/75 px-[80px] py-[60px] rounded-[16px];
+  }
 }

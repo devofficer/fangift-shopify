@@ -16,6 +16,7 @@ module.exports = {
           text: '#575757',
           white: '#ffffff',
           border: '#d9d9d9',
+          background: '#fafafa'
         },
         accent: {
           DEFAULT: '#d853f9',

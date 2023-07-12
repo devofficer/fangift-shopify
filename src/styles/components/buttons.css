@@ -1,6 +1,6 @@
 @layer components {
   .btn {
-    @apply focus:outline-none rounded-lg text-lg;
+    @apply focus:outline-none rounded-[16px] text-lg;
   }
 
   .btn-primary {

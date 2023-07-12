@@ -1,0 +1,13 @@
+@layer components {
+  .btn {
+    @apply focus:outline-none rounded-lg;
+  }
+
+  .btn-primary {
+    @apply focus:ring-blue-300 focus:ring-4 text-white bg-primary-black hover:bg-blue-800 px-6 py-3;
+  }
+
+  .btn-text-primary {
+    @apply hover:text-blue-800 text-primary-text px-6 py-3;
+  }
+}

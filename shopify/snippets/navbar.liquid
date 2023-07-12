@@ -1,14 +1,3 @@
-{% comment %}
-A word on drop-down menus: Shopify has no concept of them.
-Drop-down menus in Shopify themes are a hack that relies on a naming convention.
-To create a drop-down menu, the merchant must create a link list that has the same name as the link he wants the drop-down for.
-For example, if he wants a drop-down under a 'Shop by brand' link (say, he has such link in his Main Menu), he needs to create a linklist called 'Shop by brand', and populate it with links. Once he has done that, there'll be a drop-down under 'Shop by brand'.
-Shopify has a visual how-to guide here: http://docs.shopify.com/manual/your-website/navigation/create-drop-down-menu.
-The naming convention hack won't work well if a shop's navigation uses non-English characters. There's a much more verbose coding solution that handles non-English characters here: http://docs.shopify.com/manual/configuration/store-customization/currencies-and-translations/translations/can-i-have-drop-down-menus-that-use-non-english-characters.
-A word on sub-categories: Shopify manages sub-categories using product tags: http://docs.shopify.com/manual/configuration/store-customization/page-specific/collections/subcategories
-{% endcomment %}
-
-
 <nav role="navigation" class="flex items-center">
   <ul class="hidden xl:flex gap-[40px]">
     {% for link in linklists.main-menu.links %}
@@ -46,8 +35,8 @@ A word on sub-categories: Shopify manages sub-categories using product tags: htt
         {%- endif -%}
       {%- endcapture %}
 
-      <li class="{{clsx}} text-[16px]">
-        <a href="{{ link.url }}" class="flex gap-[10px] items-center text-primary-black ">
+      <li>
+        <a href="{{ link.url }}" class="{{clsx}} flex gap-[10px] items-center text-[16px]">
           {{ link.title }}
           {% if has_sub_menu or has_sub_categories %}
             <i class="fa fa-angle-down"></i>
@@ -72,8 +61,8 @@ A word on sub-categories: Shopify manages sub-categories using product tags: htt
         {% endif %}
       </li>
     {% endfor %}
-    <li class="text-[16px] text-accent-purple font-pjs-medium hover:font-bold">
-      <a href="#" class="flex gap-[10px] items-center text-primary-black">
+    <li>
+      <a href="#" class="flex gap-[10px] items-center text-accent-purple text-[16px] font-plus-medium hover:font-bold">
         FanGift's Marketplace
         {{ 'icon-external.svg' | asset_url | img_tag }}
       </a>

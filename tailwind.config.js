@@ -23,8 +23,9 @@ module.exports = {
         }
       },
       fontFamily: {
-        'pjs-regular': ['PlusJakartaSans-Regular'],
-        'pjs-medium': ['PlusJakartaSans-Medium'],
+        'plus-regular': ['PlusJakartaSans-Regular'],
+        'plus-medium': ['PlusJakartaSans-Medium'],
+        'plus-bold': ['PlusJakartaSans-Bold'],
       },
       container: {
         center: true,

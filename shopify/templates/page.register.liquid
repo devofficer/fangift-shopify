@@ -1,7 +1,41 @@
 <main class="overflow-auto">
   <div class="bg-[url(bg.svg)] bg-cover bg-no-repeat min-h-screen">
-    <div class="container">
+    <div class="container px-[100px]">
       {% section 'account_header' %}
+
+      <div class="pt-[22px] pb-24">
+        <div class="grid grid-cols-1 gap-[60px] xl:grid-cols-2">
+          <div class=" bg-primary-white/75 px-[80px] py-[60px] rounded-[16px]">
+            <div class="text-center mb-[32px]">
+              <h2 class="text-primary-black font-plus-bold text-[32px] mb-2">Sign-up to FanGift 🎁</h2>
+              <p class="text-primary-text text-[20px]">Please choose your account type</p>
+            </div>
+            <div class="grid grid-cols-1 gap-4 mb-8">
+              <div class="card p-6 grid grid-cols-1 gap-1 cursor-pointer hover:border-accent-purple/80">
+                <div class="text-primary-black font-plus-bold text-[24px]">I&rsquo;m a Creator</div>
+                <div class="text-primary-text text-[18px]">I&rsquo;d like to use Wishlist and sell products</div>
+              </div>
+              <div class="card p-6 grid grid-cols-1 gap-1 cursor-pointer hover:border-accent-purple/80">
+                <div class="text-primary-black font-plus-bold text-[24px]">I&rsquo;m a Fan</div>
+                <div class="text-primary-text text-[18px]">I&rsquo;m here to follow and support creators</div>
+              </div>
+              <div class="card-info p-6 flex items-center gap-4">
+                {{ 'icon-info.svg' | asset_url | img_tag: 'info icon' }}
+                <span class="font-plus-regular">You can support other creators with either of the account types and can change your account type anytime.</spam>
+              </div>
+              <button class="btn btn-primary !font-plus-semi">
+                Next 👉
+              </button>
+            </div>
+            <hr class="-mx-5 border-primary-border mb-8" />
+            <div class="text-center text-primary-text">
+              Already have an account?
+              <a href="#" class="text-accent-peach underline">Log in</a>
+            </div>
+          </div>
+          {{ 'bg-signup.png' | asset_url | img_tag | class: 'w-full' }}
+        </div>
+      </div>
     </div>
   </div>
 </main>

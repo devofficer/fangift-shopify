@@ -1,4 +1,4 @@
-<header class="w-full h-[98px] flex items-center justify-between px-[100px]">
+<header class="w-full h-[98px] flex items-center justify-between">
   <a id="logo" href="/">
     {{ 'logo.svg' | asset_url | img_tag: shop.name }}
   </a>
@@ -6,7 +6,7 @@
   {% render 'navbar' %}
 
   <div class="flex items-center">
-    <button type="button" class="btn btn-text-primary text-lg px-6 py-3">Login</button>
-    <button type="button" class="btn btn-primary font-plus-bold text-lg">Signup</button>
+    <button type="button" class="btn btn-text-primary px-6 py-3">Login</button>
+    <button type="button" class="btn btn-primary font-plus-bold">Signup</button>
   </div>
 </header>

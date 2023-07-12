@@ -1,0 +1,9 @@
+@layer components {
+  .card {
+    @apply rounded-[16px] bg-primary-white border border-primary-border;
+  }
+
+  .card-info {
+    @apply rounded-[16px] bg-accent-blue/10;
+  }
+}

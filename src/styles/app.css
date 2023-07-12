@@ -1,4 +1,5 @@
 @import "./components/buttons.css";
+@import "./components/cards.css";
 
 @tailwind base;
 @tailwind components;
@@ -12,6 +13,11 @@
 @font-face {
   font-family: PlusJakartaSans-Medium;
   src: url(./PlusJakartaSans-Medium.ttf);
+}
+
+@font-face {
+  font-family: PlusJakartaSans-SemiBold;
+  src: url(./PlusJakartaSans-SemiBold.ttf);
 }
 
 @font-face {

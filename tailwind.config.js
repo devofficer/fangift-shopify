@@ -15,16 +15,19 @@ module.exports = {
           black: '#1e1e1e',
           text: '#575757',
           white: '#ffffff',
+          border: '#d9d9d9',
         },
         accent: {
           DEFAULT: '#d853f9',
           purple: '#d853f9',
           blue: '#8ebafd',
+          peach: '#fd8e8e',
         }
       },
       fontFamily: {
         'plus-regular': ['PlusJakartaSans-Regular'],
         'plus-medium': ['PlusJakartaSans-Medium'],
+        'plus-semi': ['PlusJakartaSans-SemiBold'],
         'plus-bold': ['PlusJakartaSans-Bold'],
       },
       container: {

@@ -13,13 +13,13 @@
     {% render 'open-graph-tags' %}
     {% render 'twitter-card' %}
 
-    {% comment %} {{ content_for_header }} {% endcomment %}
+    {{ content_for_header }}
 
     {{ 'app.min.css' | asset_url | stylesheet_tag }}
 
-    {{ 'jquery-3.7.0.min.js' | asset_url | script_tag }}
-    {{ 'flowbite.min.js' | asset_url | script_tag }}
-    {{ 'app.min.js' | asset_url | script_tag }}
+    <script src="{{ 'jquery-3.7.0.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'flowbite.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'app.min.js' | asset_url }}" defer></script>
   </head>
 
   <body id="{{ page_title | handle }}" class="container mx-auto bg-[url(bg.svg)] bg-cover bg-no-repeat w-screen h-screen overflow-auto">

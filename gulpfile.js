@@ -126,7 +126,23 @@ task("watch", async () => {
 });
 
 task("deploy:staging", async () => {
-  const cmd = new run.Command(`shopify theme push --theme ${process.env.STAGING_ID} --store ${process.env.STORE_URL}`);
+  const cmd = new run.Command(`shopify theme push --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
   cmd.exec();
 });
 
+
+task("deploy:prod", async () => {
+  const cmd = new run.Command(`shopify theme push --theme ${process.env.LIVE_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
+  cmd.exec();
+});
+
+
+task("sync:staging", async () => {
+  const cmd = new run.Command(`shopify theme pull --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
+  cmd.exec();
+});
+
+task("sync:prod", async () => {
+  const cmd = new run.Command(`shopify theme pull --theme ${process.env.LIVE_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
+  cmd.exec();
+});

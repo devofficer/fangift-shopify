@@ -51,8 +51,6 @@ A word on sub-categories: Shopify manages sub-categories using product tags: htt
           {{ link.title }}
           {% if has_sub_menu or has_sub_categories %}
             <i class="fa fa-angle-down"></i>
-          {% elsif link.url == '/pages/marketplace' %}
-            <img src="assets/icon-external.svg" alt="marketplace extenal icon" />
           {% endif %}
         </a>
         {% if has_sub_menu or has_sub_categories %}
@@ -77,7 +75,7 @@ A word on sub-categories: Shopify manages sub-categories using product tags: htt
     <li class="text-[16px] text-accent-purple font-pjs-medium hover:font-bold">
       <a href="#" class="flex gap-[10px] items-center text-primary-black">
         FanGift's Marketplace
-        <img src="/assets/icon-external.svg" alt="marketplace extenal icon" />
+        {{ 'icon-external.svg' | asset_url | img_tag }}
       </a>
     </li>
   </ul>

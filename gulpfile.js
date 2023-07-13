@@ -5,12 +5,12 @@ const terser = require("gulp-terser");
 const rename = require("gulp-rename");
 const stripComments = require("gulp-strip-comments");
 const sourcemaps = require("gulp-sourcemaps");
-const gulpif = require("gulp-if");
-const cssnano = require("gulp-cssnano");
 const prettier = require("gulp-prettier");
-const postcss = require("gulp-postcss");
+const cssnano = require("cssnano");
 const size = require("gulp-size");
 const imagemin = require("gulp-imagemin");
+const gulpif = require("gulp-if");
+const postcss = require("gulp-postcss");
 
 //rollup required plugins
 const rollup = require("gulp-better-rollup");
@@ -20,41 +20,29 @@ const commonjs = require("@rollup/plugin-commonjs"); //allow rollup to use npm_m
 //=============================
 // Configuration
 //=============================
-const isProduction = process.env.NODE_ENV === "production" ? true : false;
+const config = require("./config");
+const isProd = process.env.NODE_ENV === "production" ? true : false;
 
-//main path ways
-const config = {
-  srcImg: "src/images/**/*.{jpg,jpeg,png,gif,svg}",
-  srcJS: "src/**/*.{js,jsx,ts,tsx}",
-  srcStyles: "src/styles/**/*.css",
-  rootDist: "shopify/**/*.{liquid, json}",
-  dest: "./shopify/assets",
-};
-
-//=============================
-// CHANNELS - pipeline wrappers
-//=============================
-
-//image build path
-function imageBuildStream(srcPath) {
+// image stream
+function imageStream(srcPath) {
   return new Promise((resolve) =>
     src(srcPath)
       .pipe(imagemin({ verbose: true }))
       .pipe(size({ showFiles: true }))
       .pipe(dest(config.dest))
-      .on('end', resolve)
+      .on("end", resolve)
   );
 }
 
 function copyStatic() {
   return new Promise((resolve) =>
-    src('./node_modules/flowbite/dist/flowbite.min.js')
+    src("./node_modules/flowbite/dist/flowbite.min.js")
       .pipe(dest(config.dest))
-      .on('end', resolve)
+      .on("end", resolve)
   );
 }
 
-//js channel
+// js stream
 function jsBuildStream(srcPath) {
   return new Promise((resolve) =>
     src(srcPath)
@@ -73,7 +61,7 @@ function jsBuildStream(srcPath) {
       .pipe(stripComments())
       .pipe(
         gulpif(
-          isProduction,
+          isProd,
           terser({
             compress: {
               drop_console: true, //removes console logs, set to false to keep them
@@ -84,70 +72,59 @@ function jsBuildStream(srcPath) {
       .pipe(rename({ extname: ".min.js" }))
       .pipe(size({ showFiles: true }))
       .pipe(dest(config.dest))
-      .on('end', resolve)
+      .on("end", resolve)
   );
 }
 
-//css channel
+// css stream
 function cssBuildStream(srcPath) {
-  return new Promise((resolve) =>
+  return new Promise((resolve, reject) =>
     src(srcPath)
-      .pipe(gulpif(!isProduction, prettier()))
-      .pipe(gulpif(isProduction, cssnano()))
-      .pipe(postcss()) // configured in src/styles/postcss.config.js
+      .pipe(gulpif(!isProd, prettier()))
+      .pipe(gulpif(isProd, cssnano()))
+      .pipe(postcss().on("error", resolve))
       .pipe(rename({ extname: ".min.css" }))
       .pipe(size({ showFiles: true }))
       .pipe(dest(config.dest))
-      .on('end', resolve)
+      .on("end", resolve)
+      .on("error", reject)
   );
 }
 
 //=============================
 // TASKS
 //=============================
-task("build", async () => {
-  return Promise.all([
-    jsBuildStream(config.srcJS),
-    cssBuildStream(config.srcStyles),
-    imageBuildStream(config.srcImg)
-  ]);
-});
-
-//compress images
-task("build:img", async () => imageBuildStream(config.srcImg));
-
-//build/bundle js
-task("build:js", async () => jsBuildStream(config.srcJS));
-
-//build/compile tailwind css
-task("build:css", async () => cssBuildStream(config.srcStyles));
-
-//watch /src files for changes then build
-task("watch", async () => {
+task("prepare", () => copyStatic());
+task("build:img", () => imageStream(config.srcImg));
+task("build:js", () => jsBuildStream(config.srcJS));
+task("build:css", () => cssBuildStream(config.srcStyles));
+task("build", parallel("prepare", "build:img", "build:js", "build:css"));
+task("watch", (done) => {
   watch(config.srcJS, series("build:js"));
   watch(config.srcStyles, series("build:css"));
   watch(config.srcImg, series("build:img"));
-  watch(config.rootDist, parallel("build:css"));
+  done();
 });
 
-task("deploy:staging", async () => {
-  const cmd = new run.Command(`shopify theme push --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
-  cmd.exec();
-});
+task("shopify:dev", (done) => run(`shopify theme dev --store ${process.env.STORE_URL} --path shopify`, { verbosity: 3 })
+  .exec()
+  .on("end", done)
+  .on("error", done)
+);
 
+task("dev", parallel("watch", "shopify:dev"));
 
-task("deploy:prod", async () => {
-  const cmd = new run.Command(`shopify theme push --theme ${process.env.LIVE_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
-  cmd.exec();
-});
+task("deploy:staging", (done) => run(`shopify theme push --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopifyy`, { verbosity: 3 })
+  .exec()
+  .on("end", done)
+);
 
+task("deploy:prod", (done) => run(`shopify theme push --theme ${process.env.LIVE_THEME_ID} --store ${process.env.STORE_URL} --path shopify`, { verbosity: 3 })
+  .exec()
+  .on("end", done)
+);
 
-task("sync:staging", async () => {
-  const cmd = new run.Command(`shopify theme pull --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
-  cmd.exec();
-});
-
-task("sync:prod", async () => {
-  const cmd = new run.Command(`shopify theme pull --theme ${process.env.LIVE_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
-  cmd.exec();
-});
+task("sync", (done) => run(`shopify theme pull --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify`, { verbosity: 3 })
+  .exec()
+  .on("end", done)
+);

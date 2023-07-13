@@ -1,1 +1,1 @@
-import 'jquery';
+console.log('app loaded');

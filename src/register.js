@@ -52,5 +52,4 @@ $(function () {
     $('#form-fan').hide();
     $('#form-creator').show();
   });
-
 });

@@ -1,8 +1,4 @@
 require("dotenv").config();
-const yargs = require('yargs/yargs');
-const { hideBin } = require('yargs/helpers');
-const argv = yargs(hideBin(process.argv)).argv;
-
 const run = require("gulp-run");
 const { task, src, dest, series, parallel, watch } = require("gulp");
 const terser = require("gulp-terser");
@@ -101,12 +97,12 @@ function cssBuildChannel(srcPath) {
 task("build", async () => {
   jsBuildChannel(config.srcJS);
   cssBuildChannel(config.srcStyles);
-  imageBuildChannel([config.srcImg]);
+  imageBuildChannel(config.srcImg);
 });
 
 //compress images
 task("build:img", async () => {
-  imageBuildChannel([config.srcImg]);
+  imageBuildChannel(config.srcImg);
 });
 
 //build/bundle js
@@ -116,7 +112,7 @@ task("build:js", async () => {
 
 //build/compile tailwind css
 task("build:css", async () => {
-  cssBuildChannel(argv.file || config.srcStyles);
+  cssBuildChannel(config.srcStyles);
 });
 
 //watch /src files for changes then build

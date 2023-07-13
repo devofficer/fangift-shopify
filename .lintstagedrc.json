@@ -1,4 +1,4 @@
 {
-  "*.css": "gulp build:css --file",
-  "*.js": "gulp build:js --file"
+  "./src/**/*.css": "gulp build:css",
+  "./src/**/*.js": "gulp build:js"
 }

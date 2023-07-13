@@ -116,10 +116,7 @@ task("build:js", async () => {
 
 //build/compile tailwind css
 task("build:css", async () => {
-  if (argv.file) {
-    console.log(argv.file);
-  }
-  cssBuildChannel(config.srcStyles);
+  cssBuildChannel(argv.file || config.srcStyles);
 });
 
 //watch /src files for changes then build

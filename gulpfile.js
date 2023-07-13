@@ -1,4 +1,7 @@
 require("dotenv").config();
+const yargs = require('yargs/yargs');
+const { hideBin } = require('yargs/helpers');
+const argv = yargs(hideBin(process.argv)).argv;
 
 const run = require("gulp-run");
 const { task, src, dest, series, parallel, watch } = require("gulp");
@@ -17,7 +20,6 @@ const imagemin = require("gulp-imagemin");
 const rollup = require("gulp-better-rollup");
 const { nodeResolve } = require("@rollup/plugin-node-resolve"); //allow rollup to parse npm_modules
 const commonjs = require("@rollup/plugin-commonjs"); //allow rollup to use npm_modules by converting to es6 exports
-const gulpCopy = require("gulp-copy");
 
 //=============================
 // Configuration
@@ -114,6 +116,9 @@ task("build:js", async () => {
 
 //build/compile tailwind css
 task("build:css", async () => {
+  if (argv.file) {
+    console.log(argv.file);
+  }
   cssBuildChannel(config.srcStyles);
 });
 

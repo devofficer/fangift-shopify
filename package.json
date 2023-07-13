@@ -49,10 +49,12 @@
     "gulp-watch": "^5.0.1",
     "husky": "^8.0.3",
     "js-yaml": "^3.14.1",
+    "lint-staged": "^13.2.3",
     "postcss": "^8.4.21",
     "postcss-import": "^15.1.0",
     "rollup": "^2.36.0",
-    "tailwindcss": "^3.2.7"
+    "tailwindcss": "^3.2.7",
+    "yargs": "^17.7.2"
   },
   "dependencies": {
     "flowbite": "^1.7.0"

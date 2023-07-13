@@ -22,4 +22,5 @@
   .btn-facebook {
     @apply bg-primary-white p-4 hover:bg-blue-800 flex items-center justify-center;
   }
+  
 }

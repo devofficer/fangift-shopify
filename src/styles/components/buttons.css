@@ -23,5 +23,7 @@
     @apply bg-primary-white p-4 hover:bg-blue-800 flex items-center justify-center;
   }
 
-  .test-css {font-size:16px}
+  .btn-icon {
+    @apply text-primary-black rounded-full hover:bg-blue-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 text-sm p-2.5 text-center inline-flex items-center;
+  }
 }

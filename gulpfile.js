@@ -11,6 +11,8 @@ const size = require("gulp-size");
 const imagemin = require("gulp-imagemin");
 const gulpif = require("gulp-if");
 const postcss = require("gulp-postcss");
+const filter = require("gulp-filter"); 
+const log = require('fancy-log');
 
 //rollup required plugins
 const rollup = require("gulp-better-rollup");
@@ -80,9 +82,13 @@ function jsBuildStream(srcPath) {
 function cssBuildStream(srcPath) {
   return new Promise((resolve, reject) =>
     src(srcPath)
+      .pipe(filter('./src/styles/*.css')) // ignore children dependancy styles
       .pipe(gulpif(!isProd, prettier()))
       .pipe(gulpif(isProd, cssnano()))
-      .pipe(postcss().on("error", resolve))
+      .pipe(postcss().on("error", (err) => {
+        log(err);
+        resolve();
+      }))
       .pipe(rename({ extname: ".min.css" }))
       .pipe(size({ showFiles: true }))
       .pipe(dest(config.dest))
@@ -103,6 +109,7 @@ task("watch", (done) => {
   watch(config.srcJS, series("build:js"));
   watch(config.srcStyles, series("build:css"));
   watch(config.srcImg, series("build:img"));
+  watch(config.rootDist, series("build:css"));
   done();
 });
 

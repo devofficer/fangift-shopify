@@ -22,4 +22,6 @@
   .btn-facebook {
     @apply bg-primary-white p-4 hover:bg-blue-800 flex items-center justify-center;
   }
+
+  .test-css {font-size:16px}
 }

@@ -94,53 +94,53 @@ function cssBuildChannel(srcPath) {
 //=============================
 
 //build js files
-task("build", async () => {
+task("build", () => {
   jsBuildChannel(config.srcJS);
   cssBuildChannel(config.srcStyles);
   imageBuildChannel(config.srcImg);
 });
 
 //compress images
-task("build:img", async () => {
+task("build:img", () => {
   imageBuildChannel(config.srcImg);
 });
 
 //build/bundle js
-task("build:js", async () => {
+task("build:js", () => {
   jsBuildChannel(config.srcJS);
 });
 
 //build/compile tailwind css
-task("build:css", async () => {
+task("build:css", () => {
   cssBuildChannel(config.srcStyles);
 });
 
 //watch /src files for changes then build
-task("watch", async () => {
+task("watch", () => {
   watch(config.srcJS, series("build:js"));
   watch(config.srcStyles, series("build:css"));
   watch(config.srcImg, series("build:img"));
   watch(config.rootDist, parallel("build:css"));
 });
 
-task("deploy:staging", async () => {
+task("deploy:staging", () => {
   const cmd = new run.Command(`shopify theme push --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
   cmd.exec();
 });
 
 
-task("deploy:prod", async () => {
+task("deploy:prod", () => {
   const cmd = new run.Command(`shopify theme push --theme ${process.env.LIVE_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
   cmd.exec();
 });
 
 
-task("sync:staging", async () => {
+task("sync:staging", () => {
   const cmd = new run.Command(`shopify theme pull --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
   cmd.exec();
 });
 
-task("sync:prod", async () => {
+task("sync:prod", () => {
   const cmd = new run.Command(`shopify theme pull --theme ${process.env.LIVE_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
   cmd.exec();
 });

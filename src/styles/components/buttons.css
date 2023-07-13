@@ -14,4 +14,12 @@
   .btn-text-primary {
     @apply hover:text-blue-800 text-primary-text px-6 py-3;
   }
+
+  .btn-google {
+    @apply focus:ring-blue-300 focus:ring-4 text-white bg-[#4285f4] hover:bg-blue-800 px-6 py-3 flex items-center justify-center gap-4;
+  }
+
+  .btn-facebook {
+    @apply bg-primary-white p-4 hover:bg-blue-800 flex items-center justify-center;
+  }
 }

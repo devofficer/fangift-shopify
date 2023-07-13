@@ -1,0 +1,31 @@
+<form
+  id="form-details"
+  class="card-register"
+  onsubmit="return false;">
+
+  <div class="text-center mb-8">
+    <h1 class="text-primary-black text-heading-h3 mb-2">Welcome, @anettej</h1>
+    <div class="text-center text-primary-text text-body-md">
+      <span>Already have an account?</span>
+      <a href="#" class="text-accent-peach underline">Log in</a>
+    </div>
+  </div>
+
+  <div class="flex gap-4 mb-4">
+    <button class="btn btn-google flex-grow">
+      {{ 'icon-google.svg' | asset_url | img_tag: 'google' }}
+      Sign in with Google
+    </button>
+    <button class="btn btn-facebook">
+      {{ 'icon-facebook.svg' | asset_url | img_tag: 'facebook' }}
+    </button>
+  </div>
+
+  <div class="flex items-center justify-center gap-3 mb-4">
+    <hr class="border-primary-border flex-grow" />
+    <span class="text-body-sm text-primary-text">or</span>
+    <hr class="border-primary-border flex-grow" />
+  </div>
+
+
+</form>

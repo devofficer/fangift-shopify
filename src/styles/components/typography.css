@@ -1,0 +1,45 @@
+@layer components {
+  .text-body-xl {
+    @apply font-plus-regular text-[24px] leading-[38.4px] tracking-[-0.2px];
+  }
+  
+  .text-body-lg {
+    @apply font-plus-regular text-[20px] leading-[32px] tracking-[-0.2px];
+  }
+  
+  .text-body-md {
+    @apply font-plus-regular text-[18px] leading-[27px];
+  }
+  
+  .text-body-sm {
+    @apply font-plus-regular text-[16px];
+  }
+
+  .text-body-xs {
+    @apply font-plus-regular text-[12px];
+  }
+
+  .text-heading-h1 {
+    @apply font-plus-bold text-[72px] leading-[86.4px] tracking-[-2px];
+  }
+
+  .text-heading-h2 {
+    @apply font-plus-bold text-[48px] leading-[60px];
+  }
+
+  .text-heading-h3 {
+    @apply font-plus-bold text-[32px] leading-[51.2px] tracking-[-0.2px];
+  }
+
+  .text-heading-h4 {
+    @apply font-plus-bold text-[24px] leading-[38.4px] tracking-[-0.2px];
+  }
+
+  .text-heading-h5 {
+    @apply font-plus-bold text-[18px] leading-[28.8px] tracking-[-0.2px];
+  }
+
+  .text-heading-h6 {
+    @apply font-plus-bold text-[16px] leading-[25.6px] tracking-[-0.2px];
+  }
+}

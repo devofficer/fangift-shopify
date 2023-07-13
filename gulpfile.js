@@ -36,111 +36,118 @@ const config = {
 //=============================
 
 //image build path
-function imageBuildChannel(srcPath) {
-  src(srcPath)
-    .pipe(imagemin({ verbose: true }))
-    .pipe(size({ showFiles: true }))
-    .pipe(dest(config.dest));
+function imageBuildStream(srcPath) {
+  return new Promise((resolve) =>
+    src(srcPath)
+      .pipe(imagemin({ verbose: true }))
+      .pipe(size({ showFiles: true }))
+      .pipe(dest(config.dest))
+      .on('end', resolve)
+  );
+}
+
+function copyStatic() {
+  return new Promise((resolve) =>
+    src('./node_modules/flowbite/dist/flowbite.min.js')
+      .pipe(dest(config.dest))
+      .on('end', resolve)
+  );
 }
 
 //js channel
-function jsBuildChannel(srcPath) {
-  // just copy flowbite dist files to shopify assets folder
-  src('./node_modules/flowbite/dist/flowbite.min.js').pipe(dest(config.dest));
-
-  // execute pipelines from src path
-  src(srcPath)
-    .pipe(sourcemaps.init())
-    .pipe(
-      rollup(
-        {
-          plugins: [
-            commonjs(),
-            nodeResolve({ preferBuiltins: true, browser: true }),
-          ],
-        },
-        "iife"
-      )
-    )
-    .pipe(stripComments())
-    .pipe(
-      gulpif(
-        isProduction,
-        terser({
-          compress: {
-            drop_console: true, //removes console logs, set to false to keep them
+function jsBuildStream(srcPath) {
+  return new Promise((resolve) =>
+    src(srcPath)
+      .pipe(sourcemaps.init())
+      .pipe(
+        rollup(
+          {
+            plugins: [
+              commonjs(),
+              nodeResolve({ preferBuiltins: true, browser: true }),
+            ],
           },
-        })
+          "iife"
+        )
       )
-    )
-    .pipe(rename({ extname: ".min.js" }))
-    .pipe(size({ showFiles: true }))
-    .pipe(dest(config.dest));
+      .pipe(stripComments())
+      .pipe(
+        gulpif(
+          isProduction,
+          terser({
+            compress: {
+              drop_console: true, //removes console logs, set to false to keep them
+            },
+          })
+        )
+      )
+      .pipe(rename({ extname: ".min.js" }))
+      .pipe(size({ showFiles: true }))
+      .pipe(dest(config.dest))
+      .on('end', resolve)
+  );
 }
 
 //css channel
-function cssBuildChannel(srcPath) {
-  src(srcPath)
-    .pipe(gulpif(!isProduction, prettier()))
-    .pipe(gulpif(isProduction, cssnano()))
-    .pipe(postcss()) // configured in src/styles/postcss.config.js
-    .pipe(rename({ extname: ".min.css" }))
-    .pipe(size({ showFiles: true }))
-    .pipe(dest(config.dest));
+function cssBuildStream(srcPath) {
+  return new Promise((resolve) =>
+    src(srcPath)
+      .pipe(gulpif(!isProduction, prettier()))
+      .pipe(gulpif(isProduction, cssnano()))
+      .pipe(postcss()) // configured in src/styles/postcss.config.js
+      .pipe(rename({ extname: ".min.css" }))
+      .pipe(size({ showFiles: true }))
+      .pipe(dest(config.dest))
+      .on('end', resolve)
+  );
 }
 
 //=============================
 // TASKS
 //=============================
-
-//build js files
-task("build", () => {
-  jsBuildChannel(config.srcJS);
-  cssBuildChannel(config.srcStyles);
-  imageBuildChannel(config.srcImg);
+task("build", async () => {
+  return Promise.all([
+    jsBuildStream(config.srcJS),
+    cssBuildStream(config.srcStyles),
+    imageBuildStream(config.srcImg)
+  ]);
 });
 
 //compress images
-task("build:img", () => {
-  imageBuildChannel(config.srcImg);
-});
+task("build:img", async () => imageBuildStream(config.srcImg));
 
 //build/bundle js
-task("build:js", () => {
-  jsBuildChannel(config.srcJS);
-});
+task("build:js", async () => jsBuildStream(config.srcJS));
 
 //build/compile tailwind css
-task("build:css", () => {
-  cssBuildChannel(config.srcStyles);
-});
+task("build:css", async () => cssBuildStream(config.srcStyles));
 
 //watch /src files for changes then build
-task("watch", () => {
+task("watch", async () => {
   watch(config.srcJS, series("build:js"));
   watch(config.srcStyles, series("build:css"));
   watch(config.srcImg, series("build:img"));
   watch(config.rootDist, parallel("build:css"));
 });
 
-task("deploy:staging", () => {
+task("deploy:staging", async () => {
   const cmd = new run.Command(`shopify theme push --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
   cmd.exec();
 });
 
 
-task("deploy:prod", () => {
+task("deploy:prod", async () => {
   const cmd = new run.Command(`shopify theme push --theme ${process.env.LIVE_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
   cmd.exec();
 });
 
 
-task("sync:staging", () => {
+task("sync:staging", async () => {
   const cmd = new run.Command(`shopify theme pull --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
   cmd.exec();
 });
 
-task("sync:prod", () => {
+task("sync:prod", async () => {
   const cmd = new run.Command(`shopify theme pull --theme ${process.env.LIVE_THEME_ID} --store ${process.env.STORE_URL} --path shopify`);
   cmd.exec();
 });

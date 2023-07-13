@@ -14,12 +14,16 @@ $(function () {
   // handle submit of fan form
   $('#form-fan').on('submit', function (e) {
     e.preventDefault();
+    $(this).hide();
+    $('#form-details').show();
   });
   
 
   // handle submit of creator form
   $('#form-creator').on('submit', function (e) {
     e.preventDefault();
+    $(this).hide();
+    $('#form-details').show();
   });
 
 

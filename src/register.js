@@ -46,14 +46,23 @@ $(function () {
 
   $('#username-creator').on('input', handleChangeUsername('#btn-next-creator'));
   $('#username-fan').on('input', handleChangeUsername('#btn-next-fan'));
+  
   $('#btn-create-fan').on('click', function(e) {
     e.preventDefault();
+    role = 'fan';
     $('#form-creator').hide();
     $('#form-fan').show();
   });
+  
   $('#btn-create-creator').on('click', function(e) {
     e.preventDefault();
+    role = 'creator';
     $('#form-fan').hide();
     $('#form-creator').show();
+  });
+
+  $("#btn-back-details").on('click', function() {
+    $('#form-details').hide();
+    $(`#form-${role}`).show();
   });
 });

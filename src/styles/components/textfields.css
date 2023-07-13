@@ -1,0 +1,5 @@
+@layer components {
+  .textfield {
+    @apply bg-primary-white border border-primary-border text-gray-900 rounded-[16px] focus:ring-blue-500 focus:border-blue-500 block w-full p-4 text-body-md placeholder-primary-border;
+  }
+}

@@ -30,6 +30,18 @@ $(function () {
     $('#form-details').show();
   });
 
+  $('#form-details').on('submit', function (e) {
+    e.preventDefault();
+    $(this).hide();
+    $('#form-country').show();
+  });
+
+  $('#form-country').on('submit', function (e) {
+    e.preventDefault();
+    $(this).hide();
+    $('#form-about').show();
+  });
+
   const handleChangeUsername = (btn) =>
     function () {
       username = $(this).val();
@@ -73,6 +85,17 @@ $(function () {
 
   $('#btn-register').on('click', function () {
     $('#form-details').hide();
+    $('#form-country').show();
+  });
+
+  $('#btn-back-country').on('click', function () {
+    $('#form-country').hide();
+    $(`#form-details`).show();
+  });
+
+  $('#btn-back-about').on('click', function () {
+    $('#form-about').hide();
+    $(`#form-country`).show();
   });
 
   function checkSignupAbility() {

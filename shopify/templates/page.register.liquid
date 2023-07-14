@@ -5,11 +5,13 @@
 
       <div class="pt-[22px] pb-24">
         <div class="grid grid-cols-1 gap-[60px] xl:grid-cols-2">
-          {% comment %} {% render "register-form-role" %}
+          {% render "register-form-role" %}
           {% render "register-form-username", id: "creator", title: "💡️ Creator" %}
           {% render "register-form-username", id: "fan", title: "🎉️ Fan" %}
-          {% render "register-form-details" %} {% endcomment %}
+          {% render "register-form-details" %}
           {% render "register-form-country" %}
+          {% render "register-form-about" %}
+
           <img src="{{ 'bg-signup.png' | asset_url }}" class="hidden xl:block" />
         </div>
       </div>

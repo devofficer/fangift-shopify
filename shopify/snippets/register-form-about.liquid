@@ -1,0 +1,36 @@
+<form
+  id="form-about"
+  class="card-register relative hidden"
+  onsubmit="return false;">
+  <div class="flex flex-col justify-center h-full">
+    {% render "button-back", id: "btn-back-about" %}
+
+    <div class="text-center mb-8">
+      <h1 class="text-primary-black text-heading-h3 mb-2">
+        About You
+      </h1>
+      <div class="text-center text-primary-text text-body-md">
+        Add information about yourself to your public account.
+      </div>
+    </div>
+
+    {% render "avatar", class: "mx-auto mb-8" %}
+
+    <input
+      type="text"
+      id="txt-public-name"
+      name="public-name"
+      placeholder="Public name*"
+      class="textfield mb-4" />
+
+    <textarea
+      id="message"
+      rows="4"
+      class="textfield mb-4 resize-none"
+      placeholder="Enter short bio"></textarea>
+
+    <button class="btn btn-primary !font-plus-semi" type="submit">
+      Complete setup
+    </button>
+  </div>
+</form>

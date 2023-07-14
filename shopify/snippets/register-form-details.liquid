@@ -2,24 +2,8 @@
   id="form-details"
   class="card-register relative hidden"
   onsubmit="return false;">
-  <button
-    id="btn-back-details"
-    type="button"
-    class="btn-icon absolute left-10 top-10">
-    <svg
-      class="w-6 h-6"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none">
-      <path
-        d="M9.57 5.93 3.5 12l6.07 6.07M20.5 12H3.67"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round" />
-    </svg>
-  </button>
+
+  {% render "button-back", id: "btn-back-details" %}
 
   <div class="text-center my-8">
     <h1 class="text-primary-black text-heading-h3 mb-2">

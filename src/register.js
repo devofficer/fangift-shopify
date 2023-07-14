@@ -71,6 +71,10 @@ $(function () {
     $(`#form-${role}`).show();
   });
 
+  $('#btn-register').on('click', function () {
+    $('#form-details').hide();
+  });
+
   function checkSignupAbility() {
     const ability =
       password === passwordConfirmed && /^[\w.-]+@[\w.-]+\.\w+$/.test(email);

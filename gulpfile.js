@@ -132,7 +132,7 @@ task('dev', parallel('watch', 'shopify:dev'));
 
 task('deploy:staging', (done) =>
   run(
-    `shopify theme push --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopifyy`,
+    `shopify theme push --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify`,
     { verbosity: 3 }
   )
     .exec()

@@ -1,0 +1,15 @@
+<main class="overflow-auto">
+  <div class="bg-[url(bg.svg)] bg-cover bg-no-repeat min-h-screen">
+    <div class="container px-[100px]">
+      {% section 'account_header' %}
+      <div class="pt-[22px] pb-24">
+        <div class="grid grid-cols-1 gap-[60px] xl:grid-cols-2">
+          {% render "login-form" %}
+          <img src="{{ 'bg-auth.png' | asset_url }}" class="hidden xl:block" />
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="{{'login.min.js' | asset_url}}" defer></script>

@@ -3,8 +3,6 @@
   "version": "1.0.4",
   "description": "Fangift shopify theme project based on gulp and tailwindcss",
   "scripts": {
-    "serve": "shopify theme serve /shopify & gulp watch",
-    "share": "shopify theme share /shopify",
     "dev": "gulp dev",
     "deploy": "gulp deploy:staging",
     "deploy:prod": "gulp deploy:prod",
@@ -13,8 +11,8 @@
     "build:prod": "NODE_ENV=production gulp build",
     "build:css": "gulp build:css",
     "build:js": "gulp build:js",
-    "open": "shopify theme open --development",
     "watch": "gulp watch",
+    "lint": "eslint src",
     "prepare": "husky install"
   },
   "author": "devofficer",
@@ -30,6 +28,12 @@
     "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
     "autoprefixer": "^10.4.13",
     "dotenv": "^16.0.3",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
+    "eslint-plugin-promise": "^6.0.0",
     "fancy-log": "^2.0.0",
     "gulp": "^4.0.2",
     "gulp-better-rollup": "^4.0.1",
@@ -55,6 +59,7 @@
     "tailwindcss": "^3.2.7"
   },
   "dependencies": {
-    "flowbite": "^1.7.0"
+    "flowbite": "^1.7.0",
+    "jquery": "^3.7.0"
   }
 }

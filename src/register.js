@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 $(function () {
   let username = '';
   let role = '';
@@ -71,7 +73,7 @@ $(function () {
 
   function checkSignupAbility() {
     const ability =
-      password === passwordConfirmed && /^[\w\.-]+@[\w\.-]+\.\w+$/.test(email);
+      password === passwordConfirmed && /^[\w.-]+@[\w.-]+\.\w+$/.test(email);
     $('#btn-register').prop('disabled', !ability);
   }
 

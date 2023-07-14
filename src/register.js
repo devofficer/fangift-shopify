@@ -42,6 +42,13 @@ $(function () {
     $('#form-about').show();
   });
 
+  $('#form-about').on('submit', function (e) {
+    e.preventDefault();
+    $(this).hide();
+    $('#lbl-email').html(email);
+    $('#form-email').show();
+  });
+
   const handleChangeUsername = (btn) =>
     function () {
       username = $(this).val();
@@ -90,12 +97,17 @@ $(function () {
 
   $('#btn-back-country').on('click', function () {
     $('#form-country').hide();
-    $(`#form-details`).show();
+    $('#form-details').show();
   });
 
   $('#btn-back-about').on('click', function () {
     $('#form-about').hide();
-    $(`#form-country`).show();
+    $('#form-country').show();
+  });
+
+  $('#btn-back-email').on('click', function () {
+    $('#form-email').hide();
+    $('#form-about').show();
   });
 
   function checkSignupAbility() {

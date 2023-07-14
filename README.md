@@ -16,7 +16,7 @@ STAGING_THEME_ID='12300000002'
 LIVE_THEME_ID='12300000001'
 ```
 
-Once you have the _`.env`_ setup you can run `yarn build` for boostrapping required scripts, styles, and images. Now is time to run `yarn dev` and `yarn watch` inside the projects root. This will start development on your dev theme by opening a preview link, starting shopify theme serve to watch for changes, and also start watching for changes in your _`src/`_ folder.
+Once you have the _`.env`_ setup you can run `yarn build` for boostrapping required scripts, styles, and images. Now is time to run `yarn dev` inside the projects root. This will start development on your dev theme by opening a preview link, starting shopify theme serve to watch for changes, and also start watching for changes in your _`src/`_ folder.
 
 ### Commands
 

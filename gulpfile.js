@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const run = require("gulp-run");
 const { task, src, dest, series, parallel, watch } = require("gulp");
 const terser = require("gulp-terser");

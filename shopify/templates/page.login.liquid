@@ -4,7 +4,64 @@
       {% section 'account_header' %}
       <div class="pt-[22px] pb-24">
         <div class="grid grid-cols-1 gap-[60px] xl:grid-cols-2">
-          {% render "login-form" %}
+          <form class="card-auth" onsubmit="return false;">
+            <div class="text-center my-8">
+              <h1 class="text-primary-black text-heading-h3 mb-2">
+                Welcome Back 👋
+              </h1>
+              <div class="text-center text-primary-text text-body-md">
+                Log in to Get Started
+              </div>
+            </div>
+
+            <div class="flex gap-4 mb-4">
+              <button class="btn btn-google flex-grow">
+                {{ 'icon-google.svg' | asset_url | img_tag: 'google' }}
+                Sign in with Google
+              </button>
+              <button class="btn btn-facebook">
+                {{ 'icon-facebook.svg' | asset_url | img_tag: 'facebook' }}
+              </button>
+            </div>
+
+            <div class="flex items-center justify-center gap-3 mb-4">
+              <hr class="border-primary-border flex-grow" />
+              <span class="text-body-sm text-primary-text">or</span>
+              <hr class="border-primary-border flex-grow" />
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 mb-8">
+              <input
+                type="text"
+                id="txt-email"
+                name="email"
+                placeholder="Email"
+                class="textfield" />
+              <input
+                type="password"
+                id="txt-password"
+                name="password"
+                placeholder="Password"
+                class="textfield" />
+              <button
+                id="btn-register"
+                class="btn btn-primary !font-plus-semi"
+                type="submit">
+                Log in
+              </button>
+              <div class="text-center text-primary-text text-body-md">
+                Forgot Password?
+                <a href="#" class="text-accent-purple underline">Email me reset link.</a>
+              </div>
+            </div>
+
+            <hr class="-mx-5 border-primary-border mb-8" />
+
+            <div class="text-center text-primary-text text-body-md">
+              Don't have a account?
+              <a href="#" class="text-accent-peach underline">Signup</a>
+            </div>
+          </form>
           <img src="{{ 'bg-auth.png' | asset_url }}" class="hidden xl:block" />
         </div>
       </div>

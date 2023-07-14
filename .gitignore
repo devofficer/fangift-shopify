@@ -12,4 +12,4 @@
 *.env
 *node_modules/
 *theme.update
-dist/assets
+shopify/assets/

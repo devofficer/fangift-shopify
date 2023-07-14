@@ -1,10 +1,18 @@
-const config = {
-  srcImg: "src/images/**/*.{jpg,jpeg,png,gif,svg}",
-  srcJS: "src/**/*.{js,jsx,ts,tsx}",
-  srcStyles: "src/styles/**/*.css",
-  rootDist: "shopify/**/*.{liquid, json}",
-  dest: "./shopify/assets",
-  tailwindConfig: "./tailwind.config.js",
+const streamPaths = {
+  scripts: "src/**/*.{js,jsx,ts,tsx}",
+  styles: ["src/styles/**/*.css", "!src/styles/components/**/*.css"],
+  images: "static/images/**/*",
+  static: ["static/**/*", "static/images/**/*"],
+  assets: "./shopify/assets",
 };
 
-module.exports = config;
+const watchPaths = {
+  scripts: "src/**/*.{js,jsx,ts,tsx}",
+  styles: ["src/styles/**/*.css", "./shopify/**/*.{liquid,json}"],
+  static: "static/**/*",
+};
+
+module.exports = {
+  streamPaths,
+  watchPaths,
+};

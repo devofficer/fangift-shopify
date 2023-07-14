@@ -1,4 +1,4 @@
 module.exports = {
-  "./src/**/*.css": () => "gulp build:css",
-  "./src/**/*.js": () => "gulp build:js"
+  "./src/**/*.css": ['prettier --write', () => "gulp build:css"],
+  "./src/**/*.js": ['prettier --write', () => "gulp build:js"]
 };

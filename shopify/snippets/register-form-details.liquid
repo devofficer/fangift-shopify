@@ -1,6 +1,6 @@
 <form
   id="form-details"
-  class="card-register relative"
+  class="card-register relative hidden"
   onsubmit="return false;">
 
   <div class="text-center mb-8">
@@ -22,7 +22,9 @@
           stroke-linejoin="round" />
       </svg>
     </button>
-    <h1 class="text-primary-black text-heading-h3 mb-2">Welcome, @anettej</h1>
+    <h1 class="text-primary-black text-heading-h3 mb-2">
+      Welcome, @<span id="lbl-username"></span>
+    </h1>
     <div class="text-center text-primary-text text-body-md">
       <span>Already have an account?</span>
       <a href="#" class="text-accent-peach underline">Log in</a>

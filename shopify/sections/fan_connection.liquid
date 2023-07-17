@@ -1,0 +1,29 @@
+<div class="bg-primary-background">
+  <div class="container px-[320px] py-[100px] flex flex-col items-center text-center">
+    {{ 'landing-users1.png' | asset_url | img_tag: 'users', 'mx-auto h-[60px] mb-8', 'x60' }}
+    <h2 class="text-heading-h2 text-primary-black mb-6">Empower Your Fan Connection</h2>
+    <p class="text-body-md text-primary-black mb-8">
+      Unlock the full potential of your fan base and earn from every product you endorse. Turn your influence into
+      profit and get started today!
+    </p>
+    <div class="flex gap-4">
+      <div class="p-4 border border-primary-border bg-primary-white rounded-[16px] flex items-center text-[18px] w-[287px]">
+        <span class="text-primary-black">fangift.com/</span>
+        <input
+          id="username-fan"
+          name="username-fan"
+          type="text"
+          class="p-0 border-none focus:ring-0 placeholder-primary-border w-full"
+          placeholder="@username"
+        >
+      </div>
+      <button
+        id="btn-fan"
+        class="btn btn-primary"
+        type="submit"
+      >
+        Create page 🌟
+      </button>
+    </div>
+  </div>
+</div>

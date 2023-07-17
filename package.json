@@ -4,8 +4,8 @@
   "description": "Fangift shopify theme project based on gulp and tailwindcss",
   "scripts": {
     "dev": "gulp dev",
-    "deploy": "gulp deploy:staging",
-    "deploy:prod": "gulp deploy:prod",
+    "deploy": "gulp deploy",
+    "deploy:prod": "NODE_ENV=production gulp deploy",
     "sync": "gulp sync",
     "build": "gulp build",
     "build:prod": "NODE_ENV=production gulp build",

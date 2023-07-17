@@ -1,2 +1,15 @@
-<h1>{{ page.title }}</h1>
-{{ page.content }}
+<div class="overflow-auto">
+  <div class="bg-[url(vendor-bg.svg)] bg-contain bg-no-repeat bg-bottom">
+    <div class="border-b border-primary-border">
+      <div class="container px-[100px]">
+        {% section 'header' %}
+      </div>
+    </div>
+    {% section 'wishlist-hero' %}
+  </div>
+
+  {% section 'landing-testimonials' %}
+  {% section 'landing-fan' %}
+</div>
+
+{% section 'footer' %}

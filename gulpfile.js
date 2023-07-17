@@ -23,15 +23,15 @@ const rollup = require('gulp-better-rollup');
 const commonjs = require('@rollup/plugin-commonjs'); // allow rollup to use npm_modules by converting to es6 exports
 const { nodeResolve } = require('@rollup/plugin-node-resolve'); // allow rollup to parse npm_modules
 
-//= ============================
-// Configuration
-//= ============================
+/**
+ * Configuration
+ */
 const config = require('./config');
 const isProd = process.env.NODE_ENV === 'production';
 
-//= ============================
-// Stream Handlers
-//= ============================
+/**
+ * Stream Handlers
+ */
 
 // static
 function staticStream(filepath) {
@@ -125,30 +125,30 @@ function watchHandler(done) {
   // javascript
   watch(config.watchPaths.scripts).on('add', series('build:js'));
   watch(config.watchPaths.scripts).on('change', series('build:js'));
-  watch(config.watchPaths.scripts).on('unlink', (path) =>
-    deleteFile(path, true)
-  );
+  watch(config.watchPaths.scripts).on('unlink', (path) => {
+    deleteFile(path, true);
+  });
 
   // css
   watch(config.watchPaths.styles).on('add', series('build:css'));
   watch(config.watchPaths.styles).on('change', series('build:css'));
-  watch(config.watchPaths.scripts).on('unlink', (path) =>
-    deleteFile(path, true)
-  );
+  watch(config.watchPaths.styles).on('unlink', (path) => {
+    deleteFile(path, true);
+  });
 
   // images
   watch(config.watchPaths.images).on('add', (path) => imageStream(path));
   watch(config.watchPaths.images).on('change', (path) => imageStream(path));
-  watch(config.watchPaths.images).on('unlink', (path) =>
-    deleteFile(path, false)
-  );
+  watch(config.watchPaths.images).on('unlink', (path) => {
+    deleteFile(path, false);
+  });
 
   // static
   watch(config.watchPaths.static).on('add', (path) => staticStream(path));
   watch(config.watchPaths.static).on('change', (path) => staticStream(path));
-  watch(config.watchPaths.static).on('unlink', (path) =>
-    deleteFile(path, false)
-  );
+  watch(config.watchPaths.static).on('unlink', (path) => {
+    deleteFile(path, false);
+  });
 
   done();
 }

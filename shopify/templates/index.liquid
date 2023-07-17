@@ -24,7 +24,9 @@
             <a class="btn btn-primary !py-4" href="#"> 🔥 Create Page </a>
             <a class="btn btn-text-primary flex items-center gap-[10px]" href="#">
               <span>Learn More</span>
-              {{ 'icon-arrow-right.svg' | asset_url | img_tag: 'arrow right' }}
+              <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="m14.43 6.68 6.07 6.07-6.07 6.07M3.5 12.75h16.83" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </a>
           </div>
         </div>
@@ -73,7 +75,9 @@
             </p>
             <a class="btn btn-text-primary flex items-center gap-[10px] !p-0" href="#">
               <span>How it works</span>
-              {{ 'icon-arrow-right.svg' | asset_url | img_tag: 'arrow right' }}
+              <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="m14.43 6.68 6.07 6.07-6.07 6.07M3.5 12.75h16.83" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </a>
           </div>
         </div>
@@ -86,8 +90,10 @@
               meaningful connection.
             </p>
             <a class="btn btn-text-primary flex items-center gap-[10px] !p-0" href="#">
-              <span>How it works</span>
-              {{ 'icon-arrow-right.svg' | asset_url | img_tag: 'arrow right' }}
+              <span>Get Started</span>
+              <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="m14.43 6.68 6.07 6.07-6.07 6.07M3.5 12.75h16.83" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </a>
           </div>
         </div>
@@ -99,13 +105,33 @@
               Unwrap the joy each gift brings. Show your excitement with a social media post or create a fun unboxing
               video!
             </p>
-            <a class="btn btn-text-primary flex items-center gap-[10px] !p-0" href="#">
-              <span>How it works</span>
-              {{ 'icon-arrow-right.svg' | asset_url | img_tag: 'arrow right' }}
-            </a>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="bg-primary-background">
+    <div class="container grid grid-cols-12">
+      <div class="col-span-5 pl-[100px] py-[100px] flex items-center">
+        <div class="grid grid-cols-1 gap-6">
+          <div class="w-fit px-5 py-3 bg-accent-blue/10 text-accent-blue text-[18px] rounded-[16px]">
+            🛍️ Become a Vendor
+          </div>
+          <h2 class="text-heading-h2 text-primary-black">Sell Your Creations Directly to Your Fans</h2>
+          <p class="text-body-md text-primary-text">
+            Turn your creative passion into a business. You can easily add your products to your Fangift store. All you
+            need are the details and images of your product, and we handle the rest – connecting your creations directly
+            to your fans.
+          </p>
+          <a class="btn btn-primary flex items-center gap-[10px] w-fit !py-4" href="#">
+            <span>Learn More</span>
+            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="m14.43 6.68 6.07 6.07-6.07 6.07M3.5 12.75h16.83" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      {{ 'landing-img2.png' | asset_url | img_tag: 'vender image', 'col-span-7 min-h-[600px] mb-12', '800x' }}
     </div>
   </div>
 </main>

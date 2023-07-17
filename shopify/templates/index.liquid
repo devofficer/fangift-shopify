@@ -7,7 +7,7 @@
     </div>
 
     <div class="container px-[100px] py-[100px]">
-      <div class="grid grid-cols-2 mb-12">
+      <div class="grid grid-cols-2 gap-6 mb-12">
         <div class="flex flex-col items-center">
           <h1 class="text-heading-h1 text-primary-black mb-6">
             Let Your Fans <span class="text-accent-peach">Support</span> You
@@ -22,8 +22,8 @@
           </div>
           <div class="w-full flex items-center gap-4">
             <a class="btn btn-primary !py-4" href="#"> 🔥 Create Page </a>
-            <a class="btn btn-text-primary flex items-center gap-2 group" href="#">
-              <spam>Learn More</spam>
+            <a class="btn btn-text-primary flex items-center gap-[10px]" href="#">
+              <span>Learn More</span>
               {{ 'icon-arrow-right.svg' | asset_url | img_tag: 'arrow right' }}
             </a>
           </div>
@@ -33,7 +33,7 @@
       <p class="text-body-sm text-primary-text text-center mb-16">
         Connect with your audience, no matter where they are.
       </p>
-      <div class="grid grid-cols-5">
+      <div class="grid grid-cols-5 opacity-40">
         <div class="flex items-center justify-center">
           {{ 'logo-tiktok.svg' | asset_url | img_tag: 'tiktok', '', 'x38' }}
         </div>
@@ -48,6 +48,62 @@
         </div>
         <div class="flex items-center justify-center">
           {{ 'logo-twitch.svg' | asset_url | img_tag: 'twitch', '', 'x38' }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container pt-26">
+    <div class="px-[320px] flex flex-col items-center gap-4 text-center">
+      <div class="w-fit px-5 py-3 bg-accent-purple/10 text-accent-purple text-[18px] rounded-[16px]">It's free! 🎉</div>
+      <h2 class="text-heading-h2 text-primary-black">Your Wishlist, Your Store - Made Easy!</h2>
+      <p class="px-[142px] text-body-md text-primary-text">
+        With Fangift, setting up your wishlist and store is effortless, intuitive, and speedy. You can get started in
+        less than 10 minutes.
+      </p>
+    </div>
+    <div class="grid grid-cols-2">
+      {{ 'landing-img1.png' | asset_url | img_tag: 'landing img1', '', '600x' }}
+      <div class="grid divide-y divide-primary-border pr-[100px] py-[96px]">
+        <div class="flex gap-[42px] h-fit py-[30px]">
+          {{ 'icon-heart.svg' | asset_url | img_tag: 'heart', 'h-[58px]' }}
+          <div class="grid grid-cols-1 gap-4">
+            <h4 class="text-heading-h4 text-primary-black ">Build & Share Your Wishlist</h4>
+            <p class="text-body-md text-primary-text">
+              Join Fangift, curate your wishlist, and share it with your fans right away!
+            </p>
+            <a class="btn btn-text-primary flex items-center gap-[10px] !p-0" href="#">
+              <span>How it works</span>
+              {{ 'icon-arrow-right.svg' | asset_url | img_tag: 'arrow right' }}
+            </a>
+          </div>
+        </div>
+        <div class="flex gap-[42px] h-fit py-[30px]">
+          {{ 'icon-gift.svg' | asset_url | img_tag: 'gift', 'h-[58px]' }}
+          <div class="grid grid-cols-1 gap-4">
+            <h4 class="text-heading-h4 text-primary-black ">Receive Gifts from your fans</h4>
+            <p class="text-body-md text-primary-text">
+              Your fans can show their support by gifting you items from your wishlist, providing a direct and
+              meaningful connection.
+            </p>
+            <a class="btn btn-text-primary flex items-center gap-[10px] !p-0" href="#">
+              <span>How it works</span>
+              {{ 'icon-arrow-right.svg' | asset_url | img_tag: 'arrow right' }}
+            </a>
+          </div>
+        </div>
+        <div class="flex gap-[42px] h-fit py-[30px]">
+          {{ 'icon-msg.svg' | asset_url | img_tag: 'message', 'h-[58px]' }}
+          <div class="grid grid-cols-1 gap-4">
+            <h4 class="text-heading-h4 text-primary-black ">Celebrate Your Gifts</h4>
+            <p class="text-body-md text-primary-text">
+              Unwrap the joy each gift brings. Show your excitement with a social media post or create a fun unboxing
+              video!
+            </p>
+            <a class="btn btn-text-primary flex items-center gap-[10px] !p-0" href="#">
+              <span>How it works</span>
+              {{ 'icon-arrow-right.svg' | asset_url | img_tag: 'arrow right' }}
+            </a>
+          </div>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ module.exports = {
     hoverOnlyWhenSupported: true,
   },
   content: [
-    "shopify/**/*.liquid", 
+    "shopify/**/*.liquid",
     "src/**/*.{js,ts,css,svg,jsx,tsx,liquid}",
     "./node_modules/flowbite/**/*.js",
   ],
@@ -11,35 +11,34 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#1e1e1e',
-          black: '#1e1e1e',
-          text: '#575757',
-          white: '#ffffff',
-          border: '#d9d9d9',
-          background: '#fafafa'
+          DEFAULT: "#1e1e1e",
+          black: "#1e1e1e",
+          text: "#575757",
+          white: "#ffffff",
+          gray: "#e0e0e0",
+          border: "#d9d9d9",
+          background: "#fafafa",
         },
         accent: {
-          DEFAULT: '#d853f9',
-          purple: '#d853f9',
-          blue: '#8ebafd',
-          peach: '#fd8e8e',
-        }
+          DEFAULT: "#d853f9",
+          purple: "#d853f9",
+          blue: "#8ebafd",
+          peach: "#fd8e8e",
+        },
       },
       fontFamily: {
-        'plus-regular': ['PlusJakartaSans-Regular'],
-        'plus-medium': ['PlusJakartaSans-Medium'],
-        'plus-semi': ['PlusJakartaSans-SemiBold'],
-        'plus-bold': ['PlusJakartaSans-Bold'],
+        "plus-regular": ["PlusJakartaSans-Regular"],
+        "plus-medium": ["PlusJakartaSans-Medium"],
+        "plus-semi": ["PlusJakartaSans-SemiBold"],
+        "plus-bold": ["PlusJakartaSans-Bold"],
       },
       container: {
         center: true,
       },
       screens: {
-        '2xl': '1440px',
+        "2xl": "1440px",
       },
-    }
+    },
   },
-  plugins: [
-    require('flowbite/plugin')
-  ],
+  plugins: [require("flowbite/plugin")],
 };

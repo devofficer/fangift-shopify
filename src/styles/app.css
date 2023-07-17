@@ -2,30 +2,11 @@
 @import "./components/cards.css";
 @import "./components/typography.css";
 @import "./components/textfields.css";
+@import "./components/fonts.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@font-face {
-  font-family: PlusJakartaSans-Regular;
-  src: url(./PlusJakartaSans-Regular.ttf);
-}
-
-@font-face {
-  font-family: PlusJakartaSans-Medium;
-  src: url(./PlusJakartaSans-Medium.ttf);
-}
-
-@font-face {
-  font-family: PlusJakartaSans-SemiBold;
-  src: url(./PlusJakartaSans-SemiBold.ttf);
-}
-
-@font-face {
-  font-family: PlusJakartaSans-Bold;
-  src: url(./PlusJakartaSans-Bold.ttf);
-}
 
 @layer base {
   html {

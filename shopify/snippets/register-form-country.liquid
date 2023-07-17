@@ -1,23 +1,18 @@
 <form
   id="form-country"
   class="card-auth relative hidden"
-  onsubmit="return false;">
+  onsubmit="return false;"
+>
   <div class="flex flex-col justify-center h-full">
-    {% render "button-back", id: "btn-back-country" %}
+    {% render 'button-back', id: 'btn-back-country' %}
 
     <div class="text-center mb-8">
-      <h1 class="text-primary-black text-heading-h3 mb-2">
-        Country
-      </h1>
-      <div class="text-center text-primary-text text-body-md">
-        Please provide your country of residence.
-      </div>
+      <h1 class="text-primary-black text-heading-h3 mb-2">Country</h1>
+      <div class="text-center text-primary-text text-body-md">Please provide your country of residence.</div>
     </div>
 
     {% render 'select' %}
 
-    <button class="btn btn-primary !font-plus-semi" type="submit">
-      Next 👉
-    </button>
+    <button class="btn btn-primary" type="submit">Next 👉</button>
   </div>
 </form>

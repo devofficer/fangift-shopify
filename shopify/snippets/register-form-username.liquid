@@ -1,9 +1,9 @@
 {% liquid
   capture next_role
-    if id == "fan"
-      echo "creator"
+    if id == 'fan'
+      echo 'creator'
     else
-      echo "fan"
+      echo 'fan'
     endif
   endcapture
 %}
@@ -11,7 +11,8 @@
 <form
   id="form-{{id}}"
   class="card-auth pt-[170px] hidden"
-  onsubmit="return false;">
+  onsubmit="return false;"
+>
   <div class="flex flex-col items-center mb-[32px]">
     <div class="text-[18px] text-primary-black px-[20px] py-[11px] rounded-[16px] bg-accent-blue/10">
       {{ title }}
@@ -28,13 +29,15 @@
         type="text"
         class="p-0 border-none focus:ring-0 placeholder-primary-border"
         placeholder="@username"
-        autofocus />
+        autofocus
+      >
     </div>
     <button
       id="btn-next-{{id}}"
-      class="btn btn-primary !font-plus-semi"
+      class="btn btn-primary"
       type="submit"
-      disabled>
+      disabled
+    >
       Next 👉
     </button>
     <p class="text-center text-primary-text">
@@ -42,12 +45,13 @@
       <a
         href="#"
         class="text-accent-purple underline capitalize"
-        id="btn-create-{{next_role}}">
+        id="btn-create-{{next_role}}"
+      >
         Create a {{ next_role }} Account
       </a>
     </p>
   </div>
-  <hr class="-mx-5 border-primary-border mb-8" />
+  <hr class="-mx-5 border-primary-border mb-8">
   <div class="text-center text-primary-text">
     <span>Already have an account?</span>
     <a href="#" class="text-accent-peach underline">Log in</a>

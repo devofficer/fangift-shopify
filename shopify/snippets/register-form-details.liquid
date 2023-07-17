@@ -1,14 +1,12 @@
 <form
   id="form-details"
   class="card-auth relative hidden"
-  onsubmit="return false;">
-
-  {% render "button-back", id: "btn-back-details" %}
+  onsubmit="return false;"
+>
+  {% render 'button-back', id: 'btn-back-details' %}
 
   <div class="text-center my-8">
-    <h1 class="text-primary-black text-heading-h3 mb-2">
-      Welcome, @<span id="lbl-username"></span>
-    </h1>
+    <h1 class="text-primary-black text-heading-h3 mb-2">Welcome, @<span id="lbl-username"></span></h1>
     <div class="text-center text-primary-text text-body-md">
       <span>Already have an account?</span>
       <a href="#" class="text-accent-peach underline">Log in</a>
@@ -26,9 +24,9 @@
   </div>
 
   <div class="flex items-center justify-center gap-3 mb-4">
-    <hr class="border-primary-border flex-grow" />
+    <hr class="border-primary-border flex-grow">
     <span class="text-body-sm text-primary-text">or</span>
-    <hr class="border-primary-border flex-grow" />
+    <hr class="border-primary-border flex-grow">
   </div>
 
   <div class="grid grid-cols-1 gap-4 mb-8">
@@ -37,29 +35,33 @@
       id="txt-email"
       name="email"
       placeholder="Email"
-      class="textfield" />
+      class="textfield"
+    >
     <input
       type="password"
       id="txt-password"
       name="password"
       placeholder="Password"
-      class="textfield" />
+      class="textfield"
+    >
     <input
       type="password"
       id="txt-confirm-password"
       name="password"
       placeholder="Confirm Password"
-      class="textfield" />
+      class="textfield"
+    >
     <button
       id="btn-register"
-      class="btn btn-primary !font-plus-semi"
+      class="btn btn-primary"
       type="submit"
-      disabled>
+      disabled
+    >
       🔥 Sign Up
     </button>
   </div>
 
-  <hr class="-mx-5 border-primary-border mb-8" />
+  <hr class="-mx-5 border-primary-border mb-8">
 
   <div class="text-center text-primary-text text-body-md">
     By signing up you agree to our

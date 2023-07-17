@@ -1,28 +1,26 @@
 <div
   id="form-email"
   class="card-auth relative hidden"
-  onsubmit="return false;">
+  onsubmit="return false;"
+>
   <div class="flex flex-col justify-center h-full">
-    {% render "button-back", id: "btn-back-email" %}
+    {% render 'button-back', id: 'btn-back-email' %}
 
     <div class="text-center mb-8">
       <img
         src="{{ 'icon-email.svg' | asset_url }}"
         alt="email"
-        class="mx-auto mb-2" />
+        class="mx-auto mb-2"
+      >
 
-      <h1 class="text-primary-black text-heading-h3 mb-2">
-        Check your email.
-      </h1>
+      <h1 class="text-primary-black text-heading-h3 mb-2">Check your email.</h1>
       <div class="text-center text-primary-text text-body-md">
         A confirmation link has been sent to
-        <br/>
+        <br>
         <span id="lbl-email" class="text-accent-peach"></span>.
       </div>
     </div>
 
-    <button class="btn btn-primary !font-plus-semi mx-auto">
-      Open email
-    </button>
+    <button class="btn btn-primary mx-auto">Open email</button>
   </div>
 </div>

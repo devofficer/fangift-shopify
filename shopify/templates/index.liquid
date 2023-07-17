@@ -1,7 +1,55 @@
-<main class='overflow-auto'>
-  <div class='bg-[url(landing-bg.svg)] bg-cover bg-no-repeat min-h-screen'>
-    <div class='container px-[100px]'>
-      {% section 'account_header' %}
+<main class="overflow-auto">
+  <div class="bg-[url(landing-bg.svg)] bg-cover bg-no-repeat min-h-screen">
+    <div class="border-b border-primary-border">
+      <div class="container px-[100px]">
+        {% section 'account_header' %}
+      </div>
+    </div>
+
+    <div class="container px-[100px] py-[100px]">
+      <div class="grid grid-cols-2 mb-12">
+        <div class="flex flex-col items-center">
+          <h1 class="text-heading-h1 text-primary-black mb-6">
+            Let Your Fans <span class="text-accent-peach">Support</span> You
+          </h1>
+          <p class="text-body-xl text-primary-text mb-8">
+            Create your personal wishlist for fans to gift from and sell your unique creations directly to your
+            supporters. All without compromising your privacy.
+          </p>
+          <div class="w-full flex items-center gap-4 mb-8">
+            {{ 'landing-users.png' | asset_url | img_tag: 'users', 'h-[60px]', 'x60' }}
+            <span class="text-body-xl text-primary-black">250K creators joined us!</span>
+          </div>
+          <div class="w-full flex items-center gap-4">
+            <a class="btn btn-primary !py-4" href="#"> 🔥 Create Page </a>
+            <a class="btn btn-text-primary flex items-center gap-2 group" href="#">
+              <spam>Learn More</spam>
+              {{ 'icon-arrow-right.svg' | asset_url | img_tag: 'arrow right' }}
+            </a>
+          </div>
+        </div>
+        {{ 'landing-img0.png' | asset_url | img_tag: 'landing-img0', 'w-full', '600x' }}
+      </div>
+      <p class="text-body-sm text-primary-text text-center mb-16">
+        Connect with your audience, no matter where they are.
+      </p>
+      <div class="grid grid-cols-5">
+        <div class="flex items-center justify-center">
+          {{ 'logo-tiktok.svg' | asset_url | img_tag: 'tiktok', '', 'x38' }}
+        </div>
+        <div class="flex items-center justify-center">
+          {{ 'logo-instagram.svg' | asset_url | img_tag: 'instagram', '', 'x38' }}
+        </div>
+        <div class="flex items-center justify-center">
+          {{ 'logo-youtube.svg' | asset_url | img_tag: 'youtube', '', 'x38' }}
+        </div>
+        <div class="flex items-center justify-center">
+          {{ 'logo-twitter.svg' | asset_url | img_tag: 'twitter', '', 'x38' }}
+        </div>
+        <div class="flex items-center justify-center">
+          {{ 'logo-twitch.svg' | asset_url | img_tag: 'twitch', '', 'x38' }}
+        </div>
+      </div>
     </div>
   </div>
 </main>

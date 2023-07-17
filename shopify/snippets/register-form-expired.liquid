@@ -1,26 +1,22 @@
 <div
   id="div-expired"
   class="card-auth relative hidden"
-  onsubmit="return false;">
+  onsubmit="return false;"
+>
   <div class="flex flex-col justify-center h-full">
-    {% render "button-back", id: "btn-back-expired" %}
+    {% render 'button-back', id: 'btn-back-expired' %}
 
     <div class="text-center mb-8">
       <img
         src="{{ 'icon-expired.svg' | asset_url }}"
         alt="expired"
-        class="mx-auto mb-2" />
+        class="mx-auto mb-2"
+      >
 
-      <h1 class="text-primary-black text-heading-h3 mb-2">
-        Your session has expired.
-      </h1>
-      <div class="text-center text-primary-text text-body-md">
-        Please log in again to continue.
-      </div>
+      <h1 class="text-primary-black text-heading-h3 mb-2">Your session has expired.</h1>
+      <div class="text-center text-primary-text text-body-md">Please log in again to continue.</div>
     </div>
 
-    <a href="/pages/login" class="btn btn-primary !font-plus-semi mx-auto">
-      Log in
-    </a>
+    <a href="/pages/login" class="btn btn-primary mx-auto"> Log in </a>
   </div>
 </div>

@@ -1,0 +1,15 @@
+{
+  "wrapper": "div.overflow-auto.bg-primary-background",
+  "sections": {
+    "main": {
+      "type": "marketplace"
+    },
+    "header": {
+      "type": "header"
+    },
+    "footer": {
+      "type": "footer"
+    }
+  },
+  "order": ["header", "main", "footer"]
+}

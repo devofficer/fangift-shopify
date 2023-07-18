@@ -1,65 +1,9 @@
 <div class="border-b border-primary-border bg-primary-background">
-  <div class="container px-[100px]">
-    {% section 'header' %}
-  </div>
+  {% section 'header' %}
 </div>
 
 <main class="overflow-auto bg-primary-background">
-  <div class="container p-[100px] flex gap-[140px]">
-    <div class="w-[300px]">
-      <h2 class="text-heading-h2 text-primay">Frequently Asked Questions</h2>
-    </div>
-    <div class="grid grid-cols-1 gap-6 flex-grow">
-      <div class="p-6 flex items-center justify-between border border-primary-border w-full h-fit">
-        <h4 class="text-heading-h4 text-black">How do I sign up for a Fangift account?</h4>
-        {{ 'icon-arrow-down.svg' | asset_url | img_tag: 'arrow down' }}
-      </div>
-      <div class="p-6 flex items-center justify-between border border-primary-border w-full h-fit">
-        <h4 class="text-heading-h4 text-black">How do I create a wishlist?</h4>
-        {{ 'icon-arrow-down.svg' | asset_url | img_tag: 'arrow down' }}
-      </div>
-      <div class="p-6 flex items-center justify-between border border-primary-border w-full h-fit">
-        <h4 class="text-heading-h4 text-black">Can my fans see my personal information?</h4>
-        {{ 'icon-arrow-down.svg' | asset_url | img_tag: 'arrow down' }}
-      </div>
-      <div class="p-6 flex items-center justify-between border border-primary-border w-full h-fit">
-        <h4 class="text-heading-h4 text-black">What happens when a fan buys a gift from my wishlist?</h4>
-        {{ 'icon-arrow-down.svg' | asset_url | img_tag: 'arrow down' }}
-      </div>
-      <div class="p-6 flex items-center justify-between border border-primary-border w-full h-fit">
-        <h4 class="text-heading-h4 text-black">Do I need to sign up to purchase a gift for a creator?</h4>
-        {{ 'icon-arrow-down.svg' | asset_url | img_tag: 'arrow down' }}
-      </div>
-      <div class="p-6 flex items-center justify-between border border-primary-border w-full h-fit">
-        <h4 class="text-heading-h4 text-black">Can I leave a message for the creator?</h4>
-        {{ 'icon-arrow-down.svg' | asset_url | img_tag: 'arrow down' }}
-      </div>
-      <div class="p-6 flex items-center justify-between border border-primary-border w-full h-fit">
-        <h4 class="text-heading-h4 text-black">Can I make purchases anonymously?</h4>
-        {{ 'icon-arrow-down.svg' | asset_url | img_tag: 'arrow down' }}
-      </div>
-      <div class="p-6 flex items-center justify-between border border-primary-border w-full h-fit">
-        <h4 class="text-heading-h4 text-black">How long will it take for the gift I bought to arrive?</h4>
-        {{ 'icon-arrow-down.svg' | asset_url | img_tag: 'arrow down' }}
-      </div>
-      <div class="p-6 flex items-center justify-between border border-primary-border w-full h-fit">
-        <h4 class="text-heading-h4 text-black">Can I get a refund for a gift I purchased?</h4>
-        {{ 'icon-arrow-down.svg' | asset_url | img_tag: 'arrow down' }}
-      </div>
-      <div class="p-6 flex items-center justify-between border border-primary-border w-full h-fit">
-        <h4 class="text-heading-h4 text-black">How do I list my products on Fangift?</h4>
-        {{ 'icon-arrow-down.svg' | asset_url | img_tag: 'arrow down' }}
-      </div>
-      <div class="p-6 flex items-center justify-between border border-primary-border w-full h-fit">
-        <h4 class="text-heading-h4 text-black">What's the benefit of listing my products on Fangift?</h4>
-        {{ 'icon-arrow-down.svg' | asset_url | img_tag: 'arrow down' }}
-      </div>
-      <div class="p-6 flex items-center justify-between border border-primary-border w-full h-fit">
-        <h4 class="text-heading-h4 text-black">Do I need to handle the shipping of gifts?</h4>
-        {{ 'icon-arrow-down.svg' | asset_url | img_tag: 'arrow down' }}
-      </div>
-    </div>
-  </div>
+  {% section 'faq' %}
   {% section 'landing-fan' %}
 </main>
 

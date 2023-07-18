@@ -11,7 +11,7 @@
     {{ 'landing-img1.png' | asset_url | img_tag: 'landing img1', '', '600x' }}
     <div class="grid divide-y divide-primary-border pr-[100px] py-[96px]">
       <div class="flex gap-[42px] h-fit py-[30px]">
-        {{ 'icon-heart.svg' | asset_url | img_tag: 'heart', 'h-[58px]' }}
+        {% render 'icon-heart.liquid': class: 'min-w-[58px]' %}
         <div class="grid grid-cols-1 gap-4">
           <h4 class="text-heading-h4 text-primary-black ">Build & Share Your Wishlist</h4>
           <p class="text-body-md text-primary-text">
@@ -19,14 +19,21 @@
           </p>
           <a class="btn btn-text-primary flex items-center gap-[10px] !p-0" href="#">
             <span>How it works</span>
-            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              class="{{ class }}"
+              width="24"
+              height="25"
+              viewBox="0 0 24 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path d="m14.43 6.68 6.07 6.07-6.07 6.07M3.5 12.75h16.83" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
         </div>
       </div>
       <div class="flex gap-[42px] h-fit py-[30px]">
-        {{ 'icon-gift.svg' | asset_url | img_tag: 'gift', 'h-[58px]' }}
+        {% render 'icon-gift.liquid': class: 'min-w-[58px]' %}
         <div class="grid grid-cols-1 gap-4">
           <h4 class="text-heading-h4 text-primary-black ">Receive Gifts from your fans</h4>
           <p class="text-body-md text-primary-text">
@@ -35,14 +42,21 @@
           </p>
           <a class="btn btn-text-primary flex items-center gap-[10px] !p-0" href="#">
             <span>Get Started</span>
-            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              class="{{ class }}"
+              width="24"
+              height="25"
+              viewBox="0 0 24 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path d="m14.43 6.68 6.07 6.07-6.07 6.07M3.5 12.75h16.83" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
         </div>
       </div>
       <div class="flex gap-[42px] h-fit py-[30px]">
-        {{ 'icon-msg.svg' | asset_url | img_tag: 'message', 'h-[58px]' }}
+        {% render 'icon-msg.liquid': class: 'min-w-[58px]' %}
         <div class="grid grid-cols-1 gap-4">
           <h4 class="text-heading-h4 text-primary-black ">Celebrate Your Gifts</h4>
           <p class="text-body-md text-primary-text">

@@ -1,4 +1,4 @@
-<svg width="1440" height="1024" viewBox="0 0 1440 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg class="{{ class }}" width="1440" height="1024" viewBox="0 0 1440 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
     <mask id="wij7pkwvda" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="1440" height="1024">
         <path fill="#C4C4C4" d="M0 0h1440v1024H0z"/>
     </mask>

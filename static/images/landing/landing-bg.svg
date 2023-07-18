@@ -1,4 +1,4 @@
-<svg width="1440" height="760" viewBox="0 0 1440 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg class="{{ class }}" width="1440" height="760" viewBox="0 0 1440 760" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g filter="url(#lpn9bhge6a)">
         <circle cx="231" cy="377" r="187" fill="#D853F9" fill-opacity=".28"/>
     </g>

@@ -54,10 +54,10 @@
         <div class="pl-4">
           <div class="text-primary-white font-plus-semi text-[16px] mb-8">Follow us</div>
           <div class="grid grid-cols-4 gap-4 w-fit">
-            {{ 'icon-instagram.svg' | asset_url | img_tag: 'instagram' }}
-            {{ 'icon-facebook-filled.svg' | asset_url | img_tag: 'facebook' }}
-            {{ 'icon-youtube.svg' | asset_url | img_tag: 'youtube' }}
-            {{ 'icon-twitter.svg' | asset_url | img_tag: 'twitter' }}
+            {% render 'icon-instagram.liquid' %}
+            {% render 'icon-facebook-filled.liquid' %}
+            {% render 'icon-youtube.liquid' %}
+            {% render 'icon-twitter.liquid' %}
           </div>
         </div>
       </div>

@@ -46,7 +46,7 @@
             class="flex gap-[10px] items-center text-accent-purple text-[16px] font-plus-medium hover:font-bold"
           >
             {{ link.title }}
-            {{ 'icon-external.svg' | asset_url | img_tag }}
+            {% render 'icon-external.liquid' %}
           </a>
         </li>
       {% else %}

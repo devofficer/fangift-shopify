@@ -7,16 +7,14 @@
     {% render 'button-backward', id: 'btn-back-expired' %}
 
     <div class="text-center mb-8">
-      <img
-        src="{{ 'icon-expired.svg' | asset_url }}"
-        alt="expired"
-        class="mx-auto mb-2"
-      >
+      <div class="mx-auto mb2">
+        {% render 'icon-expired.liquid' %}
+      </div>
 
       <h1 class="text-primary-black text-heading-h3 mb-2">Your session has expired.</h1>
       <div class="text-center text-primary-text text-body-md">Please log in again to continue.</div>
     </div>
 
-    <a href="/pages/login" class="btn btn-primary mx-auto"> Log in </a>
+    <a href="/account/login" class="btn btn-primary mx-auto"> Log in </a>
   </div>
 </div>

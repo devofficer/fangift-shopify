@@ -1,14 +1,14 @@
 <header>
   <div class="container px-[100px] w-full h-[98px] flex items-center justify-between">
     <a id="logo" href="/">
-      {{ 'logo.svg' | asset_url | img_tag: shop.name }}
+      {% render 'logo.liquid' %}
     </a>
 
     {% render 'navbar' %}
 
     <div class="flex items-center">
-      <a href="/pages/login" class="btn btn-text-primary px-6 py-3">Login</a>
-      <a href="/pages/register" class="btn btn-primary font-plus-bold">Signup</a>
+      <a href="/account/login" class="btn btn-text-primary px-6 py-3">Login</a>
+      <a href="/account/register" class="btn btn-primary font-plus-bold">Signup</a>
     </div>
   </div>
 </header>

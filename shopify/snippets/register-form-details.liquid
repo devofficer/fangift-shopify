@@ -15,11 +15,11 @@
 
   <div class="flex gap-4 mb-4">
     <button class="btn btn-google flex-grow">
-      {{ 'icon-google.svg' | asset_url | img_tag: 'google' }}
+      {% render 'icon-google.liquid' %}
       Sign in with Google
     </button>
     <button class="btn btn-facebook">
-      {{ 'icon-facebook.svg' | asset_url | img_tag: 'facebook' }}
+      {% render 'icon-facebook.liquid' %}
     </button>
   </div>
 

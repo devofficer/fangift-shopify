@@ -46,7 +46,7 @@
       </li>
     </ul>
     <div class="card-info p-6 flex items-center gap-4">
-      {{ 'icon-info.svg' | asset_url | img_tag: 'info icon' }}
+      {% render 'icon-info.liquid' %}
       <span class="font-plus-regular"
         >You can support other creators with either of the account types and can change your account type anytime.</span
       >
@@ -56,6 +56,6 @@
   <hr class="-mx-5 border-primary-border mb-8">
   <div class="text-center text-primary-text">
     <span>Already have an account?</span>
-    <a href="/pages/login" class="text-accent-peach underline">Log in</a>
+    <a href="/account/login" class="text-accent-peach underline">Log in</a>
   </div>
 </form>

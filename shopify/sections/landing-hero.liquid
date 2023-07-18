@@ -16,7 +16,14 @@
         <a class="btn btn-primary !py-4" href="#"> 🔥 Create Page </a>
         <a class="btn btn-text-primary flex items-center gap-[10px]" href="#">
           <span>Learn More</span>
-          <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            class="{{ class }}"
+            width="24"
+            height="25"
+            viewBox="0 0 24 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path d="m14.43 6.68 6.07 6.07-6.07 6.07M3.5 12.75h16.83" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
@@ -27,19 +34,19 @@
   <p class="text-body-sm text-primary-text text-center mb-16">Connect with your audience, no matter where they are.</p>
   <div class="grid grid-cols-5 opacity-40">
     <div class="flex items-center justify-center">
-      {{ 'logo-tiktok.svg' | asset_url | img_tag: 'tiktok', '', 'x38' }}
+      {% render 'logo-tiktok.liquid' %}
     </div>
     <div class="flex items-center justify-center">
-      {{ 'logo-instagram.svg' | asset_url | img_tag: 'instagram', '', 'x38' }}
+      {% render 'logo-instagram.liquid' %}
     </div>
     <div class="flex items-center justify-center">
-      {{ 'logo-youtube.svg' | asset_url | img_tag: 'youtube', '', 'x38' }}
+      {% render 'logo-youtube.liquid' %}
     </div>
     <div class="flex items-center justify-center">
-      {{ 'logo-twitter.svg' | asset_url | img_tag: 'twitter', '', 'x38' }}
+      {% render 'logo-twitter.liquid' %}
     </div>
     <div class="flex items-center justify-center">
-      {{ 'logo-twitch.svg' | asset_url | img_tag: 'twitch', '', 'x38' }}
+      {% render 'logo-twitch.liquid' %}
     </div>
   </div>
 </div>

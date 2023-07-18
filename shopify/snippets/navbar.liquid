@@ -1,6 +1,6 @@
 <nav role="navigation" class="flex items-center">
   <ul class="hidden xl:flex gap-[40px]">
-    {% for link in linklists.main-menu.links %}
+    {% for link in linklists['main-menu'].links %}
       {% assign has_sub_menu = false %}
       {% assign has_sub_categories = false %}
       {% assign parent_link_active = false %}
@@ -21,7 +21,7 @@
 
       {% capture clsx -%}
         {%- if link.active or parent_link_active -%}
-          {%- echo "text-accent-purple font-bold " -%}
+          {%- echo "text-accent-purple underline " -%}
         {% else %}
           {%- echo "hover:text-accent-purple " -%}
         {%- endif -%}

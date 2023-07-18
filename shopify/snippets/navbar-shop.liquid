@@ -1,0 +1,25 @@
+<nav role="navigation" class="flex items-center">
+  <ul class="hidden xl:flex gap-[40px]">
+    {% for link in linklists['shop-menu'].links %}
+      {% capture class -%}
+        {%- if link.active -%}
+          {%- echo "text-accent-purple underline " -%}
+        {% else %}
+          {%- echo "hover:text-accent-purple " -%}
+        {%- endif -%}
+
+        {%- if forloop.first -%}
+          {%- echo "first " -%}
+        {%- elsif forloop.last -%}
+          {%- echo "last " -%}
+        {%- endif -%}
+      {%- endcapture %}
+
+      <li>
+        <a href="{{ link.url }}" class="{{class}} text-primary-border flex gap-[10px] items-center text-[16px]">
+          {{ link.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

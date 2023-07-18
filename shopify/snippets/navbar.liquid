@@ -20,14 +20,22 @@
       {% endif %}
 
       {% capture clsx -%}
+        {%- if dark -%}
+          {%- echo "text-primary-border " -%}
+        {%- elsif -%}
+          {%- echo "text-primary/70 " -%}
+        {%- endif -%}
+
         {%- if link.active or parent_link_active -%}
           {%- echo "text-accent-purple underline " -%}
         {% else %}
           {%- echo "hover:text-accent-purple " -%}
         {%- endif -%}
+
         {%- if has_sub_menu or has_sub_categories -%}
           {%- echo "has-dropdown " -%}
         {%- endif -%}
+        
         {%- if forloop.first -%}
           {%- echo "first " -%}
         {%- elsif forloop.last -%}
@@ -36,7 +44,7 @@
       {%- endcapture %}
 
       {% if link.url == '/pages/marketplace' %}
-        {% if link.active %}
+        {% if link.active or dark %}
           {% continue %}
         {% endif %}
         <li>

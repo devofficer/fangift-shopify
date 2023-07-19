@@ -11,10 +11,10 @@
   </div>
 </div>
 
-<div class="text-primary-white">
+<div class="bg-primary-background">
   <div class="container px-[100px] pb-[100px]">
-    <div class="grid grid-cols-12 gap-x-[60px] mt-[-10px]">
-      <div class="col-span-8 mb-9">
+    <div class="grid grid-cols-12 gap-x-[60px]">
+      <div class="col-span-8 mt-[-10px] mb-9">
         <div class="bg-primary-white rounded-[8px] p-6 shadow-[0_18px_37.5px_0_rgba(0,0,0,0.05)]">
           <div class="text-body-sm text-primary-text mb-4">Vendor</div>
           <div class="flex gap-6">
@@ -116,7 +116,25 @@
           </div>
         </div>
       </div>
-      <div class="col-span-9"></div>
+      <div class="col-span-9 mb-[60px]">
+        <div class="grid grid-cols-4 gap-[26px]">
+          {% render 'product-card': title: 'Fitbit Versa 4', image: 'product0.png', username: 'JuliaStore', price: '300.50' %}
+          {% render 'product-card': title: 'Gymshark Energy', image: 'product1.png', username: 'JuliaStore', price: '59.99' %}
+          {% render 'product-card': title: 'The Workout Mat', image: 'product2.png', username: 'JuliaStore', price: '98.00' %}
+          {% render 'product-card': title: 'Apple AirPods Max', image: 'product3.png', username: 'JuliaStore', price: '549.00' %}
+          {% render 'product-card': title: 'Fitbit Versa 4', image: 'product0.png', username: 'JuliaStore', price: '300.50' %}
+          {% render 'product-card': title: 'Gymshark Energy', image: 'product1.png', username: 'JuliaStore', price: '59.99' %}
+          {% render 'product-card': title: 'The Workout Mat', image: 'product2.png', username: 'JuliaStore', price: '98.00' %}
+          {% render 'product-card': title: 'Apple AirPods Max', image: 'product3.png', username: 'JuliaStore', price: '549.00' %}
+          {% render 'product-card': title: 'Fitbit Versa 4', image: 'product0.png', username: 'JuliaStore', price: '300.50' %}
+          {% render 'product-card': title: 'Gymshark Energy', image: 'product1.png', username: 'JuliaStore', price: '59.99' %}
+          {% render 'product-card': title: 'The Workout Mat', image: 'product2.png', username: 'JuliaStore', price: '98.00' %}
+          {% render 'product-card': title: 'Apple AirPods Max', image: 'product3.png', username: 'JuliaStore', price: '549.00' %}
+        </div>
+      </div>
+      <div class="col-start-4 col-span-9 flex justify-center">
+        <button class="btn btn-primary-outlined">Load More</button>
+      </div>
     </div>
   </div>
 </div>

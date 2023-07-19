@@ -1,0 +1,18 @@
+<div class="product-card">
+  <div class="grid grid-cols-1 gap-2">
+    <div class="h-[144px] bg-primary-background rounded-[8px] relative">
+      <button class="btn btn-favorite group">
+        {% render 'icon-favorite': class: 'icon-favorite' %}
+      </button>
+      {{ image | asset_url | img_tag: 'product', 'w-full h-full' }}
+    </div>
+    <span class="text-body-sm text-black">
+      {{ title }}
+    </span>
+    <span class="text-body-xs text-accent-peach"> @{{ username }} </span>
+    <div class="flex gap-2">
+      <div class="border border-primary-border p-2 rounded-[8px] text-body-xs text-black">${{ price }}</div>
+      <button class="btn btn-view-details flex-grow">View Details</button>
+    </div>
+  </div>
+</div>

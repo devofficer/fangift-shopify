@@ -22,4 +22,6 @@ $(function () {
       $(this).closest(".filter-box").addClass("toggled");
     }
   });
+
+  $(".btn-filter-toggle").first().trigger("click");
 });

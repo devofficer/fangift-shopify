@@ -1,6 +1,6 @@
 @layer components {
   .btn {
-    @apply focus:outline-none rounded-[16px] text-lg font-plus-semi cursor-pointer;
+    @apply focus:outline-none rounded-[16px] font-plus-semi cursor-pointer;
   }
 
   .btn-primary {
@@ -9,6 +9,10 @@
 
   .btn-primary:disabled {
     @apply bg-primary-background text-primary-border;
+  }
+
+  .btn-primary-outlined {
+    @apply border border-primary-border focus:ring-blue-300 focus:ring-4 text-primary bg-primary-white hover:bg-blue-800 hover:text-primary-white px-6 py-3;
   }
 
   .btn-text-primary {

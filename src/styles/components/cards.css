@@ -10,4 +10,12 @@
   .card-auth {
     @apply bg-primary-white/75 px-[80px] py-[60px] rounded-[16px];
   }
+
+  .avatar {
+    @apply rounded-full bg-gray-300 border-[5px] border-white relative;
+  }
+
+  .card-product {
+    @apply bg-primary-white rounded-[16px] px-[9px] py-[10px];
+  }
 }

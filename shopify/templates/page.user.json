@@ -4,10 +4,16 @@
       "type": "header-shop",
       "settings": {}
     },
+    "topbar": {
+      "type": "shop-topbar"
+    },
+    "main": {
+      "type": "main-user"
+    },
     "footer": {
       "type": "footer",
       "settings": {}
     }
   },
-  "order": ["header", "footer"]
+  "order": ["header", "topbar", "main", "footer"]
 }

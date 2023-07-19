@@ -34,4 +34,16 @@
   .btn-icon-filled {
     @apply w-10 h-10 bg-primary-white/10 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center justify-center;
   }
+
+  .btn-icon-edit {
+    @apply rounded-full bg-accent-peach p-2 border-[5px] border-white absolute -bottom-2 -right-3 hover:bg-blue-800 hover:text-white focus:outline-none focus:border-blue-300;
+  }
+
+  .btn-link {
+    @apply h-[40px] text-body-sm w-full rounded-[8px] bg-primary-white border border-primary-border flex items-center justify-center gap-4;
+  }
+
+  .btn-view-details {
+    @apply bg-accent-blue rounded-[8px] p-2 text-body-xs text-primary-white focus:ring-blue-300 focus:ring-4 hover:bg-blue-800;
+  }
 }

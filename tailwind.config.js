@@ -25,6 +25,7 @@ module.exports = {
           blue: "#8ebafd",
           peach: "#fd8e8e",
         },
+        yellow: '#fbc917'
       },
       fontFamily: {
         "plus-regular": ["PlusJakartaSans-Regular"],

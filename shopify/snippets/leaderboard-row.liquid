@@ -1,0 +1,12 @@
+<div class="flex items-center justify-between">
+  <div class="flex items-center gap-2">
+    {{ img | asset_url | img_tag: 'user', '', '40x40' }}
+    <div class="flex flex-col gap-1">
+      <span class="text-body-sm text-primary">{{ username }}</span>
+      <span class="text-body-xs text-accent-peach">${{ price }}</span>
+    </div>
+  </div>
+  <div class="flex items-center justify-center w-8 h-8 rounded-[5px] {% if order == 1 %}bg-yellow{% else %}bg-primary-border{% endif %} text-body-xs text-primary-black">
+    {{ order }}
+  </div>
+</div>

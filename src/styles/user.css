@@ -1,0 +1,3 @@
+.gift-card {
+  @apply bg-primary-white rounded-[16px] px-[9px] py-[10px];
+}

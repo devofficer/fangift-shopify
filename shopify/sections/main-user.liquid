@@ -5,29 +5,37 @@
         <div class="h-[70px] flex items-center justify-center">
           <ul class="flex flex-wrap gap-10 text-center text-primary-text text-body-sm">
             <li>
-              <a href="#" class="inline-flex items-center gap-2 justify-center py-4 active">
+              <button
+                id="wishlist-tab"
+                data-tabs-target="#wishlist"
+                class="inline-flex items-center gap-2 justify-center py-4 active"
+              >
                 {% render 'icon-heart-small': class: '[.active>&]:text-accent-peach' %}
                 <span class="[.active>&]:text-accent-peach">Wishlist</span>
-              </a>
+              </button>
             </li>
             <li>
-              <a
-                href="#"
+              <button
+                id="products-tab"
+                data-tabs-target="#products"
                 class="inline-flex items-center gap-2 justify-center py-4"
-                aria-current="page"
               >
                 {% render 'icon-bag-tick': class: '[.active>&]:text-accent-peach' %}
                 <span class="[.active>&]:text-accent-peach">Products</span>
                 <div class="[.active>&]:text-accent-peach [.active>&]:border-accent-peach w-5 h-5 flex items-center justify-center border border-primary-border rounded-full text-[8px] font-plus-bold">
                   12
                 </div>
-              </a>
+              </button>
             </li>
             <li>
-              <a href="#" class="inline-flex items-center gap-2 justify-center py-4">
+              <button
+                id="gifts-tab"
+                data-tabs-target="#gifts"
+                class="inline-flex items-center gap-2 justify-center py-4"
+              >
                 {% render 'icon-profile': class: '[.active>&]:text-accent-peach' %}
                 <span class="[.active>&]:text-accent-peach">Gifters</span>
-              </a>
+              </button>
             </li>
           </ul>
         </div>
@@ -74,7 +82,7 @@
           </div>
         </div>
       </div>
-      <div class="col-span-7 pt-[32px] pl-[57px]">
+      <div class="col-span-7 pt-[32px] pl-[57px]" id="wishlist">
         <h5 class="text-heading-h5 text-primary-black mb-6">All Gifts</h5>
         <div class="grid grid-cols-4 gap-[28px]">
           {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', price: '59.99', external_link: 'amazon.com' %}
@@ -91,9 +99,10 @@
           {% render 'gift-card' | img: 'product3.png', title: 'Gymshark Energy', price: '59.99', external_link: 'amazon.com' %}
         </div>
       </div>
+      <div class="col-span-7 pt-[32px] pl-[57px]" id="products"></div>
+      <div class="col-span-7 pt-[32px] pl-[57px]" id="gifts"></div>
     </div>
   </div>
 </div>
 
-{% style %}
-{% endstyle %}
+{{ 'user.min.js' | asset_url | script_tag }}

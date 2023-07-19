@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "header": {
+      "type": "header-shop"
+    },
+    "main": {
+      "type": "collection"
+    },
+    "shop-header": {
+      "type": "shop-header",
+      "settings": {
+        "title": "Welcome to the FanGift Global Marketplace!",
+        "content": "Discover an incredible collection of products from talented creators and vendors worldwide."
+      }
+    },
+    "footer": {
+      "type": "footer"
+    }
+  },
+  "order": ["header", "shop-header", "main", "footer"]
+}

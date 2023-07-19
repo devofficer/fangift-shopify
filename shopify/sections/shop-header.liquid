@@ -1,0 +1,29 @@
+{% schema %}
+{
+  "name": "Slideshow",
+  "tag": "section",
+  "class": "slideshow",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "content",
+      "label": "Content"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="min-h-[300px] bg-primary bg-[url(shop-bg.svg)] bg-no-repeat bg-cover bg-center">
+  <div class="container p-[100px]">
+    <h2 class="text-heading-h2 text-primary-white mb-6">{{ section.settings.title }}</h2>
+    <p class="pr-[270px] text-body-xl text-primary-white/80">
+      {{ section.settings.content }}
+    </p>
+  </div>
+</div>

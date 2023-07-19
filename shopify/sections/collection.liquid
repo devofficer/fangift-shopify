@@ -1,16 +1,5 @@
 {{ 'collection.min.css' | asset_url | stylesheet_tag }}
 
-{% section 'header-shop' %}
-
-<div class="min-h-[300px] bg-primary bg-[url(shop-bg.svg)] bg-no-repeat bg-cover bg-center">
-  <div class="container p-[100px]">
-    <h2 class="text-heading-h2 text-primary-white mb-6">Welcome to the FanGift Global Marketplace!</h2>
-    <p class="pr-[270px] text-body-xl text-primary-white/80">
-      Discover an incredible collection of products from talented creators and vendors worldwide.
-    </p>
-  </div>
-</div>
-
 <div class="bg-primary-background">
   <div class="container px-[100px] pb-[100px]">
     <div class="grid grid-cols-12 gap-x-[60px]">
@@ -138,8 +127,6 @@
     </div>
   </div>
 </div>
-
-{% section 'footer' %}
 
 {{ 'jquery.min.js' | asset_url | script_tag }}
 {{ 'jquery-ui.min.js' | asset_url | script_tag }}

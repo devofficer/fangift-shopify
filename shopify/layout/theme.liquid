@@ -13,7 +13,7 @@
     {% render 'open-graph-tags' %}
     {% render 'twitter-card' %}
 
-    {{ content_for_header }}
+    {% comment %} {{ content_for_header }} {% endcomment %}
 
     {{ 'app.min.css' | asset_url | stylesheet_tag }}
 

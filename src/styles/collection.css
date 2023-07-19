@@ -1,1 +1,21 @@
 @import "./lib/jquery/index.css";
+
+.filter-box {
+  @apply p-6 bg-primary-background border border-primary-border;
+}
+
+.filter-box-header {
+  @apply flex items-center justify-between [.toggled>&]:mb-6;
+}
+
+.filter-box-content {
+  @apply hidden [.toggled>&]:block;
+}
+
+.checkbox {
+  @apply w-4 h-4 text-accent-purple bg-primary-background border-primary-border rounded focus:ring-accent-purple focus:ring-2;
+}
+
+.btn-filter-toggle {
+  @apply p-1;
+}

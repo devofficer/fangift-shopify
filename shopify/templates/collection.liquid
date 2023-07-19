@@ -13,7 +13,7 @@
 
 <div class="text-primary-white">
   <div class="container px-[100px] pb-[100px]">
-    <div class="grid grid-cols-12 gap-[60px] mt-[-10px]">
+    <div class="grid grid-cols-12 gap-x-[60px] mt-[-10px]">
       <div class="col-span-8 mb-9">
         <div class="bg-primary-white rounded-[8px] p-6 shadow-[0_18px_37.5px_0_rgba(0,0,0,0.05)]">
           <div class="text-body-sm text-primary-text mb-4">Vendor</div>
@@ -37,12 +37,82 @@
       </div>
       <div class="col-start-1 col-span-3">
         <div class="grid grid-cols-1 gap-8">
-          <div class="p-6 bg-primary-background border border-primary-border">
+          <div class="filter-box">
             <h6 class="text-heading-h6 mb-4 text-black">Price</h6>
             <div id="slider-range" class="mb-4"></div>
             <div class="text-body-sm text-primary flex justify-between">
               <span>Range</span><span id="amount"></span>
             </div>
+          </div>
+          <div class="filter-box">
+            <div class="filter-box-header">
+              <h6 class="text-heading-h6 text-black">Categories</h6>
+              <button class="btn btn-icon btn-filter-toggle">
+                {% render 'icon-arrow-down': class: '[.toggled>&]:hidden' %}
+                {% render 'icon-arrow-up': class: 'hidden [.toggled>&]:block' %}
+              </button>
+            </div>
+            <div class="filter-box-content">
+              <div class="grid grid-cols-1 gap-4">
+                <div class="flex items-center gap-2">
+                  <input id="checkbox-fashion" checked type="checkbox" class="checkbox">
+                  <label for="checkbox-fashion" class="text-sm text-body-sm text-primary">Fashion and Apparel</label>
+                </div>
+                <div class="flex items-center gap-2">
+                  <input id="checkbox-electronics" type="checkbox" class="checkbox">
+                  <label for="checkbox-electronics" class="text-sm text-body-sm text-primary"
+                    >Electronics and Gadgets</label
+                  >
+                </div>
+                <div class="flex items-center gap-2">
+                  <input id="checkbox-home" type="checkbox" class="checkbox">
+                  <label for="checkbox-home" class="text-sm text-body-sm text-primary">Home Decor</label>
+                </div>
+                <div class="flex items-center gap-2">
+                  <input id="checkbox-beauty" checked type="checkbox" class="checkbox">
+                  <label for="checkbox-beauty" class="text-sm text-body-sm text-primary"
+                    >Beauty and Personal Care</label
+                  >
+                </div>
+                <div class="flex items-center gap-2">
+                  <input id="checkbox-art" type="checkbox" class="checkbox">
+                  <label for="checkbox-art" class="text-sm text-body-sm text-primary">Art and Craft</label>
+                </div>
+                <div class="flex items-center gap-2">
+                  <input id="checkbox-health" checked type="checkbox" class="checkbox">
+                  <label for="checkbox-health" class="text-sm text-body-sm text-primary">Health and Fitness</label>
+                </div>
+                <div class="flex items-center gap-2">
+                  <input id="checkbox-jewelry" type="checkbox" class="checkbox">
+                  <label for="checkbox-jewelry" class="text-sm text-body-sm text-primary"
+                    >Jewelry and Accessories</label
+                  >
+                </div>
+                <div class="flex items-center gap-2">
+                  <input id="checkbox-books" checked type="checkbox" class="checkbox">
+                  <label for="checkbox-books" class="text-sm text-body-sm text-primary">Books and Stationery</label>
+                </div>
+                <div class="flex items-center gap-2">
+                  <input id="checkbox-toys" type="checkbox" class="checkbox">
+                  <label for="checkbox-toys" class="text-sm text-body-sm text-primary">Toys and Games</label>
+                </div>
+                <div class="flex items-center gap-2">
+                  <input id="checkbox-sports" checked type="checkbox" class="checkbox">
+                  <label for="checkbox-sports" class="text-sm text-body-sm text-primary">Sports and Outdoor</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-box">
+            <div class="filter-box-header">
+              <h6 class="text-heading-h6 text-black">Locations</h6>
+              <button class="btn btn-icon btn-filter-toggle">
+                {% render 'icon-arrow-down': class: '[.toggled>&]:hidden' %}
+                {% render 'icon-arrow-up': class: 'hidden [.toggled>&]:block' %}
+              </button>
+            </div>
+            <div class="filter-box-content"></div>
           </div>
         </div>
       </div>
@@ -50,6 +120,8 @@
     </div>
   </div>
 </div>
+
+{% section 'footer' %}
 
 {{ 'jquery.min.js' | asset_url | script_tag }}
 {{ 'jquery-ui.min.js' | asset_url | script_tag }}

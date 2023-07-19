@@ -1,1 +1,53 @@
+{{ 'collection.min.css' | asset_url | stylesheet_tag }}
+
 {% section 'header-shop' %}
+
+<div class="min-h-[300px] bg-primary bg-[url(shop-bg.svg)] bg-no-repeat bg-cover bg-center">
+  <div class="container p-[100px]">
+    <h2 class="text-heading-h2 text-primary-white mb-6">Welcome to the FanGift Global Marketplace!</h2>
+    <p class="pr-[270px] text-body-xl text-primary-white/80">
+      Discover an incredible collection of products from talented creators and vendors worldwide.
+    </p>
+  </div>
+</div>
+
+<div class="text-primary-white">
+  <div class="container px-[100px] pb-[100px]">
+    <div class="grid grid-cols-12 gap-[60px] mt-[-10px]">
+      <div class="col-span-8 mb-9">
+        <div class="bg-primary-white rounded-[8px] p-6 shadow-[0_18px_37.5px_0_rgba(0,0,0,0.05)]">
+          <div class="text-body-sm text-primary-text mb-4">Vendor</div>
+          <div class="flex gap-6">
+            <div class="relative flex-grow">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                {% render 'icon-search': class: 'w-4 h-4 text-accent-purple' %}
+              </div>
+              <input
+                type="search"
+                class="block w-full p-4 pl-12 text-body-sm text-primary placeholder:text-primary-border border border-[rgba(0,0,0,0.1)] rounded-lg bg-primary-white focus:ring-blue-500 focus:border-blue-500 "
+                placeholder="Search..."
+              >
+            </div>
+            <button class="btn btn-primary flex items-center gap-[10px]">
+              <span>Search Vendor</span>
+              {% render 'icon-arrow-right' %}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-start-1 col-span-3">
+        <div class="grid grid-cols-1 gap-8">
+          <div class="p-6 bg-primary-background border border-primary-border">
+            <h6 class="text-heading-h6 mb-4 text-black">Price</h6>
+            <div id="slider-range"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-span-9"></div>
+    </div>
+  </div>
+</div>
+
+{{ 'jquery.min.js' | asset_url | script_tag }}
+{{ 'jquery-ui.min.js' | asset_url | script_tag }}
+{{ 'collection.min.js' | asset_url | script_tag }}

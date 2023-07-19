@@ -1,0 +1,22 @@
+@import "./jquery-ui.min.css";
+@import "./theme.css";
+
+.ui-slider-handle {
+  @apply rounded-full;
+}
+
+.ui-widget.ui-widget-content.ui-slider {
+  @apply border-none bg-accent-peach/40;
+}
+
+.ui-slider .ui-slider-handle {
+  @apply bg-accent-peach border-none focus:ring-0 focus:outline-none -top-1.5 h-4 w-4;
+}
+
+.ui-slider-range {
+  @apply bg-accent-peach;
+}
+
+.ui-slider-horizontal {
+  @apply h-1;
+}

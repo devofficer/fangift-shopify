@@ -67,6 +67,10 @@ function scriptStream(filepath) {
               commonjs(),
               nodeResolve({ preferBuiltins: true, browser: true }),
             ],
+            external: [
+              "./node_modules/dist/jquery.min.js",
+              "./node_modules/jquery-ui/dist/jquery-ui.min.js"
+            ],
           },
           'iife'
         )
@@ -167,8 +171,7 @@ function devShopify(done) {
 
 function deploy(done) {
   return run(
-    `shopify theme push --theme ${
-      isProd ? process.env.LIVE_THEME_ID : process.env.STAGING_THEME_ID
+    `shopify theme push --theme ${isProd ? process.env.LIVE_THEME_ID : process.env.STAGING_THEME_ID
     } --store ${process.env.STORE_URL} --path shopify`,
     { verbosity: 3 }
   )

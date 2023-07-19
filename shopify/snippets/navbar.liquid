@@ -20,12 +20,6 @@
       {% endif %}
 
       {% capture clsx -%}
-        {%- if dark -%}
-          {%- echo "text-primary-border " -%}
-        {%- elsif -%}
-          {%- echo "text-primary/70 " -%}
-        {%- endif -%}
-
         {%- if link.active or parent_link_active -%}
           {%- echo "text-accent-purple underline " -%}
         {% else %}
@@ -59,7 +53,7 @@
         </li>
       {% else %}
         <li>
-          <a href="{{ link.url }}" class="{{clsx}} flex gap-[10px] items-center text-[16px]">
+          <a href="{{ link.url }}" class="{{clsx}} text-primary/70 flex gap-[10px] items-center text-[16px]">
             {{ link.title }}
             {% if has_sub_menu or has_sub_categories %}
               <i class="fa fa-angle-down"></i>

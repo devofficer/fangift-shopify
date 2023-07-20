@@ -17,8 +17,17 @@
           Fangift
         </div>
       {% endif %}
-      <span class="text-body-xs text-accent-purple">${{ price }}</span>
+      {% if gifted_by == null %}
+        <span class="text-body-xs text-accent-purple">${{ price }}</span>
+      {% endif %}
     </div>
-    <button class="btn btn-view-details">Add to Cart</button>
+    {% if gifted_by %}
+      <div class="text-body-xs text-center py-2">
+        Gifted by
+        <span class="text-accent-purple">{{ gifted_by }}</span>
+      </div>
+    {% else %}
+      <button class="btn btn-view-details">Add to Cart</button>
+    {% endif %}
   </div>
 </div>

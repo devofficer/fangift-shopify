@@ -100,7 +100,19 @@
         </div>
       </div>
       <div class="col-span-7 pt-[32px] pl-[57px]" id="products"></div>
-      <div class="col-span-7 pt-[32px] pl-[57px]" id="gifts"></div>
+      <div class="col-span-7 pt-[32px] pl-[57px]" id="gifts">
+        <div class="flex items-center gap-6 mb-6">
+          <h5 class="text-heading-h5 text-primary-black">Received Gifts</h5>
+          <span class="w-5 h-5 flex items-center justify-center border border-primary-border rounded-full text-[8px] font-plus-bold">
+            3
+          </span>
+        </div>
+        <div class="grid grid-cols-4 gap-[28px]">
+          {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', gifted_by: 'La-Wedia', external_link: 'amazon.com' %}
+          {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', gifted_by: 'La-Wedia' %}
+          {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', gifted_by: 'La-Wedia' %}
+        </div>
+      </div>
     </div>
   </div>
 </div>

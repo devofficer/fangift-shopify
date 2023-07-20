@@ -21,6 +21,15 @@ window.addEventListener("DOMContentLoaded", (event) => {
     defaultTabId: "wishlist",
     activeClasses: "active",
     inactiveClasses: "inactive",
+    onShow: (event) => {
+      if (event._activeTab.id === "products") {
+        document.querySelector("#recent-gifters").classList.add("hidden");
+        document.querySelector("#leaderboard").classList.add("hidden");
+      } else {
+        document.querySelector("#recent-gifters").classList.remove("hidden");
+        document.querySelector("#leaderboard").classList.remove("hidden");
+      }
+    },
   };
 
   const tabs = new Tabs(tabElements, options);

@@ -7,18 +7,19 @@
       {{ title }}
     </p>
     <div class="flex items-center justify-between gap-2">
-      {% if external_link %}
-        <div class="flex flex-grow items-center justify-center gap-[6px] border border-primary-border p-2 rounded-[8px] text-body-xs text-primary-black">
-          <span>{{ external_link }}</span>
-          {% render 'icon-export' %}
-        </div>
-      {% else %}
-        <div class="flex-grow text-center border border-primary-border p-2 rounded-[8px] text-body-xs text-accent-peach">
-          Fangift
-        </div>
-      {% endif %}
-      {% if gifted_by == null %}
+      {% if gifted_by == null and sold %}
         <span class="text-body-xs text-accent-purple">${{ price }}</span>
+      {% else %}
+        {% if external_link %}
+          <div class="flex flex-grow items-center justify-center gap-[6px] border border-primary-border p-2 rounded-[8px] text-body-xs text-primary-black">
+            <span>{{ external_link }}</span>
+            {% render 'icon-export' %}
+          </div>
+        {% else %}
+          <div class="flex-grow text-center border border-primary-border p-2 rounded-[8px] text-body-xs text-accent-peach">
+            Fangift
+          </div>
+        {% endif %}
       {% endif %}
     </div>
     {% if gifted_by %}

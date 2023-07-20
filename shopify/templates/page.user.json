@@ -4,8 +4,8 @@
       "type": "header",
       "settings": {}
     },
-    "topbar": {
-      "type": "shop-topbar"
+    "content-header": {
+      "type": "content-header1"
     },
     "main": {
       "type": "main-user"
@@ -15,5 +15,5 @@
       "settings": {}
     }
   },
-  "order": ["header", "topbar", "main", "footer"]
+  "order": ["header", "content-header", "main", "footer"]
 }

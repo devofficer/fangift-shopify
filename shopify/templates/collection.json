@@ -6,8 +6,8 @@
     "main": {
       "type": "collection"
     },
-    "topbar": {
-      "type": "shop-topbar",
+    "content-header": {
+      "type": "content-header1",
       "settings": {
         "title": "Welcome to the FanGift Global Marketplace!",
         "content": "Discover an incredible collection of products from talented creators and vendors worldwide."
@@ -17,5 +17,5 @@
       "type": "footer"
     }
   },
-  "order": ["header", "topbar", "main", "footer"]
+  "order": ["header", "content-header", "main", "footer"]
 }

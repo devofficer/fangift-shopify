@@ -1,0 +1,30 @@
+<div class="bg-primary border-t border-primary-white/40">
+  <div class="container p-[45px] pb-[63px] flex items-center justify-between">
+    <div class="flex flex-col gap-2">
+      <h4 class="text-heading-h4 text-primary-white">Hey, Emily 👋</h4>
+      <div class="text-body-md flex items-center gap-2">
+        <span class="text-primary-border">Your wishlist is live at:</span>
+        <span class="text-accent-purple underline">fangift.com/emilyblue</span>
+        {% render 'icon-copy' %}
+      </div>
+    </div>
+    <div class="flex gap-4 items-center">
+      <div class="h-8 px-3 rounded-[5px] border border-primary-white text-primary-white flex gap-2 items-center justify-center">
+        {% render 'icon-empty-wallet' %}
+        <span>$0.00</span>
+      </div>
+      <button class="h-8 px-3 flex items-center justify-center gap-2 text-primary-black text-body-xs bg-primary-background rounded-[5px] hover:bg-blue-800 hover:text-primary-white">
+        {% render 'icon-plus' %}
+        <span>Collection</span>
+      </button>
+      <button class="h-8 px-3 btn flex items-center justify-center gap-2 text-primary-white text-body-xs bg-accent-peach rounded-[5px] hover:bg-blue-800 hover:text-primary-white">
+        {% render 'icon-plus' %}
+        <span>Cash Gift</span>
+      </button>
+      <button class="h-8 px-3 btn flex items-center justify-center gap-2 text-primary-white text-body-xs bg-accent-purple rounded-[5px] hover:bg-blue-800 hover:text-primary-white">
+        {% render 'icon-plus' %}
+        <span>Product Link</span>
+      </button>
+    </div>
+  </div>
+</div>

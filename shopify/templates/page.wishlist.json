@@ -4,10 +4,13 @@
       "type": "header",
       "settings": {}
     },
+    "content-header": {
+      "type": "content-header2"
+    },
     "footer": {
       "type": "footer",
       "settings": {}
     }
   },
-  "order": ["header", "footer"]
+  "order": ["header", "content-header", "footer"]
 }

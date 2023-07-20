@@ -1,11 +1,11 @@
-<nav role="navigation" class="flex items-center">
-  <ul class="hidden xl:flex gap-[40px]">
+<nav role="navigation" class="flex items-center h-full">
+  <ul class="hidden xl:flex gap-[40px] h-full">
     {% for link in linklists['shop-menu'].links %}
-      {% capture class -%}
+      {% capture active_class -%}
         {%- if link.active -%}
-          {%- echo "text-accent-purple underline " -%}
+          {%- echo "text-accent-peach border-accent-peach " -%}
         {% else %}
-          {%- echo "hover:text-accent-purple " -%}
+          {%- echo "text-primary-border border-transparent hover:text-accent-peach " -%}
         {%- endif -%}
 
         {%- if forloop.first -%}
@@ -15,8 +15,11 @@
         {%- endif -%}
       {%- endcapture %}
 
-      <li>
-        <a href="{{ link.url }}" class="{{class}} text-primary-border flex gap-[10px] items-center text-[16px]">
+      <li class="h-full">
+        <a
+          href="{{ link.url }}"
+          class="{{ active_class }} border-b-[3px] h-full flex gap-[10px] items-center text-[16px]"
+        >
           {{ link.title }}
         </a>
       </li>

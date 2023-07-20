@@ -1,35 +1,13 @@
 <nav role="navigation" class="flex items-center">
   <ul class="hidden xl:flex gap-[40px]">
-    {% for link in linklists['main-menu'].links %}
-      {% assign has_sub_menu = false %}
-      {% assign has_sub_categories = false %}
-      {% assign parent_link_active = false %}
-      {% assign child_list_handle = link.title | handle %}
-
-      {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
-        {% assign has_sub_menu = true %}
-        {% for l in linklists[child_list_handle].links %}
-          {% if handle != blank and handle == l.object.handle %}
-            {% assign parent_link_active = true %}
-          {% elsif page_title == l.title %}
-            {% assign parent_link_active = true %}
-          {% endif %}
-        {% endfor %}
-      {% elsif link.type == 'collection_link' and link.object.all_tags.size > 0 %}
-        {% assign has_sub_categories = true %}
-      {% endif %}
-
-      {% capture clsx -%}
-        {%- if link.active or parent_link_active -%}
+    {% for link in linklists['shop-menu'].links %}
+      {% capture class -%}
+        {%- if link.active -%}
           {%- echo "text-accent-purple underline " -%}
         {% else %}
           {%- echo "hover:text-accent-purple " -%}
         {%- endif -%}
 
-        {%- if has_sub_menu or has_sub_categories -%}
-          {%- echo "has-dropdown " -%}
-        {%- endif -%}
-        
         {%- if forloop.first -%}
           {%- echo "first " -%}
         {%- elsif forloop.last -%}
@@ -37,47 +15,11 @@
         {%- endif -%}
       {%- endcapture %}
 
-      {% if link.url == '/pages/marketplace' %}
-        {% if link.active or dark %}
-          {% continue %}
-        {% endif %}
-        <li>
-          <a
-            href="{{ link.url }}"
-            target="_blank"
-            class="flex gap-[10px] items-center text-accent-purple text-[16px] font-plus-medium hover:font-bold"
-          >
-            {{ link.title }}
-            {% render 'icon-external.liquid' %}
-          </a>
-        </li>
-      {% else %}
-        <li>
-          <a href="{{ link.url }}" class="{{clsx}} text-primary/70 flex gap-[10px] items-center text-[16px]">
-            {{ link.title }}
-            {% if has_sub_menu or has_sub_categories %}
-              <i class="fa fa-angle-down"></i>
-            {% endif %}
-          </a>
-          {% if has_sub_menu or has_sub_categories %}
-            <ul>
-              {% if has_sub_menu %}
-                {% for l in linklists[child_list_handle].links %}
-                  <li class="{% if l.active %} active{% endif %}">
-                    <a href="{{ l.url }}">{{ l.title }}</a>
-                  </li>
-                {% endfor %}
-              {% elsif has_sub_categories %}
-                {% for tag in link.object.all_tags %}
-                  <li class="{% if current_tags contains tag %} active{% endif %}">
-                    <a href="{{ link.url }}/{{ tag | handle }}">{{ tag }}</a>
-                  </li>
-                {% endfor %}
-              {% endif %}
-            </ul>
-          {% endif %}
-        </li>
-      {% endif %}
+      <li>
+        <a href="{{ link.url }}" class="{{class}} text-primary-border flex gap-[10px] items-center text-[16px]">
+          {{ link.title }}
+        </a>
+      </li>
     {% endfor %}
   </ul>
 </nav>

@@ -1,7 +1,7 @@
 {
   "sections": {
     "header": {
-      "type": "header-shop"
+      "type": "header"
     },
     "main": {
       "type": "collection"

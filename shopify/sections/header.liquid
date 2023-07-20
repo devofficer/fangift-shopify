@@ -1,14 +1,23 @@
-<header>
-  <div class="container px-[100px] w-full h-[98px] flex items-center justify-between">
-    <a id="logo" href="/">
-      {% render 'logo.liquid' %}
-    </a>
+<header class="bg-primary">
+  <div class="container px-[45px] w-full h-[73px] flex items-center justify-between">
+    <div class="flex items-center gap-[60px]">
+      <a id="logo" href="/">
+        {% render 'logo-light.liquid' %}
+      </a>
 
-    {% render 'navbar' %}
+      {% render 'navbar' %}
+    </div>
 
-    <div class="flex items-center">
-      <a href="/account/login" class="btn btn-text-primary px-6 py-3">Login</a>
-      <a href="/account/register" class="btn btn-primary font-plus-bold">Signup</a>
+    <div class="flex items-center gap-4">
+      <button class="btn btn-icon-filled">
+        {% render 'icon-user.liquid' %}
+      </button>
+      <button class="btn btn-icon-filled">
+        {% render 'icon-setting.liquid' %}
+      </button>
+      <button class="btn">
+        {{ 'user3.png' | asset_url | img_tag: 'user avatar', '', '40x40' }}
+      </button>
     </div>
   </div>
 </header>

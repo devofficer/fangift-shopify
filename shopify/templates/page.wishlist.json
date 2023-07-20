@@ -1,7 +1,7 @@
 {
   "sections": {
     "header": {
-      "type": "header-shop",
+      "type": "header",
       "settings": {}
     },
     "footer": {

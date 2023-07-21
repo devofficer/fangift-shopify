@@ -48,4 +48,41 @@
     {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
     {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
   </div>
+  <!-- drawer component -->
+  <div
+    id="drawer-cash-gift"
+    class="fixed top-0 right-0 z-40 h-screen px-[40px] py-[44px] overflow-y-auto transition-transform translate-x-full bg-white w-[600px]"
+    tabindex="-1"
+    aria-labelledby="drawer-label"
+  >
+    <button
+      type="button"
+      data-drawer-hide="drawer-cash-gift"
+      aria-controls="drawer-cash-gift"
+      class="text-primary-black bg-transparent hover:bg-gray-200 rounded-lg text-sm w-8 h-8 inline-flex items-center justify-center absolute top-[50px] right-[40px]"
+    >
+      {% render 'icon-close': class: 'w-3 h-3' %}
+    </button>
+    <h4 class="text-heading-h4 mb-[76px]">Add Cash Gift 🎁</h4>
+    <p class="text-body-sm text-primary-black mb-4">Gift Title</p>
+    <p class="text-body-md text-primary-text mb-6">
+      Let your community know how you would utilize this cash gift (e.g. "Short Film Production Budget" or "Rent")
+    </p>
+    <input
+      type="text"
+      placeholder="Add a title"
+      class="textfield mb-6"
+    >
+    <p class="text-body-sm text-primary-black mb-4">Cash Amount</p>
+    <div class="p-4 border border-primary-border bg-primary-white rounded-[16px] flex gap-1 items-center text-[18px] mb-4">
+      <span class="text-accent-purple">$</span>
+      <input
+        name="amount"
+        type="number"
+        class="p-0 border-none focus:ring-0 placeholder-primary-border w-full"
+        placeholder="Amount"
+      >
+    </div>
+    <button type="button" class="btn btn-primary w-full">Add a Cash Gift</button>
+  </div>
 </div>

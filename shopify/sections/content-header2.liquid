@@ -17,7 +17,14 @@
         {% render 'icon-plus' %}
         <span>Collection</span>
       </button>
-      <button class="h-8 px-3 btn flex items-center justify-center gap-2 text-primary-white text-body-xs bg-accent-peach rounded-[5px] hover:bg-blue-800 hover:text-primary-white">
+      <button
+        type="button"
+        data-drawer-target="drawer-cash-gift"
+        data-drawer-show="drawer-cash-gift"
+        data-drawer-placement="right"
+        aria-controls="drawer-cash-gift"
+        class="h-8 px-3 btn flex items-center justify-center gap-2 text-primary-white text-body-xs bg-accent-peach rounded-[5px] hover:bg-blue-800 hover:text-primary-white"
+      >
         {% render 'icon-plus' %}
         <span>Cash Gift</span>
       </button>

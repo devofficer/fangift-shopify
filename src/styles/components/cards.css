@@ -18,4 +18,12 @@
   .card-product {
     @apply bg-primary-white rounded-[16px] px-[9px] py-[10px];
   }
+
+  .btn-favorite {
+    @apply absolute top-2 right-2;
+  }
+
+  .icon-favorite {
+    @apply [.toggled>&>path]:stroke-accent-peach [.toggled>&>path]:fill-accent-peach [&>path]:fill-none [&>path]:stroke-primary-border group-hover:[&>path]:fill-accent-peach/70;
+  }
 }

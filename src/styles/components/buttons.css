@@ -46,4 +46,12 @@
   .btn-view-details {
     @apply bg-accent-blue rounded-[8px] p-2 text-body-xs text-primary-white focus:ring-blue-300 focus:ring-4 hover:bg-blue-800;
   }
+
+  .btn-wish-share {
+    @apply bg-accent-blue rounded-[8px] px-2 h-[30px] text-body-xs text-primary-white focus:ring-blue-300 focus:ring-4 hover:bg-blue-800;
+  }
+
+  .btn-wish-icon {
+    @apply flex items-center justify-center border border-primary-border rounded-[8px] px-2 h-[30px] bg-primary-white;
+  }
 }

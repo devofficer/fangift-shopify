@@ -7,10 +7,13 @@
     "content-header": {
       "type": "content-header2"
     },
+    "content": {
+      "type": "wishlist-content"
+    },
     "footer": {
       "type": "footer",
       "settings": {}
     }
   },
-  "order": ["header", "content-header", "footer"]
+  "order": ["header", "content-header", "content", "footer"]
 }

@@ -1,0 +1,26 @@
+<div class="card-product">
+  <div class="grid grid-cols-1 gap-2">
+    <div class="h-[144px] bg-primary-background rounded-[8px] relative">
+      <button class="btn btn-favorite group">
+        {% render 'icon-favorite': class: 'icon-favorite' %}
+      </button>
+      {{ image | asset_url | img_tag: 'wish-card', 'w-full h-full' }}
+    </div>
+    <span class="text-body-sm text-black">
+      {{ title }}
+    </span>
+    <span class="text-body-xs text-accent-peach"> ${{ price }} </span>
+    <div class="flex gap-1">
+      <button class="btn btn-wish-icon">
+        {% render 'icon-star-outline' %}
+      </button>
+      <button class="btn btn-wish-icon">
+        {% render 'icon-pen' %}
+      </button>
+      <button class="btn btn-wish-icon">
+        {% render 'icon-trash-can' %}
+      </button>
+      <button class="btn btn-wish-share flex-grow">Share</button>
+    </div>
+  </div>
+</div>

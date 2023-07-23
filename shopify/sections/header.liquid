@@ -9,6 +9,15 @@
     </div>
 
     <div class="flex items-center gap-4">
+      <button
+        data-dropdown-toggle="dropdown"
+        class="border border-primary-white text-[12px] text-primary-white rounded-[5px] h-8 px-3 text-center inline-flex items-center gap-[6px]"
+        type="button"
+      >
+        {% render 'icon-heart-outline' %}
+        Filter
+        {% render 'icon-arrow-dropdown' %}
+      </button>
       <button class="btn btn-icon-filled">
         {% render 'icon-user.liquid' %}
       </button>

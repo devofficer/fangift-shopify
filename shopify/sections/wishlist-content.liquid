@@ -1,52 +1,119 @@
+{% assign no_gift = true %}
+
 <div class="bg-primary-background">
-  <div class="container px-[45px] pb-[100px] grid grid-cols-6 gap-x-[18px] gap-y-[16px]">
-    <div class="col-span-6 -mt-8">
+  <div class="container px-[45px] pb-[100px] grid grid-cols-1 gap-x-[18px] gap-y-[16px]">
+    <div class="-mt-8">
       <div class="px-6 py-4 flex items-center justify-between bg-primary-white rounded-[8px]">
         <h4 class="text-heading-h4 text-primary-black">My Wishlist</h4>
         <div class="flex items-center gap-6">
           <button
-            data-dropdown-toggle="dropdown"
+            data-dropdown-toggle="dropdown-filter"
             class="bg-primary-white border border-primary-text text-[12px] text-primary-text rounded-[5px] h-8 px-3 text-center inline-flex items-center gap-[6px]"
             type="button"
           >
             Filter
             {% render 'icon-arrow-dropdown' %}
           </button>
+          <div
+            id="dropdown-filter"
+            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+          >
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Dashboard</a
+                >
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Settings</a
+                >
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Earnings</a
+                >
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
           <button
-            data-dropdown-toggle="dropdown"
+            data-dropdown-toggle="dropdown-sorting"
             class="bg-primary-white border border-primary-text text-[12px] text-primary-text rounded-full h-8 px-3 text-center inline-flex items-center gap-[6px]"
             type="button"
           >
             Sorting
             {% render 'icon-arrow-dropdown' %}
           </button>
+          <div
+            id="dropdown-sorting"
+            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+          >
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Dashboard</a
+                >
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Settings</a
+                >
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Earnings</a
+                >
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-    {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
-    {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
-    {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
-    {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
-    {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
-    {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
-    {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
-    {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
-    {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
-    {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
-    {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
-    {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
-    {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
-    {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
-    {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
-    {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
-    {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
-    {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
-    {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
-    {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
-    {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
-    {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
-    {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
-    {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
+    {% if no_gift %}
+      <div class="min-h-[50vh] flex flex-col items-center justify-center gap-4">
+        {% render 'icon-gift-big' %}
+        <h3 class="text-heading-h3 text-primary-black">No Gifts Added Yet</h3>
+        <p class="text-body-md text-primary-text">Your wishlist is empty. Click 'Add Gift' to add items.</p>
+        <button type="button" class="btn btn-primary">+ Add gift</button>
+      </div>
+    {% else %}
+      <div class="grid grid-cols-6 gap-x-[18px] gap-y-[16px]">
+        {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
+        {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
+        {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
+        {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
+        {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
+        {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
+        {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
+        {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
+        {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
+        {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
+        {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
+        {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
+        {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
+        {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
+        {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
+        {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
+        {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
+        {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
+        {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
+        {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
+        {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
+        {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
+        {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
+        {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
+      </div>
+    {% endif %}
   </div>
 
   <div

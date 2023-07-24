@@ -20,7 +20,16 @@
       <button class="btn btn-wish-icon">
         {% render 'icon-trash-can' %}
       </button>
-      <button class="btn btn-wish-share flex-grow">Share</button>
+      <button
+        type="button"
+        class="btn btn-wish-share flex-grow"
+        data-drawer-target="drawer-add-gift"
+        data-drawer-show="drawer-add-gift"
+        data-drawer-placement="right"
+        aria-controls="drawer-add-gift"
+      >
+        Share
+      </button>
     </div>
   </div>
 </div>

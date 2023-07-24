@@ -48,7 +48,7 @@
     {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
     {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
   </div>
-  <!-- drawer component -->
+
   <div
     id="drawer-cash-gift"
     class="fixed top-0 right-0 z-40 h-screen px-[40px] py-[44px] overflow-y-auto transition-transform translate-x-full bg-white w-[600px]"
@@ -84,5 +84,38 @@
       >
     </div>
     <button type="button" class="btn btn-primary w-full">Add a Cash Gift</button>
+  </div>
+
+  <div
+    id="drawer-add-gift"
+    class="fixed top-0 right-0 z-40 h-screen px-[40px] py-[44px] overflow-y-auto transition-transform translate-x-full bg-white w-[600px]"
+    tabindex="-1"
+    aria-labelledby="drawer-label"
+  >
+    <button
+      type="button"
+      data-drawer-hide="drawer-add-gift"
+      aria-controls="drawer-add-gift"
+      class="text-primary-black bg-transparent hover:bg-gray-200 rounded-lg text-sm w-8 h-8 inline-flex items-center justify-center absolute top-[45px] right-[40px]"
+    >
+      {% render 'icon-close': class: 'w-3 h-3' %}
+    </button>
+    <h4 class="text-heading-h4 mb-[76px]">Add a gift 🎁</h4>
+    <p class="text-body-sm text-primary-black mb-4">Enter Link from FanGift</p>
+    <p class="text-body-md text-primary-text mb-4">
+      Pick a product you love from the FanGift catalog. Simply click on it for details and copy the URL from the top of
+      your browser. Paste the copied URL back here in the box. Don't forget, when a gift is bought, the vendor sends it
+      straight to you.
+    </p>
+    <a href="#" class="text-accent-purple font-plus-bold text-[18px] flex items-center gap-[10px] mb-4">
+      Browse FanGift's Marketplace
+      {% render 'icon-external' %}
+    </a>
+    <input
+      type="text"
+      placeholder="Paste Product URL"
+      class="textfield mb-4"
+    >
+    <button type="button" class="btn btn-primary w-full">Next 👉</button>
   </div>
 </div>

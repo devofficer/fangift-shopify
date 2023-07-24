@@ -5,7 +5,7 @@
       "settings": {}
     },
     "content-header": {
-      "type": "content-header3",
+      "type": "content-header-orders",
       "settings": {
         "title": "Wishlist Orders",
         "content": "Manage your gift orders and see messages from your gifters."

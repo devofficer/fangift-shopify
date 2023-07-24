@@ -5,7 +5,7 @@
       "settings": {}
     },
     "content-header": {
-      "type": "content-header1",
+      "type": "content-header-text",
       "settings": {
         "title": "Explore Creators",
         "content": "Find content creators on FanGift",

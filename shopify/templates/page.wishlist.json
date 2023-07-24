@@ -5,7 +5,7 @@
       "settings": {}
     },
     "content-header": {
-      "type": "content-header2"
+      "type": "content-header-buttons"
     },
     "content": {
       "type": "wishlist-content"

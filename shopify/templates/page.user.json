@@ -5,7 +5,7 @@
       "settings": {}
     },
     "content-header": {
-      "type": "content-header1"
+      "type": "content-header-text"
     },
     "main": {
       "type": "user-content"

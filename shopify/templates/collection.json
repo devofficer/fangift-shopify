@@ -7,7 +7,7 @@
       "type": "collection"
     },
     "content-header": {
-      "type": "content-header1",
+      "type": "content-header-text",
       "settings": {
         "title": "Welcome to the FanGift Global Marketplace!",
         "content": "Discover an incredible collection of products from talented creators and vendors worldwide."

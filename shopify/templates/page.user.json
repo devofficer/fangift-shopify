@@ -8,7 +8,7 @@
       "type": "content-header1"
     },
     "main": {
-      "type": "main-user"
+      "type": "user-content"
     },
     "footer": {
       "type": "footer",

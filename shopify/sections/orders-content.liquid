@@ -1,0 +1,116 @@
+<div class="bg-primary-background">
+  <div class="container px-[45px] pb-[100px] grid grid-cols-1">
+    <div class="px-6 py-4 flex items-center justify-between bg-primary-white rounded-[8px] mb-4 -mt-8">
+      <ul class="flex gap-6 text-primary-border">
+        <li>
+          <button type="button" id="tab-wishlist" data-tabs-target="#tab-content-wishlist">
+            <h4 class="text-heading-h4 [.active>&]:text-primary-black">My Wishlist</h4>
+          </button>
+        </li>
+        <li>
+          <button type="button" id="tab-sent" data-tabs-target="#tab-content-sent">
+            <h4 class="text-heading-h4 [.active>&]:text-primary-black">Sent Gifts</h4>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="py-6 px-2 bg-primary-white">
+      <div class="relative overflow-x-auto">
+        <table class="w-full text-body-xs text-left" id="tab-content-wishlist">
+          <thead class="text-primary-text bg-primary-background rounded-[8px]">
+            <tr>
+              <th scope="col" class="px-4 py-2">Order ID</th>
+              <th scope="col" class="px-4 py-2">Gifted Item</th>
+              <th scope="col" class="px-4 py-2">Gifter</th>
+              <th scope="col" class="px-4 py-2">Your Message</th>
+              <th scope="col" class="px-4 py-2">Order Date</th>
+              <th scope="col" class="px-4 py-2">Status</th>
+              <th scope="col" class="px-4 py-2">Vendor</th>
+              <th scope="col" class="px-4 py-2">Price</th>
+            </tr>
+          </thead>
+          <tbody class="text-primary-black">
+            <tr class="h-[72px] [&:not(last-child)]:border-b border-[#f0f5f8]">
+              <td class="px-4">
+                <a href="#" class="text-accent-blue underline">#1023</a>
+              </td>
+              <td class="px-4">Oculus Quest 2</td>
+              <td class="px-4">Anonymous</td>
+              <td class="px-4">Excited to see you in the VR world</td>
+              <td class="px-4">2023-06-01</td>
+              <td class="px-4">
+                <div class="py-[7px] px-[12px] bg-yellow/10 text-yellow text-center w-fit rounded-[8px]">
+                  Processing
+                </div>
+              </td>
+              <td class="px-4 text-accent-peach">@Amazon</td>
+              <td class="px-4">$299.00</td>
+            </tr>
+            <tr class="h-[72px]">
+              <td class="px-4">
+                <a href="#" class="text-accent-blue underline">#1023</a>
+              </td>
+              <td class="px-4">Oculus Quest 2</td>
+              <td class="px-4">Anonymous</td>
+              <td class="px-4">Excited to see you in the VR world</td>
+              <td class="px-4">2023-06-01</td>
+              <td class="px-4">
+                <div class="py-[7px] px-[12px] bg-green/10 text-green text-center w-fit rounded-[8px]">Completed</div>
+              </td>
+              <td class="px-4 text-accent-peach">@MyProtein</td>
+              <td class="px-4">$65.00</td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="w-full text-body-xs text-left" id="tab-content-sent">
+          <thead class="text-primary-text bg-primary-background rounded-[8px]">
+            <tr>
+              <th scope="col" class="px-4 py-2">Order ID</th>
+              <th scope="col" class="px-4 py-2">Gifted Item</th>
+              <th scope="col" class="px-4 py-2">Gifted to</th>
+              <th scope="col" class="px-4 py-2">Your Message</th>
+              <th scope="col" class="px-4 py-2">Order Date</th>
+              <th scope="col" class="px-4 py-2">Status</th>
+              <th scope="col" class="px-4 py-2">Vendor</th>
+              <th scope="col" class="px-4 py-2">Price</th>
+            </tr>
+          </thead>
+          <tbody class="text-primary-black">
+            <tr class="h-[72px] [&:not(last-child)]:border-b border-[#f0f5f8]">
+              <td class="px-4">
+                <a href="#" class="text-accent-blue underline">#1023</a>
+              </td>
+              <td class="px-4">Oculus Quest 2</td>
+              <td class="px-4">Anonymous</td>
+              <td class="px-4">Excited to see you in the VR world</td>
+              <td class="px-4">2023-06-01</td>
+              <td class="px-4">
+                <div class="py-[7px] px-[12px] bg-yellow/10 text-yellow text-center w-fit rounded-[8px]">
+                  Processing
+                </div>
+              </td>
+              <td class="px-4 text-accent-peach">@Amazon</td>
+              <td class="px-4">$299.00</td>
+            </tr>
+            <tr class="h-[72px]">
+              <td class="px-4">
+                <a href="#" class="text-accent-blue underline">#1023</a>
+              </td>
+              <td class="px-4">Oculus Quest 2</td>
+              <td class="px-4">Anonymous</td>
+              <td class="px-4">Excited to see you in the VR world</td>
+              <td class="px-4">2023-06-01</td>
+              <td class="px-4">
+                <div class="py-[7px] px-[12px] bg-green/10 text-green text-center w-fit rounded-[8px]">Completed</div>
+              </td>
+              <td class="px-4 text-accent-peach">@MyProtein</td>
+              <td class="px-4">$65.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ 'orders.min.js' | asset_url | script_tag }}

@@ -1,4 +1,4 @@
-<div class="{{ width | default: 'w-[120px]' }} {{ height | default: 'h-[120px]' }} {{ class }} avatar">
+<div style="width:{{ width | default: '120px' }}; height:{{ height | default: '120px' }}" class="{{ class }} avatar">
   {% if editable %}
     <button type="button" class="btn-icon-edit">
       {% render 'icon-pencil' %}

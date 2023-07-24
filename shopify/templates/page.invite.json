@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {}
+    },
+    "content-header": {
+      "type": "content-header-invite"
+    },
+    "content-main": {
+      "type": "invite-content"
+    }
+  },
+  "order": ["header", "content-header", "content-main"]
+}

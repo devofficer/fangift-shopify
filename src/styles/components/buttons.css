@@ -4,7 +4,7 @@
   }
 
   .btn-primary {
-    @apply focus:ring-blue-300 focus:ring-4 text-white bg-primary-black hover:bg-blue-800 px-6 py-[14px];
+    @apply focus:ring-blue-300 focus:ring-4 text-white bg-primary-black hover:bg-blue-800 px-6 py-[14px] text-[18px];
   }
 
   .btn-primary:disabled {
@@ -40,7 +40,7 @@
   }
 
   .btn-link {
-    @apply h-[40px] text-body-sm w-full rounded-[8px] bg-primary-white border border-primary-border flex items-center justify-center gap-4;
+    @apply h-[40px] px-[46px] text-body-sm w-full rounded-[8px] bg-primary-white border border-primary-border flex items-center justify-center gap-4;
   }
 
   .btn-view-details {

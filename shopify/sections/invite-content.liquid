@@ -1,0 +1,23 @@
+<div class="bg-primary-background">
+  <div class="container p-[100px]">
+    <div class="w-fit bg-accent-purple/10 rounded-[16px] px-[20px] py-[11px] text-[18px] text-accent-purple mb-6">
+      💌️ 1/5 Invatations Left
+    </div>
+    <div class="flex items-center gap-6 mb-6">
+      <h4 class="text-heading-h4 text-primary-black">Creators who used your code</h4>
+      <div class="py-1.5 px-6 text-body-sm border border-primary-border rounded-[100px]">1</div>
+    </div>
+    <div class="grid grid-cols-1 gap-6">
+      <div class="px-6 py-4 bg-primary-white rounded-[8px] flex items-center justify-between">
+        <div class="flex items-center gap-6">
+          {% render 'avatar' | class: 'mx-auto shadow-[0_20px_100px_0_#2D27474D]', width: '90px', height: '90px' %}
+          <div>
+            <h4 class="text-heading-h4 text-black mb-2">Syraphic</h4>
+            <p class="text-body-lg text-accent-peach">@syraphic</p>
+          </div>
+        </div>
+        <button class="btn btn-link w-fit">View Profile</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {}
+    },
+    "content-header": {
+      "type": "content-header1",
+      "settings": {
+        "title": "Explore Creators",
+        "content": "Find content creators on FanGift",
+        "alignment": "center"
+      }
+    },
+    "content-main": {
+      "type": "creators-content"
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": ["header", "content-header", "content-main", "footer"]
+}

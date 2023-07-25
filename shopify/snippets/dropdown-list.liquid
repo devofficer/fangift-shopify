@@ -1,0 +1,23 @@
+<div class="relative w-full">
+  <button
+    id="dropdown-toggle-button"
+    data-dropdown-toggle="dropdown-country"
+    class="btn-dropdown mb-4"
+    type="button"
+  >
+    {% if placeholder %}
+      <span class="text-primary-border">{{ placeholder }}</span>
+    {% else %}
+      {{ defaultValue | default: 'default value' }}
+    {% endif %}
+    {% render 'icon-arrow-dropdown' %}
+  </button>
+  <!-- Dropdown menu -->
+  <div id="dropdown-country" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-full">
+    <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdown-toggle-button">
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100">United States</a>
+      </li>
+    </ul>
+  </div>
+</div>

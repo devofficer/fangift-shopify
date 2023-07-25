@@ -68,7 +68,6 @@ function scriptStream(filepath) {
               nodeResolve({ preferBuiltins: true, browser: true }),
             ],
             external: [
-              "./node_modules/dist/jquery.min.js",
               "./node_modules/jquery-ui/dist/jquery-ui.min.js"
             ],
           },

@@ -8,7 +8,7 @@ const streamPaths = {
 
 const watchPaths = {
   scripts: 'src/**/*.js',
-  styles: ['src/styles/**/*.css', './shopify/**/*.{liquid,json}'],
+  styles: ['src/styles/**/*.css', './shopify/**/*.{liquid,json}', 'src/**/*.js'],
   static: ['static/**/*', '!static/images/**/*'],
   images: 'static/images/**/*',
 };

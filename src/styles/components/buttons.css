@@ -54,4 +54,12 @@
   .btn-wish-icon {
     @apply flex items-center justify-center border border-primary-border rounded-[8px] px-2 h-[30px] bg-primary-white;
   }
+
+  .btn-close-drawer {
+    @apply text-primary-black bg-transparent hover:bg-gray-200 rounded-lg text-sm w-8 h-8 inline-flex items-center justify-center absolute top-[45px] right-[40px];
+  }
+
+  .btn-dropdown {
+    @apply text-primary-black w-full border border-primary-border text-body-md justify-between bg-primary-white focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-2xl text-sm px-4 py-4 text-center flex items-center;
+  }
 }

@@ -13,10 +13,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const $addGiftEl = document.getElementById("drawer-add-gift");
   const $giftDetailsEl = document.getElementById("drawer-gift-details");
   const $giftProductEl = document.getElementById("drawer-gift-product");
+  const $giftCollectionEl = document.getElementById("drawer-gift-collection");
   const drawerSelectGift = new Drawer($selectGiftEl, drawerOptions);
   const drawerAddGift = new Drawer($addGiftEl, drawerOptions);
   const drawerGiftDetails = new Drawer($giftDetailsEl, drawerOptions);
   const drawerGiftProduct = new Drawer($giftProductEl, drawerOptions);
+  const drawerGiftCollection = new Drawer($giftCollectionEl, drawerOptions);
 
   let giftSource = "";
 
@@ -39,6 +41,19 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (giftSource === "product") {
         drawerGiftProduct.show();
       }
+    });
+
+  document
+    .getElementById("btn-next-product")
+    .addEventListener("click", function () {
+      drawerGiftProduct.hide();
+      drawerGiftCollection.show();
+    });
+
+  document
+    .getElementById("btn-save-collection")
+    .addEventListener("click", function () {
+      drawerGiftCollection.hide();
     });
 
   document
@@ -76,5 +91,11 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector(".btn-close-drawer")
     .addEventListener("click", function () {
       drawerGiftProduct.hide();
+    });
+
+  $giftCollectionEl
+    .querySelector(".btn-close-drawer")
+    .addEventListener("click", function () {
+      drawerGiftCollection.hide();
     });
 });

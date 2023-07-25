@@ -335,6 +335,46 @@
       Found a perfect gift on FanGift?
     </a>
   </div>
+
+  <div
+    id="drawer-gift-collection"
+    class="fixed top-0 right-0 z-40 h-screen px-[40px] py-[44px] overflow-y-auto transition-transform translate-x-full bg-primary-background w-[600px]"
+    tabindex="-1"
+    aria-labelledby="drawer-label"
+  >
+    <button
+      type="button"
+      class="btn-close-drawer"
+    >
+      {% render 'icon-close': class: 'w-3 h-3' %}
+    </button>
+    <h4 class="text-heading-h4 mb-[76px]">Create a gift collection 🎀</h4>
+    <div class="upload mb-4">
+      <div class="bg-accent-peach/10 p-2 rounded-[8px]">
+        {% render 'icon-doc-up' %}
+      </div>
+      <p class="text-primary-black"><span class="text-accent-peach">Click to upload</span> or drag and drop</p>
+      <p class="text-primary-text">PNG or JPG up to 5MB</p>
+    </div>
+    <input
+      type="text"
+      placeholder="Collection Title"
+      class="textfield mb-4"
+    >
+    <textarea
+      id="message"
+      rows="3"
+      class="textfield mb-4 resize-none"
+      placeholder="Collection Description"
+    ></textarea>
+    <button
+      id="btn-save-collection"
+      type="button"
+      class="btn btn-primary w-full mb-[75px]"
+    >
+      Save Collection
+    </button>
+  </div>
 </div>
 
 {{ 'wishlist.min.js' | asset_url | script_tag }}

@@ -3,6 +3,7 @@
 @import "./components/typography.css";
 @import "./components/textfields.css";
 @import "./components/fonts.css";
+@import "./components/form-elements.css";
 
 @tailwind base;
 @tailwind components;

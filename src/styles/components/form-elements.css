@@ -1,0 +1,5 @@
+@layer components {
+  .upload {
+    @apply bg-primary-white border border-dashed text-body-md	border-primary-border rounded-[8px] py-6 px-8 flex flex-col items-center justify-center gap-2;
+  }
+}

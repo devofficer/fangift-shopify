@@ -12,9 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const $selectGiftEl = document.getElementById("drawer-select-gift");
   const $addGiftEl = document.getElementById("drawer-add-gift");
   const $giftDetailsEl = document.getElementById("drawer-gift-details");
+  const $giftProductEl = document.getElementById("drawer-gift-product");
   const drawerSelectGift = new Drawer($selectGiftEl, drawerOptions);
   const drawerAddGift = new Drawer($addGiftEl, drawerOptions);
   const drawerGiftDetails = new Drawer($giftDetailsEl, drawerOptions);
+  const drawerGiftProduct = new Drawer($giftProductEl, drawerOptions);
 
   let giftSource = "";
 
@@ -34,6 +36,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (giftSource === "fangift") {
         drawerAddGift.show();
+      } else if (giftSource === "product") {
+        drawerGiftProduct.show();
       }
     });
 
@@ -66,5 +70,11 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector(".btn-close-drawer")
     .addEventListener("click", function () {
       drawerGiftDetails.hide();
+    });
+
+  $giftProductEl
+    .querySelector(".btn-close-drawer")
+    .addEventListener("click", function () {
+      drawerGiftProduct.hide();
     });
 });

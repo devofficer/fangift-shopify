@@ -1,5 +1,9 @@
 import $ from "jquery";
+import select2 from "select2";
 import fangiftService from "../services/fangiftService";
+import restcountriesService from "../services/restcountriesService";
+
+select2(window, $);
 
 $(function () {
   let username = "";
@@ -7,6 +11,29 @@ $(function () {
   let email = "";
   let password = "";
   let passwordConfirmed = "";
+
+  restcountriesService.get("all?fields=name,flags").then((data) => {
+    $("#select-country").select2({
+      width: "100%",
+      data: data.map((item) => ({
+        id: item.name.official,
+        text: item.name.common,
+        flag: item.flags.png,
+      })),
+      templateResult: (state) => {
+        if (!state.flag) {
+          return state.text;
+        }
+        const $state = $(
+          `<div class="flex items-center gap-2">
+            <img src="${state.flag}" class="w-[32px]" />
+            <span>${state.text}</span>
+          </div>`
+        );
+        return $state;
+      },
+    });
+  });
 
   // handle submit of role selection form
   $("#form-role").on("submit", function (e) {

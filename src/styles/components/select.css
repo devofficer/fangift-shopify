@@ -1,0 +1,16 @@
+.select2-container {
+}
+
+.select2-selection--single {
+  @apply !h-[60px] !flex items-center !rounded-[16px] !border-primary-border px-4;
+}
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
+  @apply !top-[18px] !right-[12px];
+}
+
+.select2-container--open .select2-dropdown--below {
+  @apply !bg-white !rounded-[16px] !shadow !p-4 !border-primary-border focus:!outline-none !mt-2;
+}

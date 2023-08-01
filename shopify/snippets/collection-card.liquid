@@ -1,0 +1,25 @@
+{% assign images = previews | split: ',' %}
+
+<div class="card-product">
+  <div class="grid grid-cols-1 gap-2">
+    <div class="h-[144px] bg-primary-background flex gap-1">
+      {{ images[0] | asset_url | img_tag: 'collection-card', 'rounded-[8px]' }}
+      <div class="flex flex-col gap-1">
+        {{ images[1] | asset_url | img_tag: 'collection-card', 'h-[72px] rounded-[8px]', 'x72' }}
+        {{ images[2] | asset_url | img_tag: 'collection-card', 'h-[72px] rounded-[8px]', 'x72' }}
+      </div>
+    </div>
+    <span class="text-body-sm text-black">
+      {{ title }}
+    </span>
+    <span class="text-body-xs text-primary-text"> {{ count }} items </span>
+    <div class="flex gap-1">
+      <button class="btn btn-wish-icon">
+        {% render 'icon-pen' %}
+      </button>
+      <button class="btn btn-wish-icon">
+        {% render 'icon-trash-can' %}
+      </button>
+    </div>
+  </div>
+</div>

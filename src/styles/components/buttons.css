@@ -62,4 +62,8 @@
   .btn-dropdown {
     @apply text-primary-black w-full border border-primary-border text-body-md justify-between bg-primary-white focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-2xl text-sm px-4 py-4 text-center flex items-center;
   }
+
+  .btn-small {
+    @apply h-8 px-3 flex items-center justify-center gap-2 text-body-xs rounded-[5px];
+  }
 }

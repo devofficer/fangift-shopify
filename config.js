@@ -1,5 +1,5 @@
 const streamPaths = {
-  scripts: 'src/**/*.js',
+  scripts: 'src/scripts/pages/**/*.js',
   styles: ['src/styles/**/*.css', '!src/styles/components/**/*.css', '!src/styles/lib/**/*.css'],
   static: ['static/**/*', '!static/images/**/*'],
   images: 'static/images/**/*',
@@ -7,7 +7,7 @@ const streamPaths = {
 };
 
 const watchPaths = {
-  scripts: 'src/**/*.js',
+  scripts: 'src/scripts/**/*.js',
   styles: ['src/styles/**/*.css', './shopify/**/*.{liquid,json}', 'src/**/*.js'],
   static: ['static/**/*', '!static/images/**/*'],
   images: 'static/images/**/*',

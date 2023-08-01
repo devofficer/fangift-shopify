@@ -67,9 +67,6 @@ function scriptStream(filepath) {
               commonjs(),
               nodeResolve({ preferBuiltins: true, browser: true }),
             ],
-            external: [
-              "./node_modules/jquery-ui/dist/jquery-ui.min.js"
-            ],
           },
           'iife'
         )

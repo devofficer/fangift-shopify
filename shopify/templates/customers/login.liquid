@@ -1,3 +1,5 @@
+{{ 'login.min.css' | asset_url | stylesheet_tag }}
+
 <main class="overflow-auto">
   <div class="bg-[url(auth-bg.svg)] bg-cover bg-no-repeat min-h-screen">
     {% section 'header-landing' %}
@@ -5,7 +7,7 @@
     <div class="container px-[100px]">
       <div class="pt-[22px] pb-24">
         <div class="grid grid-cols-1 gap-[60px] xl:grid-cols-2">
-          {% form 'customer_login', class: 'card-auth' %}
+          <form class="card-auth" onsubmit="return false;" id="form-login">
             <div class="text-center my-8">
               <h1 class="text-primary-black text-heading-h3 mb-2">Welcome Back 👋</h1>
               <div class="text-center text-primary-text text-body-md">Log in to Get Started</div>
@@ -43,7 +45,7 @@
                 class="textfield"
               >
               <button
-                id="btn-register"
+                id="btn-login"
                 class="btn btn-primary"
                 type="submit"
               >
@@ -61,7 +63,7 @@
               Don't have a account?
               <a href="{{ routes.account_register_url }}" class="text-accent-peach underline">Signup</a>
             </div>
-          {% endform %}
+          </form>
           {{ 'auth-img0.png' | asset_url | img_tag: 'main-bg', 'hidden xl:block', '600x' }}
         </div>
       </div>

@@ -1,7 +1,12 @@
-<div style="width:{{ width | default: '120px' }}; height:{{ height | default: '120px' }}" class="{{ class }} avatar">
+<div
+  style="width:{{ width | default: '120px' }}; height:{{ height | default: '120px' }}"
+  class="{{ class }} avatar flex items-center justify-center"
+>
   {% if editable %}
-    <button type="button" class="btn-icon-edit">
+    <button type="button" class="btn-icon-edit" id="btn-pick-image">
+      <input type="file" class="hidden" id="file-avatar">
       {% render 'icon-pencil' %}
     </button>
   {% endif %}
+  <img src="{{ url }}" class="rounded-full w-full h-full object-cover" id="img-avatar">
 </div>

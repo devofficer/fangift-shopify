@@ -2,6 +2,10 @@ import $ from "jquery";
 import select2 from "select2";
 import fangiftService from "../services/fangiftService";
 import restcountriesService from "../services/restcountriesService";
+import initAvatar from "../components/avatar";
+import toastr from "toastr";
+
+toastr.options.positionClass = "toast-bottom-center";
 
 select2(window, $);
 
@@ -11,6 +15,45 @@ $(function () {
   let email = "";
   let password = "";
   let passwordConfirmed = "";
+  let country;
+  let avatarImg;
+  let publicName;
+  let bio;
+
+  initAvatar((file) => {
+    avatarImg = file;
+  });
+
+  $("#form-about").on("submit", function (e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("type", role);
+    formData.append("name", email);
+    formData.append("password", password);
+    formData.append("country", country);
+    formData.append("avatar", avatarImg);
+    formData.append("publicName", publicName);
+    formData.append("bio", bio);
+
+    $("btn-about").prop("disabled", true);
+
+    fangiftService
+      .post("auth/register", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(() => {
+        $(this).hide();
+        $("#form-email").show();
+      })
+      .catch((err) => {
+        toastr.error(err.response.data.message);
+        $("btn-about").prop("disabled", false);
+      });
+  });
 
   restcountriesService.get("all?fields=name,flags").then((data) => {
     $("#select-country").select2({
@@ -33,6 +76,12 @@ $(function () {
         return $state;
       },
     });
+
+    $("#select-country").on("select2:select", function (e) {
+      country = e.params.data;
+    });
+
+    country = $("#select-country").select2("data");
   });
 
   // handle submit of role selection form
@@ -47,15 +96,30 @@ $(function () {
   // handle submit of fan form
   $("#form-fan").on("submit", function (e) {
     e.preventDefault();
-    $(this).hide();
-    $("#form-details").show();
+    fangiftService
+      .get(`auth/check-username/${username}`)
+      .then(() => {
+        $(this).hide();
+        $("#form-details").show();
+      })
+      .catch(() => {
+        toastr.error("Username already exists");
+      });
   });
 
   // handle submit of creator form
   $("#form-creator").on("submit", function (e) {
     e.preventDefault();
-    $(this).hide();
-    $("#form-details").show();
+
+    fangiftService
+      .get(`auth/check-username/${username}`)
+      .then(() => {
+        $(this).hide();
+        $("#form-details").show();
+      })
+      .catch(() => {
+        toastr.error("Username already exists");
+      });
   });
 
   $("#form-details").on("submit", function (e) {
@@ -66,15 +130,9 @@ $(function () {
 
   $("#form-country").on("submit", function (e) {
     e.preventDefault();
+    country = $("#select-country").select2("data");
     $(this).hide();
     $("#form-about").show();
-  });
-
-  $("#form-about").on("submit", function (e) {
-    e.preventDefault();
-    $(this).hide();
-    $("#lbl-email").html(email);
-    $("#form-email").show();
   });
 
   const handleChangeUsername = (btn) =>
@@ -100,16 +158,9 @@ $(function () {
         $(this).val("");
         $(btn).prop("disabled", true);
       } else {
-        fangiftService
-          .get(`auth/check-username/${username}`)
-          .then(() => {
-            $(this).val(`@${username}`);
-            $(btn).prop("disabled", false);
-            $("#lbl-username").html(username);
-          })
-          .catch(() => {
-            $(btn).prop("disabled", true);
-          });
+        $(this).val(`@${username}`);
+        $(btn).prop("disabled", false);
+        $("#lbl-username").html(username);
       }
     };
 
@@ -155,7 +206,7 @@ $(function () {
     $("#form-about").show();
   });
 
-  function checkSignupAbility() {
+  function validateBasicForm() {
     const ability =
       password === passwordConfirmed && /^[\w.-]+@[\w.-]+\.\w+$/.test(email);
     $("#btn-register").prop("disabled", !ability);
@@ -163,16 +214,30 @@ $(function () {
 
   $("#txt-email").on("input", function () {
     email = $(this).val();
-    checkSignupAbility();
+    validateBasicForm();
   });
 
   $("#txt-password").on("input", function () {
     password = $(this).val();
-    checkSignupAbility();
+    validateBasicForm();
   });
 
   $("#txt-confirm-password").on("input", function () {
     passwordConfirmed = $(this).val();
-    checkSignupAbility();
+    validateBasicForm();
+  });
+
+  function validateAboutForm() {
+    $("#btn-about").prop("disabled", !publicName);
+  }
+
+  $("#txt-public-name").on("input", function () {
+    publicName = $(this).val();
+    validateAboutForm();
+  });
+
+  $("#txt-bio").on("input", function () {
+    bio = $(this).val();
+    validateAboutForm();
   });
 });

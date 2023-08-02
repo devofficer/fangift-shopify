@@ -1,5 +1,5 @@
 const streamPaths = {
-  scripts: 'src/scripts/pages/**/*.js',
+  scripts: ['src/scripts/pages/**/*.js', 'src/scripts/components/**/*.js'],
   styles: ['src/styles/**/*.css', '!src/styles/components/**/*.css', '!src/styles/lib/**/*.css'],
   static: ['static/**/*', '!static/images/**/*'],
   images: 'static/images/**/*',

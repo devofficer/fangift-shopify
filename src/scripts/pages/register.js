@@ -122,6 +122,7 @@ $(function () {
     fangiftService
       .get(`auth/check-unique/${username}`)
       .then(() => {
+        $("#btn-next-fan").prop("disabled", false);
         $(this).hide();
         $("#form-details").show();
       })
@@ -139,6 +140,7 @@ $(function () {
     fangiftService
       .get(`auth/check-unique/${username}`)
       .then(() => {
+        $("#btn-next-fan").prop("disabled", false);
         $(this).hide();
         $("#form-details").show();
       })

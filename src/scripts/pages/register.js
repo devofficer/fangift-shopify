@@ -24,12 +24,33 @@ $(function () {
     avatarImg = file;
   });
 
+  $("#form-details").on("submit", function (e) {
+    e.preventDefault();
+    $("#btn-register").prop("disabled", true);
+
+    const data = {
+      username,
+      type: role,
+      name: email,
+      password,
+    };
+
+    fangiftService
+      .post("auth/register", data)
+      .then(() => {
+        $(this).hide();
+        $("#form-email").show();
+      })
+      .catch((err) => {
+        toastr.error(err.response.data.message);
+        $("#btn-register").prop("disabled", false);
+      });
+  });
+
   $("#form-about").on("submit", function (e) {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("username", username);
-    formData.append("type", role);
     formData.append("name", email);
     formData.append("password", password);
     formData.append("country", country);
@@ -40,7 +61,7 @@ $(function () {
     $("btn-about").prop("disabled", true);
 
     fangiftService
-      .post("auth/register", formData, {
+      .post("auth/profile", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -96,36 +117,35 @@ $(function () {
   // handle submit of fan form
   $("#form-fan").on("submit", function (e) {
     e.preventDefault();
+    $("#btn-next-fan").prop("disabled", true);
+
     fangiftService
-      .get(`auth/check-username/${username}`)
+      .get(`auth/check-unique/${username}`)
       .then(() => {
         $(this).hide();
         $("#form-details").show();
       })
-      .catch(() => {
-        toastr.error("Username already exists");
+      .catch((err) => {
+        toastr.error(err.response.data.message);
+        $("#btn-next-fan").prop("disabled", false);
       });
   });
 
   // handle submit of creator form
   $("#form-creator").on("submit", function (e) {
     e.preventDefault();
+    $("#btn-next-creator").prop("disabled", true);
 
     fangiftService
-      .get(`auth/check-username/${username}`)
+      .get(`auth/check-unique/${username}`)
       .then(() => {
         $(this).hide();
         $("#form-details").show();
       })
-      .catch(() => {
-        toastr.error("Username already exists");
+      .catch((err) => {
+        toastr.error(err.response.data.message);
+        $("#btn-next-creator").prop("disabled", false);
       });
-  });
-
-  $("#form-details").on("submit", function (e) {
-    e.preventDefault();
-    $(this).hide();
-    $("#form-country").show();
   });
 
   $("#form-country").on("submit", function (e) {
@@ -184,11 +204,6 @@ $(function () {
   $("#btn-back-details").on("click", function () {
     $("#form-details").hide();
     $(`#form-${role}`).show();
-  });
-
-  $("#btn-register").on("click", function () {
-    $("#form-details").hide();
-    $("#form-country").show();
   });
 
   $("#btn-back-country").on("click", function () {

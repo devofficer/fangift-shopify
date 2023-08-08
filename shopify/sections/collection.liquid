@@ -1,5 +1,8 @@
 {{ 'collection.min.css' | asset_url | stylesheet_tag }}
 
+{% comment %} Templates Section {% endcomment %}
+{% render 'card-product' %}
+
 <div class="bg-primary-background">
   <div class="container px-[100px] pb-[100px]">
     <div class="grid grid-cols-12 gap-x-[60px]">
@@ -106,23 +109,10 @@
         </div>
       </div>
       <div class="col-span-9 mb-[60px]">
-        <div class="grid grid-cols-4 gap-[26px]">
-          {% render 'product-card': title: 'Fitbit Versa 4', image: 'product0.png', username: 'JuliaStore', price: '300.50' %}
-          {% render 'product-card': title: 'Gymshark Energy', image: 'product1.png', username: 'JuliaStore', price: '59.99' %}
-          {% render 'product-card': title: 'The Workout Mat', image: 'product2.png', username: 'JuliaStore', price: '98.00' %}
-          {% render 'product-card': title: 'Apple AirPods Max', image: 'product3.png', username: 'JuliaStore', price: '549.00' %}
-          {% render 'product-card': title: 'Fitbit Versa 4', image: 'product0.png', username: 'JuliaStore', price: '300.50' %}
-          {% render 'product-card': title: 'Gymshark Energy', image: 'product1.png', username: 'JuliaStore', price: '59.99' %}
-          {% render 'product-card': title: 'The Workout Mat', image: 'product2.png', username: 'JuliaStore', price: '98.00' %}
-          {% render 'product-card': title: 'Apple AirPods Max', image: 'product3.png', username: 'JuliaStore', price: '549.00' %}
-          {% render 'product-card': title: 'Fitbit Versa 4', image: 'product0.png', username: 'JuliaStore', price: '300.50' %}
-          {% render 'product-card': title: 'Gymshark Energy', image: 'product1.png', username: 'JuliaStore', price: '59.99' %}
-          {% render 'product-card': title: 'The Workout Mat', image: 'product2.png', username: 'JuliaStore', price: '98.00' %}
-          {% render 'product-card': title: 'Apple AirPods Max', image: 'product3.png', username: 'JuliaStore', price: '549.00' %}
-        </div>
+        <div class="grid grid-cols-4 gap-[26px]" id="container-products"></div>
       </div>
       <div class="col-start-4 col-span-9 flex justify-center">
-        <button class="btn btn-primary-outlined">Load More</button>
+        <button type="button" class="btn btn-primary-outlined">Load More</button>
       </div>
     </div>
   </div>

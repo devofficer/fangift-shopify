@@ -17,6 +17,9 @@ const postcss = require('gulp-postcss');
 const flatten = require('gulp-flatten');
 const cachced = require('gulp-cached');
 const log = require('fancy-log');
+const wrap = require('gulp-wrap');
+const declare = require('gulp-declare');
+const handlebars = require('gulp-handlebars');
 
 // rollup required plugins
 const rollup = require('gulp-better-rollup');
@@ -111,6 +114,21 @@ function styleStream(filepath) {
   );
 }
 
+// templates
+function templateStream(filepath) {
+  return new Promise((resolve, reject) =>
+    // Load templates from the src/templates/ folder relative to where gulp was executed
+    src(filepath || config.streamPaths.templates)
+      // Compile each Handlebars template source file to a template function
+      .pipe(handlebars())
+      .pipe(flatten())
+      .pipe(wrap(`import { template } from "handlebars"; export default template(<%= contents %>)`))
+      .pipe(dest(config.streamPaths.templatesOutput))
+      .on('end', resolve)
+      .on('error', reject)
+  )
+}
+
 function watchHandler(done) {
   const deleteFile = (filepath, isMinified = false) => {
     let filename = path.basename(filepath);
@@ -126,6 +144,13 @@ function watchHandler(done) {
   watch(config.watchPaths.scripts).on('add', series('build:js'));
   watch(config.watchPaths.scripts).on('change', series('build:js'));
   watch(config.watchPaths.scripts).on('unlink', (path) => {
+    deleteFile(path, true);
+  });
+
+  // templates
+  watch(config.watchPaths.templates).on('add', (path) => templateStream(path));
+  watch(config.watchPaths.templates).on('change', (path) => templateStream(path));
+  watch(config.watchPaths.templates).on('unlink', (path) => {
     deleteFile(path, true);
   });
 
@@ -198,6 +223,7 @@ task('sync', sync);
 task('static', () => staticStream());
 task('image', () => imageStream());
 task('build:js', () => scriptStream());
+task('build:template', () => templateStream());
 task('build:css', () => styleStream());
-task('build', parallel('static', 'image', 'build:js', 'build:css'));
+task('build', parallel('static', 'image', 'build:js', 'build:template', 'build:css'));
 task('deploy', deploy);

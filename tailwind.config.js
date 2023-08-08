@@ -4,7 +4,7 @@ module.exports = {
   },
   content: [
     "shopify/**/*.liquid",
-    "src/**/*.{js,ts,css,svg,jsx,tsx,liquid}",
+    "src/**/*.{js,ts,css,svg,jsx,tsx,liquid,hbs}",
     "./node_modules/flowbite/**/*.js",
   ],
   theme: {

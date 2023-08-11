@@ -118,8 +118,8 @@ function initSlider() {
   $("#slider-range").slider({
     range: true,
     min: 0,
-    max: 500,
-    values: [75, 300],
+    max: 1000,
+    values: [0, 800],
     slide: function (_event, ui) {
       $("#amount").html(`$${ui.values[0]} - $${ui.values[1]}`);
     },

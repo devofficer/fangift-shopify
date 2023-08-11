@@ -1,3 +1,4 @@
+import axios from "axios";
 import fangiftService from "../services/fangiftService";
 import templateCardProduct from "../templates/card.product";
 import templateCategory from "../templates/category";
@@ -11,6 +12,7 @@ const params = {
   priceMin: 0,
   priceMax: Infinity,
   categories: [],
+  cancelToken: null,
 };
 
 $(async function () {
@@ -53,28 +55,40 @@ async function loadCategories() {
 }
 
 async function loadProduct(clear = false) {
-  $("#container-categories").addClass("pointer-events-none");
   $("#btn-load-more").prop("disabled", true);
+  const container = $("#container-products");
+
+  if (params.cancelToken) {
+    params.cancelToken.cancel();
+  }
 
   if (clear) {
     params.after = null;
-    $("#container-products").empty();
-    $("#container-products").append(spinner.spin().el);
+    container.empty();
+    container.append(spinner.spin().el);
+    container.addClass("min-h-[600px]");
   }
-
+  const query = `variants.price:>=${params.priceMin} AND variants.price:<=${
+    params.priceMax
+  } AND (${params.categories
+    .filter((cat) => cat.checked)
+    .map((cat) => `(product_type:${cat.label})`)
+    .join(" OR ")})`;
+  params.cancelToken = axios.CancelToken.source();
   const { products, pageInfo } = await fangiftService.get("/products", {
-    params: { after: params.after, first: ITEMS_PER_PAGE },
+    params: { after: params.after, first: ITEMS_PER_PAGE, query },
+    cancelToken: params.cancelToken.token,
   });
   params.after = pageInfo.hasNextPage ? pageInfo.endCursor : null;
-  products.forEach((prod) =>
-    $("#container-products").append(templateCardProduct(prod))
-  );
+  container.removeClass("min-h-[600px]");
+  products.forEach((prod) => container.append(templateCardProduct(prod)));
   spinner.stop();
 
   if (pageInfo.hasNextPage) {
     $("#btn-load-more").prop("disabled", false);
   }
-  $("#container-categories").removeClass("pointer-events-none");
+
+  params.cancelToken = null;
 }
 
 async function loadMore() {

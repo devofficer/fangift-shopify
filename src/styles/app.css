@@ -5,6 +5,7 @@
 @import "./components/fonts.css";
 @import "./components/form-elements.css";
 @import "./components/select.css";
+@import "./components/spin.css";
 
 @tailwind base;
 @tailwind components;

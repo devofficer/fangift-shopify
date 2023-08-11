@@ -4,6 +4,7 @@ const config = {
     require("@tailwindcss/nesting"),
     require("tailwindcss"),
     require("autoprefixer"),
+    require("postcss-discard-overridden"),
   ],
 };
 

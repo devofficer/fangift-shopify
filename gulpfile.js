@@ -18,7 +18,6 @@ const flatten = require('gulp-flatten');
 const cachced = require('gulp-cached');
 const log = require('fancy-log');
 const wrap = require('gulp-wrap');
-const declare = require('gulp-declare');
 const handlebars = require('gulp-handlebars');
 
 // rollup required plugins
@@ -104,7 +103,7 @@ function styleStream(filepath) {
           reject(err);
         })
       )
-      .pipe(cssnano())
+      // .pipe(cssnano())
       .pipe(rename({ extname: '.min.css' }))
       .pipe(size({ showFiles: true }))
       .pipe(flatten())

@@ -58,19 +58,22 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "postcss": "^8.4.21",
+    "postcss-discard-overridden": "^6.0.0",
     "postcss-import": "^15.1.0",
     "prettier": "^3.0.0",
     "rollup": "^2.36.0",
     "tailwindcss": "^3.2.7"
   },
   "dependencies": {
+    "@shopify/shopify-api": "^7.5.1",
     "axios": "^1.4.0",
     "dotenv": "^16.3.1",
     "flowbite": "^1.7.0",
     "handlebars": "^4.7.8",
     "jquery": "^3.7.0",
-    "jquery-ui": "^1.13.2",
+    "require": "^2.4.20",
     "select2": "^4.1.0-rc.0",
+    "spin.js": "^4.1.1",
     "toastr": "^2.1.4"
   }
 }

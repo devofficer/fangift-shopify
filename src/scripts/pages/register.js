@@ -1,4 +1,3 @@
-import $ from "jquery";
 import select2 from "select2";
 import fangiftService from "../services/fangiftService";
 import restcountriesService from "../services/restcountriesService";
@@ -27,6 +26,7 @@ $(function () {
   $("#form-details").on("submit", function (e) {
     e.preventDefault();
     $("#btn-register").prop("disabled", true);
+    $("#btn-register").loading(true);
 
     const data = {
       username,
@@ -44,6 +44,7 @@ $(function () {
       .catch((err) => {
         toastr.error(err.response.data.message);
         $("#btn-register").prop("disabled", false);
+        $("#btn-register").loading(false);
       });
   });
 
@@ -58,7 +59,8 @@ $(function () {
     formData.append("publicName", publicName);
     formData.append("bio", bio);
 
-    $("btn-about").prop("disabled", true);
+    $("#btn-about").prop("disabled", true);
+    $("#btn-about").loading(true);
 
     fangiftService
       .post("auth/profile", formData, {
@@ -72,7 +74,8 @@ $(function () {
       })
       .catch((err) => {
         toastr.error(err.response.data.message);
-        $("btn-about").prop("disabled", false);
+        $("#btn-about").prop("disabled", false);
+        $("#btn-about").loading(false);
       });
   });
 
@@ -118,6 +121,7 @@ $(function () {
   $("#form-fan").on("submit", function (e) {
     e.preventDefault();
     $("#btn-next-fan").prop("disabled", true);
+    $("#btn-next-fan").loading(true);
 
     fangiftService
       .get(`auth/check-unique/${username}`)
@@ -129,6 +133,7 @@ $(function () {
       .catch((err) => {
         toastr.error(err.response.data.message);
         $("#btn-next-fan").prop("disabled", false);
+        $("#btn-next-fan").loading(false);
       });
   });
 
@@ -136,17 +141,19 @@ $(function () {
   $("#form-creator").on("submit", function (e) {
     e.preventDefault();
     $("#btn-next-creator").prop("disabled", true);
+    $("#btn-next-creator").loading(true);
 
     fangiftService
       .get(`auth/check-unique/${username}`)
       .then(() => {
-        $("#btn-next-fan").prop("disabled", false);
+        $("#btn-next-creator").prop("disabled", false);
         $(this).hide();
         $("#form-details").show();
       })
       .catch((err) => {
         toastr.error(err.response.data.message);
         $("#btn-next-creator").prop("disabled", false);
+        $("#btn-next-creator").loading(false);
       });
   });
 

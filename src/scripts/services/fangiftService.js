@@ -14,6 +14,8 @@ fangiftService.interceptors.response.use(
   (err) => {
     if (err.response.status === 401) {
       location.pathname = "/account/login";
+    } else {
+      return Promise.reject(err);
     }
   }
 );

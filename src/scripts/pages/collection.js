@@ -96,6 +96,7 @@ async function loadProduct(clear = false) {
   $(".btn-favorite").off("click");
   $(".btn-favorite").on("click", async function () {
     $(this).toggleClass("toggled");
+    $(this).loading();
   });
 
   spinner.stop();

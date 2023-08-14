@@ -1,4 +1,3 @@
-import $ from "jquery";
 import fangiftService from "../services/fangiftService";
 import toastr from "toastr";
 
@@ -9,6 +8,7 @@ $(function () {
     e.preventDefault();
 
     $("#btn-login").prop("disabled", true);
+    $("#btn-login").loading(true);
 
     const data = {
       name: $("#txt-email").val(),
@@ -25,6 +25,7 @@ $(function () {
       .catch((err) => {
         toastr.error(err.response.data.message);
         $("#btn-login").prop("disabled", false);
+        $("#btn-login").loading(false);
       });
   });
 });

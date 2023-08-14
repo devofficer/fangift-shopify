@@ -24,6 +24,7 @@ $(async function () {
 function initWidgets() {
   initAccordin();
   initSlider();
+
   $("#btn-load-more").on("click", loadMore);
 }
 
@@ -82,6 +83,14 @@ async function loadProduct(clear = false) {
   params.after = pageInfo.hasNextPage ? pageInfo.endCursor : null;
   container.removeClass("min-h-[600px]");
   products.forEach((prod) => container.append(templateCardProduct(prod)));
+
+  // attach favorite click handler
+  $(".btn-favorite").on("click", async function () {
+    const productId = $(this).data("product-id");
+    console.log(productId);
+    $(this).toggleClass("toggled");
+  });
+
   spinner.stop();
 
   if (pageInfo.hasNextPage) {

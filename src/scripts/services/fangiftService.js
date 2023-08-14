@@ -7,8 +7,15 @@ const fangiftService = axios.create({
   },
 });
 
-fangiftService.interceptors.response.use((res) => {
-  return res.data;
-});
+fangiftService.interceptors.response.use(
+  (res) => {
+    return res.data;
+  },
+  (err) => {
+    if (err.response.status === 401) {
+      location.pathname = "/account/login";
+    }
+  }
+);
 
 export default fangiftService;

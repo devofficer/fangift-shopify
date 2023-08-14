@@ -1,5 +1,4 @@
 import fangiftService from "../services/fangiftService";
-import $ from "jquery";
 import LINKS from "../constants/links";
 
 const isPublicPage = Object.values(LINKS)
@@ -7,11 +6,11 @@ const isPublicPage = Object.values(LINKS)
   .some((link) => window.location.pathname.startsWith(link.path));
 
 if (isPublicPage) {
-  $("body").removeClass("hidden");
+  document.getElementsByTagName("body")[0].classList.remove("hidden");
 } else {
   fangiftService.get("/auth").then((userInfo) => {
     if (userInfo) {
-      $("body").removeClass("hidden");
+      document.getElementsByTagName("body")[0].classList.remove("hidden");
     }
   });
 }

@@ -69,25 +69,32 @@ async function loadProduct(clear = false) {
     container.append(spinner.spin().el);
     container.addClass("min-h-[600px]");
   }
+
   const query = `variants.price:>=${params.priceMin} AND variants.price:<=${
     params.priceMax
   } AND (${params.categories
     .filter((cat) => cat.checked)
     .map((cat) => `(product_type:${cat.label})`)
     .join(" OR ")})`;
+
+  // create cancellation token
   params.cancelToken = axios.CancelToken.source();
+
+  // fetch products
   const { products, pageInfo } = await fangiftService.get("/products", {
     params: { after: params.after, first: ITEMS_PER_PAGE, query },
     cancelToken: params.cancelToken.token,
   });
+
   params.after = pageInfo.hasNextPage ? pageInfo.endCursor : null;
   container.removeClass("min-h-[600px]");
+
+  // add products to container
   products.forEach((prod) => container.append(templateCardProduct(prod)));
 
   // attach favorite click handler
+  $(".btn-favorite").off("click");
   $(".btn-favorite").on("click", async function () {
-    const productId = $(this).data("product-id");
-    console.log(productId);
     $(this).toggleClass("toggled");
   });
 
@@ -101,14 +108,9 @@ async function loadProduct(clear = false) {
 }
 
 async function loadMore() {
-  $(this).find("svg").show();
-  $(this).find("span").hide();
-  $(this).prop("disabled", true);
-
+  $(this).loading(true);
   await loadProduct();
-
-  $(this).find("svg").hide();
-  $(this).find("span").show();
+  $(this).loading(false);
 }
 
 function initAccordin() {

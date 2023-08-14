@@ -17,8 +17,11 @@
 
     {{ 'app.min.css' | asset_url | stylesheet_tag }}
 
-    <script src="{{ 'flowbite.min.js' | asset_url }}" defer></script>
-    <script src="{{ 'app.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'flowbite.min.js' | asset_url }}"></script>
+    <script src="{{ 'jquery.min.js' | asset_url }}"></script>
+    <script src="{{ 'jquery-ui.min.js' | asset_url }}"></script>
+    <script src="{{ 'jquery-plugins.min.js' | asset_url }}"></script>
+    <script src="{{ 'app.min.js' | asset_url }}"></script>
   </head>
 
   <body id="{{ page_title | handle }}" class="hidden">

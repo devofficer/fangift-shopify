@@ -1,3 +1,4 @@
+import LINKS from "../constants/links";
 import fangiftService from "../services/fangiftService";
 import toastr from "toastr";
 
@@ -20,7 +21,8 @@ $(function () {
       .then((res) => {
         localStorage.setItem("accessToken", res.accessToken);
         localStorage.setItem("refreshToken", res.refreshToken);
-        location.href = "/collections/all";
+        localStorage.setItem("exp", Number(res.exp) * 1000);
+        location.pathname = LINKS.collections.path;
       })
       .catch((err) => {
         toastr.error(err.response.data.message);

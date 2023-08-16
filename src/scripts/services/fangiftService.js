@@ -1,4 +1,5 @@
 import axios from "axios";
+import LINKS from "../constants/links";
 
 const fangiftService = axios.create({
   baseURL: "http://localhost:3000",
@@ -13,7 +14,7 @@ fangiftService.interceptors.response.use(
   },
   (err) => {
     if (err.response.status === 401) {
-      location.pathname = "/account/login";
+      location.pathname = LINKS.login.path;
     } else {
       return Promise.reject(err);
     }

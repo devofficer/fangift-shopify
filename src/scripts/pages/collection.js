@@ -4,6 +4,7 @@ import templateCardProduct from "../templates/card.product";
 import templateCategory from "../templates/category";
 import spinner from "../utils/snip";
 import { convertLabelToId } from "../utils/string";
+import { getUserInfo } from "../utils/userinfo";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -95,8 +96,24 @@ async function loadProduct(clear = false) {
   // attach favorite click handler
   $(".btn-favorite").off("click");
   $(".btn-favorite").on("click", async function () {
-    $(this).toggleClass("toggled");
-    $(this).loading();
+    const productId = $(this).data("product-id");
+    const wishlistId = $(this).data("wishlist-id");
+    const toggled = $(this).hasClass("toggled");
+
+    if (toggled) {
+      await fangiftService.delete(`/wishlist/${wishlistId}`, {
+        productId,
+        userId: getUserInfo().email,
+      });
+      $(this).removeClass("toggled");
+    } else {
+      const wishlist = await fangiftService.post("/wishlist", {
+        productId,
+        userId: getUserInfo().email,
+      });
+      $(this).addClass("toggled");
+      $(this).data("wishlist-id", wishlist.id);
+    }
   });
 
   spinner.stop();

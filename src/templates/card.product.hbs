@@ -1,7 +1,7 @@
 <div class="card-product">
   <div class="grid grid-cols-1 gap-2">
     <div class="h-[144px] bg-primary-background rounded-[8px] relative">
-      <button class="btn btn-favorite group" data-product-id="{{id}}">
+      <button class="btn btn-favorite group {{#if wishlist}}toggled{{/if}}" data-product-id="{{id}}" data-wishlist-id="{{wishlist.id}}">
         <svg class="icon-favorite" width="36" height="36" viewBox="0 0 36 36" fill="none">
           <rect width="36" height="36" rx="18" fill="#fff" />
           <path

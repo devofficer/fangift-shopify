@@ -80,71 +80,41 @@
         </div>
       </div>
     </div>
-    {% if no_gift %}
-      <div class="min-h-[50vh] flex flex-col items-center justify-center gap-4">
-        {% render 'icon-gift-big' %}
-        <h3 class="text-heading-h3 text-primary-black">No Gifts Added Yet</h3>
-        <p class="text-body-md text-primary-text">Your wishlist is empty. Click 'Add Gift' to add items.</p>
-        <button
-          type="button"
-          class="btn btn-primary"
-          id="btn-add-gift"
-        >
-          + Add gift
+    <div class="min-h-[50vh] flex-col items-center justify-center gap-4 hidden" id="no-gifts">
+      {% render 'icon-gift-big' %}
+      <h3 class="text-heading-h3 text-primary-black">No Gifts Added Yet</h3>
+      <p class="text-body-md text-primary-text">Your wishlist is empty. Click 'Add Gift' to add items.</p>
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="btn-add-gift"
+      >
+        + Add gift
+      </button>
+    </div>
+    <div class="hidden" id="collections">
+      <div class="flex justify-between items-center">
+        <h5 class="text-heading-h5">Collections</h5>
+        <button class="btn-small bg-primary-border text-primary-black">
+          {% render 'icon-plus' %}
+          <span>Collection</span>
         </button>
       </div>
-    {% else %}
-      {% if has_collections %}
-        <div class="flex justify-between items-center">
-          <h5 class="text-heading-h5">Collections</h5>
-          <button class="btn-small bg-primary-border text-primary-black">
-            {% render 'icon-plus' %}
-            <span>Collection</span>
-          </button>
-        </div>
-        <div class="grid grid-cols-4 gap-5">
-          {% render 'collection-card': title: 'Fitness', count: 16, previews: 'preview1.png,preview1-0.png,preview1-1.png' %}
-          {% render 'collection-card': title: 'Fitness', count: 16, previews: 'preview1.png,preview1-0.png,preview1-1.png' %}
-          {% render 'collection-card': title: 'Fitness', count: 16, previews: 'preview1.png,preview1-0.png,preview1-1.png' %}
-          {% render 'collection-card': title: 'Fitness', count: 16, previews: 'preview1.png,preview1-0.png,preview1-1.png' %}
-        </div>
-      {% endif %}
-      {% if has_collections %}
-        <div class="flex justify-between items-center">
-          <h5 class="text-heading-h5">All Products</h5>
-          <button class="btn-small bg-accent-peach text-primary-white">
-            {% render 'icon-plus' %}
-            <span>Product</span>
-          </button>
-        </div>
-      {% endif %}
-      <div class="grid grid-cols-6 gap-x-[18px] gap-y-[16px]">
-        {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
-        {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
-        {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
-        {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
-        {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
-        {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
-        {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
-        {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
-        {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
-        {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
-        {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
-        {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
-        {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
-        {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
-        {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
-        {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
-        {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
-        {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
-        {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
-        {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
-        {% render 'wish-card': title: 'Fitbit Versa 4', image: 'product0.png', price: '300.50' %}
-        {% render 'wish-card': title: 'Gymshark Energy', image: 'product1.png', price: '59.99' %}
-        {% render 'wish-card': title: 'The Workout Mat', image: 'product2.png', price: '98.00' %}
-        {% render 'wish-card': title: 'Apple AirPods Max', image: 'product3.png', price: '549.00' %}
+      <div class="grid grid-cols-4 gap-5" id="container-collections">
+        {% render 'collection-card': title: 'Fitness', count: 16, previews: 'preview1.png,preview1-0.png,preview1-1.png' %}
+        {% render 'collection-card': title: 'Fitness', count: 16, previews: 'preview1.png,preview1-0.png,preview1-1.png' %}
+        {% render 'collection-card': title: 'Fitness', count: 16, previews: 'preview1.png,preview1-0.png,preview1-1.png' %}
+        {% render 'collection-card': title: 'Fitness', count: 16, previews: 'preview1.png,preview1-0.png,preview1-1.png' %}
       </div>
-    {% endif %}
+      <div class="flex justify-between items-center">
+        <h5 class="text-heading-h5">All Products</h5>
+        <button class="btn-small bg-accent-peach text-primary-white">
+          {% render 'icon-plus' %}
+          <span>Product</span>
+        </button>
+      </div>
+    </div>
+    <div class="grid grid-cols-6 gap-x-[18px] gap-y-[16px] relative" id="container-wishlists"></div>
   </div>
 
   <div

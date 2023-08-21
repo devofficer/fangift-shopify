@@ -1,14 +1,16 @@
 <div class="card-product">
   <div class="grid grid-cols-1 gap-2">
     <div class="h-[144px] bg-primary-background rounded-[8px] relative">
-      <button class="btn btn-favorite group {{#if wishlist}}toggled{{/if}}" data-product-id="{{id}}" data-wishlist-id="{{wishlist.id}}">
+      <button class="btn btn-favorite group {{#if wishlist}}toggled{{/if}}" data-product-id="{{id}}"
+        data-wishlist-id="{{wishlist.id}}">
         <svg class="icon-favorite" width="36" height="36" viewBox="0 0 36 36" fill="none">
           <rect width="36" height="36" rx="18" fill="#fff" />
           <path
             d="m17.667 12.69.333.447.334-.446A4.207 4.207 0 0 1 21.7 11c2.327 0 4.217 1.895 4.217 4.241 0 .947-.151 1.82-.413 2.63l-.001.003c-.628 1.989-1.916 3.592-3.306 4.787-1.392 1.196-2.863 1.962-3.814 2.286l-.005.001c-.083.03-.22.052-.378.052-.157 0-.294-.022-.378-.052l-.004-.001c-.951-.324-2.422-1.09-3.814-2.286-1.39-1.195-2.678-2.798-3.306-4.787l-.001-.003a8.48 8.48 0 0 1-.413-2.63c0-2.346 1.89-4.241 4.216-4.241 1.371 0 2.6.666 3.367 1.69z"
             fill="currentColor" stroke="currentColor" stroke-width=".833" />
         </svg>
-        <svg aria-hidden="true" class="w-9 h-9 text-gray-200 animate-spin fill-blue-600 bg-white rounded-full hidden spinner"
+        <svg aria-hidden="true"
+          class="w-9 h-9 text-gray-200 animate-spin fill-blue-600 bg-white rounded-full hidden spinner"
           viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
@@ -21,15 +23,36 @@
       <img class="w-full h-full object-contain" src="{{ featuredImage.url }}" alt="{{ featuredImage.alt }}" loading="lazy"
         width="{{ featuredImage.width }}" height="{{ featuredImage.height }}">
     </div>
-    <span class="text-body-sm text-black text-ellipsis overflow-hidden whitespace-nowrap">
+    <span class="text-body-sm text-black whitespace-nowrap text-ellipsis overflow-hidden">
       {{ title }}
     </span>
-    <span class="text-body-xs text-accent-peach"> @{{ vendor }} </span>
-    <div class="flex gap-2">
-      <div class="border border-primary-border p-2 rounded-[8px] text-body-xs text-black">${{
-        priceRangeV2.minVariantPrice.amount }}
-      </div>
-      <button class="btn btn-view-details flex-grow">View Details</button>
+    <span class="text-body-xs text-accent-peach"> ${{ priceRangeV2.minVariantPrice.amount }} </span>
+    <div class="flex gap-1">
+      <button class="btn btn-wish-icon">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="m7 8.977-2.193 1.325.577-2.497-1.936-1.68 2.555-.216L7 3.552l.998 2.357 2.555.216-1.937 1.68.578 2.497m3.64-4.912-4.195-.356L7 1.167 5.361 5.034l-4.194.356 3.18 2.759-.952 4.1L7 10.075l3.605 2.176-.956-4.101 3.185-2.76z"
+            fill="#575757" />
+        </svg>
+      </button>
+      <button class="btn btn-wish-icon">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12.08 4.107a.58.58 0 0 0 0-.822L10.717 1.92a.58.58 0 0 0-.823 0L8.82 2.987l2.188 2.188M1.75 10.063v2.188h2.188l6.451-6.458-2.187-2.188-6.452 6.458z"
+            fill="#575757" />
+        </svg>
+      </button>
+      <button class="btn btn-wish-icon">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M5.25 1.75v.583H2.335V3.5h.583v7.583a1.167 1.167 0 0 0 1.167 1.167h5.833a1.167 1.167 0 0 0 1.167-1.167V3.5h.583V2.333H8.751V1.75h-3.5zm0 2.917h1.167v5.25H5.251v-5.25zm2.334 0h1.167v5.25H7.584v-5.25z"
+            fill="#575757" />
+        </svg>
+      </button>
+      <button type="button" class="btn btn-wish-share flex-grow" data-drawer-target="drawer-add-gift"
+        data-drawer-show="drawer-add-gift" data-drawer-placement="right" aria-controls="drawer-add-gift">
+        Share
+      </button>
     </div>
   </div>
 </div>

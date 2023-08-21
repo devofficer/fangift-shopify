@@ -5,8 +5,7 @@ import templateCategory from "../templates/category";
 import spinner from "../utils/snip";
 import { convertLabelToId } from "../utils/string";
 import { getUserInfo } from "../utils/userinfo";
-
-const ITEMS_PER_PAGE = 12;
+import { ITEMS_PER_PAGE } from "../utils/constants";
 
 const params = {
   after: null,

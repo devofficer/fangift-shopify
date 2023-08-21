@@ -1,6 +1,9 @@
 import fangiftService from "../services/fangiftService";
+import { ITEMS_PER_PAGE } from "../utils/constants";
+import spinner from "../utils/snip";
+import templateCardWishlist from "../templates/card.wishlist";
 
-document.addEventListener("DOMContentLoaded", function () {
+$(function () {
   const drawerOptions = {
     placement: "right",
     backdrop: true,
@@ -28,28 +31,25 @@ document.addEventListener("DOMContentLoaded", function () {
     mainImage: null,
     shippingPrice: 0,
     digitalGood: false,
+    after: null,
   };
 
-  document
-    .getElementById("btn-add-gift")
-    .addEventListener("click", function () {
-      drawerSelectGift.show();
-    });
+  $("#btn-add-gift").on("click", function () {
+    drawerSelectGift.show();
+  });
 
-  document
-    .getElementById("btn-gift-next")
-    .addEventListener("click", function () {
-      state.giftSource = document.querySelector(
-        "input[name=gift-source]:checked"
-      ).value;
-      drawerSelectGift.hide();
+  $("#btn-gift-next").on("click", function () {
+    state.giftSource = document.querySelector(
+      "input[name=gift-source]:checked"
+    ).value;
+    drawerSelectGift.hide();
 
-      if (state.giftSource === "fangift") {
-        drawerAddGift.show();
-      } else if (state.giftSource === "product") {
-        drawerGiftProduct.show();
-      }
-    });
+    if (state.giftSource === "fangift") {
+      drawerAddGift.show();
+    } else if (state.giftSource === "product") {
+      drawerGiftProduct.show();
+    }
+  });
 
   $("#wrapper-main-image").on("click", function (e) {
     $("#file-main-image").trigger("click");
@@ -71,12 +71,12 @@ document.addEventListener("DOMContentLoaded", function () {
   $("#btn-next-product").on("click", async function () {
     state.url = $("#text-product-link").val();
 
-    $(this).loading(true, true);
+    $(this).loading(true);
     const prodInfo = await fangiftService.post("scraper/product", {
       url: state.url,
     });
     state.mainImage = prodInfo.mainImage;
-    $(this).loading(false, true);
+    $(this).loading(false);
 
     $("#text-product-title").val(prodInfo.title);
     $("#text-product-price").val(prodInfo.price);
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
     state.price = $("#text-product-price").val();
     state.digitalGood = $("#checkbox-digital-good").prop("checked");
 
-    $(this).loading(true, true);
+    $(this).loading(true);
     try {
       await fangiftService.post("products", {
         title: state.title,
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
       drawerGiftDetails.hide();
     } catch (err) {}
 
-    $(this).loading(false, true);
+    $(this).loading(false);
   });
 
   $("#btn-save-collection").on("click", function () {
@@ -146,4 +146,33 @@ document.addEventListener("DOMContentLoaded", function () {
     .addEventListener("click", function () {
       drawerGiftCollection.hide();
     });
+
+  const loadWishlist = async () => {
+    const container = $("#container-wishlists");
+    container.append(spinner.spin().el);
+    container.addClass("min-h-[600px]");
+
+    const userInfo = JSON.parse(localStorage.getItem("payload"));
+    const { products, pageInfo } = await fangiftService.get("/products", {
+      params: {
+        after: state.after,
+        first: ITEMS_PER_PAGE,
+        query: `vendor:${userInfo.name}`,
+      },
+    });
+    state.after = pageInfo.after;
+
+    if (products.length) {
+      products.forEach((product) =>
+        container.append(templateCardWishlist(product))
+      );
+    } else {
+      $("#no-gifts").removeClass("hidden");
+    }
+
+    container.removeClass("min-h-[600px]");
+    spinner.stop();
+  };
+
+  loadWishlist();
 });

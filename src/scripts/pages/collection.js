@@ -117,18 +117,16 @@ async function loadProduct(clear = false) {
   });
 
   spinner.stop();
-
-  if (pageInfo.hasNextPage) {
-    $("#btn-load-more").prop("disabled", false);
-  }
-
   params.cancelToken = null;
+
+  return pageInfo.hasNextPage;
 }
 
 async function loadMore() {
   $(this).loading(true);
-  await loadProduct();
+  const hasNexPage = await loadProduct();
   $(this).loading(false);
+  $("#btn-load-more").prop("disabled", !hasNexPage);
 }
 
 function initAccordin() {

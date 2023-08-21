@@ -25,7 +25,6 @@ $(function () {
 
   $("#form-details").on("submit", function (e) {
     e.preventDefault();
-    $("#btn-register").prop("disabled", true);
     $("#btn-register").loading(true);
 
     const data = {
@@ -43,7 +42,6 @@ $(function () {
       })
       .catch((err) => {
         toastr.error(err.response.data.message);
-        $("#btn-register").prop("disabled", false);
         $("#btn-register").loading(false);
       });
   });
@@ -59,7 +57,6 @@ $(function () {
     formData.append("publicName", publicName);
     formData.append("bio", bio);
 
-    $("#btn-about").prop("disabled", true);
     $("#btn-about").loading(true);
 
     fangiftService
@@ -74,7 +71,6 @@ $(function () {
       })
       .catch((err) => {
         toastr.error(err.response.data.message);
-        $("#btn-about").prop("disabled", false);
         $("#btn-about").loading(false);
       });
   });
@@ -120,7 +116,6 @@ $(function () {
   // handle submit of fan form
   $("#form-fan").on("submit", function (e) {
     e.preventDefault();
-    $("#btn-next-fan").prop("disabled", true);
     $("#btn-next-fan").loading(true);
 
     fangiftService
@@ -132,7 +127,6 @@ $(function () {
       })
       .catch((err) => {
         toastr.error(err.response.data.message);
-        $("#btn-next-fan").prop("disabled", false);
         $("#btn-next-fan").loading(false);
       });
   });
@@ -140,7 +134,6 @@ $(function () {
   // handle submit of creator form
   $("#form-creator").on("submit", function (e) {
     e.preventDefault();
-    $("#btn-next-creator").prop("disabled", true);
     $("#btn-next-creator").loading(true);
 
     fangiftService
@@ -152,7 +145,6 @@ $(function () {
       })
       .catch((err) => {
         toastr.error(err.response.data.message);
-        $("#btn-next-creator").prop("disabled", false);
         $("#btn-next-creator").loading(false);
       });
   });

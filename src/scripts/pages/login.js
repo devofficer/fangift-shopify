@@ -8,7 +8,6 @@ $(function () {
   $("#form-login").on("submit", function (e) {
     e.preventDefault();
 
-    $("#btn-login").prop("disabled", true);
     $("#btn-login").loading(true);
 
     const data = {
@@ -27,7 +26,6 @@ $(function () {
       })
       .catch((err) => {
         toastr.error(err.response.data.message);
-        $("#btn-login").prop("disabled", false);
         $("#btn-login").loading(false);
       });
   });

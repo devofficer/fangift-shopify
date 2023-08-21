@@ -1,3 +1,5 @@
+import fangiftService from "../services/fangiftService";
+
 document.addEventListener("DOMContentLoaded", function () {
   const drawerOptions = {
     placement: "right",
@@ -20,7 +22,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const drawerGiftProduct = new Drawer($giftProductEl, drawerOptions);
   const drawerGiftCollection = new Drawer($giftCollectionEl, drawerOptions);
 
-  let giftSource = "";
+  const state = {
+    url: "",
+    title: "",
+    mainImage: null,
+    shippingPrice: 0,
+    digitalGood: false,
+  };
 
   document
     .getElementById("btn-add-gift")
@@ -31,43 +39,83 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("btn-gift-next")
     .addEventListener("click", function () {
-      giftSource = document.querySelector(
+      state.giftSource = document.querySelector(
         "input[name=gift-source]:checked"
       ).value;
       drawerSelectGift.hide();
 
-      if (giftSource === "fangift") {
+      if (state.giftSource === "fangift") {
         drawerAddGift.show();
-      } else if (giftSource === "product") {
+      } else if (state.giftSource === "product") {
         drawerGiftProduct.show();
       }
     });
 
-  document
-    .getElementById("btn-next-product")
-    .addEventListener("click", function () {
-      drawerGiftProduct.hide();
-      drawerGiftCollection.show();
-    });
+  $("#wrapper-main-image").on("click", function (e) {
+    $("#file-main-image").trigger("click");
+  });
 
-  document
-    .getElementById("btn-save-collection")
-    .addEventListener("click", function () {
-      drawerGiftCollection.hide();
-    });
+  $("#file-main-image").on("change", function (e) {
+    state.mainImage = e.target.files[0];
+    if (state.mainImage) {
+      const reader = new FileReader();
 
-  document
-    .getElementById("btn-add-wishlist")
-    .addEventListener("click", function () {
+      reader.onload = function (e) {
+        $("#img-product-main").attr("src", e.target.result);
+      };
+
+      reader.readAsDataURL(state.mainImage);
+    }
+  });
+
+  $("#btn-next-product").on("click", async function () {
+    state.url = $("#text-product-link").val();
+
+    $(this).loading(true, true);
+    const prodInfo = await fangiftService.post("scraper/product", {
+      url: state.url,
+    });
+    state.mainImage = prodInfo.mainImage;
+    $(this).loading(false, true);
+
+    $("#text-product-title").val(prodInfo.title);
+    $("#text-product-price").val(prodInfo.price);
+    $("#img-product-main").prop("src", prodInfo.mainImage);
+
+    drawerGiftProduct.hide();
+    drawerGiftDetails.show();
+  });
+
+  $("#btn-add-wishlist").on("click", async function () {
+    state.shippingPrice = $("#text-shipping-price").val();
+    state.title = $("#text-product-title").val();
+    state.price = $("#text-product-price").val();
+    state.digitalGood = $("#checkbox-digital-good").prop("checked");
+
+    $(this).loading(true, true);
+    try {
+      await fangiftService.post("products", {
+        title: state.title,
+        price: Number(state.price),
+        digitalGood: state.digitalGood,
+        shippingPrice: Number(state.shippingPrice),
+        productUrl: state.url,
+        mainImage: state.mainImage,
+      });
       drawerGiftDetails.hide();
-    });
+    } catch (err) {}
 
-  document
-    .getElementById("btn-add-next")
-    .addEventListener("click", function () {
-      drawerAddGift.hide();
-      drawerGiftDetails.show();
-    });
+    $(this).loading(false, true);
+  });
+
+  $("#btn-save-collection").on("click", function () {
+    drawerGiftCollection.hide();
+  });
+
+  $("#btn-add-next").on("click", function () {
+    drawerAddGift.hide();
+    drawerGiftDetails.show();
+  });
 
   $selectGiftEl
     .querySelector(".btn-close-drawer")

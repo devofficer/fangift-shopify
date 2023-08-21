@@ -70,13 +70,14 @@ async function loadProduct(clear = false) {
     container.append(spinner.spin().el);
     container.addClass("min-h-[600px]");
   }
-
+  const cats = params.categories.filter((cat) => cat.checked);
   const query = `variants.price:>=${params.priceMin} AND variants.price:<=${
     params.priceMax
-  } AND (${params.categories
-    .filter((cat) => cat.checked)
-    .map((cat) => `(product_type:${cat.label})`)
-    .join(" OR ")})`;
+  } ${
+    cats.length
+      ? `AND (${cats.map((cat) => `(product_type:${cat.label})`).join(" OR ")})`
+      : ""
+  }`;
 
   // create cancellation token
   params.cancelToken = axios.CancelToken.source();

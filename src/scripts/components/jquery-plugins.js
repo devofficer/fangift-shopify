@@ -1,4 +1,4 @@
-$.fn.loading = function (isLoading = true) {
+$.fn.loading = function (isLoading = true, keepDisabled = false) {
   if (isLoading) {
     const content = this.html();
     this.data("content", content);
@@ -18,7 +18,9 @@ $.fn.loading = function (isLoading = true) {
   } else {
     this.html(this.data("content"));
     this.data("content", null);
-    this.prop("disabled", false);
+    if (!keepDisabled) {
+      this.prop("disabled", false);
+    }
   }
 
   return this;

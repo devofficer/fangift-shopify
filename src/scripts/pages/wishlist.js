@@ -117,6 +117,12 @@ $(function () {
     drawerGiftDetails.show();
   });
 
+  $("#btn-load-more").on("click", async function () {
+    $(this).loading(true);
+    await loadWishlist();
+    $(this).loading(false);
+  });
+
   $selectGiftEl
     .querySelector(".btn-close-drawer")
     .addEventListener("click", function () {
@@ -147,10 +153,13 @@ $(function () {
       drawerGiftCollection.hide();
     });
 
-  const loadWishlist = async () => {
+  const loadWishlist = async (showSpinner = false) => {
     const container = $("#container-wishlists");
-    container.append(spinner.spin().el);
-    container.addClass("min-h-[600px]");
+
+    if (showSpinner) {
+      container.append(spinner.spin().el);
+      container.addClass("min-h-[600px]");
+    }
 
     const userInfo = JSON.parse(localStorage.getItem("payload"));
     const { products, pageInfo } = await fangiftService.get("/products", {
@@ -160,7 +169,7 @@ $(function () {
         query: `vendor:${userInfo.name}`,
       },
     });
-    state.after = pageInfo.after;
+    state.after = pageInfo.endCursor;
 
     if (products.length) {
       products.forEach((product) =>
@@ -170,9 +179,13 @@ $(function () {
       $("#no-gifts").removeClass("hidden");
     }
 
-    container.removeClass("min-h-[600px]");
-    spinner.stop();
+    if (showSpinner) {
+      container.removeClass("min-h-[600px]");
+      spinner.stop();
+    }
+
+    $("#btn-load-more").prop("disabled", !pageInfo.hasNextPage);
   };
 
-  loadWishlist();
+  loadWishlist(true);
 });

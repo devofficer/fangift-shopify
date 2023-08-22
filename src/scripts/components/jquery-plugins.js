@@ -18,9 +18,8 @@ $.fn.loading = function (isLoading = true, keepDisabled = false) {
   } else {
     this.html(this.data("content"));
     this.data("content", null);
-    if (!keepDisabled) {
-      this.prop("disabled", false);
-    }
+    this.prop("disabled", keepDisabled);
+    console.log(keepDisabled);
   }
 
   return this;

@@ -118,6 +118,7 @@ async function loadProduct(clear = false) {
 
   spinner.stop();
   params.cancelToken = null;
+  $("#btn-load-more").prop("disabled", !pageInfo.hasNextPage);
 
   return pageInfo.hasNextPage;
 }
@@ -125,8 +126,7 @@ async function loadProduct(clear = false) {
 async function loadMore() {
   $(this).loading(true);
   const hasNexPage = await loadProduct();
-  $(this).loading(false);
-  $("#btn-load-more").prop("disabled", !hasNexPage);
+  $(this).loading(false, !hasNexPage);
 }
 
 function initAccordin() {

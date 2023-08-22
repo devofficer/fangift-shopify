@@ -119,8 +119,8 @@ $(function () {
 
   $("#btn-load-more").on("click", async function () {
     $(this).loading(true);
-    await loadWishlist();
-    $(this).loading(false);
+    const hasNextPage = await loadWishlist();
+    $(this).loading(false, !hasNextPage);
   });
 
   $selectGiftEl
@@ -185,6 +185,8 @@ $(function () {
     }
 
     $("#btn-load-more").prop("disabled", !pageInfo.hasNextPage);
+
+    return pageInfo.hasNextPage;
   };
 
   loadWishlist(true);

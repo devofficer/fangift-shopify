@@ -2,6 +2,9 @@ import fangiftService from "../services/fangiftService";
 import { ITEMS_PER_PAGE } from "../utils/constants";
 import spinner from "../utils/snip";
 import templateCardWishlist from "../templates/card.wishlist";
+import toastr from "toastr";
+
+toastr.options.positionClass = "toast-bottom-center";
 
 $(function () {
   const drawerOptions = {
@@ -49,6 +52,11 @@ $(function () {
     } else if (state.giftSource === "product") {
       drawerGiftProduct.show();
     }
+  });
+
+  $("#btn-product-link").on("click", function () {
+    state.giftSource = "product";
+    drawerGiftProduct.show();
   });
 
   $("#wrapper-main-image").on("click", function (e) {
@@ -102,8 +110,11 @@ $(function () {
         productUrl: state.url,
         mainImage: state.mainImage,
       });
+      await loadWishlist();
       drawerGiftDetails.hide();
-    } catch (err) {}
+    } catch (err) {
+      toastr.error(err.response.data.message);
+    }
 
     $(this).loading(false);
   });

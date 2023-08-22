@@ -4,7 +4,7 @@
       <h4 class="text-heading-h4 text-primary-white">Hey, Emily 👋</h4>
       <div class="text-body-md flex items-center gap-2">
         <span class="text-primary-border">Your wishlist is live at:</span>
-        <span class="text-accent-purple underline">fangift.com/emilyblue</span>
+        <a class="text-accent-purple underline" href="fangift.com/emilyblue" target="_blank">fangift.com/emilyblue</a>
         {% render 'icon-copy' %}
       </div>
     </div>
@@ -28,7 +28,10 @@
         {% render 'icon-plus' %}
         <span>Cash Gift</span>
       </button>
-      <button class="h-8 px-3 btn flex items-center justify-center gap-2 text-primary-white text-body-xs bg-accent-purple rounded-[5px] hover:bg-blue-800 hover:text-primary-white">
+      <button
+        class="h-8 px-3 btn flex items-center justify-center gap-2 text-primary-white text-body-xs bg-accent-purple rounded-[5px] hover:bg-blue-800 hover:text-primary-white"
+        id="btn-product-link"
+      >
         {% render 'icon-plus' %}
         <span>Product Link</span>
       </button>

@@ -19,7 +19,6 @@ $.fn.loading = function (isLoading = true, keepDisabled = false) {
     this.html(this.data("content"));
     this.data("content", null);
     this.prop("disabled", keepDisabled);
-    console.log(keepDisabled);
   }
 
   return this;

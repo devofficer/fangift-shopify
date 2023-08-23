@@ -183,11 +183,36 @@ $(function () {
     state.after = pageInfo.endCursor;
 
     if (products.length) {
+      $("#no-gifts").addClass("hidden");
+      $("#no-gifts").removeClass("flex");
       products.forEach((product) =>
-        container.append(templateCardWishlist(product))
+        container.append(
+          templateCardWishlist({
+            ...product,
+            favorite: JSON.parse(product.metafields.favorite?.value ?? "false"),
+          })
+        )
       );
+      $(".just-created .btn-favorite").on("click", function () {
+        const id = $(this).data("metafield");
+        const prodId = $(this).data("product");
+        const newValue = !$(this).hasClass("toggled");
+        $(this).loading(true);
+        fangiftService
+          .put("/products/metafield", {
+            id,
+            value: newValue.toString(),
+            prodId,
+          })
+          .then(() => {
+            $(this).toggleClass("toggled");
+            $(this).loading(false);
+          });
+      });
+      $(".just-created").removeClass(".just-created");
     } else {
       $("#no-gifts").removeClass("hidden");
+      $("#no-gifts").addClass("flex");
     }
 
     if (showSpinner) {

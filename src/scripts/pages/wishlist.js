@@ -185,6 +185,8 @@ $(function () {
     if (products.length) {
       $("#no-gifts").addClass("hidden");
       $("#no-gifts").removeClass("flex");
+      $("#btn-load-more").show();
+
       products.forEach((product) =>
         container.append(
           templateCardWishlist({
@@ -193,6 +195,7 @@ $(function () {
           })
         )
       );
+
       $(".just-created .btn-favorite").on("click", function () {
         const id = $(this).data("metafield");
         const prodId = $(this).data("product");
@@ -209,10 +212,12 @@ $(function () {
             $(this).loading(false);
           });
       });
+
       $(".just-created").removeClass(".just-created");
     } else {
       $("#no-gifts").removeClass("hidden");
       $("#no-gifts").addClass("flex");
+      $("#btn-load-more").hide();
     }
 
     if (showSpinner) {

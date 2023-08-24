@@ -19,6 +19,7 @@ const cachced = require('gulp-cached');
 const log = require('fancy-log');
 const wrap = require('gulp-wrap');
 const handlebars = require('gulp-handlebars');
+const replace = require('gulp-replace');
 
 // rollup required plugins
 const rollup = require('gulp-better-rollup');
@@ -59,8 +60,8 @@ function imageStream(filepath) {
 
 // scripts
 function scriptStream(filepath) {
-  return new Promise((resolve) =>
-    src(filepath || config.streamPaths.scripts)
+  return new Promise((resolve) => {
+    const stream = src(filepath || config.streamPaths.scripts)
       .pipe(sourcemaps.init())
       .pipe(
         rollup(
@@ -84,13 +85,18 @@ function scriptStream(filepath) {
             },
           })
         )
-      )
-      .pipe(rename({ extname: '.min.js' }))
+      );
+
+    for (const key in process.env) {
+      stream.pipe(replace(`process.env.${key}`, `'${process.env[key]}'`));
+    }
+
+    stream.pipe(rename({ extname: '.min.js' }))
       .pipe(size({ showFiles: true }))
       .pipe(flatten())
       .pipe(dest(config.streamPaths.assets))
       .on('end', resolve)
-  );
+  });
 }
 
 // styles

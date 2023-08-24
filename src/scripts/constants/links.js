@@ -5,5 +5,8 @@ const LINKS = {
   collections: {
     path: "/collections/all",
   },
+  wishlist: {
+    path: "/pages/wishlist",
+  },
 };
 export default LINKS;

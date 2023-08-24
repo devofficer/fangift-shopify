@@ -1,6 +1,7 @@
 import fangiftService from "../services/fangiftService";
 import LINKS from "../constants/links";
 import spinner from "../utils/snip";
+import { getS3Url } from "../utils/string";
 
 $(function () {
   const pathname = window.location.pathname;
@@ -17,8 +18,20 @@ $(function () {
       const overlay = $('<div class="h-screen w-screen"></div>');
       $("html").append(overlay);
       spinner.spin(overlay[0]);
-      window.location = LINKS.collections.path;
+      window.location = LINKS.wishlist.path;
     } else {
+      window.gUserInfo = Object.freeze(
+        JSON.parse(localStorage.getItem("payload"))
+      );
+      Object.defineProperty(window, "gUserInfo", {
+        configurable: false,
+        writable: false,
+      });
+
+      if (gUserInfo.picture) {
+        $("#img-avatar").prop("src", getS3Url(gUserInfo.picture));
+      }
+
       $("body").removeClass("hidden");
     }
   } else {
@@ -28,9 +41,13 @@ $(function () {
     fangiftService.get("/auth").then((userInfo) => {
       if (userInfo) {
         if (pathname === LINKS.home.path) {
-          window.location.pathname = LINKS.collections.path;
+          window.location.pathname = LINKS.wishlist.path;
         } else {
-          window.userInfo = userInfo;
+          window.gUserInfo = Object.freeze(gUserInfo);
+          Object.defineProperty(window, "gUserInfo", {
+            configurable: false,
+            writable: false,
+          });
           $("body").removeClass("hidden");
           spinner.stop();
           overlay.detach();

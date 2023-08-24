@@ -139,7 +139,7 @@ $(function () {
     fangiftService
       .get(`auth/check-unique/${username}`)
       .then(() => {
-        $("#btn-next-creator").prop("disabled", false);
+        $("#btn-next-creator").loading(false);
         $(this).hide();
         $("#form-details").show();
       })

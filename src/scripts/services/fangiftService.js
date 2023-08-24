@@ -2,7 +2,7 @@ import axios from "axios";
 import LINKS from "../constants/links";
 
 const fangiftService = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: process.env.API_URL,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
   },

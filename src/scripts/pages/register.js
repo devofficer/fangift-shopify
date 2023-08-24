@@ -25,25 +25,8 @@ $(function () {
 
   $("#form-details").on("submit", function (e) {
     e.preventDefault();
-    $("#btn-register").loading(true);
-
-    const data = {
-      username,
-      type: role,
-      name: email,
-      password,
-    };
-
-    fangiftService
-      .post("auth/register", data)
-      .then(() => {
-        $(this).hide();
-        $("#form-email").show();
-      })
-      .catch((err) => {
-        toastr.error(err.response.data.message);
-        $("#btn-register").loading(false);
-      });
+    $(this).hide();
+    $("#form-country").show();
   });
 
   $("#form-about").on("submit", function (e) {
@@ -51,8 +34,10 @@ $(function () {
 
     const formData = new FormData();
     formData.append("name", email);
+    formData.append("username", username);
+    formData.append("type", role);
     formData.append("password", password);
-    formData.append("country", country);
+    formData.append("country", country[0].text);
     formData.append("avatar", avatarImg);
     formData.append("publicName", publicName);
     formData.append("bio", bio);
@@ -60,7 +45,7 @@ $(function () {
     $("#btn-about").loading(true);
 
     fangiftService
-      .post("auth/profile", formData, {
+      .post("auth/register", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

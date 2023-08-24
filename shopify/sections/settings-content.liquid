@@ -1,0 +1,88 @@
+<div class="bg-primary-background">
+  <div class="bg-primary-white border-b border-primary-border">
+    <div class="container px-[100px]">
+      <div class="h-[70px] flex items-center">
+        <ul class="flex flex-wrap gap-10 text-center text-primary-text text-body-sm">
+          <li>
+            <button
+              id="wishlist-tab"
+              data-tabs-target="#wishlist"
+              class="inline-flex items-center gap-2 justify-center py-4 active"
+            >
+              {% render 'icon-heart-small': class: '[.active>&]:text-accent-peach' %}
+              <span class="[.active>&]:text-accent-peach">Wishlist</span>
+            </button>
+          </li>
+          <li>
+            <button
+              id="products-tab"
+              data-tabs-target="#products"
+              class="inline-flex items-center gap-2 justify-center py-4"
+            >
+              {% render 'icon-bag-tick': class: '[.active>&]:text-accent-peach' %}
+              <span class="[.active>&]:text-accent-peach">Products</span>
+              <div class="[.active>&]:text-accent-peach [.active>&]:border-accent-peach w-5 h-5 flex items-center justify-center border border-primary-border rounded-full text-[8px] font-plus-bold">
+                4
+              </div>
+            </button>
+          </li>
+          <li>
+            <button
+              id="gifts-tab"
+              data-tabs-target="#gifts"
+              class="inline-flex items-center gap-2 justify-center py-4"
+            >
+              {% render 'icon-profile': class: '[.active>&]:text-accent-peach' %}
+              <span class="[.active>&]:text-accent-peach">Gifters</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="bg-primary-white border-b border-primary-border">
+    <div class="container px-[100px] py-[40px]">
+      <div id="wishlist">
+        <h5 class="text-heading-h5 text-primary-black mb-6">All Gifts</h5>
+        <div class="grid grid-cols-4 gap-[28px]">
+          {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', price: '59.99', external_link: 'amazon.com' %}
+          {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', price: '59.99' %}
+          {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', price: '59.99', external_link: 'amazon.com' %}
+          {% render 'gift-card' | img: 'product3.png', title: 'Gymshark Energy', price: '59.99', external_link: 'amazon.com' %}
+          {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', price: '59.99', external_link: 'amazon.com' %}
+          {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', price: '59.99' %}
+          {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', price: '59.99', external_link: 'amazon.com' %}
+          {% render 'gift-card' | img: 'product3.png', title: 'Gymshark Energy', price: '59.99', external_link: 'amazon.com' %}
+          {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', price: '59.99', external_link: 'amazon.com' %}
+          {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', price: '59.99' %}
+          {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', price: '59.99', external_link: 'amazon.com' %}
+          {% render 'gift-card' | img: 'product3.png', title: 'Gymshark Energy', price: '59.99', external_link: 'amazon.com' %}
+        </div>
+      </div>
+      <div id="products">
+        <h5 class="text-heading-h5 text-primary-black mb-6">Sold by Syraphic</h5>
+        <div class="grid grid-cols-4 gap-[28px]">
+          {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', price: '59.99', sold: true %}
+          {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', price: '59.99', sold: true %}
+          {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', price: '59.99', sold: true %}
+          {% render 'gift-card' | img: 'product4.png', title: 'The Workout Mat', price: '59.99', sold: true %}
+        </div>
+      </div>
+      <div id="gifts">
+        <div class="flex items-center gap-6 mb-6">
+          <h5 class="text-heading-h5 text-primary-black">Received Gifts</h5>
+          <span class="w-5 h-5 flex items-center justify-center border border-primary-border rounded-full text-[8px] font-plus-bold">
+            3
+          </span>
+        </div>
+        <div class="grid grid-cols-4 gap-[28px]">
+          {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', gifted_by: 'La-Wedia', external_link: 'amazon.com' %}
+          {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', gifted_by: 'La-Wedia' %}
+          {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', gifted_by: 'La-Wedia' %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ 'settings.min.js' | asset_url | script_tag }}

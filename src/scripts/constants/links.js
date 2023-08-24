@@ -2,6 +2,7 @@ const LINKS = {
   home: { path: "/" },
   login: { path: "/account/login", public: true },
   register: { path: "/account/register", public: true },
+  account: { path: "/pages/user" },
   collections: {
     path: "/collections/all",
   },

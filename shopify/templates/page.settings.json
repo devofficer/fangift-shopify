@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {}
+    },
+    "content-header": {
+      "type": "content-header-text",
+      "settings": {
+        "title": "Settings & Stats",
+        "content": "Configure your address, personalize your profile & enter delivery details."
+      }
+    },
+    "main": {
+      "type": "settings-content"
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": ["header", "content-header", "main", "footer"]
+}

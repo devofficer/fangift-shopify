@@ -10,6 +10,8 @@
 
 *config.yml
 *.env
+*.env.dev
+*.env.prod
 *node_modules/
 *theme.update
 shopify/assets/

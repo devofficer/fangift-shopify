@@ -1,7 +1,8 @@
-require('dotenv').config();
-
 const path = require('path');
 const del = require('del');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const run = require('gulp-run');
 const { task, src, dest, series, parallel, watch } = require('gulp');
@@ -9,7 +10,6 @@ const terser = require('gulp-terser');
 const rename = require('gulp-rename');
 const stripComments = require('gulp-strip-comments');
 const sourcemaps = require('gulp-sourcemaps');
-const cssnano = require('gulp-cssnano');
 const size = require('gulp-size');
 const imagemin = require('gulp-imagemin');
 const gulpif = require('gulp-if');
@@ -30,7 +30,6 @@ const { nodeResolve } = require('@rollup/plugin-node-resolve'); // allow rollup 
  * Configuration
  */
 const config = require('./config');
-const isProd = process.env.NODE_ENV === 'production';
 
 /**
  * Stream Handlers
@@ -59,7 +58,7 @@ function imageStream(filepath) {
 }
 
 // scripts
-function scriptStream(filepath) {
+function scriptStream(filepath, isProd = false) {
   return new Promise((resolve) => {
     const stream = src(filepath || config.streamPaths.scripts)
       .pipe(sourcemaps.init())
@@ -135,6 +134,8 @@ function templateStream(filepath) {
 }
 
 function watchHandler(done) {
+  dotenv.config({ path: '.env.dev' });
+
   const deleteFile = (filepath, isMinified = false) => {
     let filename = path.basename(filepath);
     if (isMinified) {
@@ -184,7 +185,7 @@ function watchHandler(done) {
 }
 
 function devShopify(done) {
-  return run(
+  run(
     `shopify theme dev --store ${process.env.STORE_URL} --path shopify`,
     {
       verbosity: 3,
@@ -192,13 +193,23 @@ function devShopify(done) {
   )
     .exec()
     .on('end', done)
-    .on('error', done);
+    .on('error', done)
+}
+
+function buildTheme(isProd = false) {
+  dotenv.config({ path: isProd ? '.env.prod' : '.env.dev' });
+  return Promise.all([
+    staticStream(),
+    imageStream(),
+    scriptStream(undefined, isProd),
+    templateStream(),
+    styleStream()
+  ]);
 }
 
 function deploy(done) {
-  return run(
-    `shopify theme push --theme ${isProd ? process.env.LIVE_THEME_ID : process.env.STAGING_THEME_ID
-    } --store ${process.env.STORE_URL} --path shopify`,
+  run(
+    `shopify theme push --theme ${process.env.THEME_ID} --store ${process.env.STORE_URL} --path shopify --allow-live`,
     { verbosity: 3 }
   )
     .exec()
@@ -207,7 +218,7 @@ function deploy(done) {
 
 function sync(done) {
   return run(
-    `shopify theme pull --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify`,
+    `shopify theme pull --theme ${process.env.THEME_ID} --store ${process.env.STORE_URL} --path shopify`,
     { verbosity: 3 }
   )
     .exec()
@@ -230,5 +241,6 @@ task('image', () => imageStream());
 task('build:js', () => scriptStream());
 task('build:template', () => templateStream());
 task('build:css', () => styleStream());
-task('build', parallel('static', 'image', 'build:js', 'build:template', 'build:css'));
+task('build', () => buildTheme());
+task('build:prod', () => buildTheme(true));
 task('deploy', deploy);

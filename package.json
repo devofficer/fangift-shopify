@@ -5,10 +5,10 @@
   "scripts": {
     "dev": "gulp dev",
     "deploy": "gulp deploy",
-    "deploy:prod": "NODE_ENV=production gulp deploy",
+    "deploy:prod": "gulp deploy:prod",
     "sync": "gulp sync",
     "build": "gulp build",
-    "build:prod": "NODE_ENV=production gulp build",
+    "build:prod": "gulp build:prod",
     "build:css": "gulp build:css",
     "build:js": "gulp build:js",
     "watch": "gulp watch",

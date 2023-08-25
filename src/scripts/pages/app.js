@@ -5,9 +5,11 @@ import { getS3Url } from "../utils/string";
 
 $(function () {
   const pathname = window.location.pathname;
-  const isPublicPage = Object.values(LINKS)
-    .filter((link) => link.public)
-    .some((link) => pathname.startsWith(link.path));
+  const isPublicPage =
+    pathname === "/" ||
+    Object.values(LINKS)
+      .filter((link) => link.public)
+      .some((link) => pathname.startsWith(link.path));
   const expiration = Number(localStorage.getItem("exp"));
   const validExp = new Date() < new Date(expiration);
 

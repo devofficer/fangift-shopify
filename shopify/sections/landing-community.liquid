@@ -1,13 +1,13 @@
 <section class="bg-accent-blue">
-  <div class="container px-[420px] py-[100px] flex flex-col items-center text-center">
+  <div class="container px-6 py-10 xl:px-[420px] xl:py-[100px] flex flex-col items-center text-center">
     {{ 'landing-users1.png' | asset_url | img_tag: 'users', 'mx-auto h-[60px] mb-[52px]', 'x60' }}
-    <h2 class="text-heading-h2 text-primary-black mb-4">Join our Community</h2>
+    <h2 class="text-heading-h4 lg:text-heading-h2 text-primary-black mb-4">Join our Community</h2>
     <p class="text-body-md text-primary-black mb-[52px]">
       Creators from around the world have chosen Fangift to engage with their fans. Discover their stories and
       experiences, and how you too can maximize the power of your fan connection.
     </p>
-    <div class="flex gap-4">
-      <div class="p-4 border border-primary-border bg-primary-white rounded-[16px] flex items-center text-[18px] w-[287px]">
+    <div class="flex flex-col lg:flex-row gap-4">
+      <div class="p-4 border border-primary-border bg-primary-white rounded-[16px] flex items-center text-[18px] w-full lg:w-[287px]">
         <span class="text-primary-black">fangift.com/</span>
         <input
           id="username-creator"

@@ -1,23 +1,23 @@
 <div class="container pt-26">
-  <div class="px-[320px] flex flex-col items-center gap-4 text-center">
+  <div class="px-6 lg:px-[320px] flex flex-col items-center gap-4 text-center">
     <div class="w-fit px-5 py-3 bg-accent-purple/10 text-accent-purple text-[18px] rounded-[16px]">It's free! 🎉</div>
-    <h2 class="text-heading-h2 text-primary-black">Your Wishlist, Your Store - Made Easy!</h2>
-    <p class="px-[142px] text-body-md text-primary-text">
+    <h2 class="text-heading-h4 lg:text-heading-h2 text-primary-black">Your Wishlist, Your Store - Made Easy!</h2>
+    <p class="hidden lg:block px-[142px] text-body-md text-primary-text">
       With Fangift, setting up your wishlist and store is effortless, intuitive, and speedy. You can get started in less
       than 10 minutes.
     </p>
   </div>
-  <div class="grid grid-cols-2">
+  <div class="grid grid-cols-1 lg:grid-cols-2">
     {{ 'landing-img1.png' | asset_url | img_tag: 'landing img1', '', '600x' }}
-    <div class="grid divide-y divide-primary-border pr-[100px] py-[96px]">
-      <div class="flex gap-[42px] h-fit py-[30px]">
+    <div class="grid divide-y divide-primary-border px-6 lg:pr-[100px] lg:py-[96px]">
+      <div class="flex flex-col lg:flex-row gap-[42px] h-fit py-[30px]">
         {% render 'icon-heart.liquid': class: 'min-w-[58px]' %}
         <div class="grid grid-cols-1 gap-4">
           <h4 class="text-heading-h4 text-primary-black ">Build & Share Your Wishlist</h4>
           <p class="text-body-md text-primary-text">
             Join Fangift, curate your wishlist, and share it with your fans right away!
           </p>
-          <a class="btn btn-text-primary flex items-center gap-[10px] !p-0" href="#">
+          <a class="btn btn-text-primary flex justify-start items-center gap-[10px] !p-0" href="#">
             <span>How it works</span>
             <svg
               class="{{ class }}"
@@ -32,7 +32,7 @@
           </a>
         </div>
       </div>
-      <div class="flex gap-[42px] h-fit py-[30px]">
+      <div class="flex flex-col lg:flex-row gap-[42px] h-fit py-[30px]">
         {% render 'icon-gift.liquid': class: 'min-w-[58px]' %}
         <div class="grid grid-cols-1 gap-4">
           <h4 class="text-heading-h4 text-primary-black ">Receive Gifts from your fans</h4>
@@ -40,7 +40,7 @@
             Your fans can show their support by gifting you items from your wishlist, providing a direct and meaningful
             connection.
           </p>
-          <a class="btn btn-text-primary flex items-center gap-[10px] !p-0" href="#">
+          <a class="btn btn-text-primary flex justify-start items-center gap-[10px] !p-0" href="#">
             <span>Get Started</span>
             <svg
               class="{{ class }}"
@@ -55,7 +55,7 @@
           </a>
         </div>
       </div>
-      <div class="flex gap-[42px] h-fit py-[30px]">
+      <div class="flex flex-col lg:flex-row gap-[42px] h-fit py-[30px]">
         {% render 'icon-msg.liquid': class: 'min-w-[58px]' %}
         <div class="grid grid-cols-1 gap-4">
           <h4 class="text-heading-h4 text-primary-black ">Celebrate Your Gifts</h4>

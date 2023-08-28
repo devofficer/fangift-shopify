@@ -20,7 +20,7 @@
   }
 
   .btn-text-primary {
-    @apply hover:text-blue-800 text-primary-text px-6 py-3;
+    @apply hover:text-blue-800 text-primary-text py-3;
   }
 
   .btn-google {

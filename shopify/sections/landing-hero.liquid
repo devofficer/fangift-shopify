@@ -1,18 +1,18 @@
-<div class="container px-[100px] py-[100px]">
-  <div class="grid grid-cols-2 gap-6 mb-12">
-    <div class="flex flex-col items-center">
-      <h1 class="text-heading-h1 text-primary-black mb-6">
+<div class="container px-[20px] py-[40px] xl:px-[100px] xl:py-[100px]">
+  <div class="grid lg:grid-cols-2 grid-cols-1 gap-6 mb-12">
+    <div class="flex flex-col items-center lg:order-1 order-2">
+      <h1 class="lg:text-heading-h1 text-center lg:text-left text-heading-h3 text-primary-black mb-6">
         Let Your Fans <span class="text-accent-peach">Support</span> You
       </h1>
-      <p class="text-body-xl text-primary-text mb-8">
+      <p class="text-body-md lg:text-body-xl text-center lg:text-left text-primary-text mb-8">
         Create your personal wishlist for fans to gift from and sell your unique creations directly to your supporters.
         All without compromising your privacy.
       </p>
-      <div class="w-full flex items-center gap-4 mb-8">
-        {{ 'landing-users.png' | asset_url | img_tag: 'users', 'h-[60px]', 'x60' }}
-        <span class="text-body-xl text-primary-black">250K creators joined us!</span>
+      <div class="w-full flex items-center justify-center lg:justify-start gap-4 mb-8">
+        {{ 'landing-users.png' | asset_url | img_tag: 'users', 'h-[43px] lg:h-[60px]', 'x60' }}
+        <span class="text-body-md lg:text-body-xl text-primary-black">250K creators joined us!</span>
       </div>
-      <div class="w-full flex items-center gap-4">
+      <div class="w-full flex items-center justify-center lg:justify-start gap-7">
         <a class="btn btn-primary !py-4" href="#"> 🔥 Create Page </a>
         <a class="btn btn-text-primary flex items-center gap-[10px]" href="#">
           <span>Learn More</span>
@@ -29,10 +29,10 @@
         </a>
       </div>
     </div>
-    {{ 'landing-img0.png' | asset_url | img_tag: 'landing-img0', 'w-full', '600x' }}
+    {{ 'landing-img0.png' | asset_url | img_tag: 'landing-img0', 'w-full order-1 lg:order-2', '600x' }}
   </div>
   <p class="text-body-sm text-primary-text text-center mb-16">Connect with your audience, no matter where they are.</p>
-  <div class="grid grid-cols-5 opacity-40">
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-7 opacity-40">
     <div class="flex items-center justify-center">
       {% render 'logo-tiktok.liquid' %}
     </div>
@@ -45,7 +45,7 @@
     <div class="flex items-center justify-center">
       {% render 'logo-twitter.liquid' %}
     </div>
-    <div class="flex items-center justify-center">
+    <div class="flex items-center justify-center col-span-2">
       {% render 'logo-twitch.liquid' %}
     </div>
   </div>

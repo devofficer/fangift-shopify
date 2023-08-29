@@ -1,12 +1,12 @@
 <div class="bg-primary-background">
-  <div class="container grid grid-cols-2">
-    <div class="px-[100px] py-[100px] flex flex-col justify-center gap-6">
-      <h2 class="text-heading-h2 text-primary">List your Products</h2>
+  <div class="container grid grid-cols-1 lg:grid-cols-2">
+    <div class="px-5 py-10 xl:px-[100px] xl:py-[100px] flex flex-col justify-center gap-6 order-2 lg:order-1">
+      <h2 class="text-heading-h4 lg:text-heading-h4 text-primary">List your Products</h2>
       <p class="text-body-md text-[#868686]">
         Upload product details such as pricing, available countries, and product images. Our team will add your products
         to our catalog, linking them back to your vendor profile.
       </p>
     </div>
-    {{ 'vendor-img2.png' | asset_url | img_tag: 'list products', 'my-6' }}
+    {{ 'vendor-img2.png' | asset_url | img_tag: 'list products', 'lg:my-6 order-1 lg:order-2' }}
   </div>
 </div>

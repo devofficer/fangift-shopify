@@ -4,13 +4,13 @@
 
 <main class="overflow-auto">
   <div class="bg-primary-background">
-    <div class="container p-[100px]">
-      <h1 class="text-heading-h1 text-primary text-center mb-12">How It Works</h1>
+    <div class="container px-5 py-10 xl:p-[100px]">
+      <h1 class="text-heading-h3 lg:text-heading-h1 text-primary text-center lg:mb-12">How It Works</h1>
       <div class="grid grid-cols-12">
-        {{ 'how-img0.png' | asset_url | img_tag: 'curate wishlist', 'col-span-7' }}
-        <div class="flex flex-col justify-center gap-6 col-span-5">
-          <h2 class="text-heading-h2 text-primary">Curate Your Wishlist</h2>
-          <p class="text-body-md text-[#868686]">
+        {{ 'how-img0.png' | asset_url | img_tag: 'curate wishlist', 'col-span-12 lg:col-span-7' }}
+        <div class="flex flex-col justify-center gap-6 col-span-12 lg:col-span-5">
+          <h2 class="text-heading-h4 lg:text-heading-h2 text-center lg:text-left text-primary">Curate Your Wishlist</h2>
+          <p class="text-body-md text-[#868686] text-center lg:text-left">
             Create your personalized wishlist on Fangift with products that match your style, needs, and content. Choose
             from our selection of partner brands or any other online store. Sharing your wishlist is easy – just add
             your Fangift link to your bio and let your fans know about it.
@@ -18,20 +18,28 @@
         </div>
       </div>
       <div class="grid grid-cols-12">
-        <div class="flex flex-col justify-center gap-6 col-span-5">
-          <h2 class="text-heading-h2 text-primary">Fans Buy Gifts or Products</h2>
-          <p class="text-body-md text-[#868686]">
+        <div class="flex flex-col justify-center gap-6 col-span-12 lg:col-span-5 order-2 lg:order-1">
+          <h2 class="text-heading-h4 lg:text-heading-h2 text-center lg:text-left text-primary">
+            Fans Buy Gifts or Products
+          </h2>
+          <p class="text-body-md text-[#868686] text-center lg:text-left">
             Once you share your Fangift link, fans can visit your page and buy gifts to you or your products. They can
             even leave a personalized message when they make a purchase.
           </p>
         </div>
-        {{ 'how-img1.png' | asset_url | img_tag: 'curate wishlist', 'col-start-7 col-span-6' }}
+        {{
+          'how-img1.png'
+          | asset_url
+          | img_tag: 'curate wishlist', 'col-span-12 order-1 lg:order-2 lg:col-start-7 lg:col-span-6'
+        }}
       </div>
       <div class="grid grid-cols-12">
-        {{ 'how-img3.png' | asset_url | img_tag: 'curate wishlist', 'col-span-7' }}
-        <div class="flex flex-col justify-center gap-6 col-span-5">
-          <h2 class="text-heading-h2 text-primary">Vendors Ship Gifts or Products</h2>
-          <p class="text-body-md text-[#868686]">
+        {{ 'how-img3.png' | asset_url | img_tag: 'curate wishlist', 'my-6 lg:my-0 col-span-12 lg:col-span-7' }}
+        <div class="flex flex-col justify-center gap-6 col-span-12 lg:col-span-5">
+          <h2 class="text-heading-h4 lg:text-heading-h2 text-center lg:text-left text-primary">
+            Vendors Ship Gifts or Products
+          </h2>
+          <p class="text-body-md text-[#868686] text-center lg:text-left">
             Vendors ship gifts or products directly to you. This ensures a seamless and quick delivery process,
             maintaining your privacy throughout.
           </p>
@@ -41,8 +49,10 @@
   </div>
 
   <div class="bg-accent-blue">
-    <div class="container text-center px-[320px] py-[100px]">
-      <h2 class="text-heading-h2 text-primary mb-6">🛍️ Become a Vendor and Sell Your Products on Fangift</h2>
+    <div class="container text-center px-6 py-10 xl:px-[320px] xl:py-[100px]">
+      <h2 class="text-heading-h4 lg:text-heading-h2 text-primary mb-6">
+        🛍️ Become a Vendor and Sell Your Products on Fangift
+      </h2>
       <p class="text-body-lg text-primary-text mb-8">
         Attention creators! Transform yourself into a vendor on Fangift and start selling your products to a wider
         audience. Join our platform to learn more about how you can monetize your creations and reach new customers.

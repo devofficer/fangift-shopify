@@ -37,6 +37,8 @@ $(function () {
     after: null,
   };
 
+  $("#text-username").text(gUserInfo.name);
+
   $("#btn-add-gift").on("click", function () {
     drawerSelectGift.show();
   });

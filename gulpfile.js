@@ -209,7 +209,7 @@ function buildTheme(isProd = false) {
 
 function deploy(done) {
   run(
-    `shopify theme push --theme ${process.env.THEME_ID} --store ${process.env.STORE_URL} --path shopify --allow-live`,
+    `shopify theme push --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify --allow-live`,
     { verbosity: 3 }
   )
     .exec()
@@ -218,7 +218,25 @@ function deploy(done) {
 
 function sync(done) {
   return run(
-    `shopify theme pull --theme ${process.env.THEME_ID} --store ${process.env.STORE_URL} --path shopify`,
+    `shopify theme pull --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify`,
+    { verbosity: 3 }
+  )
+    .exec()
+    .on('end', done);
+}
+
+function deployProd(done) {
+  run(
+    `shopify theme push --theme ${process.env.LIVE_THEME_ID} --store ${process.env.STORE_URL} --path shopify --allow-live`,
+    { verbosity: 3 }
+  )
+    .exec()
+    .on('end', done);
+}
+
+function syncProd(done) {
+  return run(
+    `shopify theme pull --theme ${process.env.LIVE_THEME_ID} --store ${process.env.STORE_URL} --path shopify`,
     { verbosity: 3 }
   )
     .exec()
@@ -232,6 +250,7 @@ task('shopify:dev', devShopify);
 task('watch', watchHandler);
 task('dev', parallel('watch', 'shopify:dev'));
 task('sync', sync);
+task('sync:prod', syncProd);
 
 /**
  * Build Tasks
@@ -244,3 +263,4 @@ task('build:css', () => styleStream());
 task('build', () => buildTheme());
 task('build:prod', () => buildTheme(true));
 task('deploy', deploy);
+task('deploy:prod', deployProd);

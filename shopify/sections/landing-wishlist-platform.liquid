@@ -1,13 +1,13 @@
 <div class="bg-primary-background">
-  <div class="container px-[100px] py-[100px] grid grid-cols-2">
-    <div class="flex flex-col gap-6 justify-center pr-[100px]">
-      <h2 class="text-heading-h2 text-primary">A Global Platform</h2>
+  <div class="container px-5 py-10 xl:px-[100px] xl:py-[100px] grid grid-cols-1 lg:grid-cols-2">
+    <div class="flex flex-col gap-6 justify-center lg:pr-[100px] order-2 lg:order-1">
+      <h2 class="text-heading-h4 lg:text-heading-h2 text-primary">A Global Platform</h2>
       <p class="text-body-md text-[#868686]">
         No matter where you are, Fangift ensures you can create and share your wishlist. Connect with fans across the
         globe and get the support you deserve.
       </p>
       {% render 'button-forward': label: 'Get Started' %}
     </div>
-    {{ 'wishlist-img1.png' | asset_url | img_tag: 'pinky girl', 'pl-[50px]' }}
+    {{ 'wishlist-img1.png' | asset_url | img_tag: 'pinky girl', 'order-1 mb-10 lg:mb-0 lg:order-2 lg:pl-[50px]' }}
   </div>
 </div>

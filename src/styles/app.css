@@ -6,6 +6,7 @@
 @import "./components/form-elements.css";
 @import "./components/select.css";
 @import "./components/spin.css";
+@import "./components/modal.css";
 
 @tailwind base;
 @tailwind components;

@@ -60,7 +60,7 @@
   }
 
   .btn-wish-icon {
-    @apply flex items-center justify-center border border-primary-border rounded-[8px] px-2 h-[30px] bg-primary-white;
+    @apply text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 flex items-center justify-center border border-primary-border rounded-[8px] px-2 h-[30px] bg-primary-white;
   }
 
   .btn-close-drawer {

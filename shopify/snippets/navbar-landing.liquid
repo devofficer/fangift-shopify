@@ -1,5 +1,5 @@
-<nav role="navigation" class="flex items-center">
-  <ul class="hidden lg:flex gap-[40px]">
+<nav role="navigation" class="hidden static lg:flex items-center">
+  <ul class="flex flex-col lg:flex-row gap-[40px]">
     {% for link in linklists['main-menu'].links %}
       {% capture clsx -%}
         {%- if link.active -%}

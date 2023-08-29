@@ -1,3 +1,5 @@
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
   future: {
     hoverOnlyWhenSupported: true,
@@ -42,5 +44,10 @@ module.exports = {
       },
     },
   },
-  plugins: [require("flowbite/plugin")],
+  plugins: [
+    require("flowbite/plugin"),
+    plugin(function ({ addVariant }) {
+      addVariant('body', 'body:has(&:not(.hidden))');
+    }),
+  ],
 };

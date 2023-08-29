@@ -7,6 +7,10 @@
     @apply focus:ring-blue-300 focus:ring-4 text-white bg-primary-black hover:bg-blue-800 px-6 py-[14px] text-[18px];
   }
 
+  .btn-icon-menu {
+    @apply focus:ring-blue-300 focus:ring-4 bg-primary-black hover:bg-blue-800 w-[38px] h-[38px] !rounded-[8px];
+  }
+
   .btn-primary:disabled {
     @apply bg-primary-background text-primary-border;
   }

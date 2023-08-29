@@ -1,13 +1,15 @@
 <div class="bg-primary-white">
-  <div class="container grid grid-cols-2">
+  <div class="container grid grid-cols-1 lg:grid-cols-2">
     {{ 'vendor-img1.png' | asset_url | img_tag: 'vendor profile' }}
-    <div class="px-[100px] py-[100px] flex flex-col justify-center gap-6">
-      <h2 class="text-heading-h2 text-primary">Create Your Vendor Profile</h2>
-      <p class="text-body-md text-[#868686]">
+    <div class="px-5 py-10 xl:px-[100px] xl:py-[100px] flex flex-col justify-center gap-6">
+      <h2 class="text-heading-h4 lg:text-heading-h2 text-center lg:text-left text-primary">
+        Create Your Vendor Profile
+      </h2>
+      <p class="text-body-md text-[#868686] text-center lg:text-left">
         Join Fangift by simply signing up as a vendor. It's a straightforward process designed to get you started
         quickly.
       </p>
-      {% render 'button-forward': label: 'Get Started' %}
+      {% render 'button-forward': label: 'Get Started', class: 'mx-auto lg:mx-0' %}
     </div>
   </div>
 </div>

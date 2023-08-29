@@ -1,18 +1,20 @@
-<div class="container px-6 xl:px-[100px] py-[50px] bg-[url(wishlist-bg.svg)] bg-no-repeat bg-cover">
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <div class="flex flex-col justify-center order-2 lg:order-1">
-      <div class="w-fit mx-auto lg:mx-0 px-5 py-3 bg-accent-purple/10 text-accent-purple text-[18px] rounded-[16px] mb-[35px]">
-        💜️ Wishlist
+<div class=" bg-[url(wishlist-bg.svg)] bg-no-repeat bg-cover lg:bg-none">
+  <div class="container px-6 xl:px-[100px] py-[50px]">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="flex flex-col justify-center order-2 lg:order-1">
+        <div class="w-fit mx-auto lg:mx-0 px-5 py-3 bg-accent-purple/10 text-accent-purple text-[18px] rounded-[16px] mb-[35px]">
+          💜️ Wishlist
+        </div>
+        <h1 class="text-heading-h3 text-center lg:text-left lg:text-heading-h1 text-primary-black mb-6">
+          Your Personalized Gift Space
+        </h1>
+        <p class="text-body-md lg:text-body-xl text-center lg:text-left text-primary-text mb-8">
+          With Fangift, curate a wishlist that reflects your unique style and needs. From the newest game to your
+          desired digital drawing tablet, pick items that truly inspire your content.
+        </p>
+        <a class="btn btn-primary !py-4 w-fit mx-auto lg:mx-0" href="#">🔥 Create Page</a>
       </div>
-      <h1 class="text-heading-h3 text-center lg:text-left lg:text-heading-h1 text-primary-black mb-6">
-        Your Personalized Gift Space
-      </h1>
-      <p class="text-body-md lg:text-body-xl text-center lg:text-left text-primary-text mb-8">
-        With Fangift, curate a wishlist that reflects your unique style and needs. From the newest game to your desired
-        digital drawing tablet, pick items that truly inspire your content.
-      </p>
-      <a class="btn btn-primary !py-4 w-fit mx-auto lg:mx-0" href="#">🔥 Create Page</a>
+      {{ 'wishlist-img0.png' | asset_url | img_tag: 'wishlist hero', 'order-1 lg:order-2' }}
     </div>
-    {{ 'wishlist-img0.png' | asset_url | img_tag: 'wishlist hero', 'order-1 lg:order-2' }}
   </div>
 </div>

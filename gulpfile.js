@@ -196,8 +196,8 @@ function devShopify(done) {
     .on('error', done)
 }
 
-function buildTheme(isProd = false) {
-  dotenv.config({ path: isProd ? '.env.prod' : '.env.dev' });
+function buildTheme(envPath = '.env.dev') {
+  dotenv.config({ path: envPath });
   return Promise.all([
     staticStream(),
     imageStream(),
@@ -209,16 +209,16 @@ function buildTheme(isProd = false) {
 
 function deploy(done) {
   run(
-    `shopify theme push --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify --allow-live`,
+    `shopify theme push --theme ${process.env.DEV_THEME_ID} --store ${process.env.STORE_URL} --path shopify --allow-live`,
     { verbosity: 3 }
   )
     .exec()
     .on('end', done);
 }
 
-function sync(done) {
-  return run(
-    `shopify theme pull --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify`,
+function deployStage(done) {
+  run(
+    `shopify theme push --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify --allow-live`,
     { verbosity: 3 }
   )
     .exec()
@@ -228,6 +228,24 @@ function sync(done) {
 function deployProd(done) {
   run(
     `shopify theme push --theme ${process.env.LIVE_THEME_ID} --store ${process.env.STORE_URL} --path shopify --allow-live`,
+    { verbosity: 3 }
+  )
+    .exec()
+    .on('end', done);
+}
+
+function sync(done) {
+  return run(
+    `shopify theme pull --theme ${process.env.DEV_THEME_ID} --store ${process.env.STORE_URL} --path shopify`,
+    { verbosity: 3 }
+  )
+    .exec()
+    .on('end', done);
+}
+
+function syncStage(done) {
+  return run(
+    `shopify theme pull --theme ${process.env.STAGING_THEME_ID} --store ${process.env.STORE_URL} --path shopify`,
     { verbosity: 3 }
   )
     .exec()
@@ -250,6 +268,7 @@ task('shopify:dev', devShopify);
 task('watch', watchHandler);
 task('dev', parallel('watch', 'shopify:dev'));
 task('sync', sync);
+task('sync:stage', syncStage);
 task('sync:prod', syncProd);
 
 /**
@@ -260,7 +279,11 @@ task('image', () => imageStream());
 task('build:js', () => scriptStream());
 task('build:template', () => templateStream());
 task('build:css', () => styleStream());
+
 task('build', () => buildTheme());
-task('build:prod', () => buildTheme(true));
+task('build:prod', () => buildTheme('.env.prod'));
+task('build:stage', () => buildTheme('.env.stage'));
+
 task('deploy', deploy);
+task('deploy:stage', deployStage);
 task('deploy:prod', deployProd);

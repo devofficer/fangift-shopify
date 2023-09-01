@@ -12,6 +12,7 @@
 *.env
 *.env.dev
 *.env.prod
+*.env.stage
 *node_modules/
 *theme.update
 shopify/assets/

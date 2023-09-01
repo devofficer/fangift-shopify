@@ -22,11 +22,14 @@ $(function () {
   const $giftDetailsEl = document.getElementById("drawer-gift-details");
   const $giftProductEl = document.getElementById("drawer-gift-product");
   const $giftCollectionEl = document.getElementById("drawer-gift-collection");
+  const $confirmModalEl = document.getElementById("modal-confirm");
+
   const drawerSelectGift = new Drawer($selectGiftEl, drawerOptions);
   const drawerAddGift = new Drawer($addGiftEl, drawerOptions);
   const drawerGiftDetails = new Drawer($giftDetailsEl, drawerOptions);
   const drawerGiftProduct = new Drawer($giftProductEl, drawerOptions);
   const drawerGiftCollection = new Drawer($giftCollectionEl, drawerOptions);
+  const confirmModal = new Modal($confirmModalEl);
 
   const state = {
     url: "",
@@ -35,6 +38,7 @@ $(function () {
     shippingPrice: 0,
     digitalGood: false,
     after: null,
+    deleteId: null,
   };
 
   $("#text-username").text(gUserInfo.name);
@@ -197,6 +201,12 @@ $(function () {
           })
         )
       );
+
+      $(".just-created .btn-card-delete").on("click", function () {
+        const prodId = $(this).data("product");
+        state.deleteId = prodId;
+        confirmModal.show();
+      });
 
       $(".just-created .btn-favorite").on("click", function () {
         const id = $(this).data("metafield");

@@ -4,7 +4,7 @@
   }
 
   .btn-primary {
-    @apply focus:ring-blue-300 focus:ring-4 text-white bg-primary-black hover:bg-blue-800 px-6 py-[14px] text-[18px];
+    @apply focus:ring-blue-300 focus:ring-4 text-white bg-primary-black hover:bg-blue-800 px-6 h-[55px] text-[18px];
   }
 
   .btn-icon-menu {

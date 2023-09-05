@@ -201,7 +201,7 @@ function buildTheme(envPath = '.env.dev') {
   return Promise.all([
     staticStream(),
     imageStream(),
-    scriptStream(undefined, isProd),
+    scriptStream(),
     templateStream(),
     styleStream()
   ]);

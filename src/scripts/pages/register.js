@@ -25,8 +25,19 @@ $(function () {
 
   $("#form-details").on("submit", function (e) {
     e.preventDefault();
-    $(this).hide();
-    $("#form-country").show();
+    $("#btn-register").loading(true);
+
+    fangiftService
+      .get(`auth/check-email/${email}`)
+      .then(() => {
+        $("#btn-register").loading(false);
+        $(this).hide();
+        $("#form-country").show();
+      })
+      .catch((err) => {
+        toastr.error(err.response.data.message);
+        $("#btn-register").loading(false);
+      });
   });
 
   $("#form-about").on("submit", function (e) {
@@ -104,7 +115,7 @@ $(function () {
     $("#btn-next-fan").loading(true);
 
     fangiftService
-      .get(`auth/check-unique/${username}`)
+      .get(`auth/check-username/${username}`)
       .then(() => {
         $("#btn-next-fan").prop("disabled", false);
         $(this).hide();
@@ -122,7 +133,7 @@ $(function () {
     $("#btn-next-creator").loading(true);
 
     fangiftService
-      .get(`auth/check-unique/${username}`)
+      .get(`auth/check-username/${username}`)
       .then(() => {
         $("#btn-next-creator").loading(false);
         $(this).hide();

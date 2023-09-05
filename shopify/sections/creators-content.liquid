@@ -22,8 +22,13 @@
         </div>
       </div>
       <div class="col-start-1 col-span-12">
-        <div class="grid grid-cols-4 gap-x-5 gap-y-4" id="container-creators"></div>
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-4 min-h-[50vh] relative"
+          id="container-creators"
+        ></div>
       </div>
     </div>
   </div>
 </div>
+
+{{ 'creators.min.js' | asset_url | script_tag }}

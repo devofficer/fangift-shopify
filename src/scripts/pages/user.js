@@ -40,19 +40,28 @@ $(async function () {
     }),
   ]);
 
+  // render creator's gift items to all gifts section
   products.forEach((prod) => containerAllGifts.append(templateCardGift(prod)));
 
-  $(".btn-add-to-cart").on("click", function () {
-    const prodId = $(this).data("product-id");
+  // add or remove gift items to cart
+  const updateCart = function (prodId, remove) {
     const rawItems = localStorage.getItem("cart_items");
     const cartItems = rawItems ? JSON.parse(rawItems) : {};
     const container = $("#container-gift-cart");
 
-    if (cartItems[username] && !cartItems[username].includes(prodId)) {
-      cartItems[username].push(prodId);
+    if (remove) {
+      cartItems[username] = cartItems[username].filter(
+        (cartId) => cartId !== prodId
+      );
     } else {
-      cartItems[username] = [prodId];
+      if (cartItems[username] && !cartItems[username].includes(prodId)) {
+        cartItems[username].push(prodId);
+      } else {
+        cartItems[username] = [prodId];
+      }
     }
+
+    localStorage.setItem("cart_items", JSON.stringify(cartItems));
 
     container.empty();
     let subtotal = 0;
@@ -63,16 +72,31 @@ $(async function () {
     });
     $("#text-subtotal").text(`$${subtotal}`);
 
+    $(".btn-remove-from-cart").off("click");
+    $(".btn-remove-from-cart").on("click", function () {
+      const prodId = $(this).data("product-id");
+      updateCart(prodId, true);
+    });
+
     drawerCart.show();
+  };
+
+  // add gift items to cart
+  $(".btn-add-to-cart").on("click", function () {
+    const prodId = $(this).data("product-id");
+    updateCart(prodId);
   });
 
-  hideOverlay();
+  // close cart drawer when clicking x button
+  $("#btn-close-cart").on("click", () => drawerCart.hide());
 
+  // update creator profile section info
   $("#text-username").text(`@${user.name}`);
   $("#text-public-name").text(user.publicName);
   $("#text-bio").text(user.bio);
   $("#img-user-picture").prop("src", getS3Url(user.picture));
 
+  // initialize tab elements
   const tabElements = [
     {
       id: "wishlist",
@@ -108,4 +132,7 @@ $(async function () {
 
   const tabs = new Tabs(tabElements, options);
   tabs.show("wishlist");
+
+  // close body overlay after successful initialization
+  hideOverlay();
 });

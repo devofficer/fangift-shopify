@@ -47,15 +47,19 @@
     <div class="grid grid-cols-10">
       <div class="col-span-3 mt-[-232px]">
         <div id="profile" class="bg-primary-white rounded-[8px] px-6 py-4 mb-5">
-          {% render 'avatar' | class: 'mx-auto mb-6 shadow-[0_20px_100px_0_#2D27474D]' %}
-          <h4 class="text-heading-h4 text-black mb-2 text-center">Syraphic</h4>
-          <p class="text-body-lg text-accent-peach text-center mb-6">@syraphic</p>
+          <div
+            class="w-[120px] h-[120px] mx-auto mb-6 shadow-[0_20px_100px_0_#2D27474D] avatar flex items-center justify-center"
+          >
+            <img class="rounded-full w-full h-full object-cover" id="img-user-picture">
+          </div>
+          <h4 class="text-heading-h4 text-black mb-2 text-center" id="text-public-name">Public Name</h4>
+          <p class="text-body-lg text-accent-peach text-center mb-6" id="text-username">@username</p>
           <button class="btn bg-primary-border py-[10px] text-body-sm w-full rounded-[5px] mb-2">Following</button>
           <button class="btn btn-link mb-6">
             {% render 'icon-link' %}
             <span>Share</span>
           </button>
-          <p class="text-body-sm text-primary-text text-center mb-6">Part time streamer. Full time clownery expert.</p>
+          <p class="text-body-sm text-primary-text text-center mb-6" id="text-bio">Short Bio.</p>
           <button class="btn btn-link mb-4">
             {% render 'icon-instagram-small' %}
             <span>Instagram</span>
@@ -84,20 +88,7 @@
       </div>
       <div class="col-span-7 pt-[32px] pl-[57px]" id="wishlist">
         <h5 class="text-heading-h5 text-primary-black mb-6">All Gifts</h5>
-        <div class="grid grid-cols-4 gap-[28px]">
-          {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', price: '59.99' %}
-          {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product3.png', title: 'Gymshark Energy', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', price: '59.99' %}
-          {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product3.png', title: 'Gymshark Energy', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', price: '59.99' %}
-          {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product3.png', title: 'Gymshark Energy', price: '59.99', external_link: 'amazon.com' %}
-        </div>
+        <div class="grid grid-cols-4 gap-[28px] relative" id="container-all-gifts"></div>
       </div>
       <div class="col-span-7 pt-[32px] pl-[57px]" id="products">
         <h5 class="text-heading-h5 text-primary-black mb-6">Sold by Syraphic</h5>
@@ -105,7 +96,7 @@
           {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', price: '59.99', sold: true %}
           {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', price: '59.99', sold: true %}
           {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', price: '59.99', sold: true %}
-          {% render 'gift-card' | img: 'product4.png', title: 'The Workout Mat', price: '59.99', sold: true %}
+          {% render 'gift-card' | img: 'product3.png', title: 'The Workout Mat', price: '59.99', sold: true %}
         </div>
       </div>
       <div class="col-span-7 pt-[32px] pl-[57px]" id="gifts">
@@ -122,6 +113,36 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div
+    id="drawer-cart"
+    class="fixed top-0 right-0 z-40 h-screen px-[40px] py-[44px] overflow-y-auto translate-x-full bg-primary-background w-[600px] flex flex-col"
+    tabindex="-1"
+    aria-labelledby="drawer-label"
+  >
+    <button
+      type="button"
+      class="btn-close-drawer"
+      id="btn-close-cart"
+    >
+      {% render 'icon-close': class: 'w-3 h-3' %}
+    </button>
+    <h4 class="text-heading-h4 mb-[76px]">Gift Cart 🎀</h4>
+    <div class="grid grid-cols-1 gap-8 flex-grow mb-8" id="container-gift-cart"></div>
+
+    <hr class="border-1 -mx-10 mb-8">
+    <div class="flex justify-between items-center mb-8">
+      <p>Subtotal:</p>
+      <span id="text-subtotal"></span>
+    </div>
+    <button
+      id="btn-checkout"
+      type="button"
+      class="btn btn-primary flex-shrink-0 w-full"
+    >
+      Checkout
+    </button>
   </div>
 </div>
 

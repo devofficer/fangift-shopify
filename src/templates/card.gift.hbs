@@ -1,0 +1,23 @@
+<div class="card-product">
+  <div class="grid grid-cols-1 gap-2">
+    <div class="h-[144px] bg-primary-background rounded-[8px] relative">
+      <img class="w-full h-full object-contain" src="{{ featuredImage.url }}" alt="{{ featuredImage.alt }}"
+        loading="lazy" width="{{ featuredImage.width }}" height="{{ featuredImage.height }}">
+    </div>
+    <p class="text-body-sm text-black whitespace-nowrap text-ellipsis overflow-hidden">
+      {{ title }}
+    </p>
+    <div class="flex items-center justify-between gap-2">
+      <a href="{{ metafields.product_url.value }}" target="_blank"
+        class="flex flex-grow items-center justify-center gap-[6px] border border-primary-border p-2 rounded-[8px] text-body-xs text-primary-black">
+        <span>amazon</span>
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="m5.917 5.083 3.417-3.417M9.667 3.333v-2h-2M5.083 1.333H4.25c-2.084 0-2.917.833-2.917 2.917v2.5c0 2.083.833 2.916 2.917 2.916h2.5c2.083 0 2.916-.833 2.916-2.916v-.834"
+            stroke="#292D32" stroke-width=".625" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+    <button class="btn btn-view-details btn-add-to-cart" data-product-id="{{ id }}">Add to Cart</button>
+  </div>
+</div>

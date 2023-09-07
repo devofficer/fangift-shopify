@@ -86,7 +86,7 @@ $(function () {
     state.url = $("#text-product-link").val();
 
     $(this).loading(true);
-    const prodInfo = await fangiftService.post("scraper/product", {
+    const prodInfo = await fangiftService.get("scraper/product", {
       url: state.url,
     });
     state.mainImage = prodInfo.mainImage;

@@ -87,7 +87,9 @@ $(function () {
 
     $(this).loading(true);
     const prodInfo = await fangiftService.get("scraper/product", {
-      url: state.url,
+      params: {
+        url: state.url,
+      },
     });
     state.mainImage = prodInfo.mainImage;
     $(this).loading(false);

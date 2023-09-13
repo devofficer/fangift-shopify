@@ -34,14 +34,18 @@ $(async function () {
     }),
     fangiftService.get("/products", {
       params: {
-        first: 100,
+        first: 10,
         query: `vendor:${username}`,
       },
     }),
   ]);
 
   // render creator's gift items to all gifts section
-  products.forEach((prod) => containerAllGifts.append(templateCardGift(prod)));
+  products.forEach((prod) =>
+    containerAllGifts.append(
+      templateCardGift({ ...prod, variant: prod.variants[0] })
+    )
+  );
 
   // add or remove gift items to cart
   const updateCart = function (prodId, remove) {
@@ -56,7 +60,7 @@ $(async function () {
     } else {
       if (cartItems[username] && !cartItems[username].includes(prodId)) {
         cartItems[username].push(prodId);
-      } else {
+      } else if (!cartItems[username]) {
         cartItems[username] = [prodId];
       }
     }
@@ -95,6 +99,26 @@ $(async function () {
   $("#text-public-name").text(user.publicName);
   $("#text-bio").text(user.bio);
   $("#img-user-picture").prop("src", getS3Url(user.picture));
+
+  $("#btn-checkout").on("click", async function () {
+    $(this).loading(true);
+    const rawItems = localStorage.getItem("cart_items");
+    const cartItems = rawItems ? JSON.parse(rawItems) : {};
+
+    if (cartItems[username]) {
+      const cart = await fangiftService.post("/products/checkout", {
+        creator: username,
+        cartItems: cartItems[username].map(
+          (prodId) => products.find((prod) => prod.id === prodId).variants[0].id
+        ),
+      });
+      cartItems[username] = [];
+      localStorage.setItem("cart_items", JSON.stringify(cartItems));
+      window.location.href = cart.checkoutUrl;
+    } else {
+      $(this).loading(false);
+    }
+  });
 
   // initialize tab elements
   const tabElements = [

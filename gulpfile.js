@@ -134,8 +134,6 @@ function templateStream(filepath) {
 }
 
 function watchHandler(done) {
-  dotenv.config({ path: '.env.dev' });
-
   const deleteFile = (filepath, isMinified = false) => {
     let filename = path.basename(filepath);
     if (isMinified) {
@@ -197,7 +195,7 @@ function devShopify(done) {
 }
 
 function buildTheme(envPath = '.env.dev') {
-  dotenv.config({ path: envPath });
+  dotenv.config({ path: envPath, override: true });
   return Promise.all([
     staticStream(),
     imageStream(),
@@ -280,7 +278,7 @@ task('build:js', () => scriptStream());
 task('build:template', () => templateStream());
 task('build:css', () => styleStream());
 
-task('build', () => buildTheme());
+task('build', () => buildTheme('.env.dev'));
 task('build:prod', () => buildTheme('.env.prod'));
 task('build:stage', () => buildTheme('.env.stage'));
 

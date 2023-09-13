@@ -194,7 +194,7 @@ function devShopify(done) {
     .on('error', done)
 }
 
-function buildTheme(envPath = '.env.dev') {
+function buildTheme(envPath = '.env') {
   dotenv.config({ path: envPath, override: true });
   return Promise.all([
     staticStream(),
@@ -263,7 +263,7 @@ function syncProd(done) {
  * Dev Tasks
  */
 task('shopify:dev', devShopify);
-task('watch', watchHandler);
+task('watch', (done) => buildTheme().then(() => watchHandler(done)));
 task('dev', parallel('watch', 'shopify:dev'));
 task('sync', sync);
 task('sync:stage', syncStage);

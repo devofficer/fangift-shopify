@@ -216,7 +216,7 @@ $(function () {
 
     $(this).loading(true);
     try {
-      await fangiftService.post("products", {
+      await fangiftService.post("/shop/product", {
         title: state.title,
         price: Number(state.price),
         digitalGood: state.digitalGood,
@@ -249,7 +249,7 @@ $(function () {
   });
 
   $(".btn-sure-modal-delete").on("click", async function () {
-    $(this).loading(true);
+    $(this).loading(true, { size: "w-4 h-4" });
     await fangiftService.delete("/shop/product", {
       params: {
         id: state.deleteId,

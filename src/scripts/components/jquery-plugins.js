@@ -1,11 +1,17 @@
-$.fn.loading = function (isLoading = true, keepDisabled = false) {
+$.fn.loading = function (isLoading = true, opt) {
+  const options = {
+    keepDisabled: false,
+    size: "w-8 h-8",
+    ...opt,
+  };
+
   if (isLoading) {
     const content = this.html();
     this.data("content", content);
     this.html(`
       <svg
         aria-hidden="true"
-        class="w-8 h-8 text-gray-200 animate-spin fill-blue-600"
+        class="${options.size} text-gray-200 animate-spin fill-blue-600"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +24,7 @@ $.fn.loading = function (isLoading = true, keepDisabled = false) {
   } else {
     this.html(this.data("content"));
     this.data("content", null);
-    this.prop("disabled", keepDisabled);
+    this.prop("disabled", options.keepDisabled);
   }
 
   return this;

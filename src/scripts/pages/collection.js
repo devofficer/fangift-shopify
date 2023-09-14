@@ -126,7 +126,7 @@ async function loadProduct(clear = false) {
 async function loadMore() {
   $(this).loading(true);
   const hasNexPage = await loadProduct();
-  $(this).loading(false, !hasNexPage);
+  $(this).loading(false, { keepDisabled: !hasNexPage });
 }
 
 function initAccordin() {

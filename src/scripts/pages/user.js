@@ -32,7 +32,7 @@ $(async function () {
         query: `name="${username}"`,
       },
     }),
-    fangiftService.get("/products", {
+    fangiftService.get("/shop/product", {
       params: {
         first: 10,
         query: `vendor:${username}`,
@@ -106,7 +106,7 @@ $(async function () {
     const cartItems = rawItems ? JSON.parse(rawItems) : {};
 
     if (cartItems[username]) {
-      const cart = await fangiftService.post("/products/checkout", {
+      const cart = await fangiftService.post("/shop/checkout", {
         creator: username,
         cartItems: cartItems[username].map(
           (prodId) => products.find((prod) => prod.id === prodId).variants[0].id

@@ -30,7 +30,7 @@ function initWidgets() {
 
 async function loadCategories() {
   const container = $("#container-categories");
-  const cats = await fangiftService.get("/products/types");
+  const cats = await fangiftService.get("/shop/product/types");
 
   params.categories = cats.map((cat) => ({
     id: convertLabelToId(cat),
@@ -82,7 +82,7 @@ async function loadProduct(clear = false) {
   params.cancelToken = axios.CancelToken.source();
 
   // fetch products
-  const { products, pageInfo } = await fangiftService.get("/products", {
+  const { products, pageInfo } = await fangiftService.get("/shop/product", {
     params: { after: params.after, first: ITEMS_PER_PAGE, query },
     cancelToken: params.cancelToken.token,
   });

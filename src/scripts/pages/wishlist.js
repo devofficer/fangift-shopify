@@ -1,6 +1,7 @@
 import fangiftService from "../services/fangiftService";
 import { ITEMS_PER_PAGE } from "../utils/constants";
 import spinner from "../utils/snip";
+import { prodGidToId } from "../utils/string";
 import templateCardWishlist from "../templates/card.wishlist";
 import toastr from "toastr";
 
@@ -22,7 +23,7 @@ $(function () {
   const $giftDetailsEl = document.getElementById("drawer-gift-details");
   const $giftProductEl = document.getElementById("drawer-gift-product");
   const $giftCollectionEl = document.getElementById("drawer-gift-collection");
-  const $confirmModalEl = document.getElementById("modal-confirm");
+  const $confirmModalEl = document.getElementById("modal-delete");
 
   const drawerSelectGift = new Drawer($selectGiftEl, drawerOptions);
   const drawerAddGift = new Drawer($addGiftEl, drawerOptions);
@@ -42,6 +43,110 @@ $(function () {
   };
 
   $("#text-username").text(gUserInfo.name);
+
+  $selectGiftEl
+    .querySelector(".btn-close-drawer")
+    .addEventListener("click", function () {
+      drawerSelectGift.hide();
+    });
+
+  $addGiftEl
+    .querySelector(".btn-close-drawer")
+    .addEventListener("click", function () {
+      drawerAddGift.hide();
+    });
+
+  $giftDetailsEl
+    .querySelector(".btn-close-drawer")
+    .addEventListener("click", function () {
+      drawerGiftDetails.hide();
+    });
+
+  $giftProductEl
+    .querySelector(".btn-close-drawer")
+    .addEventListener("click", function () {
+      drawerGiftProduct.hide();
+    });
+
+  $giftCollectionEl
+    .querySelector(".btn-close-drawer")
+    .addEventListener("click", function () {
+      drawerGiftCollection.hide();
+    });
+
+  const loadWishlist = async (showSpinner = false) => {
+    const container = $("#container-wishlists");
+
+    if (showSpinner) {
+      container.append(spinner.spin().el);
+      container.addClass("min-h-[600px]");
+    }
+
+    const userInfo = JSON.parse(localStorage.getItem("payload"));
+    const { products, pageInfo } = await fangiftService.get("/shop/product", {
+      params: {
+        after: state.after,
+        first: ITEMS_PER_PAGE,
+        query: `vendor:${userInfo.name}`,
+      },
+    });
+    state.after = pageInfo.endCursor;
+
+    if (products.length) {
+      $("#no-gifts").addClass("hidden");
+      $("#no-gifts").removeClass("flex");
+      $("#btn-load-more").show();
+
+      products.forEach((product) =>
+        container.append(
+          templateCardWishlist({
+            ...product,
+            favorite: JSON.parse(product.metafields.favorite?.value ?? "false"),
+          })
+        )
+      );
+
+      $(".just-created .btn-card-delete").on("click", function () {
+        const prodId = $(this).data("product");
+        state.deleteId = prodId;
+        confirmModal.show();
+      });
+
+      $(".just-created .btn-favorite").on("click", function () {
+        const id = $(this).data("metafield");
+        const prodId = $(this).data("product");
+        const newValue = !$(this).hasClass("toggled");
+        $(this).loading(true);
+        fangiftService
+          .put("/shop/product/metafield", {
+            id,
+            value: newValue.toString(),
+            prodId,
+          })
+          .then(() => {
+            $(this).toggleClass("toggled");
+            $(this).loading(false);
+          });
+      });
+
+      $(".just-created").removeClass(".just-created");
+    } else {
+      $("#no-gifts").removeClass("hidden");
+      $("#no-gifts").addClass("flex");
+      $("#btn-load-more").hide();
+    }
+
+    if (showSpinner) {
+      container.removeClass("min-h-[600px]");
+      spinner.stop();
+    }
+
+    $("#btn-load-more").prop("disabled", !pageInfo.hasNextPage);
+
+    return pageInfo.hasNextPage;
+  };
+
+  loadWishlist(true);
 
   $("#btn-add-gift").on("click", function () {
     drawerSelectGift.show();
@@ -142,107 +247,15 @@ $(function () {
     $(this).loading(false, !hasNextPage);
   });
 
-  $selectGiftEl
-    .querySelector(".btn-close-drawer")
-    .addEventListener("click", function () {
-      drawerSelectGift.hide();
-    });
+  $(".btn-sure-modal-delete").on("click", async function () {
+    $(this).loading(true);
+    await fangiftService.delete(`/shop/product/${prodGidToId(state.deleteId)}`);
+    $(this).loading(false);
+    $(`#card-wishlist-${state.deleteId}`).remove();
+    confirmModal.hide();
+  });
 
-  $addGiftEl
-    .querySelector(".btn-close-drawer")
-    .addEventListener("click", function () {
-      drawerAddGift.hide();
-    });
-
-  $giftDetailsEl
-    .querySelector(".btn-close-drawer")
-    .addEventListener("click", function () {
-      drawerGiftDetails.hide();
-    });
-
-  $giftProductEl
-    .querySelector(".btn-close-drawer")
-    .addEventListener("click", function () {
-      drawerGiftProduct.hide();
-    });
-
-  $giftCollectionEl
-    .querySelector(".btn-close-drawer")
-    .addEventListener("click", function () {
-      drawerGiftCollection.hide();
-    });
-
-  const loadWishlist = async (showSpinner = false) => {
-    const container = $("#container-wishlists");
-
-    if (showSpinner) {
-      container.append(spinner.spin().el);
-      container.addClass("min-h-[600px]");
-    }
-
-    const userInfo = JSON.parse(localStorage.getItem("payload"));
-    const { products, pageInfo } = await fangiftService.get("/products", {
-      params: {
-        after: state.after,
-        first: ITEMS_PER_PAGE,
-        query: `vendor:${userInfo.name}`,
-      },
-    });
-    state.after = pageInfo.endCursor;
-
-    if (products.length) {
-      $("#no-gifts").addClass("hidden");
-      $("#no-gifts").removeClass("flex");
-      $("#btn-load-more").show();
-
-      products.forEach((product) =>
-        container.append(
-          templateCardWishlist({
-            ...product,
-            favorite: JSON.parse(product.metafields.favorite?.value ?? "false"),
-          })
-        )
-      );
-
-      $(".just-created .btn-card-delete").on("click", function () {
-        const prodId = $(this).data("product");
-        state.deleteId = prodId;
-        confirmModal.show();
-      });
-
-      $(".just-created .btn-favorite").on("click", function () {
-        const id = $(this).data("metafield");
-        const prodId = $(this).data("product");
-        const newValue = !$(this).hasClass("toggled");
-        $(this).loading(true);
-        fangiftService
-          .put("/products/metafield", {
-            id,
-            value: newValue.toString(),
-            prodId,
-          })
-          .then(() => {
-            $(this).toggleClass("toggled");
-            $(this).loading(false);
-          });
-      });
-
-      $(".just-created").removeClass(".just-created");
-    } else {
-      $("#no-gifts").removeClass("hidden");
-      $("#no-gifts").addClass("flex");
-      $("#btn-load-more").hide();
-    }
-
-    if (showSpinner) {
-      container.removeClass("min-h-[600px]");
-      spinner.stop();
-    }
-
-    $("#btn-load-more").prop("disabled", !pageInfo.hasNextPage);
-
-    return pageInfo.hasNextPage;
-  };
-
-  loadWishlist(true);
+  $(".btn-cancel-modal-delete").on("click", function () {
+    confirmModal.hide();
+  });
 });

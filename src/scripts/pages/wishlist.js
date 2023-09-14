@@ -102,6 +102,7 @@ $(function () {
           templateCardWishlist({
             ...product,
             favorite: JSON.parse(product.metafields.favorite?.value ?? "false"),
+            idNum: prodGidToId(product.id),
           })
         )
       );
@@ -249,9 +250,13 @@ $(function () {
 
   $(".btn-sure-modal-delete").on("click", async function () {
     $(this).loading(true);
-    await fangiftService.delete(`/shop/product/${prodGidToId(state.deleteId)}`);
+    await fangiftService.delete("/shop/product", {
+      params: {
+        id: state.deleteId,
+      },
+    });
     $(this).loading(false);
-    $(`#card-wishlist-${state.deleteId}`).remove();
+    $(`#card-wishlist-${prodGidToId(state.deleteId)}`).remove();
     confirmModal.hide();
   });
 

@@ -8,7 +8,7 @@ import toastr from "toastr";
 toastr.options.positionClass = "toast-bottom-center";
 
 $(function () {
-  const drawerOptions = {
+  const drawerDefaultOptions = {
     placement: "right",
     backdrop: true,
     bodyScrolling: false,
@@ -25,21 +25,37 @@ $(function () {
   const $giftCollectionEl = document.getElementById("drawer-gift-collection");
   const $confirmModalEl = document.getElementById("modal-delete");
 
-  const drawerSelectGift = new Drawer($selectGiftEl, drawerOptions);
-  const drawerAddGift = new Drawer($addGiftEl, drawerOptions);
-  const drawerGiftDetails = new Drawer($giftDetailsEl, drawerOptions);
-  const drawerGiftProduct = new Drawer($giftProductEl, drawerOptions);
-  const drawerGiftCollection = new Drawer($giftCollectionEl, drawerOptions);
+  const drawerSelectGift = new Drawer($selectGiftEl, drawerDefaultOptions);
+  const drawerAddGift = new Drawer($addGiftEl, drawerDefaultOptions);
+  const drawerGiftDetails = new Drawer($giftDetailsEl, {
+    ...drawerDefaultOptions,
+    onHide() {
+      $("#text-product-title").val("");
+      $("#text-product-price").val(0);
+      $("#text-shipping-price").val("");
+      $("#img-product-main").prop("src", "");
+      $("#checkbox-digital-good").prop("checked", false);
+      $("#btn-add-wishlist").show();
+      $("#btn-update-wishlist").hide();
+    },
+  });
+  const drawerGiftProduct = new Drawer($giftProductEl, drawerDefaultOptions);
+  const drawerGiftCollection = new Drawer(
+    $giftCollectionEl,
+    drawerDefaultOptions
+  );
   const confirmModal = new Modal($confirmModalEl);
 
   const state = {
     url: "",
     title: "",
-    mainImage: null,
+    imageFile: null,
+    mainImage: "",
     shippingPrice: 0,
     digitalGood: false,
     after: null,
     deleteId: null,
+    editId: null,
   };
 
   $("#text-username").text(gUserInfo.name);
@@ -113,11 +129,36 @@ $(function () {
         confirmModal.show();
       });
 
+      $(".just-created .btn-card-edit").on("click", function () {
+        const prodId = $(this).data("product");
+        state.editId = prodId;
+        const prod = products.find((p) => p.id === prodId);
+
+        if (prod) {
+          $("#text-product-title").val(prod.title);
+          $("#text-product-price").val(
+            prod.priceRangeV2.minVariantPrice.amount
+          );
+          $("#img-product-main").prop("src", prod.featuredImage.url);
+          $("#checkbox-digital-good").prop(
+            "checked",
+            prod.metafields.digitalGood
+          );
+          $("#text-shipping-price").val(prod.metafields.shippingPrice);
+          $("#btn-add-wishlist").hide();
+          $("#btn-update-wishlist").show();
+
+          drawerGiftDetails.show();
+        }
+      });
+
       $(".just-created .btn-favorite").on("click", function () {
         const id = $(this).data("metafield");
         const prodId = $(this).data("product");
         const newValue = !$(this).hasClass("toggled");
+
         $(this).loading(true);
+
         fangiftService
           .put("/shop/product/metafield", {
             id,
@@ -163,11 +204,15 @@ $(function () {
       drawerAddGift.show();
     } else if (state.giftSource === "product") {
       drawerGiftProduct.show();
+      $("#btn-update-wishlist").hide();
+      $("#btn-add-wishlist").show();
     }
   });
 
   $("#btn-product-link").on("click", function () {
     state.giftSource = "product";
+    $("#btn-add-wishlist").show();
+    $("#btn-update-wishlist").hide();
     drawerGiftProduct.show();
   });
 
@@ -176,15 +221,13 @@ $(function () {
   });
 
   $("#file-main-image").on("change", function (e) {
-    state.mainImage = e.target.files[0];
-    if (state.mainImage) {
+    state.imageFile = e.target.files[0];
+    if (state.imageFile) {
       const reader = new FileReader();
-
       reader.onload = function (e) {
         $("#img-product-main").attr("src", e.target.result);
       };
-
-      reader.readAsDataURL(state.mainImage);
+      reader.readAsDataURL(state.imageFile);
     }
   });
 
@@ -192,20 +235,29 @@ $(function () {
     state.url = $("#text-product-link").val();
 
     $(this).loading(true);
-    const prodInfo = await fangiftService.get("scraper/product", {
-      params: {
-        url: state.url,
-      },
-    });
-    state.mainImage = prodInfo.mainImage;
+
+    try {
+      const prodInfo = await fangiftService.get("/scraper/product", {
+        params: {
+          url: state.url,
+        },
+      });
+      state.mainImage = prodInfo.mainImage;
+
+      $("#text-product-title").val(prodInfo.title);
+      $("#text-product-price").val(prodInfo.price);
+      $("#img-product-main").prop(
+        "src",
+        prodInfo.mainImage || $("#img-product-main").data("placeholder")
+      );
+
+      drawerGiftProduct.hide();
+      drawerGiftDetails.show();
+    } catch (err) {
+      toastr.warning("Please enter valid product URL!");
+    }
+
     $(this).loading(false);
-
-    $("#text-product-title").val(prodInfo.title);
-    $("#text-product-price").val(prodInfo.price);
-    $("#img-product-main").prop("src", prodInfo.mainImage);
-
-    drawerGiftProduct.hide();
-    drawerGiftDetails.show();
   });
 
   $("#btn-add-wishlist").on("click", async function () {
@@ -215,14 +267,21 @@ $(function () {
     state.digitalGood = $("#checkbox-digital-good").prop("checked");
 
     $(this).loading(true);
+
     try {
-      await fangiftService.post("/shop/product", {
-        title: state.title,
-        price: Number(state.price),
-        digitalGood: state.digitalGood,
-        shippingPrice: Number(state.shippingPrice),
-        productUrl: state.url,
-        mainImage: state.mainImage,
+      const formData = new FormData();
+      formData.append("title", state.title);
+      formData.append("price", state.price);
+      formData.append("digitalGood", state.digitalGood);
+      formData.append("shippingPrice", state.shippingPrice);
+      formData.append("productUrl", state.url);
+      formData.append("imageUrl", state.mainImage);
+      formData.append("imageFile", state.imageFile);
+
+      await fangiftService.post("/shop/product", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
       await loadWishlist();
       drawerGiftDetails.hide();

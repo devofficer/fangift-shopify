@@ -278,6 +278,7 @@
       </div>
       <img
         alt="product image"
+        data-placeholder="{{ 'placeholder-image.png' | asset_url }}"
         class="w-[400px] h-[300px] object-contain rounded-[16px] transition-all group-hover:blur-sm"
         id="img-product-main"
       >
@@ -312,13 +313,14 @@
       </label>
     </div>
     <input
-      type="text"
+      type="number"
       name="shipping price"
       placeholder="Shipping in $"
       class="textfield mb-4"
       id="text-shipping-price"
     >
     <button type="button" class="btn btn-primary w-full" id="btn-add-wishlist">💜 Add to Wishlist</button>
+    <button type="button" class="btn btn-primary w-full hidden" id="btn-udpate-wishlist">Save Changes</button>
   </div>
 
   <div

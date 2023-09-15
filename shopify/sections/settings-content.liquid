@@ -5,82 +5,156 @@
         <ul class="flex flex-wrap gap-10 text-center text-primary-text text-body-sm">
           <li>
             <button
+              id="profile-tab"
+              data-tabs-target="#profile"
+              class="inline-flex items-center gap-2 justify-center py-4"
+            >
+              <span class="[.active>&]:text-accent-purple">Profile</span>
+            </button>
+          </li>
+          <li>
+            <button
+              id="account-tab"
+              data-tabs-target="#account"
+              class="inline-flex items-center gap-2 justify-center py-4"
+            >
+              <span class="[.active>&]:text-accent-purple">Account</span>
+            </button>
+          </li>
+          <li>
+            <button
               id="wishlist-tab"
               data-tabs-target="#wishlist"
-              class="inline-flex items-center gap-2 justify-center py-4 active"
+              class="inline-flex items-center gap-2 justify-center py-4"
             >
-              {% render 'icon-heart-small': class: '[.active>&]:text-accent-peach' %}
-              <span class="[.active>&]:text-accent-peach">Wishlist</span>
+              <span class="[.active>&]:text-accent-purple">Wishlist</span>
             </button>
           </li>
           <li>
             <button
-              id="products-tab"
-              data-tabs-target="#products"
+              id="address-tab"
+              data-tabs-target="#address"
               class="inline-flex items-center gap-2 justify-center py-4"
             >
-              {% render 'icon-bag-tick': class: '[.active>&]:text-accent-peach' %}
-              <span class="[.active>&]:text-accent-peach">Products</span>
-              <div class="[.active>&]:text-accent-peach [.active>&]:border-accent-peach w-5 h-5 flex items-center justify-center border border-primary-border rounded-full text-[8px] font-plus-bold">
-                4
-              </div>
+              <span class="[.active>&]:text-accent-purple">Address</span>
             </button>
           </li>
           <li>
             <button
-              id="gifts-tab"
-              data-tabs-target="#gifts"
+              id="social-links-tab"
+              data-tabs-target="#social-links"
               class="inline-flex items-center gap-2 justify-center py-4"
             >
-              {% render 'icon-profile': class: '[.active>&]:text-accent-peach' %}
-              <span class="[.active>&]:text-accent-peach">Gifters</span>
+              <span class="[.active>&]:text-accent-purple">Social Links</span>
+            </button>
+          </li>
+          <li>
+            <button
+              id="wishlist-analytics-tab"
+              data-tabs-target="#wishlist-analytics"
+              class="inline-flex items-center gap-2 justify-center py-4"
+            >
+              <span class="[.active>&]:text-accent-purple">Wishlist Analytics</span>
+            </button>
+          </li>
+          <li>
+            <button
+              id="store-analytics-tab"
+              data-tabs-target="#store-analytics"
+              class="inline-flex items-center gap-2 justify-center py-4"
+            >
+              <span class="[.active>&]:text-accent-purple">Store Analytics</span>
+            </button>
+          </li>
+          <li>
+            <button
+              id="balance-tab"
+              data-tabs-target="#balance"
+              class="inline-flex items-center gap-2 justify-center py-4"
+            >
+              <span class="[.active>&]:text-accent-purple">Balance</span>
             </button>
           </li>
         </ul>
       </div>
     </div>
   </div>
-  <div class="bg-primary-white border-b border-primary-border">
+  <div class="border-b border-primary-border bg-[url(settings-bg.svg)] bg-cover bg-[#FAFAFA]">
     <div class="container px-[100px] py-[40px]">
-      <div id="wishlist">
-        <h5 class="text-heading-h5 text-primary-black mb-6">All Gifts</h5>
-        <div class="grid grid-cols-4 gap-[28px]">
-          {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', price: '59.99' %}
-          {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product3.png', title: 'Gymshark Energy', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', price: '59.99' %}
-          {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product3.png', title: 'Gymshark Energy', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', price: '59.99' %}
-          {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', price: '59.99', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product3.png', title: 'Gymshark Energy', price: '59.99', external_link: 'amazon.com' %}
+      <div id="profile">
+        <div class="w-[550px] mx-auto py-12 px-20 bg-white rounded-[16px]">
+          {% render 'avatar': editable: true, class: 'mx-auto mb-8' %}
+          <label for="username" class="text-body-sm mb-2 block"> Username </label>
+          <div class="py-4 px-[68px] border border-primary-border bg-primary-white rounded-[16px] flex items-center text-[18px] mb-4">
+            <span class="text-primary-black">fangift.com/</span>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              class="p-0 border-none focus:ring-0 placeholder-primary-border text-accent-peach w-full"
+              placeholder="@username"
+              autofocus
+            >
+          </div>
+          <label for="txt-public-name" class="text-body-sm mb-2 block"> Public name </label>
+          <input
+            type="text"
+            id="txt-public-name"
+            name="public-name"
+            placeholder="Public name"
+            class="textfield mb-4"
+          >
+          <div class="flex gap-2">
+            <div class="relative w-full">
+              <button
+                id="dropdown-toggle-month"
+                data-dropdown-toggle="dropdown-month"
+                class="btn-dropdown mb-4 h-[60px]"
+                type="button"
+              >
+                <span class="displayed-value">Jan</span>
+                {% render 'icon-arrow-dropdown' %}
+              </button>
+              <!-- Dropdown menu -->
+              <div id="dropdown-month" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-full">
+                <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdown-toggle-month">
+                  {% assign months = 'Jan,Feb,March,April,May,June,July,August,September,October,November,December'
+                    | split: ','
+                  %}
+                  {% for month in months %}
+                    <li class="block px-4 py-2 hover:bg-gray-100" data-value="{{ forloop.index }}">
+                      {{ month }}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+            <input
+              type="text"
+              id="txt-day"
+              name="day"
+              placeholder="Day"
+              class="textfield mb-4"
+            >
+          </div>
+          <label for="txt-bio" class="text-body-sm mb-2 block"> Short bio </label>
+          <textarea
+            id="txt-bio"
+            name="bio"
+            rows="4"
+            class="textfield mb-4 resize-none"
+            placeholder="Enter short bio"
+          ></textarea>
+          <button type="button" class="btn btn-primary w-full">Save Changes</button>
         </div>
       </div>
-      <div id="products">
-        <h5 class="text-heading-h5 text-primary-black mb-6">Sold by Syraphic</h5>
-        <div class="grid grid-cols-4 gap-[28px]">
-          {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', price: '59.99', sold: true %}
-          {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', price: '59.99', sold: true %}
-          {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', price: '59.99', sold: true %}
-          {% render 'gift-card' | img: 'product4.png', title: 'The Workout Mat', price: '59.99', sold: true %}
-        </div>
-      </div>
-      <div id="gifts">
-        <div class="flex items-center gap-6 mb-6">
-          <h5 class="text-heading-h5 text-primary-black">Received Gifts</h5>
-          <span class="w-5 h-5 flex items-center justify-center border border-primary-border rounded-full text-[8px] font-plus-bold">
-            3
-          </span>
-        </div>
-        <div class="grid grid-cols-4 gap-[28px]">
-          {% render 'gift-card' | img: 'product0.png', title: 'Apple AirPods Max', gifted_by: 'La-Wedia', external_link: 'amazon.com' %}
-          {% render 'gift-card' | img: 'product1.png', title: 'Oculus Quest', gifted_by: 'La-Wedia' %}
-          {% render 'gift-card' | img: 'product2.png', title: 'The Workout Mat', gifted_by: 'La-Wedia' %}
-        </div>
-      </div>
+      <div id="account"></div>
+      <div id="wishlist"></div>
+      <div id="address"></div>
+      <div id="social-links"></div>
+      <div id="wishlist-analytics"></div>
+      <div id="store-analytics"></div>
+      <div id="balance"></div>
     </div>
   </div>
 </div>

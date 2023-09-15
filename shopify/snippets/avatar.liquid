@@ -1,6 +1,6 @@
 <div
   style="width:{{ width | default: '120px' }}; height:{{ height | default: '120px' }}"
-  class="{{ class }} avatar flex items-center justify-center"
+  class="{{ class }} avatar flex items-center justify-center shadow-[0_20px_100px_0_#2D27474D]"
 >
   {% if editable %}
     <button type="button" class="btn-icon-edit" id="btn-pick-image">
@@ -8,5 +8,5 @@
       {% render 'icon-pencil' %}
     </button>
   {% endif %}
-  <img src="{{ url }}" class="rounded-full w-full h-full object-cover" id="img-avatar">
+  <img src="{{ 'user-anonymous.svg' | asset_url }}" class="rounded-full w-full h-full object-cover" id="img-avatar">
 </div>

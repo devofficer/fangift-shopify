@@ -28,6 +28,7 @@ $(async function () {
       );
     });
     spinner.stop();
+    container.removeClass("min-h-[500px]");
   } catch (err) {
     toastr.error(err.response.data.message);
   }

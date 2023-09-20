@@ -35,8 +35,8 @@ $(function () {
       $("#text-shipping-price").val("");
       $("#img-product-main").prop("src", "");
       $("#checkbox-digital-good").prop("checked", false);
-      $("#btn-add-wishlist").show();
-      $("#btn-update-wishlist").hide();
+      $("#btn-add-wishlist").removeClass("hidden");
+      $("#btn-update-wishlist").addClass("hidden");
     },
   });
   const drawerGiftProduct = new Drawer($giftProductEl, drawerDefaultOptions);
@@ -55,7 +55,7 @@ $(function () {
     digitalGood: false,
     after: null,
     deleteId: null,
-    editId: null,
+    editProd: null,
   };
 
   $("#text-username").text(gUserInfo.name);
@@ -90,6 +90,56 @@ $(function () {
       drawerGiftCollection.hide();
     });
 
+  const bindEventHandlers = () => {
+    $(".just-created .btn-card-delete").on("click", function () {
+      const prodId = $(this).data("product");
+      state.deleteId = prodId;
+      confirmModal.show();
+    });
+
+    $(".just-created .btn-card-edit").on("click", function () {
+      const prodId = $(this).data("product");
+      const prod = state.products.find((p) => p.id === prodId);
+      state.editProd = prod;
+
+      if (prod) {
+        $("#text-product-title").val(prod.title);
+        $("#text-product-price").val(prod.priceRangeV2.minVariantPrice.amount);
+        $("#img-product-main").prop("src", prod.featuredImage.url);
+        $("#checkbox-digital-good").prop(
+          "checked",
+          prod.metafields.digital_good.value === "true"
+        );
+        $("#text-shipping-price").val(prod.metafields.shipping_price.value);
+        $("#btn-add-wishlist").addClass("hidden");
+        $("#btn-update-wishlist").removeClass("hidden");
+
+        drawerGiftDetails.show();
+      }
+    });
+
+    $(".just-created .btn-favorite").on("click", function () {
+      const id = $(this).data("metafield");
+      const prodId = $(this).data("product");
+      const newValue = !$(this).hasClass("toggled");
+
+      $(this).loading(true);
+
+      fangiftService
+        .put("/shop/product/metafield", {
+          id,
+          value: newValue.toString(),
+          prodId,
+        })
+        .then(() => {
+          $(this).toggleClass("toggled");
+          $(this).loading(false);
+        });
+    });
+
+    $(".just-created").removeClass(".just-created");
+  };
+
   const loadWishlist = async (showSpinner = false) => {
     const container = $("#container-wishlists");
 
@@ -107,6 +157,7 @@ $(function () {
       },
     });
     state.after = pageInfo.endCursor;
+    state.products = products;
 
     if (products.length) {
       $("#no-gifts").addClass("hidden");
@@ -123,55 +174,7 @@ $(function () {
         )
       );
 
-      $(".just-created .btn-card-delete").on("click", function () {
-        const prodId = $(this).data("product");
-        state.deleteId = prodId;
-        confirmModal.show();
-      });
-
-      $(".just-created .btn-card-edit").on("click", function () {
-        const prodId = $(this).data("product");
-        state.editId = prodId;
-        const prod = products.find((p) => p.id === prodId);
-
-        if (prod) {
-          $("#text-product-title").val(prod.title);
-          $("#text-product-price").val(
-            prod.priceRangeV2.minVariantPrice.amount
-          );
-          $("#img-product-main").prop("src", prod.featuredImage.url);
-          $("#checkbox-digital-good").prop(
-            "checked",
-            prod.metafields.digitalGood
-          );
-          $("#text-shipping-price").val(prod.metafields.shippingPrice);
-          $("#btn-add-wishlist").hide();
-          $("#btn-update-wishlist").show();
-
-          drawerGiftDetails.show();
-        }
-      });
-
-      $(".just-created .btn-favorite").on("click", function () {
-        const id = $(this).data("metafield");
-        const prodId = $(this).data("product");
-        const newValue = !$(this).hasClass("toggled");
-
-        $(this).loading(true);
-
-        fangiftService
-          .put("/shop/product/metafield", {
-            id,
-            value: newValue.toString(),
-            prodId,
-          })
-          .then(() => {
-            $(this).toggleClass("toggled");
-            $(this).loading(false);
-          });
-      });
-
-      $(".just-created").removeClass(".just-created");
+      bindEventHandlers();
     } else {
       $("#no-gifts").removeClass("hidden");
       $("#no-gifts").addClass("flex");
@@ -204,15 +207,15 @@ $(function () {
       drawerAddGift.show();
     } else if (state.giftSource === "product") {
       drawerGiftProduct.show();
-      $("#btn-update-wishlist").hide();
-      $("#btn-add-wishlist").show();
+      $("#btn-update-wishlist").addClass("hidden");
+      $("#btn-add-wishlist").removeClass("hidden");
     }
   });
 
   $("#btn-product-link").on("click", function () {
     state.giftSource = "product";
-    $("#btn-add-wishlist").show();
-    $("#btn-update-wishlist").hide();
+    $("#btn-update-wishlist").addClass("hidden");
+    $("#btn-add-wishlist").removeClass("hidden");
     drawerGiftProduct.show();
   });
 
@@ -290,6 +293,51 @@ $(function () {
     }
 
     $(this).loading(false);
+  });
+
+  $("#btn-update-wishlist").on("click", async function () {
+    state.shippingPrice = $("#text-shipping-price").val();
+    state.title = $("#text-product-title").val();
+    state.price = $("#text-product-price").val();
+    state.digitalGood = $("#checkbox-digital-good").prop("checked");
+
+    $(this).loading(true);
+
+    try {
+      const form = new FormData();
+      form.append("id", state.editProd.id);
+      form.append("title", state.title);
+      form.append("price", state.price);
+      form.append("digitalGood", state.digitalGood);
+      form.append("shippingPrice", state.shippingPrice);
+      form.append("productUrl", state.editProd.metafields.product_url.value);
+      form.append("imageUrl", state.editProd.featuredImage.url);
+      form.append("imageFile", state.imageFile);
+
+      const updatedProd = await fangiftService.put("/shop/product", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      state.products = state.products.map((prod) =>
+        prod.id === updatedProd.id ? updatedProd : prod
+      );
+
+      /**
+      $("#container-wishlists").append(templateCardWishlist({
+        ...updatedProd,
+        favorite: JSON.parse(updatedProd.metafields.favorite?.value ?? "false"),
+        idNum: prodGidToId(updatedProd.id),
+      }));
+
+      bindEventHandlers();
+
+      $(`#card-wishlist-${prodGidToId(updatedProd.id)}`).remove();
+      */
+      location.reload();
+    } catch (err) {
+      toastr.error(err.response.data.message);
+    }
   });
 
   $("#btn-save-collection").on("click", function () {

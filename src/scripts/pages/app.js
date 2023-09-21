@@ -71,4 +71,12 @@ $(function () {
       }
     });
   }
+
+  $("#btn-signout").on("click", function () {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("exp");
+    localStorage.removeItem("payload");
+    localStorage.removeItem("refreshToken");
+    location.href = "/account/login";
+  });
 });

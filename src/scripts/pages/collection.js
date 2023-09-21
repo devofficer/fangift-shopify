@@ -15,6 +15,26 @@ const params = {
   cancelToken: null,
 };
 
+const addWishlistDrawer = new Drawer(
+  document.getElementById("drawer-add-wishlist"),
+  {
+    placement: "right",
+    backdrop: true,
+    bodyScrolling: false,
+    edge: false,
+    edgeOffset: "",
+    backdropClasses:
+      "bg-primary-black/30 [backdrop-filter:blur(4px)] fixed inset-0 z-30",
+    onHide() {
+      $("#text-product-title").val("");
+      $("#text-product-price").val(0);
+      $("#text-shipping-price").val("");
+      $("#img-product-main").prop("src", "");
+      $("#checkbox-digital-good").prop("checked", false);
+    },
+  }
+);
+
 $(async function () {
   initWidgets();
   loadProduct(true);
@@ -26,6 +46,8 @@ function initWidgets() {
   initSlider();
 
   $("#btn-load-more").on("click", loadMore);
+
+  $("#btn-add-wishlist").on("click", function () {});
 }
 
 async function loadCategories() {
@@ -94,8 +116,7 @@ async function loadProduct(clear = false) {
   products.forEach((prod) => container.append(templateCardProduct(prod)));
 
   // attach favorite click handler
-  $(".btn-favorite").off("click");
-  $(".btn-favorite").on("click", async function () {
+  $(".just-created .btn-favorite").on("click", async function () {
     const productId = $(this).data("product-id");
     const wishlistId = $(this).data("wishlist-id");
     const toggled = $(this).hasClass("toggled");
@@ -116,8 +137,27 @@ async function loadProduct(clear = false) {
     }
   });
 
+  $(".just-created .btn-select-product").on("click", async function () {
+    const productId = $(this).data("product-id");
+    const product = products.find((p) => p.id === productId);
+
+    if (product) {
+      $("#text-product-title").val(product.title);
+      $("#text-product-price").val(product.priceRangeV2.minVariantPrice.amount);
+      $("#img-product-main").prop("src", product.featuredImage.url);
+      $("#text-shipping-price").val(product.metafields.shipping_price?.value);
+      $("#checkbox-digital-good").prop(
+        "checked",
+        product.metafields.digital_good?.value
+      );
+
+      addWishlistDrawer.show();
+    }
+  });
+
   spinner.stop();
   params.cancelToken = null;
+  $(".just-created").removeClass("just-created");
   $("#btn-load-more").prop("disabled", !pageInfo.hasNextPage);
 
   return pageInfo.hasNextPage;

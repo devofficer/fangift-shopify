@@ -1,4 +1,4 @@
-<div class="card-product">
+<div class="card-product just-created">
   <div class="grid grid-cols-1 gap-2">
     <div class="h-[144px] bg-primary-background rounded-[8px] relative">
       <button class="btn btn-favorite group {{#if wishlist}}toggled{{/if}}" data-product-id="{{id}}" data-wishlist-id="{{wishlist.id}}">
@@ -29,7 +29,7 @@
       <div class="border border-primary-border p-2 rounded-[8px] text-body-xs text-black">${{
         priceRangeV2.minVariantPrice.amount }}
       </div>
-      <button class="btn btn-view-details flex-grow">View Details</button>
+      <button class="btn btn-view-details flex-grow btn-select-product" data-product-id="{{ id }}">Add</button>
     </div>
   </div>
 </div>

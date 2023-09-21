@@ -66,6 +66,7 @@ $(function () {
         },
       });
       toastr.success("Updated your profile successfully!");
+      $("#btn-signout").trigger("click");
     } catch (err) {
       toastr.error(err.response.data.message);
       return;

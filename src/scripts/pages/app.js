@@ -23,7 +23,13 @@ $(function () {
       window.location = LINKS.wishlist.path;
     } else {
       window.gUserInfo = Object.freeze(
-        JSON.parse(localStorage.getItem("payload"))
+        Object.entries(JSON.parse(localStorage.getItem("payload"))).reduce(
+          (acc, [key, value]) => ({
+            ...acc,
+            [key.replace("custom:", "")]: value,
+          }),
+          {}
+        )
       );
       Object.defineProperty(window, "gUserInfo", {
         configurable: false,
@@ -45,7 +51,15 @@ $(function () {
         if (pathname === LINKS.home.path) {
           window.location.pathname = LINKS.wishlist.path;
         } else {
-          window.gUserInfo = Object.freeze(gUserInfo);
+          window.gUserInfo = Object.freeze(
+            Object.entries(userInfo).reduce(
+              (acc, [key, value]) => ({
+                ...acc,
+                [key.replace("custom:", "")]: value,
+              }),
+              {}
+            )
+          );
           Object.defineProperty(window, "gUserInfo", {
             configurable: false,
             writable: false,

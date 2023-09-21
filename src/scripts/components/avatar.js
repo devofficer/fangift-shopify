@@ -1,7 +1,7 @@
-export default function initAvatar(onChange) {
-  const pickImageButton = document.getElementById("btn-pick-image");
-  const filePicker = document.getElementById("file-avatar");
-  const avatarImg = document.getElementById("img-avatar");
+export default function initAvatar(onChange, id = "avatar") {
+  const pickImageButton = document.getElementById(`btn-pick-${id}`);
+  const filePicker = document.getElementById(`file-${id}`);
+  const avatarImg = document.getElementById(`img-${id}`);
 
   pickImageButton.addEventListener("click", function () {
     filePicker.click();

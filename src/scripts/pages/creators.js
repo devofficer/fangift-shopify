@@ -4,7 +4,7 @@ import fangiftService from "../services/fangiftService";
 import toastr from "toastr";
 import { getS3Url } from "../utils/string";
 
-toastr.options.positionClass = "toast-bottom-center";
+toastr.options.positionClass = "toast-bottom-center bottom-10";
 
 $(async function () {
   const container = $("#container-creators");

@@ -4,7 +4,7 @@ import restcountriesService from "../services/restcountriesService";
 import initAvatar from "../components/avatar";
 import toastr from "toastr";
 
-toastr.options.positionClass = "toast-bottom-center";
+toastr.options.positionClass = "toast-bottom-center bottom-10";
 
 select2(window, $);
 

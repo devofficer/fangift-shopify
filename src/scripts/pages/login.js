@@ -2,7 +2,7 @@ import LINKS from "../constants/links";
 import fangiftService from "../services/fangiftService";
 import toastr from "toastr";
 
-toastr.options.positionClass = "toast-bottom-center";
+toastr.options.positionClass = "toast-bottom-center bottom-10";
 
 $(function () {
   $("#form-login").on("submit", function (e) {

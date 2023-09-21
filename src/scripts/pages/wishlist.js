@@ -5,7 +5,7 @@ import { prodGidToId } from "../utils/string";
 import templateCardWishlist from "../templates/card.wishlist";
 import toastr from "toastr";
 
-toastr.options.positionClass = "toast-bottom-center";
+toastr.options.positionClass = "toast-bottom-center bottom-10";
 
 $(function () {
   const drawerDefaultOptions = {
@@ -242,6 +242,15 @@ $(function () {
   $("#btn-next-product").on("click", async function () {
     state.url = $("#text-product-link").val();
 
+    if (
+      !/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
+        state.url
+      )
+    ) {
+      toastr.error("Please enter a valid product url.");
+      return;
+    }
+
     $(this).loading(true);
 
     try {
@@ -262,6 +271,12 @@ $(function () {
       drawerGiftProduct.hide();
       drawerGiftDetails.show();
       $("#text-product-link").val("");
+
+      if (!prodInfo.mainImage && !prodInfo.title) {
+        toastr.warning(
+          "Failed to parse product. Please try to fill out fields manually."
+        );
+      }
     } catch (err) {
       toastr.warning("Please enter valid product URL!");
     }
@@ -274,6 +289,11 @@ $(function () {
     state.title = $("#text-product-title").val();
     state.price = $("#text-product-price").val();
     state.digitalGood = $("#checkbox-digital-good").prop("checked");
+
+    if (!state.title.trim()) {
+      toastr.warning("Invalid product title, it is required Field.");
+      return;
+    }
 
     $(this).loading(true);
 

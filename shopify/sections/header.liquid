@@ -9,29 +9,45 @@
     </div>
 
     <div class="flex items-center gap-4">
-      <button
-        data-dropdown-toggle="dropdown"
-        class="border border-primary-white text-[12px] text-primary-white rounded-[5px] h-8 px-3 text-center inline-flex items-center gap-[6px]"
-        type="button"
-      >
-        {% render 'icon-heart-outline' %}
-        Filter
-        {% render 'icon-arrow-dropdown' %}
-      </button>
-      <button class="btn btn-icon-filled">
-        {% render 'icon-user.liquid' %}
-      </button>
-      <button class="btn btn-icon-filled">
+      {% comment %}
+        <button
+          data-dropdown-toggle="dropdown"
+          class="border border-primary-white text-[12px] text-primary-white rounded-[5px] h-8 px-3 text-center inline-flex items-center gap-[6px]"
+          type="button"
+        >
+          {% render 'icon-heart-outline' %}
+          Filter
+          {% render 'icon-arrow-dropdown' %}
+        </button>
+        <button class="btn btn-icon-filled">
+          {% render 'icon-user.liquid' %}
+        </button>
+      {% endcomment %}
+      <a href="/pages/settings" class="btn btn-icon-filled">
         {% render 'icon-setting.liquid' %}
-      </button>
-      <a class="btn" href="/pages/user">
+      </a>
+      <button type="button" class="btn" data-dropdown-toggle="dropdown-profile">
         <img
           src="{{ 'user-anonymous.png' | asset_url }}"
           class="w-[40px] h-[40px] object-contain rounded-full"
           alt="user avatar"
           id="img-avatar"
         >
-      </a>
+      </button>
+      <div
+        id="dropdown-profile"
+        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+      >
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+          <li>
+            <a
+              href="/pages/creators"
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >Explore Creators</a
+            >
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
   <div id="dropdown"></div>

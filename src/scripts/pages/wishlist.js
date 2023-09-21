@@ -59,6 +59,11 @@ $(function () {
   };
 
   $("#text-username").text(gUserInfo.name);
+  $("#profile-link").prop(
+    "href",
+    `//${window.location.hostname}/pages/user?username=${gUserInfo.name}`
+  );
+  $("#profile-link").text(`${window.location.hostname}/${gUserInfo.name}`);
 
   $selectGiftEl
     .querySelector(".btn-close-drawer")
@@ -256,6 +261,7 @@ $(function () {
 
       drawerGiftProduct.hide();
       drawerGiftDetails.show();
+      $("#text-product-link").val("");
     } catch (err) {
       toastr.warning("Please enter valid product URL!");
     }
@@ -286,13 +292,12 @@ $(function () {
           "Content-Type": "multipart/form-data",
         },
       });
-      await loadWishlist();
+      window.location.reload();
       drawerGiftDetails.hide();
     } catch (err) {
       toastr.error(err.response.data.message);
+      $(this).loading(false);
     }
-
-    $(this).loading(false);
   });
 
   $("#btn-update-wishlist").on("click", async function () {

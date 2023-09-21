@@ -25,6 +25,12 @@ $(function () {
 
   $("#form-details").on("submit", function (e) {
     e.preventDefault();
+
+    if (password.length < 6) {
+      toastr.warning("Password should be at least 6 characters");
+      return;
+    }
+
     $("#btn-register").loading(true);
 
     fangiftService
@@ -74,11 +80,13 @@ $(function () {
   restcountriesService.get("all?fields=name,flags").then((data) => {
     $("#select-country").select2({
       width: "100%",
-      data: data.map((item) => ({
-        id: item.name.official,
-        text: item.name.common,
-        flag: item.flags.png,
-      })),
+      data: data
+        .map((item) => ({
+          id: item.name.common,
+          text: item.name.common,
+          flag: item.flags.png,
+        }))
+        .sort((a, b) => (a.text > b.text ? 1 : -1)),
       templateResult: (state) => {
         if (!state.flag) {
           return state.text;
@@ -220,7 +228,10 @@ $(function () {
 
   function validateBasicForm() {
     const ability =
-      password === passwordConfirmed && /^[\w.-]+@[\w.-]+\.\w+$/.test(email);
+      password === passwordConfirmed &&
+      /^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        email
+      );
     $("#btn-register").prop("disabled", !ability);
   }
 

@@ -19,13 +19,12 @@
             fill="currentFill" />
         </svg>
       </button>
-      <img class="w-full h-full object-contain" src="{{ featuredImage.url }}" alt="{{ featuredImage.alt }}" loading="lazy"
-        width="{{ featuredImage.width }}" height="{{ featuredImage.height }}">
+      <img class="w-full h-full object-contain" src="{{ imageUrl }}" alt="{{ title }}" loading="lazy">
     </div>
     <span class="text-body-sm text-black whitespace-nowrap text-ellipsis overflow-hidden">
       {{ title }}
     </span>
-    <span class="text-body-xs text-accent-peach"> ${{ priceRangeV2.minVariantPrice.amount }} </span>
+    <span class="text-body-xs text-accent-peach"> ${{ price }} </span>
     <div class="flex gap-1">
       <button class="btn btn-wish-icon btn-card-toggle" data-product="{{id}}">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">

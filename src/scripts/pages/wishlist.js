@@ -1,9 +1,8 @@
+import toastr from "toastr";
 import fangiftService from "../services/fangiftService";
-import { ITEMS_PER_PAGE } from "../utils/constants";
+import templateCardWishlist from "../templates/card.wishlist";
 import spinner from "../utils/snip";
 import { prodGidToId } from "../utils/string";
-import templateCardWishlist from "../templates/card.wishlist";
-import toastr from "toastr";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
 
@@ -109,13 +108,10 @@ $(function () {
 
       if (prod) {
         $("#text-product-title").val(prod.title);
-        $("#text-product-price").val(prod.priceRangeV2.minVariantPrice.amount);
-        $("#img-product-main").prop("src", prod.featuredImage.url);
-        $("#checkbox-digital-good").prop(
-          "checked",
-          prod.metafields.digital_good.value === "true"
-        );
-        $("#text-shipping-price").val(prod.metafields.shipping_price.value);
+        $("#text-product-price").val(prod.price);
+        $("#img-product-main").prop("src", prod.imageUrl);
+        $("#checkbox-digital-good").prop("checked", prod.digitalGood);
+        $("#text-shipping-price").val(prod.shippingPrice);
         $("#btn-add-wishlist").addClass("hidden");
         $("#btn-update-wishlist").removeClass("hidden");
 
@@ -153,47 +149,31 @@ $(function () {
       container.addClass("min-h-[600px]");
     }
 
-    const userInfo = JSON.parse(localStorage.getItem("payload"));
-    const { products, pageInfo } = await fangiftService.get("/shop/product", {
+    const products = await fangiftService.get("/wishlist", {
       params: {
-        after: state.after,
-        first: ITEMS_PER_PAGE,
-        query: `vendor:${userInfo.name}`,
+        userId: gUserInfo["cognito:username"],
       },
     });
-    state.after = pageInfo.endCursor;
     state.products = products;
 
     if (products.length) {
       $("#no-gifts").addClass("hidden");
       $("#no-gifts").removeClass("flex");
-      $("#btn-load-more").show();
 
       products.forEach((product) =>
-        container.append(
-          templateCardWishlist({
-            ...product,
-            favorite: JSON.parse(product.metafields.favorite?.value ?? "false"),
-            idNum: prodGidToId(product.id),
-          })
-        )
+        container.append(templateCardWishlist(product))
       );
 
       bindEventHandlers();
     } else {
       $("#no-gifts").removeClass("hidden");
       $("#no-gifts").addClass("flex");
-      $("#btn-load-more").hide();
     }
 
     if (showSpinner) {
       container.removeClass("min-h-[600px]");
       spinner.stop();
     }
-
-    $("#btn-load-more").prop("disabled", !pageInfo.hasNextPage);
-
-    return pageInfo.hasNextPage;
   };
 
   loadWishlist(true);
@@ -299,6 +279,7 @@ $(function () {
 
     try {
       const formData = new FormData();
+      formData.append("userId", gUserInfo["cognito:username"]);
       formData.append("title", state.title);
       formData.append("price", state.price);
       formData.append("digitalGood", state.digitalGood);
@@ -307,7 +288,7 @@ $(function () {
       formData.append("imageUrl", state.mainImage);
       formData.append("imageFile", state.imageFile);
 
-      await fangiftService.post("/shop/product", formData, {
+      await fangiftService.post("/wishlist", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -348,17 +329,6 @@ $(function () {
         prod.id === updatedProd.id ? updatedProd : prod
       );
 
-      /**
-      $("#container-wishlists").append(templateCardWishlist({
-        ...updatedProd,
-        favorite: JSON.parse(updatedProd.metafields.favorite?.value ?? "false"),
-        idNum: prodGidToId(updatedProd.id),
-      }));
-
-      bindEventHandlers();
-
-      $(`#card-wishlist-${prodGidToId(updatedProd.id)}`).remove();
-      */
       location.reload();
     } catch (err) {
       toastr.error(err.response.data.message);
@@ -372,12 +342,6 @@ $(function () {
   $("#btn-add-next").on("click", function () {
     drawerAddGift.hide();
     drawerGiftDetails.show();
-  });
-
-  $("#btn-load-more").on("click", async function () {
-    $(this).loading(true);
-    const hasNextPage = await loadWishlist();
-    $(this).loading(false, !hasNextPage);
   });
 
   $(".btn-sure-modal-delete").on("click", async function () {

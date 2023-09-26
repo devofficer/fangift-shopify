@@ -118,7 +118,7 @@ async function loadProduct(clear = false) {
     container.addClass("min-h-[600px]");
   }
   const cats = state.categories.filter((cat) => cat.checked);
-  const query = `vendor:fangift AND variants.price:>=${
+  const query = `vendor:fangift AND status:active AND variants.price:>=${
     state.priceMin
   } AND variants.price:<=${state.priceMax} ${
     cats.length

@@ -25,43 +25,35 @@ $(async function () {
   }
 
   const hideOverlay = overlay();
-
-  const [[user], { products }] = await Promise.all([
-    fangiftService.get("/user", {
-      params: {
-        query: `name="${username}"`,
-      },
-    }),
-    fangiftService.get("/shop/product", {
-      params: {
-        first: 10,
-        query: `vendor:${username}`,
-      },
-    }),
-  ]);
+  const [user] = await fangiftService.get("/user", {
+    params: {
+      query: `name="${username}"`,
+    },
+  });
+  const products = await fangiftService.get("/wishlist", {
+    params: {
+      userId: user.sub,
+    },
+  });
 
   // render creator's gift items to all gifts section
-  products.forEach((prod) =>
-    containerAllGifts.append(
-      templateCardGift({ ...prod, variant: prod.variants[0] })
-    )
-  );
+  products.forEach((prod) => containerAllGifts.append(templateCardGift(prod)));
 
   // add or remove gift items to cart
-  const updateCart = function (prodId, remove) {
+  const updateCart = function (variantId, remove) {
     const rawItems = localStorage.getItem("cart_items");
     const cartItems = rawItems ? JSON.parse(rawItems) : {};
     const container = $("#container-gift-cart");
 
     if (remove) {
       cartItems[username] = cartItems[username].filter(
-        (cartId) => cartId !== prodId
+        (cartId) => cartId !== variantId
       );
     } else {
-      if (cartItems[username] && !cartItems[username].includes(prodId)) {
-        cartItems[username].push(prodId);
+      if (cartItems[username] && !cartItems[username].includes(variantId)) {
+        cartItems[username].push(variantId);
       } else if (!cartItems[username]) {
-        cartItems[username] = [prodId];
+        cartItems[username] = [variantId];
       }
     }
 
@@ -70,16 +62,18 @@ $(async function () {
     container.empty();
     let subtotal = 0;
     cartItems[username].forEach((cartId) => {
-      const cardProd = products.find((prod) => prod.id === cartId);
-      container.append(templateCartItem(cardProd));
-      subtotal += parseFloat(cardProd.priceRangeV2.minVariantPrice.amount);
+      const cardProd = products.find((prod) => prod.variantId === cartId);
+      if (cardProd) {
+        container.append(templateCartItem(cardProd));
+        subtotal += parseFloat(cardProd.price);
+      }
     });
     $("#text-subtotal").text(`$${subtotal}`);
 
     $(".btn-remove-from-cart").off("click");
     $(".btn-remove-from-cart").on("click", function () {
-      const prodId = $(this).data("product-id");
-      updateCart(prodId, true);
+      const variantId = $(this).data("variant-id");
+      updateCart(variantId, true);
     });
 
     drawerCart.show();
@@ -87,8 +81,8 @@ $(async function () {
 
   // add gift items to cart
   $(".btn-add-to-cart").on("click", function () {
-    const prodId = $(this).data("product-id");
-    updateCart(prodId);
+    const variantId = $(this).data("variant-id");
+    updateCart(variantId);
   });
 
   // close cart drawer when clicking x button
@@ -108,13 +102,18 @@ $(async function () {
     if (cartItems[username]) {
       const cart = await fangiftService.post("/shop/checkout", {
         creator: username,
-        cartItems: cartItems[username].map(
-          (prodId) => products.find((prod) => prod.id === prodId).variants[0].id
+        cartItems: cartItems[username].filter((variantId) =>
+          products.some((p) => p.variantId === variantId)
         ),
       });
       cartItems[username] = [];
       localStorage.setItem("cart_items", JSON.stringify(cartItems));
-      window.location.href = cart.checkoutUrl;
+
+      if (cart.checkoutUrl) {
+        window.location.href = cart.checkoutUrl;
+      } else {
+        $(this).loading(false);
+      }
     } else {
       $(this).loading(false);
     }

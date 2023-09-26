@@ -1,14 +1,13 @@
 <div class="flex gap-4 h-fit">
   <div class="w-[82px] h-[82px]">
-    <img class="w-full h-full object-contain" src="{{ featuredImage.url }}" alt="{{ featuredImage.alt }}" loading="lazy"
-      width="{{ featuredImage.width }}" height="{{ featuredImage.height }}">
+    <img class="w-full h-full object-contain" src="{{ imageUrl }}" alt="{{ title }}" loading="lazy">
   </div>
   <div class="flex flex-col justify-between flex-grow gap-4">
     <h5 class="text-black whitespace-nowrap text-ellipsis overflow-hidden w-[300px]">{{title}}</h5>
-    <button class="btn w-fit btn-remove-from-cart" data-product-id="{{ id }}">remove</button>
+    <button class="btn w-fit btn-remove-from-cart" data-variant-id="{{ variantId }}">remove</button>
   </div>
   <div class="flex flex-col justify-between gap-4">
-    <p>${{ priceRangeV2.minVariantPrice.amount }}</p>
+    <p>${{ price }}</p>
     <span class="text-right">gift</span>
   </div>
 </div>

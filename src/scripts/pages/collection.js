@@ -3,16 +3,29 @@ import fangiftService from "../services/fangiftService";
 import templateCardProduct from "../templates/card.product";
 import templateCategory from "../templates/category";
 import spinner from "../utils/snip";
+import { Modal } from "flowbite";
 import { convertLabelToId } from "../utils/string";
 import { getUserInfo } from "../utils/userinfo";
 import { ITEMS_PER_PAGE } from "../utils/constants";
+import toastr from "toastr";
 
-const params = {
+/*
+ * $targetEl: required
+ * options: optional
+ */
+toastr.options.positionClass = "toast-bottom-center bottom-10";
+
+const modalAddSuccess = new Modal(document.getElementById("popup-add-success"));
+
+const state = {
   after: null,
   priceMin: 0,
   priceMax: Infinity,
   categories: [],
   cancelToken: null,
+  products: [],
+  imageFile: null,
+  addProductId: null,
 };
 
 const addWishlistDrawer = new Drawer(
@@ -46,24 +59,24 @@ function initWidgets() {
   initSlider();
 
   $("#btn-load-more").on("click", loadMore);
-
-  $("#btn-add-wishlist").on("click", function () {});
+  $(".btn-close-drawer").on("click", () => addWishlistDrawer.hide());
+  $(".btn-close-add-success").on("click", () => modalAddSuccess.hide());
 }
 
 async function loadCategories() {
   const container = $("#container-categories");
   const cats = await fangiftService.get("/shop/product/types");
 
-  params.categories = cats.map((cat) => ({
+  state.categories = cats.map((cat) => ({
     id: convertLabelToId(cat),
     label: cat,
     checked: true,
   }));
 
-  params.categories.forEach((cat) => container.append(templateCategory(cat)));
+  state.categories.forEach((cat) => container.append(templateCategory(cat)));
 
   $(".checkbox-category").on("change", function (e) {
-    params.categories = params.categories.map((cat) =>
+    state.categories = state.categories.map((cat) =>
       cat.id === e.target.name
         ? {
             ...cat,
@@ -81,87 +94,137 @@ async function loadProduct(clear = false) {
   $("#btn-load-more").prop("disabled", true);
   const container = $("#container-products");
 
-  if (params.cancelToken) {
-    params.cancelToken.cancel();
+  if (state.cancelToken) {
+    state.cancelToken.cancel();
   }
 
   if (clear) {
-    params.after = null;
+    state.after = null;
     container.empty();
     container.append(spinner.spin().el);
     container.addClass("min-h-[600px]");
   }
-  const cats = params.categories.filter((cat) => cat.checked);
-  const query = `variants.price:>=${params.priceMin} AND variants.price:<=${
-    params.priceMax
-  } ${
+  const cats = state.categories.filter((cat) => cat.checked);
+  const query = `vendor:fangift AND variants.price:>=${
+    state.priceMin
+  } AND variants.price:<=${state.priceMax} ${
     cats.length
       ? `AND (${cats.map((cat) => `(product_type:${cat.label})`).join(" OR ")})`
       : ""
   }`;
 
   // create cancellation token
-  params.cancelToken = axios.CancelToken.source();
+  state.cancelToken = axios.CancelToken.source();
 
-  // fetch products
-  const { products, pageInfo } = await fangiftService.get("/shop/product", {
-    params: { after: params.after, first: ITEMS_PER_PAGE, query },
-    cancelToken: params.cancelToken.token,
-  });
+  try {
+    // fetch products
+    const { products, pageInfo } = await fangiftService.get("/shop/product", {
+      params: { after: state.after, first: ITEMS_PER_PAGE, query },
+      cancelToken: state.cancelToken.token,
+    });
+    state.products = products;
+    state.after = pageInfo.hasNextPage ? pageInfo.endCursor : null;
+    container.removeClass("min-h-[600px]");
+    // add products to container
+    products.forEach((prod) => container.append(templateCardProduct(prod)));
 
-  params.after = pageInfo.hasNextPage ? pageInfo.endCursor : null;
-  container.removeClass("min-h-[600px]");
+    // attach favorite click handler
+    $(".just-created .btn-favorite").on("click", async function () {
+      const productId = $(this).data("product-id");
+      const wishlistId = $(this).data("wishlist-id");
+      const toggled = $(this).hasClass("toggled");
 
-  // add products to container
-  products.forEach((prod) => container.append(templateCardProduct(prod)));
+      if (toggled) {
+        await fangiftService.delete(`/wishlist/${wishlistId}`, {
+          productId,
+          userId: getUserInfo().email,
+        });
+        $(this).removeClass("toggled");
+      } else {
+        const wishlist = await fangiftService.post("/wishlist", {
+          productId,
+          userId: getUserInfo().email,
+        });
+        $(this).addClass("toggled");
+        $(this).data("wishlist-id", wishlist.id);
+      }
+    });
 
-  // attach favorite click handler
-  $(".just-created .btn-favorite").on("click", async function () {
-    const productId = $(this).data("product-id");
-    const wishlistId = $(this).data("wishlist-id");
-    const toggled = $(this).hasClass("toggled");
+    $(".just-created .btn-add-product").on("click", async function () {
+      const productId = $(this).data("product");
+      const product = products.find((p) => p.id === productId);
+      state.addProductId = productId;
 
-    if (toggled) {
-      await fangiftService.delete(`/wishlist/${wishlistId}`, {
-        productId,
-        userId: getUserInfo().email,
-      });
-      $(this).removeClass("toggled");
-    } else {
-      const wishlist = await fangiftService.post("/wishlist", {
-        productId,
-        userId: getUserInfo().email,
-      });
-      $(this).addClass("toggled");
-      $(this).data("wishlist-id", wishlist.id);
-    }
-  });
+      if (product) {
+        $("#text-product-title").val(product.title);
+        $("#text-product-price").val(
+          product.priceRangeV2.minVariantPrice.amount
+        );
+        $("#img-product-main").prop("src", product.featuredImage.url);
+        $("#text-shipping-price").val(0);
+        $("#checkbox-digital-good").prop("checked", false);
 
-  $(".just-created .btn-select-product").on("click", async function () {
-    const productId = $(this).data("product-id");
-    const product = products.find((p) => p.id === productId);
+        addWishlistDrawer.show();
+      }
+    });
 
-    if (product) {
-      $("#text-product-title").val(product.title);
-      $("#text-product-price").val(product.priceRangeV2.minVariantPrice.amount);
-      $("#img-product-main").prop("src", product.featuredImage.url);
-      $("#text-shipping-price").val(product.metafields.shipping_price?.value);
-      $("#checkbox-digital-good").prop(
-        "checked",
-        product.metafields.digital_good?.value
-      );
+    spinner.stop();
+    state.cancelToken = null;
+    $(".just-created").removeClass("just-created");
+    $("#btn-load-more").prop("disabled", !pageInfo.hasNextPage);
 
-      addWishlistDrawer.show();
-    }
-  });
-
-  spinner.stop();
-  params.cancelToken = null;
-  $(".just-created").removeClass("just-created");
-  $("#btn-load-more").prop("disabled", !pageInfo.hasNextPage);
-
-  return pageInfo.hasNextPage;
+    return pageInfo.hasNextPage;
+  } catch (err) {
+    toastr.error(err.message);
+  }
 }
+
+$("#file-main-image").on("change", function (e) {
+  state.imageFile = e.target.files[0];
+  if (state.imageFile) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      $("#img-product-main").attr("src", e.target.result);
+    };
+    reader.readAsDataURL(state.imageFile);
+  }
+});
+
+$("#btn-add-wishlist").on("click", async function () {
+  $(this).loading(true);
+
+  const product = state.products.find((p) => p.id === state.addProductId);
+  const title = $("#text-product-title").val();
+  const price = $("#text-product-price").val();
+  const imageUrl = $("#img-product-main").prop("src");
+  const shippingPrice = $("#text-shipping-price").val();
+  const digitalGood = $("#checkbox-digital-good").prop("checked");
+
+  try {
+    const formData = new FormData();
+    formData.append("userId", gUserInfo["cognito:username"]);
+    formData.append("title", title);
+    formData.append("price", price);
+    formData.append("digitalGood", digitalGood);
+    formData.append("shippingPrice", shippingPrice);
+    formData.append("productId", product.id);
+    formData.append("variantId", product.variants[0].id);
+    formData.append("imageUrl", imageUrl);
+    formData.append("imageFile", state.imageFile);
+
+    await fangiftService.post("/wishlist", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    addWishlistDrawer.hide();
+    modalAddSuccess.show();
+  } catch (err) {
+    toastr.error(err.message);
+  }
+
+  $(this).loading(false);
+});
 
 async function loadMore() {
   $(this).loading(true);
@@ -191,15 +254,15 @@ function initSlider() {
       $("#amount").html(`$${ui.values[0]} - $${ui.values[1]}`);
     },
     change: function (event, ui) {
-      params.priceMin = ui.values[0];
-      params.priceMax = ui.values[1];
+      state.priceMin = ui.values[0];
+      state.priceMax = ui.values[1];
       loadProduct(true);
     },
   });
 
   const val0 = $("#slider-range").slider("values", 0);
   const val1 = $("#slider-range").slider("values", 1);
-  params.priceMin = val0;
-  params.priceMax = val1;
+  state.priceMin = val0;
+  state.priceMax = val1;
   $("#amount").html(`$${val0} - $${val1}`);
 }

@@ -24,12 +24,13 @@
     <span class="text-body-sm text-black text-ellipsis overflow-hidden whitespace-nowrap">
       {{ title }}
     </span>
-    <span class="text-body-xs text-accent-peach"> @{{ vendor }} </span>
+    {{!-- <span class="text-body-xs text-accent-peach"> @{{ vendor }} </span> --}}
     <div class="flex gap-2">
       <div class="border border-primary-border p-2 rounded-[8px] text-body-xs text-black">${{
         priceRangeV2.minVariantPrice.amount }}
       </div>
       <button class="btn btn-view-details flex-grow btn-select-product" data-product-id="{{ id }}">Add</button>
+      <button class="btn btn-view-details flex-grow btn-select-product" data-product-id="{{ id }}">Details</button>
     </div>
   </div>
 </div>

@@ -2,7 +2,6 @@ import toastr from "toastr";
 import fangiftService from "../services/fangiftService";
 import templateCardWishlist from "../templates/card.wishlist";
 import spinner from "../utils/snip";
-import { prodGidToId } from "../utils/string";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
 
@@ -54,7 +53,7 @@ $(function () {
     digitalGood: false,
     after: null,
     deleteId: null,
-    editProd: null,
+    editWishlist: null,
   };
 
   $("#text-username").text(gUserInfo.name);
@@ -96,15 +95,15 @@ $(function () {
 
   const bindEventHandlers = () => {
     $(".just-created .btn-card-delete").on("click", function () {
-      const prodId = $(this).data("product");
-      state.deleteId = prodId;
+      const wishlistId = $(this).data("wishlist");
+      state.deleteId = wishlistId;
       confirmModal.show();
     });
 
     $(".just-created .btn-card-edit").on("click", function () {
-      const prodId = $(this).data("product");
-      const prod = state.products.find((p) => p.id === prodId);
-      state.editProd = prod;
+      const wishlistId = $(this).data("wishlist");
+      const prod = state.wishlists.find((p) => p.id === wishlistId);
+      state.editWishlist = prod;
 
       if (prod) {
         $("#text-product-title").val(prod.title);
@@ -119,24 +118,7 @@ $(function () {
       }
     });
 
-    $(".just-created .btn-favorite").on("click", function () {
-      const id = $(this).data("metafield");
-      const prodId = $(this).data("product");
-      const newValue = !$(this).hasClass("toggled");
-
-      $(this).loading(true);
-
-      fangiftService
-        .put("/shop/product/metafield", {
-          id,
-          value: newValue.toString(),
-          prodId,
-        })
-        .then(() => {
-          $(this).toggleClass("toggled");
-          $(this).loading(false);
-        });
-    });
+    $(".just-created .btn-favorite").on("click", function () {});
 
     $(".just-created").removeClass(".just-created");
   };
@@ -145,22 +127,25 @@ $(function () {
     const container = $("#container-wishlists");
 
     if (showSpinner) {
+      $(".card-product").remove();
+      $("#no-gifts").addClass("hidden");
+      $("#no-gifts").removeClass("flex");
       container.append(spinner.spin().el);
       container.addClass("min-h-[600px]");
     }
 
-    const products = await fangiftService.get("/wishlist", {
+    const wishlists = await fangiftService.get("/wishlist", {
       params: {
         userId: gUserInfo["cognito:username"],
       },
     });
-    state.products = products;
+    state.wishlists = wishlists;
 
-    if (products.length) {
+    if (wishlists.length) {
       $("#no-gifts").addClass("hidden");
       $("#no-gifts").removeClass("flex");
 
-      products.forEach((product) =>
+      wishlists.forEach((product) =>
         container.append(templateCardWishlist(product))
       );
 
@@ -293,7 +278,7 @@ $(function () {
           "Content-Type": "multipart/form-data",
         },
       });
-      window.location.reload();
+      loadWishlist(true);
       drawerGiftDetails.hide();
     } catch (err) {
       toastr.error(err.response.data.message);
@@ -311,28 +296,27 @@ $(function () {
 
     try {
       const form = new FormData();
-      form.append("id", state.editProd.id);
+      form.append("id", state.editWishlist.id);
       form.append("title", state.title);
       form.append("price", state.price);
       form.append("digitalGood", state.digitalGood);
       form.append("shippingPrice", state.shippingPrice);
-      form.append("productUrl", state.editProd.metafields.product_url.value);
-      form.append("imageUrl", state.editProd.featuredImage.url);
+      form.append("productUrl", state.editWishlist.productUrl);
+      form.append("imageUrl", state.editWishlist.imageUrl);
       form.append("imageFile", state.imageFile);
 
-      const updatedProd = await fangiftService.put("/shop/product", form, {
+      await fangiftService.put("/wishlist", form, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      state.products = state.products.map((prod) =>
-        prod.id === updatedProd.id ? updatedProd : prod
-      );
-
-      location.reload();
+      loadWishlist(true);
+      drawerGiftDetails.hide();
     } catch (err) {
       toastr.error(err.response.data.message);
     }
+
+    $(this).loading(false);
   });
 
   $("#btn-save-collection").on("click", function () {
@@ -346,13 +330,13 @@ $(function () {
 
   $(".btn-sure-modal-delete").on("click", async function () {
     $(this).loading(true, { size: "w-4 h-4" });
-    await fangiftService.delete("/shop/product", {
-      params: {
-        id: state.deleteId,
-      },
-    });
+    try {
+      await fangiftService.delete(`/wishlist/${state.deleteId}`);
+      loadWishlist(true);
+    } catch (err) {
+      toastr.error(err.message);
+    }
     $(this).loading(false);
-    $(`#card-wishlist-${prodGidToId(state.deleteId)}`).remove();
     confirmModal.hide();
   });
 

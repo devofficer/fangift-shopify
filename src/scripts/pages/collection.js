@@ -61,6 +61,21 @@ function initWidgets() {
   $("#btn-load-more").on("click", loadMore);
   $(".btn-close-drawer").on("click", () => addWishlistDrawer.hide());
   $(".btn-close-add-success").on("click", () => modalAddSuccess.hide());
+
+  $("#wrapper-main-image").on("click", function (e) {
+    $("#file-main-image").trigger("click");
+  });
+
+  $("#file-main-image").on("change", function (e) {
+    state.imageFile = e.target.files[0];
+    if (state.imageFile) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        $("#img-product-main").attr("src", e.target.result);
+      };
+      reader.readAsDataURL(state.imageFile);
+    }
+  });
 }
 
 async function loadCategories() {
@@ -86,8 +101,6 @@ async function loadCategories() {
     );
     loadProduct(true);
   });
-
-  $(".btn-filter-toggle").first().trigger("click");
 }
 
 async function loadProduct(clear = false) {
@@ -179,17 +192,6 @@ async function loadProduct(clear = false) {
   }
 }
 
-$("#file-main-image").on("change", function (e) {
-  state.imageFile = e.target.files[0];
-  if (state.imageFile) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      $("#img-product-main").attr("src", e.target.result);
-    };
-    reader.readAsDataURL(state.imageFile);
-  }
-});
-
 $("#btn-add-wishlist").on("click", async function () {
   $(this).loading(true);
 
@@ -209,8 +211,12 @@ $("#btn-add-wishlist").on("click", async function () {
     formData.append("shippingPrice", shippingPrice);
     formData.append("productId", product.id);
     formData.append("variantId", product.variants[0].id);
-    formData.append("imageUrl", imageUrl);
-    formData.append("imageFile", state.imageFile);
+
+    if (state.imageFile) {
+      formData.append("imageFile", state.imageFile);
+    } else {
+      formData.append("imageUrl", imageUrl);
+    }
 
     await fangiftService.post("/wishlist", formData, {
       headers: {

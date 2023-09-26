@@ -89,6 +89,9 @@
   <h4 class="text-heading-h4 mb-[76px]">Gift Details</h4>
   <input type="file" class="hidden" name="main-image" id="file-main-image">
   <div class="mb-4 relative w-[340px] rounded-[16px] group cursor-pointer" id="wrapper-main-image">
+    <div class="absolute transition-all inset-0 z-10 items-center justify-center cursor-pointer hidden group-hover:flex text-[24px] text-primary-white">
+      Click to upload image
+    </div>
     <img
       alt="product image"
       data-placeholder="{{ 'placeholder-image.png' | asset_url }}"

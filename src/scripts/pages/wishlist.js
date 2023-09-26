@@ -56,7 +56,7 @@ $(function () {
     editWishlist: null,
   };
 
-  $("#text-username").text(gUserInfo.name);
+  $("#text-username").text(gUserInfo.publicName.split(" ")[0]);
   $("#profile-link").prop(
     "href",
     `//${window.location.hostname}/pages/user?username=${gUserInfo.name}`

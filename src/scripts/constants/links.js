@@ -12,5 +12,8 @@ const LINKS = {
   wishlist: {
     path: "/pages/wishlist",
   },
+  explore: {
+    path: "/pages/creators",
+  },
 };
 export default LINKS;

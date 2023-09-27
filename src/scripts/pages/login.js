@@ -22,7 +22,10 @@ $(function () {
         localStorage.setItem("refreshToken", res.refreshToken);
         localStorage.setItem("exp", Number(res.exp) * 1000);
         localStorage.setItem("payload", JSON.stringify(res.payload));
-        location.pathname = LINKS.wishlist.path;
+        location.pathname =
+          res.payload["custom:type"] === "creator"
+            ? LINKS.wishlist.path
+            : LINKS.explore.path;
       })
       .catch((err) => {
         toastr.error(err.response.data.message);

@@ -45,7 +45,7 @@ $(function () {
       $("#creator-menu").addClass("xl:flex");
     } else {
       $("#fan-menu").removeClass("hidden");
-      $("#creator-menu").addClass("xl:flex");
+      $("#fan-menu").addClass("xl:flex");
     }
 
     $("body").removeClass("hidden");

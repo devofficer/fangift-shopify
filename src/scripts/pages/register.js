@@ -80,20 +80,23 @@ $(function () {
   restcountriesService.get("all?fields=name,flags").then((data) => {
     $("#select-country").select2({
       width: "100%",
-      data: data
-        .map((item) => ({
-          id: item.name.common,
-          text: item.name.common,
-          flag: item.flags.png,
-        }))
-        .sort((a, b) => (a.text > b.text ? 1 : -1)),
+      data: [
+        { id: "", text: "", flag: "" },
+        ...data
+          .map((item) => ({
+            id: item.name.common,
+            text: item.name.common,
+            flag: item.flags.png,
+          }))
+          .sort((a, b) => (a.text > b.text ? 1 : -1)),
+      ],
       templateResult: (state) => {
         if (!state.flag) {
           return state.text;
         }
         const $state = $(
           `<div class="flex items-center gap-2">
-            <img src="${state.flag}" class="w-[32px]" />
+            ${state.flag ? `<img src="${state.flag}" class="w-[32px]" />` : ""}
             <span>${state.text}</span>
           </div>`
         );
@@ -103,9 +106,14 @@ $(function () {
 
     $("#select-country").on("select2:select", function (e) {
       country = e.params.data;
+      $("#btn-next-country").prop("disabled", !country.text);
     });
 
     country = $("#select-country").select2("data");
+
+    if (!country.text) {
+      $("#btn-next-country").prop("disabled", true);
+    }
   });
 
   // handle submit of role selection form

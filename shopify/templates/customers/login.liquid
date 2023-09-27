@@ -13,21 +13,23 @@
               <div class="text-center text-primary-text text-body-md">Log in to Get Started</div>
             </div>
 
-            <div class="flex gap-4 mb-4">
-              <button class="btn btn-google flex-grow">
-                {% render 'icon-google.liquid' %}
-                Sign in with Google
-              </button>
-              <button class="btn btn-facebook">
-                {% render 'icon-facebook.liquid' %}
-              </button>
-            </div>
+            {% comment %}
+              <div class="flex gap-4 mb-4">
+                <button class="btn btn-google flex-grow">
+                  {% render 'icon-google.liquid' %}
+                  Sign in with Google
+                </button>
+                <button class="btn btn-facebook">
+                  {% render 'icon-facebook.liquid' %}
+                </button>
+              </div>
 
-            <div class="flex items-center justify-center gap-3 mb-4">
-              <hr class="border-primary-border flex-grow">
-              <span class="text-body-sm text-primary-text">or</span>
-              <hr class="border-primary-border flex-grow">
-            </div>
+              <div class="flex items-center justify-center gap-3 mb-4">
+                <hr class="border-primary-border flex-grow">
+                <span class="text-body-sm text-primary-text">or</span>
+                <hr class="border-primary-border flex-grow">
+              </div>
+            {% endcomment %}
 
             <div class="grid grid-cols-1 gap-4 mb-8">
               <input

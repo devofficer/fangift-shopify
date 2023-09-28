@@ -21,7 +21,7 @@ const updateUserInfo = (userInfo) => {
   });
 };
 
-$(function () {
+$(async function () {
   const pathname = location.pathname;
   const isPublicPage =
     pathname === "/" ||
@@ -31,11 +31,19 @@ $(function () {
   const expiration = Number(localStorage.getItem("exp"));
   const validExp = new Date() < new Date(expiration);
 
+  updateUserInfo();
+
+  $("#btn-signout").on("click", function () {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("exp");
+    localStorage.removeItem("payload");
+    localStorage.removeItem("refreshToken");
+    location.href = "/account/login";
+  });
+
   if (isPublicPage) {
     $("body").removeClass("hidden");
   } else if (validExp) {
-    updateUserInfo();
-
     if (gUserInfo.picture) {
       $("#img-avatar").prop("src", getS3Url(gUserInfo.picture));
     }
@@ -54,22 +62,19 @@ $(function () {
     $("html").append(overlay);
     spinner.spin(overlay[0]);
 
-    fangiftService.get("/auth").then((userInfo) => {
-      if (userInfo) {
-        updateUserInfo(userInfo);
-
-        $("body").removeClass("hidden");
-        spinner.stop();
-        overlay.detach();
-      }
-    });
+    try {
+      const payload = JSON.parse(localStorage.getItem("payload"));
+      const res = await fangiftService.post("/auth/refresh-session", {
+        refreshToken: localStorage.getItem("refreshToken"),
+        email: payload.email,
+      });
+      localStorage.setItem("accessToken", res.accessToken);
+      localStorage.setItem("refreshToken", res.refreshToken);
+      localStorage.setItem("exp", Number(res.exp) * 1000);
+      localStorage.setItem("payload", JSON.stringify(res.payload));
+      window.location.reload();
+    } catch (err) {
+      window.location.href = LINKS.login.path;
+    }
   }
-
-  $("#btn-signout").on("click", function () {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("exp");
-    localStorage.removeItem("payload");
-    localStorage.removeItem("refreshToken");
-    location.href = "/account/login";
-  });
 });

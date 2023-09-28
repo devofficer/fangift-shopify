@@ -81,7 +81,7 @@ $(function () {
     $("#select-country").select2({
       width: "100%",
       data: [
-        { id: "", text: "", flag: "" },
+        { id: "", text: "Country of Residence", flag: "" },
         ...data
           .map((item) => ({
             id: item.name.common,
@@ -106,12 +106,12 @@ $(function () {
 
     $("#select-country").on("select2:select", function (e) {
       country = e.params.data;
-      $("#btn-next-country").prop("disabled", !country.text);
+      $("#btn-next-country").prop("disabled", !country.id);
     });
 
     country = $("#select-country").select2("data");
 
-    if (!country.text) {
+    if (!country.id) {
       $("#btn-next-country").prop("disabled", true);
     }
   });

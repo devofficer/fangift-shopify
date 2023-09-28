@@ -1,3 +1,5 @@
+{{ 'settings.min.css' | asset_url | stylesheet_tag }}
+
 <div class="bg-primary-background">
   <div class="bg-primary-white border-b border-primary-border">
     <div class="container px-[100px]">
@@ -14,65 +16,11 @@
           </li>
           <li>
             <button
-              id="account-tab"
-              data-tabs-target="#account"
-              class="inline-flex items-center gap-2 justify-center py-4"
-            >
-              <span class="[.active>&]:text-accent-purple">Account</span>
-            </button>
-          </li>
-          <li>
-            <button
-              id="wishlist-tab"
-              data-tabs-target="#wishlist"
-              class="inline-flex items-center gap-2 justify-center py-4"
-            >
-              <span class="[.active>&]:text-accent-purple">Wishlist</span>
-            </button>
-          </li>
-          <li>
-            <button
               id="address-tab"
               data-tabs-target="#address"
               class="inline-flex items-center gap-2 justify-center py-4"
             >
               <span class="[.active>&]:text-accent-purple">Address</span>
-            </button>
-          </li>
-          <li>
-            <button
-              id="social-links-tab"
-              data-tabs-target="#social-links"
-              class="inline-flex items-center gap-2 justify-center py-4"
-            >
-              <span class="[.active>&]:text-accent-purple">Social Links</span>
-            </button>
-          </li>
-          <li>
-            <button
-              id="wishlist-analytics-tab"
-              data-tabs-target="#wishlist-analytics"
-              class="inline-flex items-center gap-2 justify-center py-4"
-            >
-              <span class="[.active>&]:text-accent-purple">Wishlist Analytics</span>
-            </button>
-          </li>
-          <li>
-            <button
-              id="store-analytics-tab"
-              data-tabs-target="#store-analytics"
-              class="inline-flex items-center gap-2 justify-center py-4"
-            >
-              <span class="[.active>&]:text-accent-purple">Store Analytics</span>
-            </button>
-          </li>
-          <li>
-            <button
-              id="balance-tab"
-              data-tabs-target="#balance"
-              class="inline-flex items-center gap-2 justify-center py-4"
-            >
-              <span class="[.active>&]:text-accent-purple">Balance</span>
             </button>
           </li>
         </ul>
@@ -153,13 +101,94 @@
           <button type="button" class="btn btn-primary w-full" id="btn-save-profile">Save Changes</button>
         </div>
       </div>
-      <div id="account"></div>
-      <div id="wishlist"></div>
-      <div id="address"></div>
-      <div id="social-links"></div>
-      <div id="wishlist-analytics"></div>
-      <div id="store-analytics"></div>
-      <div id="balance"></div>
+      <div id="address" class="relative">
+        <div class="w-[800px] mx-auto py-12 px-20 bg-white rounded-[16px] blur-sm content">
+          <h3 class="text-heading-h3 mb-8">Your Address</h3>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label for="first-name" class="text-body-sm mb-2 block required"> First Name </label>
+              <input
+                type="text"
+                id="first-name"
+                name="firstname"
+                placeholder="First Name"
+                class="textfield"
+              >
+            </div>
+            <div>
+              <label for="last-name" class="text-body-sm mb-2 block required"> Last Name </label>
+              <input
+                type="text"
+                id="last-name"
+                name="lastname"
+                placeholder="Last Name"
+                class="textfield"
+              >
+            </div>
+          </div>
+          <label for="address1" class="text-body-sm mb-2 block required"> Address Line 1 </label>
+          <input
+            type="text"
+            id="address1"
+            name="address1"
+            placeholder="Street"
+            class="textfield mb-4"
+          >
+          <label for="address2" class="text-body-sm mb-2 block"> Address Line 2 </label>
+          <input
+            type="text"
+            id="address2"
+            name="address2"
+            placeholder="Apt/Unit/Suite"
+            class="textfield mb-4"
+          >
+          <label for="select-country" class="text-body-sm mb-2 block required"> Country </label>
+          <div class="mb-4">
+            <select id="select-country" placeholder="Country" class="btn-dropdown" autocomplete="off"></select>
+          </div>
+          <div class="grid grid-cols-3 gap-4 mb-4">
+            <div>
+              <label for="city" class="text-body-sm mb-2 block required"> City </label>
+              <input
+                type="text"
+                id="city"
+                name="city"
+                placeholder="City"
+                class="textfield"
+              >
+            </div>
+            <div>
+              <label for="state" class="text-body-sm mb-2 block required"> State / Province </label>
+              <input
+                type="text"
+                id="state"
+                name="state"
+                placeholder="State"
+                class="textfield"
+              >
+            </div>
+            <div>
+              <label for="zip" class="text-body-sm mb-2 block required"> ZIP / Postal Code </label>
+              <input
+                type="text"
+                id="zip"
+                name="zip"
+                placeholder=""
+                class="textfield"
+              >
+            </div>
+          </div>
+          <label for="phone-number" class="text-body-sm mb-2 block required"> Phone Number </label>
+          <input
+            type="text"
+            id="phone-number"
+            name="phone-number"
+            placeholder="Phone Number"
+            class="textfield mb-8"
+          >
+          <button type="button" class="btn btn-primary w-full" id="btn-save-address">Save Changes</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

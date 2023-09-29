@@ -2,6 +2,7 @@ import toastr from "toastr";
 import fangiftService from "../services/fangiftService";
 import templateCardWishlist from "../templates/card.wishlist";
 import spinner from "../utils/snip";
+import LINKS from "../constants/links";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
 
@@ -174,7 +175,7 @@ $(function () {
     drawerSelectGift.hide();
 
     if (state.giftSource === "fangift") {
-      drawerAddGift.show();
+      window.location.href = LINKS.marketplace.path;
     } else if (state.giftSource === "product") {
       drawerGiftProduct.show();
       $("#btn-update-wishlist").addClass("hidden");

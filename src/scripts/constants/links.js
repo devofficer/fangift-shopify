@@ -15,5 +15,8 @@ const LINKS = {
   explore: {
     path: "/pages/creators",
   },
+  marketplace: {
+    path: "/collections/all",
+  },
 };
 export default LINKS;

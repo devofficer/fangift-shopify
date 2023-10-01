@@ -311,6 +311,8 @@ $(function () {
 
       if (isUrl(state.editWishlist.productUrl)) {
         form.append("productUrl", state.editWishlist.productUrl);
+      } else {
+        form.append("productUrl", "");
       }
 
       await fangiftService.put("/wishlist", form, {

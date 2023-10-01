@@ -6,13 +6,13 @@ const spinner = new Spinner({
   color: "gray",
 });
 
-export const overlay = () => {
+export function overlay() {
   $("body").addClass("blur-sm fixed overflow-hidden inset-0");
   const bodySpinner = spinner.spin(document.getElementsByTagName("body")[0]);
   return () => {
     $("body").removeClass("blur-sm fixed overflow-hidden inset-0");
     bodySpinner.stop();
   };
-};
+}
 
 export default spinner;

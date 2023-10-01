@@ -3,23 +3,24 @@ import LINKS from "../constants/links";
 import spinner from "../utils/snip";
 import { getS3Url } from "../utils/string";
 
-const updateUserInfo = (userInfo) => {
-  window.gUserInfo = Object.freeze(
-    Object.entries(
-      userInfo ?? JSON.parse(localStorage.getItem("payload"))
-    ).reduce(
-      (acc, [key, value]) => ({
-        ...acc,
-        [key.replace("custom:", "")]: value,
-      }),
-      {}
-    )
-  );
-  Object.defineProperty(window, "gUserInfo", {
-    configurable: false,
-    writable: false,
-  });
-};
+function updateUserInfo(userInfo) {
+  userInfo = userInfo ?? JSON.parse(localStorage.getItem("payload"));
+  if (userInfo) {
+    window.gUserInfo = Object.freeze(
+      Object.entries(userInfo).reduce(
+        (acc, [key, value]) => ({
+          ...acc,
+          [key.replace("custom:", "")]: value,
+        }),
+        {}
+      )
+    );
+    Object.defineProperty(window, "gUserInfo", {
+      configurable: false,
+      writable: false,
+    });
+  }
+}
 
 $(async function () {
   const pathname = location.pathname;

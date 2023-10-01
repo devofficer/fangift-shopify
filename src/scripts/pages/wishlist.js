@@ -3,6 +3,7 @@ import fangiftService from "../services/fangiftService";
 import templateCardWishlist from "../templates/card.wishlist";
 import spinner from "../utils/snip";
 import LINKS from "../constants/links";
+import { isUrl } from "../utils/string";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
 
@@ -164,8 +165,15 @@ $(function () {
 
   loadWishlist(true);
 
-  $("#btn-add-gift").on("click", function () {
+  $(".btn-add-gift").on("click", function () {
     drawerSelectGift.show();
+  });
+
+  $(".btn-copy-wishlist-link").on("click", function () {
+    window.navigator.clipboard.writeText(
+      `${window.location.hostname}/pages/user?username=${gUserInfo.name}`
+    );
+    toastr.info("Copied your wishlist link");
   });
 
   $("#btn-gift-next").on("click", function () {
@@ -208,11 +216,7 @@ $(function () {
   $("#btn-next-product").on("click", async function () {
     state.url = $("#text-product-link").val();
 
-    if (
-      !/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
-        state.url
-      )
-    ) {
+    if (!isUrl(state.url)) {
       toastr.error("Please enter a valid product url.");
       return;
     }
@@ -302,9 +306,12 @@ $(function () {
       form.append("price", state.price);
       form.append("digitalGood", state.digitalGood);
       form.append("shippingPrice", state.shippingPrice);
-      form.append("productUrl", state.editWishlist.productUrl);
       form.append("imageUrl", state.editWishlist.imageUrl);
       form.append("imageFile", state.imageFile);
+
+      if (isUrl(state.editWishlist.productUrl)) {
+        form.append("productUrl", state.editWishlist.productUrl);
+      }
 
       await fangiftService.put("/wishlist", form, {
         headers: {

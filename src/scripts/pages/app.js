@@ -1,6 +1,5 @@
-import fangiftService from "../services/fangiftService";
 import LINKS from "../constants/links";
-import spinner from "../utils/snip";
+import { refreshSession } from "../utils/session";
 import { getS3Url } from "../utils/string";
 
 function updateUserInfo(userInfo) {
@@ -59,23 +58,6 @@ $(async function () {
 
     $("body").removeClass("hidden");
   } else {
-    const overlay = $('<div class="h-screen w-screen"></div>');
-    $("html").append(overlay);
-    spinner.spin(overlay[0]);
-
-    try {
-      const payload = JSON.parse(localStorage.getItem("payload"));
-      const res = await fangiftService.post("/auth/refresh-session", {
-        refreshToken: localStorage.getItem("refreshToken"),
-        email: payload.email,
-      });
-      localStorage.setItem("accessToken", res.accessToken);
-      localStorage.setItem("refreshToken", res.refreshToken);
-      localStorage.setItem("exp", Number(res.exp) * 1000);
-      localStorage.setItem("payload", JSON.stringify(res.payload));
-      window.location.reload();
-    } catch (err) {
-      window.location.href = LINKS.login.path;
-    }
+    await refreshSession();
   }
 });

@@ -263,7 +263,7 @@ function syncProd(done) {
  * Dev Tasks
  */
 task('shopify:dev', devShopify);
-task('watch', (done) => buildTheme().then(() => watchHandler(done)));
+task('watch', watchHandler);
 task('dev', parallel('watch', 'shopify:dev'));
 task('sync', sync);
 task('sync:stage', syncStage);

@@ -79,6 +79,7 @@
     "jquery": "^3.7.0",
     "require": "^2.4.20",
     "select2": "^4.1.0-rc.0",
+    "slick-carousel": "^1.8.1",
     "spin.js": "^4.1.1",
     "toastr": "^2.1.4"
   }

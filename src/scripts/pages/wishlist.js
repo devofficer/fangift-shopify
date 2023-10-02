@@ -1,6 +1,7 @@
 import toastr from "toastr";
 import fangiftService from "../services/fangiftService";
 import templateCardWishlist from "../templates/card.wishlist";
+import templateCardProduct from "../templates/card.product";
 import spinner from "../utils/snip";
 import LINKS from "../constants/links";
 import { isUrl } from "../utils/string";
@@ -129,7 +130,7 @@ $(function () {
     const container = $("#container-wishlists");
 
     if (showSpinner) {
-      $(".card-product").remove();
+      $("#container-wishlists .card-product").remove();
       $("#no-gifts").addClass("hidden");
       $("#no-gifts").removeClass("flex");
       container.append(spinner.spin().el);
@@ -255,12 +256,12 @@ $(function () {
   });
 
   $("#btn-add-wishlist").on("click", async function () {
-    state.shippingPrice = $("#text-shipping-price").val();
-    state.title = $("#text-product-title").val();
-    state.price = $("#text-product-price").val();
-    state.digitalGood = $("#checkbox-digital-good").prop("checked");
+    const title = $("#text-product-title").val();
+    const price = $("#text-product-price").val();
+    const digitalGood = $("#checkbox-digital-good").prop("checked");
+    const shippingPrice = $("#text-shipping-price").val();
 
-    if (!state.title.trim()) {
+    if (!title.trim()) {
       toastr.warning("Invalid product title, it is required Field.");
       return;
     }
@@ -270,13 +271,19 @@ $(function () {
     try {
       const formData = new FormData();
       formData.append("userId", gUserInfo["cognito:username"]);
-      formData.append("title", state.title);
-      formData.append("price", state.price);
-      formData.append("digitalGood", state.digitalGood);
-      formData.append("shippingPrice", state.shippingPrice);
-      formData.append("productUrl", state.url);
+      formData.append("title", title);
+      formData.append("price", price);
+      formData.append("digitalGood", digitalGood);
+      formData.append("shippingPrice", shippingPrice);
       formData.append("imageUrl", state.mainImage);
-      formData.append("imageFile", state.imageFile);
+
+      if (state.productId && state.variantId) {
+        formData.append("productId", state.productId);
+        formData.append("variantId", state.variantId);
+      } else if (state.url) {
+        formData.append("productUrl", state.url);
+        formData.append("imageFile", state.imageFile);
+      }
 
       await fangiftService.post("/wishlist", formData, {
         headers: {
@@ -287,8 +294,13 @@ $(function () {
       drawerGiftDetails.hide();
     } catch (err) {
       toastr.error(err.response.data.message);
-      $(this).loading(false);
     }
+
+    state.productId = "";
+    state.variantId = "";
+    state.url = "";
+
+    $(this).loading(false);
   });
 
   $("#btn-update-wishlist").on("click", async function () {
@@ -353,4 +365,52 @@ $(function () {
   $(".btn-cancel-modal-delete").on("click", function () {
     confirmModal.hide();
   });
+
+  $("#carousel-products").slick({
+    dots: true,
+    infinite: false,
+    speed: 300,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    variableWidth: true,
+  });
+
+  const loadProducts = async () => {
+    const { products } = await fangiftService.get("/shop/product", {
+      params: { first: 12, query: "vendor:fangift AND status:active" },
+    });
+    products.forEach((prod) => {
+      $("#carousel-products").slick(
+        "slickAdd",
+        `<div class="w-[200px] rounded-[16px] mx-2 border border-gray-100">${templateCardProduct(
+          prod
+        )}</div>`
+      );
+    });
+
+    $(".just-created .btn-add-product").on("click", async function () {
+      const productId = $(this).data("product");
+      const product = products.find((p) => p.id === productId);
+
+      if (product) {
+        state.productId = productId;
+        state.variantId = product.variants[0].id;
+        state.mainImage = product.featuredImage.url;
+
+        $("#text-product-title").val(product.title);
+        $("#text-product-price").val(
+          product.priceRangeV2.minVariantPrice.amount
+        );
+        $("#img-product-main").prop("src", product.featuredImage.url);
+        $("#text-shipping-price").val(0);
+
+        drawerGiftDetails.show();
+      }
+    });
+
+    $(".just-created").removeClass("just-created");
+  };
+  loadProducts();
 });

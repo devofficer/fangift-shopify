@@ -114,8 +114,17 @@ $(function () {
         $("#img-product-main").prop("src", prod.imageUrl);
         $("#checkbox-digital-good").prop("checked", prod.digitalGood);
         $("#text-shipping-price").val(prod.shippingPrice);
+        $("#text-desc").val(prod.description);
         $("#btn-add-wishlist").addClass("hidden");
         $("#btn-update-wishlist").removeClass("hidden");
+
+        if (prod.productUrl) {
+          $("#wrapper-main-image").addClass("pointer-events-none");
+          $("#text-product-price").attr("readonly", true);
+        } else {
+          $("#wrapper-main-image").removeClass("pointer-events-none");
+          $("#text-product-price").attr("readonly", false);
+        }
 
         drawerGiftDetails.show();
       }
@@ -239,15 +248,19 @@ $(function () {
         prodInfo.mainImage || $("#img-product-main").data("placeholder")
       );
 
-      drawerGiftProduct.hide();
-      drawerGiftDetails.show();
       $("#text-product-link").val("");
+      $("#wrapper-main-image").removeClass("pointer-events-none");
+      $("#text-product-price").attr("readonly", false);
+      $("#text-desc").val(prodInfo.description);
 
       if (!prodInfo.mainImage && !prodInfo.title) {
         toastr.warning(
           "Failed to parse product. Please try to fill out fields manually."
         );
       }
+
+      drawerGiftProduct.hide();
+      drawerGiftDetails.show();
     } catch (err) {
       toastr.warning("Please enter valid product URL!");
     }
@@ -258,8 +271,7 @@ $(function () {
   $("#btn-add-wishlist").on("click", async function () {
     const title = $("#text-product-title").val();
     const price = $("#text-product-price").val();
-    const digitalGood = $("#checkbox-digital-good").prop("checked");
-    const shippingPrice = $("#text-shipping-price").val();
+    const description = $("#text-desc").val();
 
     if (!title.trim()) {
       toastr.warning("Invalid product title, it is required Field.");
@@ -273,9 +285,8 @@ $(function () {
       formData.append("userId", gUserInfo["cognito:username"]);
       formData.append("title", title);
       formData.append("price", price);
-      formData.append("digitalGood", digitalGood);
-      formData.append("shippingPrice", shippingPrice);
       formData.append("imageUrl", state.mainImage);
+      formData.append("description", description);
 
       if (state.productId && state.variantId) {
         formData.append("productId", state.productId);
@@ -304,10 +315,9 @@ $(function () {
   });
 
   $("#btn-update-wishlist").on("click", async function () {
-    state.shippingPrice = $("#text-shipping-price").val();
     state.title = $("#text-product-title").val();
     state.price = $("#text-product-price").val();
-    state.digitalGood = $("#checkbox-digital-good").prop("checked");
+    state.description = $("#text-desc").val();
 
     $(this).loading(true);
 
@@ -316,8 +326,7 @@ $(function () {
       form.append("id", state.editWishlist.id);
       form.append("title", state.title);
       form.append("price", state.price);
-      form.append("digitalGood", state.digitalGood);
-      form.append("shippingPrice", state.shippingPrice);
+      form.append("description", state.description);
       form.append("imageUrl", state.editWishlist.imageUrl);
       form.append("imageFile", state.imageFile);
 
@@ -379,7 +388,7 @@ $(function () {
 
   const loadProducts = async () => {
     const { products } = await fangiftService.get("/shop/product", {
-      params: { first: 12, query: "vendor:fangift AND status:active" },
+      params: { first: 15 },
     });
     products.forEach((prod) => {
       $("#carousel-products").slick(
@@ -398,6 +407,7 @@ $(function () {
         state.productId = productId;
         state.variantId = product.variants[0].id;
         state.mainImage = product.featuredImage.url;
+        state.description = $(product.descriptionHtml).text();
 
         $("#text-product-title").val(product.title);
         $("#text-product-price").val(
@@ -405,6 +415,10 @@ $(function () {
         );
         $("#img-product-main").prop("src", product.featuredImage.url);
         $("#text-shipping-price").val(0);
+
+        $("#wrapper-main-image").addClass("pointer-events-none");
+        $("#text-product-price").attr("readonly", true);
+        $("#text-desc").val(state.description);
 
         drawerGiftDetails.show();
       }

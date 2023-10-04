@@ -1,6 +1,6 @@
 @layer components {
   .btn {
-    @apply focus:outline-none rounded-[16px] font-plus-semi cursor-pointer select-none text-center flex items-center justify-center;
+    @apply focus:outline-none rounded-[16px] font-plus-semi cursor-pointer select-none text-center flex items-center justify-center flex-shrink-0;
   }
 
   .btn-primary {

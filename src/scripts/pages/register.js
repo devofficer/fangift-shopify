@@ -1,8 +1,8 @@
 import select2 from "select2";
-import fangiftService from "../services/fangiftService";
-import restcountriesService from "../services/restcountriesService";
-import initAvatar from "../components/avatar";
 import toastr from "toastr";
+import initAvatar from "../components/avatar";
+import fangiftService from "../services/fangiftService";
+import { getAllCountries } from "../services/restcountriesService";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
 
@@ -54,7 +54,7 @@ $(function () {
     formData.append("username", username);
     formData.append("type", role);
     formData.append("password", password);
-    formData.append("country", country[0].text);
+    formData.append("country", country[0].id);
     formData.append("avatar", avatarImg);
     formData.append("publicName", publicName);
     formData.append("bio", bio);
@@ -77,14 +77,14 @@ $(function () {
       });
   });
 
-  restcountriesService.get("all?fields=name,flags").then((data) => {
+  getAllCountries.then((data) => {
     $("#select-country").select2({
       width: "100%",
       data: [
         { id: "", text: "Country of Residence", flag: "" },
         ...data
           .map((item) => ({
-            id: item.name.common,
+            id: item.cca2,
             text: item.name.common,
             flag: item.flags.png,
           }))

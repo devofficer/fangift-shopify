@@ -1,5 +1,6 @@
 import LINKS from "../constants/links";
 import PAGE_ROLES from "../constants/pageRoles";
+import { getCountryInfo } from "../services/restcountriesService";
 import { refreshSession } from "../utils/session";
 import { getS3Url } from "../utils/string";
 
@@ -63,6 +64,15 @@ $(async function () {
     }
 
     if (gUserInfo.type === PAGE_ROLES.creator) {
+      try {
+        const country = await getCountryInfo(gUserInfo.country);
+        $("#img-shipping-country").prop("src", country.flags.png);
+        $("#text-shipping-country").text(country.name.common);
+      } catch (err) {
+        console.log(err);
+      }
+      $("#shipping-country").removeClass("hidden");
+      $("#shipping-country").addClass("flex");
       $("#creator-menu").removeClass("hidden");
       $("#creator-menu").addClass("xl:flex");
     } else {

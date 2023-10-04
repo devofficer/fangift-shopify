@@ -49,5 +49,9 @@ const LINKS = {
     path: "/pages/orders",
     role: PAGE_ROLES.authenticated,
   },
+  settings: {
+    path: "/pages/settings",
+    role: PAGE_ROLES.authenticated,
+  },
 };
 export default LINKS;

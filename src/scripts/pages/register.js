@@ -77,11 +77,11 @@ $(function () {
       });
   });
 
-  getAllCountries.then((data) => {
+  getAllCountries().then((data) => {
     $("#select-country").select2({
       width: "100%",
       data: [
-        { id: "", text: "Country of Residence", flag: "" },
+        { id: "", text: "Select Country of Residence", flag: "" },
         ...data
           .map((item) => ({
             id: item.cca2,
@@ -192,7 +192,7 @@ $(function () {
         $(btn).prop("disabled", true);
       } else {
         $(this).val(`@${username}`);
-        $(btn).prop("disabled", false);
+        $(btn).prop("disabled", !/^\w+$/.test(username));
         $("#lbl-username").html(username);
       }
     };

@@ -53,5 +53,9 @@ const LINKS = {
     path: "/pages/settings",
     role: PAGE_ROLES.authenticated,
   },
+  verify: {
+    path: "/pages/verify",
+    role: PAGE_ROLES.public,
+  },
 };
 export default LINKS;

@@ -1,0 +1,24 @@
+<main class="overflow-auto">
+  <div class="bg-[url(auth-bg.svg)] bg-cover bg-no-repeat min-h-screen">
+    {% section 'header-landing' %}
+
+    <div class="container px-[100px]">
+      <div class="pt-[22px] pb-24">
+        <div class="grid grid-cols-1 gap-[60px] xl:grid-cols-2">
+          <div class="card-auth relative">
+            <div class="flex flex-col justify-center h-full">
+              <div class="text-center mb-8">
+                <h1 class="text-primary-black text-heading-h3 mb-2" id="text-title"></h1>
+                <div class="text-center text-primary-text text-body-md" id="text-subtitle"></div>
+              </div>
+            </div>
+          </div>
+
+          {{ 'auth-img0.png' | asset_url | img_tag: 'main-bg', 'hidden xl:block', '600x' }}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="{{'verification.min.js' | asset_url}}" defer></script>

@@ -109,7 +109,7 @@ async function showAddressTab() {
   $("#select-country").select2({
     width: "100%",
     data: [
-      { id: "", text: "Country of Residence", flag: "" },
+      { id: "", text: "Select Country of Residence", flag: "" },
       ...countries
         .map((item) => ({
           id: item.cca2,

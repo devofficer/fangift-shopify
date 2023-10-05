@@ -5,10 +5,12 @@ $(function () {
   if (reason === "email_verified") {
     $("#text-title").text("Account Verified");
     $("#text-subtitle").text(
-      "Your email and account have been verfied. Please Login to continue"
+      "Your email and account have been verfied. Please Login to continue."
     );
+    $("#btn-login").removeClass("hidden");
   } else if (reason) {
-    $("#text-title").text("Failed to verify");
-    $("#text-subtitle").text(reason);
+    $("#text-title").text("Verification Failed");
+    $("#text-subtitle").text("Please re-register again here.");
+    $("#btn-register").removeClass("hidden");
   }
 });

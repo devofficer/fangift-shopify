@@ -77,6 +77,19 @@ $(function () {
       });
   });
 
+  $("#btn-resend").on("click", async function (e) {
+    $(this).loading(true);
+
+    try {
+      await fangiftService.get("/auth/resend-code", { params: { email } });
+      toastr.info("Re-sent verification email!");
+    } catch (err) {
+      toastr.error(err.response.data.message);
+    }
+
+    $(this).loading(false);
+  });
+
   getAllCountries().then((data) => {
     $("#select-country").select2({
       width: "100%",
@@ -192,7 +205,7 @@ $(function () {
         $(btn).prop("disabled", true);
       } else {
         $(this).val(`@${username}`);
-        $(btn).prop("disabled", !/^\w+$/.test(username));
+        $(btn).prop("disabled", !/^[a-z0-9]{1,50}$/.test(username));
         $("#lbl-username").html(username);
       }
     };

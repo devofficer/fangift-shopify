@@ -53,8 +53,8 @@ const LINKS = {
     path: "/pages/settings",
     role: PAGE_ROLES.authenticated,
   },
-  verify: {
-    path: "/pages/verify",
+  verification: {
+    path: "/pages/verification",
     role: PAGE_ROLES.public,
   },
 };

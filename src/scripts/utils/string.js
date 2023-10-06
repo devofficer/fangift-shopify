@@ -29,3 +29,7 @@ export function isEmail(email) {
     email
   );
 }
+
+export function isValidUsername(username) {
+  return /^(?![_.]+)(?!.*[_.]{2})[\w.]{1,28}(?<![_.])$/.test(username);
+}

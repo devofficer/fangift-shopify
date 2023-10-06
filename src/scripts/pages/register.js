@@ -3,7 +3,8 @@ import toastr from "toastr";
 import initAvatar from "../components/avatar";
 import fangiftService from "../services/fangiftService";
 import { getAllCountries } from "../services/restcountriesService";
-import { isEmail } from "../utils/string";
+import { isEmail, isValidUsername } from "../utils/string";
+import { ERR_CLS_USERNAME } from "../constants/errors";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
 
@@ -205,8 +206,16 @@ $(function () {
         $(this).val("");
         $(btn).prop("disabled", true);
       } else {
+        const isValid = isValidUsername(username);
+
         $(this).val(`@${username}`);
-        $(btn).prop("disabled", !/^[a-z0-9]{1,50}$/.test(username));
+        $(btn).prop("disabled", !isValid);
+
+        if (!isValid) {
+          $(this).closest(".error-msg").addClass(ERR_CLS_USERNAME);
+        } else {
+          $(this).closest(".error-msg").removeClass(ERR_CLS_USERNAME);
+        }
         $("#lbl-username").html(username);
       }
     };

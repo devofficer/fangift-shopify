@@ -57,5 +57,9 @@ const LINKS = {
     path: "/pages/verification",
     role: PAGE_ROLES.public,
   },
+  resetPassword: {
+    path: "/pages/reset-password",
+    role: PAGE_ROLES.public,
+  },
 };
 export default LINKS;

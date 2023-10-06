@@ -3,6 +3,7 @@ import toastr from "toastr";
 import initAvatar from "../components/avatar";
 import fangiftService from "../services/fangiftService";
 import { getAllCountries } from "../services/restcountriesService";
+import { isEmail } from "../utils/string";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
 
@@ -248,11 +249,7 @@ $(function () {
   });
 
   function validateBasicForm() {
-    const ability =
-      password === passwordConfirmed &&
-      /^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-        email
-      );
+    const ability = password === passwordConfirmed && isEmail(email);
     $("#btn-register").prop("disabled", !ability);
   }
 

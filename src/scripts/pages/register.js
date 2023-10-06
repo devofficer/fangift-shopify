@@ -4,7 +4,6 @@ import initAvatar from "../components/avatar";
 import fangiftService from "../services/fangiftService";
 import { getAllCountries } from "../services/restcountriesService";
 import { isEmail, isValidUsername } from "../utils/string";
-import { ERR_CLS_USERNAME } from "../constants/errors";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
 
@@ -212,9 +211,9 @@ $(function () {
         $(btn).prop("disabled", !isValid);
 
         if (!isValid) {
-          $(this).closest(".error-msg").addClass(ERR_CLS_USERNAME);
+          $(this).closest(".error-wrapper").error(true);
         } else {
-          $(this).closest(".error-msg").removeClass(ERR_CLS_USERNAME);
+          $(this).closest(".error-wrapper").error(false);
         }
         $("#lbl-username").html(username);
       }

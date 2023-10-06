@@ -29,3 +29,16 @@ $.fn.loading = function (isLoading = true, opt) {
 
   return this;
 };
+
+$.fn.error = function (show = true, error) {
+  const errorClass =
+    "after:text-red-500 after:text-[12px] after:content-[attr(error)]";
+  if (show) {
+    if (error) {
+      this.prop("error", error);
+    }
+    this.addClass(errorClass);
+  } else {
+    this.removeClass(errorClass);
+  }
+};

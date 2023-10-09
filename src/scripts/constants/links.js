@@ -31,7 +31,7 @@ const LINKS = {
   },
   account: {
     path: "/pages/user",
-    role: PAGE_ROLES.authenticated,
+    role: PAGE_ROLES.public,
   },
   wishlist: {
     path: "/pages/wishlist",
@@ -39,7 +39,7 @@ const LINKS = {
   },
   explore: {
     path: "/pages/creators",
-    role: PAGE_ROLES.authenticated,
+    role: PAGE_ROLES.public,
   },
   marketplace: {
     path: "/collections/all",

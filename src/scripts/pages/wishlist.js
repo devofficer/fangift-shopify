@@ -112,18 +112,16 @@ $(function () {
         $("#text-product-title").val(prod.title);
         $("#text-product-price").val(prod.price);
         $("#img-product-main").prop("src", prod.imageUrl);
-        $("#checkbox-digital-good").prop("checked", prod.digitalGood);
-        $("#text-shipping-price").val(prod.shippingPrice);
         $("#text-desc").val(prod.description);
         $("#btn-add-wishlist").addClass("hidden");
         $("#btn-update-wishlist").removeClass("hidden");
 
         if (prod.productUrl) {
-          $("#wrapper-main-image").addClass("pointer-events-none");
-          $("#text-product-price").attr("readonly", true);
-        } else {
           $("#wrapper-main-image").removeClass("pointer-events-none");
           $("#text-product-price").attr("readonly", false);
+        } else {
+          $("#wrapper-main-image").addClass("pointer-events-none");
+          $("#text-product-price").attr("readonly", true);
         }
 
         drawerGiftDetails.show();
@@ -407,7 +405,7 @@ $(function () {
         state.productId = productId;
         state.variantId = product.variants[0].id;
         state.mainImage = product.featuredImage.url;
-        state.description = $(product.descriptionHtml).text();
+        state.description = $(`<div>${product.descriptionHtml}</div>`).text();
 
         $("#text-product-title").val(product.title);
         $("#text-product-price").val(

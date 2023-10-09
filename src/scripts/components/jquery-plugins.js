@@ -35,10 +35,10 @@ $.fn.error = function (show = true, error) {
     "after:text-red-500 after:text-[12px] after:content-[attr(error)]";
   if (show) {
     if (error) {
-      this.prop("error", error);
+      this.closest(".error").prop("error", error);
     }
-    this.addClass(errorClass);
+    this.closest(".error").addClass(errorClass);
   } else {
-    this.removeClass(errorClass);
+    this.closest(".error").removeClass(errorClass);
   }
 };

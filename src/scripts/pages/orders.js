@@ -1,4 +1,4 @@
-window.addEventListener("DOMContentLoaded", (event) => {
+$(function () {
   const tabElements = [
     {
       id: "wishlist",

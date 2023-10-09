@@ -5,7 +5,6 @@ import templateCategory from "../templates/category";
 import spinner from "../utils/snip";
 import { Modal } from "flowbite";
 import { convertLabelToId } from "../utils/string";
-import { getUserInfo } from "../utils/userinfo";
 import { ITEMS_PER_PAGE } from "../utils/constants";
 import toastr from "toastr";
 
@@ -135,33 +134,11 @@ async function loadProduct(clear = false) {
       params: { after: state.after, first: ITEMS_PER_PAGE, query },
       cancelToken: state.cancelToken.token,
     });
-    state.products = products;
+    state.products = [...state.products, ...products];
     state.after = pageInfo.hasNextPage ? pageInfo.endCursor : null;
     container.removeClass("min-h-[600px]");
     // add products to container
     products.forEach((prod) => container.append(templateCardProduct(prod)));
-
-    // attach favorite click handler
-    $(".just-created .btn-favorite").on("click", async function () {
-      const productId = $(this).data("product-id");
-      const wishlistId = $(this).data("wishlist-id");
-      const toggled = $(this).hasClass("toggled");
-
-      if (toggled) {
-        await fangiftService.delete(`/wishlist/${wishlistId}`, {
-          productId,
-          userId: getUserInfo().email,
-        });
-        $(this).removeClass("toggled");
-      } else {
-        const wishlist = await fangiftService.post("/wishlist", {
-          productId,
-          userId: getUserInfo().email,
-        });
-        $(this).addClass("toggled");
-        $(this).data("wishlist-id", wishlist.id);
-      }
-    });
 
     $(".just-created .btn-add-product").on("click", async function () {
       const productId = $(this).data("product");
@@ -174,9 +151,7 @@ async function loadProduct(clear = false) {
           product.priceRangeV2.minVariantPrice.amount
         );
         $("#img-product-main").prop("src", product.featuredImage.url);
-        $("#text-shipping-price").val(0);
-        $("#checkbox-digital-good").prop("checked", false);
-
+        $("#text-desc").html($(`<div>${product.descriptionHtml}</div>`).text());
         addWishlistDrawer.show();
       }
     });
@@ -199,18 +174,16 @@ $("#btn-add-wishlist").on("click", async function () {
   const title = $("#text-product-title").val();
   const price = $("#text-product-price").val();
   const imageUrl = $("#img-product-main").prop("src");
-  const shippingPrice = $("#text-shipping-price").val();
-  const digitalGood = $("#checkbox-digital-good").prop("checked");
+  const description = $("#text-desc").val();
 
   try {
     const formData = new FormData();
     formData.append("userId", gUserInfo["cognito:username"]);
     formData.append("title", title);
     formData.append("price", price);
-    formData.append("digitalGood", digitalGood);
-    formData.append("shippingPrice", shippingPrice);
     formData.append("productId", product.id);
     formData.append("variantId", product.variants[0].id);
+    formData.append("description", description);
 
     if (state.imageFile) {
       formData.append("imageFile", state.imageFile);

@@ -211,9 +211,9 @@ $(function () {
         $(btn).prop("disabled", !isValid);
 
         if (!isValid) {
-          $(this).closest(".error-wrapper").error(true);
+          $(this).error(true);
         } else {
-          $(this).closest(".error-wrapper").error(false);
+          $(this).error(false);
         }
         $("#lbl-username").html(username);
       }
@@ -257,8 +257,10 @@ $(function () {
   });
 
   function validateBasicForm() {
-    const ability = password === passwordConfirmed && isEmail(email);
-    $("#btn-register").prop("disabled", !ability);
+    const isValid = password === passwordConfirmed && isEmail(email);
+    $("#btn-register").prop("disabled", !isValid);
+    $("#txt-confirm-password").error(password !== passwordConfirmed);
+    $("#txt-email").error(!isEmail(email));
   }
 
   $("#txt-email").on("input", function () {

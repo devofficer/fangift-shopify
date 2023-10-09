@@ -30,7 +30,8 @@
             <h6 class="text-heading-h6 mb-4 text-black">Price</h6>
             <div id="slider-range" class="mb-4"></div>
             <div class="text-body-sm text-primary flex justify-between">
-              <span>Range</span><span id="amount"></span>
+              <span>Range</span>
+              <span id="amount"></span>
             </div>
           </div>
           <div class="filter-box">
@@ -76,19 +77,21 @@
 
 <div
   id="drawer-add-wishlist"
-  class="fixed top-0 right-0 z-40 h-screen px-[40px] py-[44px] overflow-y-auto translate-x-full bg-primary-background w-[600px]"
+  class="fixed top-0 right-0 z-40 flex flex-col h-screen px-[40px] py-[44px] overflow-y-auto translate-x-full bg-primary-background w-[600px]"
   tabindex="-1"
   aria-labelledby="drawer-label"
 >
-  <button
-    type="button"
-    class="btn-close-drawer"
-  >
+  <button type="button" class="btn-close-drawer">
     {% render 'icon-close': class: 'w-3 h-3' %}
   </button>
   <h4 class="text-heading-h4 mb-[76px]">Gift Details</h4>
-  <input type="file" class="hidden" name="main-image" id="file-main-image">
-  <div class="mb-4 relative w-[340px] rounded-[16px] group cursor-pointer" id="wrapper-main-image">
+  <input
+    type="file"
+    class="hidden"
+    name="main-image"
+    id="file-main-image"
+  >
+  <div class="mb-4 relative w-[340px] rounded-[16px] group cursor-pointer pointer-events-none" id="wrapper-main-image">
     <div class="absolute transition-all inset-0 z-10 items-center justify-center cursor-pointer hidden group-hover:flex text-[24px] text-primary-white">
       Click to upload image
     </div>
@@ -103,7 +106,7 @@
     <input
       type="text"
       name="product-title"
-      placeholder="Paste Product URL"
+      placeholder="Title"
       class="textfield mb-4"
       id="text-product-title"
     >
@@ -114,28 +117,24 @@
         type="number"
         placeholder="Price"
         value="0.0"
+        readonly
         id="text-product-price"
       >
     </div>
   </div>
-  {% comment %} {% render 'dropdown-list': placeholder: 'Select Collection (Optional)' %} {% endcomment %}
-  <div class="flex items-center justify-between mb-6">
-    <span class="text-body-sm text-primary-black">Digital Good</span>
-    <label class="relative inline-flex items-center cursor-pointer">
-      <input type="checkbox" name="digital-good" class="sr-only peer" id="checkbox-digital-good">
-      <div
-        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
-      ></div>
-    </label>
-  </div>
-  <input
-    type="number"
-    name="shipping price"
-    placeholder="Shipping in $"
-    class="textfield mb-4"
-    id="text-shipping-price"
+  <textarea
+    id="text-desc"
+    rows="4"
+    class="mb-8 flex-grow block p-2.5 w-full resize-none text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+    placeholder="Description..."
+  ></textarea>
+  <button
+    type="button"
+    class="btn btn-primary w-full"
+    id="btn-add-wishlist"
   >
-  <button type="button" class="btn btn-primary w-full" id="btn-add-wishlist">💜 Add to Wishlist</button>
+    💜 Add to Wishlist
+  </button>
 </div>
 
 <div
@@ -149,8 +148,19 @@
         type="button"
         class="btn-close-add-success absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
       >
-        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+        <svg
+          class="w-3 h-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
         </svg>
         <span class="sr-only">Close modal</span>
       </button>
@@ -162,7 +172,12 @@
           fill="none"
           viewBox="0 0 20 20"
         >
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
         </svg>
         <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
           Fangift product is added to your wishlist successfully!

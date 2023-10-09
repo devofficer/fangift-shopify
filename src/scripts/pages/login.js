@@ -1,7 +1,6 @@
+import toastr from "toastr";
 import LINKS from "../constants/links";
 import fangiftService from "../services/fangiftService";
-import toastr from "toastr";
-import { isEmail } from "../utils/string";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
 
@@ -32,26 +31,5 @@ $(function () {
         toastr.error(err.response.data.message);
         $("#btn-login").loading(false);
       });
-  });
-
-  $("#btn-send-reset").on("click", async function () {
-    const email = $("#txt-email").val();
-    if (!isEmail(email)) {
-      toastr.error("Please enter valid email address to reset");
-      return;
-    }
-
-    $(this).prop("disabled", true);
-
-    try {
-      await fangiftService.get("/auth/forgot-password", { params: { email } });
-      toastr.success("Successfully sent reset password link!");
-    } catch (err) {
-      toastr.error(err.response.data.message);
-    }
-
-    setTimeout(() => {
-      $(this).prop("disabled", false);
-    }, 1000);
   });
 });

@@ -8,7 +8,7 @@
   }
 
   .card-auth {
-    @apply bg-primary-white/75 px-[80px] py-[60px] rounded-[16px] flex flex-col justify-center;
+    @apply bg-primary-white/75 px-6 py-10 min-h-[80vh] md:px-[80px] md:py-[60px] rounded-[16px] flex flex-col justify-center;
   }
 
   .avatar {

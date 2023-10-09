@@ -1,22 +1,20 @@
 {{ 'register.min.css' | asset_url | stylesheet_tag }}
 
 <main class="overflow-auto">
-  <div class="bg-[url(auth-bg.svg)] bg-cover bg-no-repeat min-h-screen">
+  <div class="bg-[url(auth-bg.svg)] bg-cover bg-no-repeat min-h-screen flex flex-col">
     {% section 'header-landing' %}
 
-    <div class="container px-[100px]">
-      <div class="pt-[22px] pb-24">
-        <div class="grid grid-cols-1 gap-[60px] xl:grid-cols-2">
-          {% render 'register-form-role' %}
-          {% render 'register-form-username', id: 'creator', title: '💡️ Creator' %}
-          {% render 'register-form-username', id: 'fan', title: '🎉️ Fan' %}
-          {% render 'register-form-details' %}
-          {% render 'register-form-country' %}
-          {% render 'register-form-about' %}
-          {% render 'register-form-email' %}
+    <div class="container md:px-[100px] flex-grow flex items-end md:items-center">
+      <div class="grid grid-cols-1 gap-[60px] xl:grid-cols-2">
+        {% render 'register-form-role' %}
+        {% render 'register-form-username', id: 'creator', title: '💡️ Creator' %}
+        {% render 'register-form-username', id: 'fan', title: '🎉️ Fan' %}
+        {% render 'register-form-details' %}
+        {% render 'register-form-country' %}
+        {% render 'register-form-about' %}
+        {% render 'register-form-email' %}
 
-          {{ 'auth-img0.png' | asset_url | img_tag: 'main-bg', 'hidden xl:block', '600x' }}
-        </div>
+        {{ 'auth-img0.png' | asset_url | img_tag: 'main-bg', 'hidden xl:block', '600x' }}
       </div>
     </div>
   </div>

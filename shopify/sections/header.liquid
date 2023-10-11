@@ -1,82 +1,33 @@
 <header class="bg-primary">
-  <div class="container px-[45px] w-full h-[73px] flex items-center justify-between">
+  <div class="container px-6 md:px-[45px] w-full h-[73px] flex items-center justify-between">
     <div class="flex items-center gap-[60px] h-full">
       <a id="logo" href="/">
         {% render 'logo-light.liquid' %}
       </a>
 
       {% render 'navbar' %}
+      {% render 'navbar-mb' %}
     </div>
 
     <div class="flex items-center gap-4">
-      {% comment %}
-        <button
-          data-dropdown-toggle="dropdown"
-          class="border border-primary-white text-[12px] text-primary-white rounded-[5px] h-8 px-3 text-center inline-flex items-center gap-[6px]"
-          type="button"
-        >
-          {% render 'icon-heart-outline' %}
-          Filter
-          {% render 'icon-arrow-dropdown' %}
-        </button>
-        <button class="btn btn-icon-filled">
-          {% render 'icon-user.liquid' %}
-        </button>
-      {% endcomment %}
-      <div class="items-center gap-2 hidden" id="shipping-country">
+      <div class="items-center gap-2 hidden shipping-country">
         <span class="text-white">Ship to Country:</span>
         <div class="flex items-center gap-2 bg-white/30 text-white rounded-[8px] py-1 px-2">
-          <img src="#" id="img-shipping-country" class="w-[28px] h-[18px]">
-          <span id="text-shipping-country"></span>
+          <img src="#" class="img-shipping-country w-[28px] h-[18px]">
+          <span class="text-shipping-country"></span>
         </div>
       </div>
       <a href="/pages/settings" class="btn btn-icon-filled">
         {% render 'icon-setting.liquid' %}
       </a>
+      {% render 'profile-dropdown' %}
       <button
+        class="btn btn-icon-menu z-20 lg:hidden"
+        data-collapse-toggle="navbar-hamburger"
         type="button"
-        class="btn rounded-full focus:ring-4 focus:ring-gray-300"
-        data-dropdown-toggle="dropdown-profile"
-        data-dropdown-offset-distance="15"
       >
-        <img
-          src="{{ 'user-anonymous.png' | asset_url }}"
-          class="w-[40px] h-[40px] object-cover rounded-full"
-          alt="user avatar"
-          id="img-avatar"
-        >
+        {% render 'icon-menu' %}
       </button>
-      <div
-        id="dropdown-profile"
-        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-      >
-        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-          <li>
-            <a
-              href="/pages/creators"
-              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >Explore Creators</a
-            >
-          </li>
-          <li>
-            <a
-              href="/collections/all"
-              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >Fangift's Marketplace</a
-            >
-          </li>
-        </ul>
-        <div class="py-2">
-          <button
-            type="button"
-            class="block px-4 py-2 w-full text-left text-sm text-gray-700 hover:bg-gray-100"
-            id="btn-signout"
-          >
-            Sign Out
-          </button>
-        </div>
-      </div>
     </div>
   </div>
-  <div id="dropdown"></div>
 </header>

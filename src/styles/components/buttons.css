@@ -64,7 +64,7 @@
   }
 
   .btn-close-drawer {
-    @apply text-primary-black bg-transparent hover:bg-gray-200 rounded-lg text-sm w-8 h-8 inline-flex items-center justify-center absolute top-[45px] right-[40px];
+    @apply text-primary-black bg-transparent hover:bg-gray-200 rounded-lg text-sm w-8 h-8 inline-flex items-center justify-center absolute right-6 top-[44px] md:right-[40px];
   }
 
   .btn-dropdown {

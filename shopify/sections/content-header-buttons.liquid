@@ -1,45 +1,28 @@
 <div class="bg-primary border-t border-primary-white/40">
-  <div class="container p-[45px] pb-[63px] flex items-center justify-between">
-    <div class="flex flex-col gap-2">
-      <h4 class="text-heading-h4 text-primary-white">Hey, <span id="text-username"></span> 👋</h4>
-      <div class="text-body-md flex items-center gap-2">
+  <div class="container p-6 lg:p-[45px] pb-[63px] flex items-center justify-between flex-col lg:flex-row">
+    <div class="flex flex-col gap-2 w-full">
+      <h4 class="text-heading-h4 text-primary-white">
+        Hey,
+        <span id="text-username"></span>
+        👋
+      </h4>
+      <div class="text-body-md flex lg:items-center gap-2 flex-col lg:flex-row mb-4">
         <span class="text-primary-border">Copy & Promote your wishlist link:</span>
-        <div class="flex gap-2 items-center bg-white px-4 py-2 rounded-[8px]">
-          <a class="text-accent-purple underline" href="" target="_blank" id="profile-link"></a>
+        <div class="flex gap-2 items-center justify-center bg-white px-4 py-2 rounded-[8px] w-full lg:w-fit overflow-hidden text-ellipsis whitespace-nowrap">
+          <a
+            class="text-accent-purple underline"
+            href=""
+            target="_blank"
+            id="profile-link"
+          ></a>
           <button class="btn btn-copy-wishlist-link">
             {% render 'icon-copy' %}
           </button>
         </div>
       </div>
     </div>
-    <div class="flex gap-4 items-center">
-      {% comment %}
-        <div class="h-8 px-3 rounded-[5px] border border-primary-white text-primary-white flex gap-2 items-center justify-center">
-          {% render 'icon-empty-wallet' %}
-          <span>$0.00</span>
-        </div>
-        <button class="h-8 px-3 flex items-center justify-center gap-2 text-primary-black text-body-xs bg-primary-background rounded-[5px] hover:bg-blue-800 hover:text-primary-white">
-          {% render 'icon-plus' %}
-          <span>Collection</span>
-        </button>
-      {% endcomment %}
-      {% comment %}
-        <button
-          type="button"
-          data-drawer-target="drawer-cash-gift"
-          data-drawer-show="drawer-cash-gift"
-          data-drawer-placement="right"
-          aria-controls="drawer-cash-gift"
-          class="h-8 px-3 btn flex items-center justify-center gap-2 text-primary-white text-body-xs bg-accent-peach rounded-[5px] hover:bg-blue-800 hover:text-primary-white"
-        >
-          {% render 'icon-plus' %}
-          <span>Cash Gift</span>
-        </button>
-      {% endcomment %}
-      <button
-        type="button"
-        class="btn-add-gift btn flex items-center gap-2 h-8 px-3 text-white bg-accent-purple hover:bg-purple-600 text-body-sm rounded-[5px]"
-      >
+    <div class="grid grid-cols-2 w-full lg:max-w-fit lg:flex gap-4">
+      <button class="btn-add-gift btn flex items-center gap-2 h-8 px-3 text-white bg-accent-purple hover:bg-purple-600 text-body-sm rounded-[5px]">
         {% render 'icon-plus' %}
         Add gift
       </button>

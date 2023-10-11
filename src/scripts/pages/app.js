@@ -66,18 +66,21 @@ $(async function () {
     if (gUserInfo.type === PAGE_ROLES.creator) {
       try {
         const country = await getCountryInfo(gUserInfo.country);
-        $("#img-shipping-country").prop("src", country.flags.png);
-        $("#text-shipping-country").text(country.name.common);
+        $(".img-shipping-country").prop("src", country.flags.png);
+        $(".text-shipping-country").text(country.name.common);
       } catch (err) {
         console.log(err);
       }
-      $("#shipping-country").removeClass("hidden");
-      $("#shipping-country").addClass("flex");
-      $("#creator-menu").removeClass("hidden");
-      $("#creator-menu").addClass("xl:flex");
+      $(".shipping-country").addClass("md:flex");
+      $(".shipping-country-mb").addClass("flex");
+      $(".shipping-country-mb").removeClass("hidden");
+      $(".creator-menu").addClass("lg:flex");
+      $(".creator-menu-mb").removeClass("hidden");
+      $(".creator-menu-mb").addClass("flex");
     } else {
-      $("#fan-menu").removeClass("hidden");
-      $("#fan-menu").addClass("xl:flex");
+      $(".fan-menu").addClass("lg:flex");
+      $(".fan-menu-mb").removeClass("hidden");
+      $(".fan-menu-mb").addClass("flex");
     }
 
     $("body").removeClass("hidden");

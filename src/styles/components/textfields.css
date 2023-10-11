@@ -14,4 +14,8 @@
   .error-msg {
     @apply after:text-red-500 after:text-[12px];
   }
+
+  .textarea {
+    @apply flex-grow block p-2.5 w-full resize-none text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500;
+  }
 }

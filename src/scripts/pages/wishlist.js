@@ -10,7 +10,7 @@ toastr.options.positionClass = "toast-bottom-center bottom-10";
 
 $(function () {
   const drawerDefaultOptions = {
-    placement: "right",
+    placement: window.innerWidth > 600 ? "right" : "bottom",
     backdrop: true,
     bodyScrolling: false,
     edge: false,
@@ -23,7 +23,6 @@ $(function () {
   const $addGiftEl = document.getElementById("drawer-add-gift");
   const $giftDetailsEl = document.getElementById("drawer-gift-details");
   const $giftProductEl = document.getElementById("drawer-gift-product");
-  const $giftCollectionEl = document.getElementById("drawer-gift-collection");
   const $confirmModalEl = document.getElementById("modal-delete");
 
   const drawerSelectGift = new Drawer($selectGiftEl, drawerDefaultOptions);
@@ -41,10 +40,6 @@ $(function () {
     },
   });
   const drawerGiftProduct = new Drawer($giftProductEl, drawerDefaultOptions);
-  const drawerGiftCollection = new Drawer(
-    $giftCollectionEl,
-    drawerDefaultOptions
-  );
   const confirmModal = new Modal($confirmModalEl);
 
   const state = {
@@ -88,12 +83,6 @@ $(function () {
     .querySelector(".btn-close-drawer")
     .addEventListener("click", function () {
       drawerGiftProduct.hide();
-    });
-
-  $giftCollectionEl
-    .querySelector(".btn-close-drawer")
-    .addEventListener("click", function () {
-      drawerGiftCollection.hide();
     });
 
   const bindEventHandlers = () => {
@@ -375,13 +364,51 @@ $(function () {
 
   $("#carousel-products").slick({
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 300,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: 5,
+    slidesToScroll: 5,
     autoplay: true,
     autoplaySpeed: 4000,
     variableWidth: true,
+    responsive: [
+      {
+        breakpoint: 1440,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 5,
+        },
+      },
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          dots: false,
+        },
+      },
+    ],
   });
 
   const loadProducts = async () => {

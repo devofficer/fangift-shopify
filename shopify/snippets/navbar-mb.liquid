@@ -1,0 +1,99 @@
+<nav
+  role="navigation"
+  class="hidden fixed z-10 inset-0 bg-cover bg-[url(landing-hamburger.svg)] bg-white body:overflow-hidden"
+  id="navbar-hamburger"
+>
+  <div class="flex flex-col justify-between px-5 h-full">
+    <div class="flex items-center justify-between h-[98px]">
+      <a id="logo" href="/">
+        {% render 'logo.liquid' %}
+      </a>
+    </div>
+
+    <ul class="hidden flex-col flex-grow gap-[40px] creator-menu-mb">
+      {% for link in linklists['shop-menu'].links %}
+        {% capture clsx -%}
+          {%- if link.active -%}
+            {%- echo "text-accent-purple underline " -%}
+          {% else %}
+            {%- echo " text-primary/70 hover:text-accent-purple " -%}
+          {%- endif -%}
+
+          {%- if forloop.first -%}
+            {%- echo "first " -%}
+          {%- elsif forloop.last -%}
+            {%- echo "last " -%}
+          {%- endif -%}
+        {%- endcapture %}
+        {% if link.url == '/pages/marketplace' %}
+          {% if link.active or dark %}
+            {% continue %}
+          {% endif %}
+          <li>
+            <a
+              href="{{ link.url }}"
+              target="_blank"
+              class="flex gap-[10px] items-center text-accent-purple text-[16px] font-plus-medium hover:font-bold"
+            >
+              {{ link.title }}
+              {% render 'icon-external.liquid' %}
+            </a>
+          </li>
+        {% else %}
+          <li>
+            <a href="{{ link.url }}" class="{{clsx}} flex gap-[10px] items-center text-[16px]">
+              {{ link.title }}
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <ul class="hidden flex-col flex-grow gap-[40px] fan-menu-mb">
+      {% for link in linklists['fan-menu'].links %}
+        {% capture clsx -%}
+          {%- if link.active -%}
+            {%- echo "text-accent-purple underline " -%}
+          {% else %}
+            {%- echo " text-primary/70 hover:text-accent-purple " -%}
+          {%- endif -%}
+
+          {%- if forloop.first -%}
+            {%- echo "first " -%}
+          {%- elsif forloop.last -%}
+            {%- echo "last " -%}
+          {%- endif -%}
+        {%- endcapture %}
+        {% if link.url == '/pages/marketplace' %}
+          {% if link.active or dark %}
+            {% continue %}
+          {% endif %}
+          <li>
+            <a
+              href="{{ link.url }}"
+              target="_blank"
+              class="flex gap-[10px] items-center text-accent-purple text-[16px] font-plus-medium hover:font-bold"
+            >
+              {{ link.title }}
+              {% render 'icon-external.liquid' %}
+            </a>
+          </li>
+        {% else %}
+          <li>
+            <a href="{{ link.url }}" class="{{clsx}} flex gap-[10px] items-center text-[16px]">
+              {{ link.title }}
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <div class="items-center gap-2 mb-10 hidden shipping-country-mb">
+      <span class="text-body-md">Ship to Country:</span>
+      <div class="flex items-center gap-2 bg-white/30 rounded-[8px] py-1 px-2">
+        <img src="#" class="img-shipping-country w-[28px] h-[18px]">
+        <span class="text-shipping-country"></span>
+      </div>
+    </div>
+  </div>
+</nav>

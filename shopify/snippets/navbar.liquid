@@ -1,5 +1,5 @@
 <nav role="navigation" class="flex items-center h-full">
-  <ul class="hidden gap-[40px] h-full" id="creator-menu">
+  <ul class="hidden gap-[40px] h-full creator-menu">
     {% for link in linklists['shop-menu'].links %}
       {% capture active_class -%}
         {%- if link.active -%}
@@ -14,7 +14,6 @@
           {%- echo "last " -%}
         {%- endif -%}
       {%- endcapture %}
-
       <li class="h-full">
         <a
           href="{{ link.url }}"
@@ -25,7 +24,7 @@
       </li>
     {% endfor %}
   </ul>
-  <ul class="hidden gap-[40px] h-full" id="fan-menu">
+  <ul class="hidden gap-[40px] h-full fan-menu">
     {% for link in linklists['fan-menu'].links %}
       {% capture active_class -%}
         {%- if link.active -%}
@@ -40,7 +39,6 @@
           {%- echo "last " -%}
         {%- endif -%}
       {%- endcapture %}
-
       <li class="h-full">
         <a
           href="{{ link.url }}"

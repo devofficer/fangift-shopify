@@ -25,9 +25,7 @@ function updateUserInfo(userInfo) {
 
 $(async function () {
   const pathname = location.pathname;
-  const pageRole =
-    Object.values(LINKS).filter((link) => pathname === link.path)[0]?.role ??
-    PAGE_ROLES.unknown;
+  const page = Object.values(LINKS).find((link) => pathname === link.path);
   const expiration = Number(localStorage.getItem("exp"));
   const validExp = new Date() < new Date(expiration);
 
@@ -41,20 +39,21 @@ $(async function () {
     location.href = "/account/login";
   });
 
-  if (pageRole === PAGE_ROLES.public) {
-    $("body").removeClass("hidden");
-  } else if (pageRole === PAGE_ROLES.unknown) {
+  if (page === undefined || page.role === PAGE_ROLES.unknown) {
     window.location.href = LINKS.home.path;
+  } else if (page.role === PAGE_ROLES.public) {
+    $("body").removeClass("hidden");
+    $("#profile-settings").addClass("hidden");
   } else if (validExp) {
     if (
-      pageRole === PAGE_ROLES.creator &&
+      page.role === PAGE_ROLES.creator &&
       gUserInfo.type !== PAGE_ROLES.creator
     ) {
       window.location.href = LINKS.explore.path;
       return;
     }
 
-    if (pageRole === PAGE_ROLES.fan && gUserInfo.type !== PAGE_ROLES.fan) {
+    if (page.role === PAGE_ROLES.fan && gUserInfo.type !== PAGE_ROLES.fan) {
       window.location.href = LINKS.wishlist.path;
       return;
     }
@@ -64,6 +63,8 @@ $(async function () {
     }
 
     if (gUserInfo.type === PAGE_ROLES.creator) {
+      $("#logo").prop("href", LINKS.wishlist.path);
+
       try {
         const country = await getCountryInfo(gUserInfo.country);
         $(".img-shipping-country").prop("src", country.flags.png);
@@ -78,6 +79,8 @@ $(async function () {
       $(".creator-menu-mb").removeClass("hidden");
       $(".creator-menu-mb").addClass("flex");
     } else {
+      $("#logo").prop("href", LINKS.explore.path);
+
       $(".fan-menu").addClass("lg:flex");
       $(".fan-menu-mb").removeClass("hidden");
       $(".fan-menu-mb").addClass("flex");

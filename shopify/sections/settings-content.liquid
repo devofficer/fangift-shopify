@@ -2,7 +2,7 @@
 
 <div class="bg-primary-background">
   <div class="bg-primary-white border-b border-primary-border">
-    <div class="container px-[100px]">
+    <div class="container px-6 md:px-[100px]">
       <div class="h-[70px] flex items-center">
         <ul class="flex flex-wrap gap-10 text-center text-primary-text text-body-sm">
           <li>
@@ -27,14 +27,18 @@
       </div>
     </div>
   </div>
-  <div class="border-b border-primary-border bg-[url(settings-bg.svg)] bg-cover bg-[#FAFAFA]">
-    <div class="container px-[100px] py-[40px]">
+  <div class="border-b border-primary-border md:bg-[url(settings-bg.svg)] bg-cover bg-[#FAFAFA]">
+    <div class="container px-6 py-5 md:px-[100px] md:py-[40px]">
       <div id="profile">
-        <div class="w-[550px] mx-auto py-12 px-20 bg-white rounded-[16px]">
-          {% render 'avatar': id: 'profile-avatar', editable: true, class: 'mx-auto mb-8' %}
+        <div class="md:w-[550px] md:mx-auto md:py-12 pb-12 md:px-20 md:bg-white md:rounded-[16px]">
+          {%
+            render 'avatar' : id: 'profile-avatar'
+            , editable: true
+            , class: 'mx-auto mb-8'
+          %}
           <label for="username" class="text-body-sm mb-2 block"> Username </label>
           <div class="py-4 px-[68px] border border-primary-border bg-primary-white rounded-[16px] flex items-center text-[18px] mb-4">
-            <span class="text-primary-black">fangift.com/<span class="text-accent-peach">@</span></span>
+            <span class="text-primary-black">fangift.com/<span class="text-accent-peach">@</span> </span>
             <input
               id="username"
               name="username"
@@ -55,39 +59,39 @@
           >
           {% comment %}
             <div class="flex gap-2">
-              <div class="relative w-full">
-                <button
-                  id="dropdown-toggle-month"
-                  data-dropdown-toggle="dropdown-month"
-                  class="btn-dropdown mb-4 h-[60px]"
-                  type="button"
-                >
-                  <span class="displayed-value">Jan</span>
-                  {% render 'icon-arrow-dropdown' %}
-                </button>
-                <!-- Dropdown menu -->
-                <div id="dropdown-month" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-full">
-                  <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdown-toggle-month">
-                    {% assign months = 'Jan,Feb,March,April,May,June,July,August,September,October,November,December'
-                      | split: ','
-                    %}
-                    {% for month in months %}
-                      <li class="block px-4 py-2 hover:bg-gray-100" data-value="{{ forloop.index }}">
-                        {{ month }}
-                      </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
-              <input
-                type="number"
-                id="day"
-                name="day"
-                min="1"
-                max="12"
-                placeholder="Day"
-                class="textfield mb-4"
-              >
+            <div class="relative w-full">
+            <button
+            id="dropdown-toggle-month"
+            data-dropdown-toggle="dropdown-month"
+            class="btn-dropdown mb-4 h-[60px]"
+            type="button"
+            >
+            <span class="displayed-value">Jan</span>
+            {% render 'icon-arrow-dropdown' %}
+            </button>
+            <!-- Dropdown menu -->
+            <div id="dropdown-month" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-full">
+            <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdown-toggle-month">
+            {% assign months = 'Jan,Feb,March,April,May,June,July,August,September,October,November,December'
+            | split: ','
+            %}
+            {% for month in months %}
+            <li class="block px-4 py-2 hover:bg-gray-100" data-value="{{ forloop.index }}">
+            {{ month }}
+            </li>
+            {% endfor %}
+            </ul>
+            </div>
+            </div>
+            <input
+            type="number"
+            id="day"
+            name="day"
+            min="1"
+            max="12"
+            placeholder="Day"
+            class="textfield mb-4"
+            >
             </div>
           {% endcomment %}
           <label for="bio" class="text-body-sm mb-2 block"> Short bio </label>
@@ -98,13 +102,19 @@
             class="textfield mb-4 resize-none"
             placeholder="Enter short bio"
           ></textarea>
-          <button type="button" class="btn btn-primary w-full" id="btn-save-profile">Save Changes</button>
+          <button
+            type="button"
+            class="btn btn-primary w-full"
+            id="btn-save-profile"
+          >
+            Save Changes
+          </button>
         </div>
       </div>
       <div id="address" class="relative">
-        <div class="w-[800px] mx-auto py-12 px-20 bg-white rounded-[16px] blur-sm content">
+        <div class="md:w-[800px] md:mx-auto md:py-12 pb-12 md:px-20 md:bg-white md:rounded-[16px] blur-sm content">
           <h3 class="text-heading-h3 mb-8">Your Address</h3>
-          <div class="grid grid-cols-2 gap-4 mb-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label for="first-name" class="text-body-sm mb-2 block required"> First Name </label>
               <input
@@ -144,9 +154,14 @@
           >
           <label for="select-country" class="text-body-sm mb-2 block required"> Country </label>
           <div class="mb-4">
-            <select id="select-country" placeholder="Country" class="btn-dropdown" autocomplete="off"></select>
+            <select
+              id="select-country"
+              placeholder="Country"
+              class="btn-dropdown"
+              autocomplete="off"
+            ></select>
           </div>
-          <div class="grid grid-cols-3 gap-4 mb-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
               <label for="city" class="text-body-sm mb-2 block required"> City </label>
               <input
@@ -186,7 +201,13 @@
             placeholder="Phone Number"
             class="textfield mb-8"
           >
-          <button type="button" class="btn btn-primary w-full" id="btn-save-address">Save Changes</button>
+          <button
+            type="button"
+            class="btn btn-primary w-full"
+            id="btn-save-address"
+          >
+            Save Changes
+          </button>
         </div>
       </div>
     </div>

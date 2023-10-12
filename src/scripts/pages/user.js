@@ -10,7 +10,7 @@ $(async function () {
   const containerAllGifts = $("#container-all-gifts");
   const $cartEl = document.getElementById("drawer-cart");
   const drawerCart = new Drawer($cartEl, {
-    placement: "right",
+    placement: window.innerWidth > 600 ? "right" : "bottom",
     backdrop: true,
     bodyScrolling: false,
     edge: false,
@@ -120,41 +120,41 @@ $(async function () {
   });
 
   // initialize tab elements
-  const tabElements = [
-    {
-      id: "wishlist",
-      triggerEl: document.querySelector("#wishlist-tab"),
-      targetEl: document.querySelector("#wishlist"),
-    },
-    {
-      id: "products",
-      triggerEl: document.querySelector("#products-tab"),
-      targetEl: document.querySelector("#products"),
-    },
-    {
-      id: "gifts",
-      triggerEl: document.querySelector("#gifts-tab"),
-      targetEl: document.querySelector("#gifts"),
-    },
-  ];
+  // const tabElements = [
+  //   {
+  //     id: "wishlist",
+  //     triggerEl: document.querySelector("#wishlist-tab"),
+  //     targetEl: document.querySelector("#wishlist"),
+  //   },
+  //   {
+  //     id: "products",
+  //     triggerEl: document.querySelector("#products-tab"),
+  //     targetEl: document.querySelector("#products"),
+  //   },
+  //   {
+  //     id: "gifts",
+  //     triggerEl: document.querySelector("#gifts-tab"),
+  //     targetEl: document.querySelector("#gifts"),
+  //   },
+  // ];
 
-  const options = {
-    defaultTabId: "wishlist",
-    activeClasses: "active",
-    inactiveClasses: "inactive",
-    onShow: async (event) => {
-      if (event._activeTab.id === "products") {
-        document.querySelector("#recent-gifters").classList.add("hidden");
-        document.querySelector("#leaderboard").classList.add("hidden");
-      } else {
-        document.querySelector("#recent-gifters").classList.remove("hidden");
-        document.querySelector("#leaderboard").classList.remove("hidden");
-      }
-    },
-  };
+  // const options = {
+  //   defaultTabId: "wishlist",
+  //   activeClasses: "active",
+  //   inactiveClasses: "inactive",
+  //   onShow: async (event) => {
+  //     if (event._activeTab.id === "products") {
+  //       document.querySelector("#recent-gifters").classList.add("hidden");
+  //       document.querySelector("#leaderboard").classList.add("hidden");
+  //     } else {
+  //       document.querySelector("#recent-gifters").classList.remove("hidden");
+  //       document.querySelector("#leaderboard").classList.remove("hidden");
+  //     }
+  //   },
+  // };
 
-  const tabs = new Tabs(tabElements, options);
-  tabs.show("wishlist");
+  // const tabs = new Tabs(tabElements, options);
+  // tabs.show("wishlist");
 
   // close body overlay after successful initialization
   hideOverlay();

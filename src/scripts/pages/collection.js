@@ -30,7 +30,7 @@ const state = {
 const addWishlistDrawer = new Drawer(
   document.getElementById("drawer-add-wishlist"),
   {
-    placement: "right",
+    placement: window.innerWidth > 600 ? "right" : "bottom",
     backdrop: true,
     bodyScrolling: false,
     edge: false,

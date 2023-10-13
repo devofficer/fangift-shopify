@@ -42,19 +42,21 @@ $(async function () {
   if (page === undefined || page.role === PAGE_ROLES.unknown) {
     window.location.href = LINKS.home.path;
   } else if (page.role === PAGE_ROLES.public) {
-    $("body").removeClass("hidden");
-    $("#profile-settings").addClass("hidden");
+    if (validExp && page.path === LINKS.home.path) {
+      window.location.href =
+        gUserInfo.type === PAGE_ROLES.creator
+          ? LINKS.wishlist.path
+          : LINKS.explore.path;
+    } else {
+      $("body").removeClass("hidden");
+      $("#profile-settings").addClass("hidden");
+    }
   } else if (validExp) {
     if (
       page.role === PAGE_ROLES.creator &&
       gUserInfo.type !== PAGE_ROLES.creator
     ) {
       window.location.href = LINKS.explore.path;
-      return;
-    }
-
-    if (page.role === PAGE_ROLES.fan && gUserInfo.type !== PAGE_ROLES.fan) {
-      window.location.href = LINKS.wishlist.path;
       return;
     }
 

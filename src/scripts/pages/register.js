@@ -186,37 +186,16 @@ $(function () {
     function (e) {
       e.preventDefault();
 
-      const text = $(this).val();
-      let disabled = false;
+      username = $(this).val();
+      const isValid = isValidUsername(username);
+      $(btn).prop("disabled", !isValid);
 
-      if (text) {
-        if (text === "@") {
-          disabled = true;
-        } else if (text.startsWith("@")) {
-          username = text.slice(1);
-        } else {
-          username = text;
-        }
+      if (!isValid) {
+        $(this).error(true);
       } else {
-        disabled = true;
+        $(this).error(false);
       }
-
-      if (disabled) {
-        $(this).val("");
-        $(btn).prop("disabled", true);
-      } else {
-        const isValid = isValidUsername(username);
-
-        $(this).val(`@${username}`);
-        $(btn).prop("disabled", !isValid);
-
-        if (!isValid) {
-          $(this).error(true);
-        } else {
-          $(this).error(false);
-        }
-        $("#lbl-username").html(username);
-      }
+      $("#lbl-username").text(username);
     };
 
   $("#username-creator").on("input", handleChangeUsername("#btn-next-creator"));

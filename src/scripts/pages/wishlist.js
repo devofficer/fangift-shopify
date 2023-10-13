@@ -57,9 +57,9 @@ $(function () {
   $("#text-username").text(gUserInfo.publicName.split(" ")[0]);
   $("#profile-link").prop(
     "href",
-    `//${window.location.hostname}/pages/user?username=${gUserInfo.name}`
+    `//${window.location.host}/${gUserInfo.name}`
   );
-  $("#profile-link").text(`${window.location.hostname}/${gUserInfo.name}`);
+  $("#profile-link").text(`${window.location.host}/${gUserInfo.name}`);
 
   $selectGiftEl
     .querySelector(".btn-close-drawer")
@@ -168,7 +168,7 @@ $(function () {
 
   $(".btn-copy-wishlist-link").on("click", function () {
     window.navigator.clipboard.writeText(
-      `${window.location.hostname}/pages/user?username=${gUserInfo.name}`
+      `${window.location.host}/${gUserInfo.name}`
     );
     toastr.info("Copied your wishlist link");
   });

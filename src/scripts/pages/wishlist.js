@@ -98,10 +98,10 @@ $(function () {
       state.editWishlist = prod;
 
       if (prod) {
-        $("#text-product-title").val(prod.title);
-        $("#text-product-price").val(prod.price);
+        $("#text-product-title").text(prod.title);
+        $("#text-product-price").text(`$${prod.price}`);
         $("#img-product-main").prop("src", prod.imageUrl);
-        $("#text-desc").val(prod.description);
+        $("#text-desc").html(prod.description);
         $("#btn-add-wishlist").addClass("hidden");
         $("#btn-update-wishlist").removeClass("hidden");
 
@@ -161,10 +161,6 @@ $(function () {
   };
 
   loadWishlist(true);
-
-  $(".btn-add-gift").on("click", function () {
-    drawerSelectGift.show();
-  });
 
   $(".btn-copy-wishlist-link").on("click", function () {
     window.navigator.clipboard.writeText(
@@ -256,11 +252,7 @@ $(function () {
   });
 
   $("#btn-add-wishlist").on("click", async function () {
-    const title = $("#text-product-title").val();
-    const price = $("#text-product-price").val();
-    const description = $("#text-desc").val();
-
-    if (!title.trim()) {
+    if (!state.title.trim()) {
       toastr.warning("Invalid product title, it is required Field.");
       return;
     }
@@ -270,10 +262,10 @@ $(function () {
     try {
       const formData = new FormData();
       formData.append("userId", gUserInfo["cognito:username"]);
-      formData.append("title", title);
-      formData.append("price", price);
+      formData.append("title", state.title);
+      formData.append("price", state.price);
       formData.append("imageUrl", state.mainImage);
-      formData.append("description", description);
+      formData.append("description", state.description);
 
       if (state.productId && state.variantId) {
         formData.append("productId", state.productId);
@@ -432,18 +424,15 @@ $(function () {
         state.productId = productId;
         state.variantId = product.variants[0].id;
         state.mainImage = product.featuredImage.url;
-        state.description = $(`<div>${product.descriptionHtml}</div>`).text();
-
-        $("#text-product-title").val(product.title);
-        $("#text-product-price").val(
-          product.priceRangeV2.minVariantPrice.amount
-        );
+        state.description = product.descriptionHtml;
+        state.title = product.title;
+        state.price = product.priceRangeV2.minVariantPrice.amount;
+        $("#text-product-title").text(product.title);
+        $("#text-product-price").text(`$${state.price}`);
         $("#img-product-main").prop("src", product.featuredImage.url);
-        $("#text-shipping-price").val(0);
 
-        $("#wrapper-main-image").addClass("pointer-events-none");
-        $("#text-product-price").attr("readonly", true);
-        $("#text-desc").val(state.description);
+        // $("#wrapper-main-image").addClass("pointer-events-none");
+        $("#text-desc").html(state.description);
 
         drawerGiftDetails.show();
       }

@@ -8,13 +8,11 @@
       </h4>
       <div class="text-body-md flex lg:items-center gap-2 flex-col lg:flex-row mb-4">
         <span class="text-primary-border">Copy & Promote your wishlist link:</span>
-        <div class="flex gap-2 items-center justify-center bg-white px-4 py-2 rounded-[8px] w-full lg:w-fit overflow-hidden text-ellipsis whitespace-nowrap">
-          <a
-            class="text-accent-purple underline"
-            href=""
-            target="_blank"
+        <div class="flex gap-2 items-center justify-center bg-white px-4 py-2 rounded-[8px] w-full lg:w-fit ">
+          <div
+            class="text-accent-purple underline overflow-hidden text-ellipsis whitespace-nowrap max-w-full cursor-pointer btn-copy-wishlist-link"
             id="profile-link"
-          ></a>
+          ></div>
           <button class="btn btn-copy-wishlist-link">
             {% render 'icon-copy' %}
           </button>
@@ -22,16 +20,16 @@
       </div>
     </div>
     <div class="grid grid-cols-2 w-full lg:max-w-fit lg:flex gap-4">
-      <button class="btn-add-gift btn flex items-center gap-2 h-8 px-3 text-white bg-accent-purple hover:bg-purple-600 text-body-sm rounded-[5px]">
+      <a
+        href="/pages/fangifts"
+        class="btn-add-gift btn flex items-center gap-2 h-8 px-3 text-white bg-accent-purple hover:bg-purple-600 text-body-sm rounded-[5px]"
+      >
         {% render 'icon-plus' %}
         Add gift
-      </button>
-      <button
-        class="h-8 px-3 btn flex items-center justify-center gap-2 text-white text-body-sm bg-gray-600 rounded-[5px] hover:bg-blue-800 hover:text-primary-white"
-        id="btn-product-link"
-      >
-        Suggest Gift
-      </button>
+      </a>
+      <!--
+        <button class="h-8 px-3 btn flex items-center justify-center gap-2 text-white text-body-sm bg-gray-600 rounded-[5px] hover:bg-blue-800 hover:text-primary-white" id="btn-product-link">      Suggest Gift      </button>
+      -->
     </div>
   </div>
 </div>

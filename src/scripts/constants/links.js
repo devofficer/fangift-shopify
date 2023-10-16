@@ -42,7 +42,7 @@ const LINKS = {
     role: PAGE_ROLES.public,
   },
   marketplace: {
-    path: "/collections/all",
+    path: "/pages/fangifts",
     role: PAGE_ROLES.creator,
   },
   orders: {

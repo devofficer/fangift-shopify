@@ -11,7 +11,7 @@
     </div>
 
     <ul class="hidden flex-col flex-grow gap-[40px] creator-menu-mb">
-      {% for link in linklists['shop-menu'].links %}
+      {% for link in linklists['creator-menu'].links %}
         {% capture clsx -%}
           {%- if link.active -%}
             {%- echo "text-accent-purple underline " -%}

@@ -42,11 +42,16 @@ $(async function () {
   if (page === undefined || page.role === PAGE_ROLES.unknown) {
     window.location.href = LINKS.home.path;
   } else if (page.role === PAGE_ROLES.public) {
-    if (validExp && page.path === LINKS.home.path) {
-      window.location.href =
-        gUserInfo.type === PAGE_ROLES.creator
-          ? LINKS.wishlist.path
-          : LINKS.explore.path;
+    if (page.path === LINKS.home.path) {
+      if (validExp) {
+        const nextPage =
+          gUserInfo.type === PAGE_ROLES.creator
+            ? LINKS.wishlist.path
+            : LINKS.explore.path;
+        window.location.href = nextPage;
+      } else {
+        refreshSession(true);
+      }
     } else {
       $("body").removeClass("hidden");
       $("#profile-settings").addClass("hidden");
@@ -66,6 +71,13 @@ $(async function () {
 
     if (gUserInfo.type === PAGE_ROLES.creator) {
       $("#logo").prop("href", LINKS.wishlist.path);
+      $("#link-public-wishlist").prop("href", `/${gUserInfo.name}`);
+      $(".shipping-country").addClass("md:flex");
+      $(".shipping-country-mb").addClass("flex");
+      $(".shipping-country-mb").removeClass("hidden");
+      $(".creator-menu").addClass("lg:flex");
+      $(".creator-menu-mb").removeClass("hidden");
+      $(".creator-menu-mb").addClass("flex");
 
       try {
         const country = await getCountryInfo(gUserInfo.country);
@@ -74,15 +86,9 @@ $(async function () {
       } catch (err) {
         console.log(err);
       }
-      $(".shipping-country").addClass("md:flex");
-      $(".shipping-country-mb").addClass("flex");
-      $(".shipping-country-mb").removeClass("hidden");
-      $(".creator-menu").addClass("lg:flex");
-      $(".creator-menu-mb").removeClass("hidden");
-      $(".creator-menu-mb").addClass("flex");
     } else {
       $("#logo").prop("href", LINKS.explore.path);
-
+      $(".creator-only").remove();
       $(".fan-menu").addClass("lg:flex");
       $(".fan-menu-mb").removeClass("hidden");
       $(".fan-menu-mb").addClass("flex");

@@ -38,11 +38,10 @@ const addWishlistDrawer = new Drawer(
     backdropClasses:
       "bg-primary-black/30 [backdrop-filter:blur(4px)] fixed inset-0 z-30",
     onHide() {
-      $("#text-product-title").val("");
-      $("#text-product-price").val(0);
-      $("#text-shipping-price").val("");
+      $("#text-product-title").text("");
+      $("#text-product-price").text("");
+      $("#text-desc").text("");
       $("#img-product-main").prop("src", "");
-      $("#checkbox-digital-good").prop("checked", false);
     },
   }
 );
@@ -146,12 +145,12 @@ async function loadProduct(clear = false) {
       state.addProductId = productId;
 
       if (product) {
-        $("#text-product-title").val(product.title);
-        $("#text-product-price").val(
-          product.priceRangeV2.minVariantPrice.amount
+        $("#text-product-title").text(product.title);
+        $("#text-product-price").text(
+          `$${product.priceRangeV2.minVariantPrice.amount}`
         );
         $("#img-product-main").prop("src", product.featuredImage.url);
-        $("#text-desc").html($(`<div>${product.descriptionHtml}</div>`).text());
+        $("#text-desc").html(product.descriptionHtml);
         addWishlistDrawer.show();
       }
     });
@@ -171,10 +170,10 @@ $("#btn-add-wishlist").on("click", async function () {
   $(this).loading(true);
 
   const product = state.products.find((p) => p.id === state.addProductId);
-  const title = $("#text-product-title").val();
-  const price = $("#text-product-price").val();
+  const title = product.title;
+  const price = product.priceRangeV2.minVariantPrice.amount;
   const imageUrl = $("#img-product-main").prop("src");
-  const description = $("#text-desc").val();
+  const description = product.descriptionHtml;
 
   try {
     const formData = new FormData();

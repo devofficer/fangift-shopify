@@ -63,6 +63,7 @@ function showProfileTab() {
     .off("click")
     .on("click", async function () {
       const publicName = $("#public-name").val();
+      const bio = $("#bio").val();
 
       if (!publicName) {
         toastr.error("Public name is required field!");
@@ -75,14 +76,24 @@ function showProfileTab() {
         const form = new FormData();
         form.append("publicName", publicName);
         form.append("avatar", avatarFile);
-        form.append("bio", $("#bio").val());
-        await fangiftService.put("/user", form, {
+        form.append("bio", bio);
+        const { picture } = await fangiftService.put("/user", form, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
+
+        const payload = JSON.parse(localStorage.getItem("payload"));
+        payload["custom:bio"] = bio;
+        payload["custom:publicName"] = publicName;
+
+        if (picture) {
+          payload.picture = picture;
+        }
+
+        localStorage.setItem("payload", JSON.stringify(payload));
         toastr.success("Updated your profile successfully!");
-        $("#btn-signout").trigger("click");
+        location.reload();
       } catch (err) {
         toastr.error(err.response.data.message);
         return;

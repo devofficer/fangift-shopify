@@ -1,19 +1,18 @@
 <div class="card-product just-created">
   <div class="grid grid-cols-1 gap-2">
-    <div class="h-[144px] bg-primary-background rounded-[8px] relative">
-      <img class="w-full h-full object-contain" src="{{ featuredImage.url }}" alt="{{ featuredImage.alt }}" loading="lazy"
+    <div class="h-[144px] bg-primary-background rounded-[8px] relative cursor-pointer group overflow-hidden btn-add-product" data-product="{{ id }}">
+      <img class="w-full h-full object-contain group-hover:scale-110 transition-transform" src="{{ featuredImage.url }}" alt="{{ featuredImage.alt }}" loading="lazy"
         width="{{ featuredImage.width }}" height="{{ featuredImage.height }}">
     </div>
     <span class="text-body-sm text-black text-ellipsis overflow-hidden whitespace-nowrap">
       {{ title }}
     </span>
     {{!-- <span class="text-body-xs text-accent-peach"> @{{ vendor }} </span> --}}
-    <div class="flex gap-2">
-      <div class="flex-grow border border-primary-border p-1 rounded-[8px] text-center text-body-xs text-black">${{
+    <div class="grid grid-cols-2 gap-2">
+      <div class="border border-primary-border p-1 rounded-[8px] text-center text-body-xs text-black">${{
         priceRangeV2.minVariantPrice.amount }}
       </div>
       <button class="btn btn-view-details btn-add-product" data-product="{{ id }}">Add</button>
-      <button class="btn btn-view-details btn-details-product" data-product="{{ id }}">Details</button>
     </div>
   </div>
 </div>

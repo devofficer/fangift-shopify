@@ -24,6 +24,7 @@ $(function () {
   const $giftDetailsEl = document.getElementById("drawer-gift-details");
   const $giftProductEl = document.getElementById("drawer-gift-product");
   const $confirmModalEl = document.getElementById("modal-delete");
+  const $suggestGiftEl = document.getElementById("drawer-suggest-gift");
 
   const drawerSelectGift = new Drawer($selectGiftEl, drawerDefaultOptions);
   const drawerAddGift = new Drawer($addGiftEl, drawerDefaultOptions);
@@ -32,11 +33,17 @@ $(function () {
     onHide() {
       $("#text-product-title").val("");
       $("#text-product-price").val(0);
-      $("#text-shipping-price").val("");
       $("#img-product-main").prop("src", "");
-      $("#checkbox-digital-good").prop("checked", false);
       $("#btn-add-wishlist").removeClass("hidden");
       $("#btn-update-wishlist").addClass("hidden");
+    },
+  });
+  const drawerSuggestGift = new Drawer($suggestGiftEl, {
+    ...drawerDefaultOptions,
+    onHide() {
+      $("#text-suggest-title").val("");
+      $("#text-suggest-price").val(0);
+      $("#img-suggest-main").prop("src", "");
     },
   });
   const drawerGiftProduct = new Drawer($giftProductEl, drawerDefaultOptions);
@@ -83,6 +90,12 @@ $(function () {
     .querySelector(".btn-close-drawer")
     .addEventListener("click", function () {
       drawerGiftProduct.hide();
+    });
+
+  $suggestGiftEl
+    .querySelector(".btn-close-drawer")
+    .addEventListener("click", function () {
+      drawerSelectGift.hide();
     });
 
   const bindEventHandlers = () => {
@@ -191,16 +204,16 @@ $(function () {
     drawerGiftProduct.show();
   });
 
-  $("#wrapper-main-image").on("click", function (e) {
-    $("#file-main-image").trigger("click");
+  $("#wrapper-suggest-image").on("click", function (e) {
+    $("#file-suggest-image").trigger("click");
   });
 
-  $("#file-main-image").on("change", function (e) {
+  $("#file-suggest-image").on("change", function (e) {
     state.imageFile = e.target.files[0];
     if (state.imageFile) {
       const reader = new FileReader();
       reader.onload = function (e) {
-        $("#img-product-main").attr("src", e.target.result);
+        $("#img-suggest").attr("src", e.target.result);
       };
       reader.readAsDataURL(state.imageFile);
     }
@@ -224,17 +237,16 @@ $(function () {
       });
       state.mainImage = prodInfo.mainImage;
 
-      $("#text-product-title").val(prodInfo.title);
-      $("#text-product-price").val(prodInfo.price);
-      $("#img-product-main").prop(
+      $("#text-suggest-title").val(prodInfo.title);
+      $("#text-suggest-price").val(prodInfo.price);
+      $("#img-suggest").prop(
         "src",
         prodInfo.mainImage || $("#img-product-main").data("placeholder")
       );
+      $("#text-suggest-desc").val(prodInfo.description);
 
+      // reset product link url textfield
       $("#text-product-link").val("");
-      $("#wrapper-main-image").removeClass("pointer-events-none");
-      $("#text-product-price").attr("readonly", false);
-      $("#text-desc").val(prodInfo.description);
 
       if (!prodInfo.mainImage && !prodInfo.title) {
         toastr.warning(
@@ -243,7 +255,7 @@ $(function () {
       }
 
       drawerGiftProduct.hide();
-      drawerGiftDetails.show();
+      drawerSuggestGift.show();
     } catch (err) {
       toastr.warning("Please enter valid product URL!");
     }
@@ -288,6 +300,44 @@ $(function () {
 
     state.productId = "";
     state.variantId = "";
+    state.url = "";
+
+    $(this).loading(false);
+  });
+
+  $("#btn-suggest-gift").on("click", async function () {
+    const title = $("#text-suggest-title").val();
+    const price = $("#text-suggest-price").val();
+    const desc = $("#text-suggest-desc").val();
+
+    if (!title.trim()) {
+      toastr.warning("Invalid product title, it is required Field.");
+      return;
+    }
+
+    $(this).loading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("userId", gUserInfo["cognito:username"]);
+      formData.append("title", title);
+      formData.append("price", price);
+      formData.append("imageUrl", state.mainImage);
+      formData.append("description", desc);
+      formData.append("productUrl", state.url);
+      formData.append("imageFile", state.imageFile);
+
+      await fangiftService.post("/wishlist", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      loadWishlist(true);
+      drawerSuggestGift.hide();
+    } catch (err) {
+      toastr.error(err.response.data.message);
+    }
+
     state.url = "";
 
     $(this).loading(false);

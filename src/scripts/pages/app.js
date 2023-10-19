@@ -4,7 +4,7 @@ import { getCountryInfo } from "../services/restcountriesService";
 import { refreshSession } from "../utils/session";
 import { getS3Url } from "../utils/string";
 
-function updateUserInfo(userInfo) {
+export function updateUserInfo(userInfo) {
   userInfo = userInfo ?? JSON.parse(localStorage.getItem("payload"));
   if (userInfo) {
     window.gUserInfo = Object.freeze(
@@ -22,6 +22,47 @@ function updateUserInfo(userInfo) {
     });
   }
 }
+
+const showProfileMenu = async (page) => {
+  if (
+    page.role === PAGE_ROLES.creator &&
+    gUserInfo.type !== PAGE_ROLES.creator
+  ) {
+    window.location.href = LINKS.orders.path;
+    return;
+  }
+
+  if (gUserInfo.picture) {
+    $("#img-avatar").prop("src", getS3Url(gUserInfo.picture));
+  }
+
+  if (gUserInfo.type === PAGE_ROLES.creator) {
+    $("#logo").prop("href", LINKS.wishlist.path);
+    $("#link-public-wishlist").prop("href", `/${gUserInfo.name}`);
+    $(".shipping-country").addClass("md:flex");
+    $(".shipping-country-mb").addClass("flex");
+    $(".shipping-country-mb").removeClass("hidden");
+    $(".creator-menu").addClass("lg:flex");
+    $(".creator-menu-mb").removeClass("hidden");
+    $(".creator-menu-mb").addClass("flex");
+
+    try {
+      const country = await getCountryInfo(gUserInfo.country);
+      $(".img-shipping-country").prop("src", country.flags.png);
+      $(".text-shipping-country").text(country.name.common);
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    $("#logo").prop("href", LINKS.orders.path);
+    $(".creator-only").remove();
+    $(".fan-menu").addClass("lg:flex");
+    $(".fan-menu-mb").removeClass("hidden");
+    $(".fan-menu-mb").addClass("flex");
+  }
+
+  $("body").removeClass("hidden");
+};
 
 $(async function () {
   const pathname = location.pathname;
@@ -47,54 +88,20 @@ $(async function () {
         const nextPage =
           gUserInfo.type === PAGE_ROLES.creator
             ? LINKS.wishlist.path
-            : LINKS.explore.path;
+            : LINKS.orders.path;
         window.location.href = nextPage;
-      } else {
+      } else if (localStorage.getItem("refreshToken")) {
         refreshSession(true);
+      } else {
+        $("body").removeClass("hidden");
+        $("#profile-settings").addClass("hidden");
       }
     } else {
       $("body").removeClass("hidden");
       $("#profile-settings").addClass("hidden");
     }
   } else if (validExp) {
-    if (
-      page.role === PAGE_ROLES.creator &&
-      gUserInfo.type !== PAGE_ROLES.creator
-    ) {
-      window.location.href = LINKS.explore.path;
-      return;
-    }
-
-    if (gUserInfo.picture) {
-      $("#img-avatar").prop("src", getS3Url(gUserInfo.picture));
-    }
-
-    if (gUserInfo.type === PAGE_ROLES.creator) {
-      $("#logo").prop("href", LINKS.wishlist.path);
-      $("#link-public-wishlist").prop("href", `/${gUserInfo.name}`);
-      $(".shipping-country").addClass("md:flex");
-      $(".shipping-country-mb").addClass("flex");
-      $(".shipping-country-mb").removeClass("hidden");
-      $(".creator-menu").addClass("lg:flex");
-      $(".creator-menu-mb").removeClass("hidden");
-      $(".creator-menu-mb").addClass("flex");
-
-      try {
-        const country = await getCountryInfo(gUserInfo.country);
-        $(".img-shipping-country").prop("src", country.flags.png);
-        $(".text-shipping-country").text(country.name.common);
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      $("#logo").prop("href", LINKS.explore.path);
-      $(".creator-only").remove();
-      $(".fan-menu").addClass("lg:flex");
-      $(".fan-menu-mb").removeClass("hidden");
-      $(".fan-menu-mb").addClass("flex");
-    }
-
-    $("body").removeClass("hidden");
+    showProfileMenu(page);
   } else {
     await refreshSession();
   }

@@ -21,7 +21,7 @@ export async function refreshSession(redirectToHome = false) {
       window.location.href =
         payload.type === PAGE_ROLES.creator
           ? LINKS.wishlist.path
-          : LINKS.explore.path;
+          : LINKS.orders.path;
     } else {
       window.location.reload();
     }

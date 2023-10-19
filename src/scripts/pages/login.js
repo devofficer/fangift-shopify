@@ -25,7 +25,7 @@ $(function () {
         location.pathname =
           res.payload["custom:type"] === "creator"
             ? LINKS.wishlist.path
-            : LINKS.explore.path;
+            : LINKS.orders.path;
       })
       .catch((err) => {
         toastr.error(err.response.data.message);

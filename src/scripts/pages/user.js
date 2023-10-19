@@ -147,9 +147,10 @@ $(async function () {
       try {
         const draftOrder = await fangiftService.post("/shop/checkout", {
           username,
+          message,
           email: user.email,
           customer: user.customer,
-          message,
+          gifter: gUserInfo?.customer,
           cartItems: cartItems[username].filter((variantId) =>
             products.some((p) => p.variantId === variantId)
           ),

@@ -77,7 +77,7 @@ function showProfileTab() {
         form.append("publicName", publicName);
         form.append("avatar", avatarFile);
         form.append("bio", bio);
-        const { picture } = await fangiftService.put("/user", form, {
+        const { picture } = await fangiftService.put("/customer/user", form, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -108,7 +108,7 @@ async function showAddressTab() {
   const countries = await restcountriesService.get(
     "all?fields=name,flags,cca2"
   );
-  const { defaultAddress: addr } = await fangiftService.get("/user/address");
+  const { defaultAddress: addr } = await fangiftService.get("/customer");
   sniper.stop();
   $("#address>.content").removeClass("blur-sm");
 
@@ -230,7 +230,7 @@ async function showAddressTab() {
       $(this).loading(true);
 
       try {
-        await fangiftService.put("/user/address", data);
+        await fangiftService.put("/customer", data);
         toastr.success("Successfully updated your address!");
       } catch (err) {
         toastr.error(err.response.data.message);

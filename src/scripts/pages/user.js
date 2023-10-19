@@ -4,28 +4,46 @@ import templateCartItem from "../templates/cart-item";
 import { overlay } from "../utils/snip";
 import { getS3Url } from "../utils/string";
 
+const drawerOptions = {
+  placement: window.innerWidth > 600 ? "right" : "bottom",
+  backdrop: true,
+  bodyScrolling: false,
+  edge: false,
+  edgeOffset: "",
+  backdropClasses:
+    "bg-primary-black/30 [backdrop-filter:blur(4px)] fixed inset-0 z-30",
+};
+
 $(async function () {
   const urlParams = new URLSearchParams(location.search);
   const username = urlParams.get("username");
-  const containerAllGifts = $("#container-all-gifts");
-  const $cartEl = document.getElementById("drawer-cart");
-  const drawerCart = new Drawer($cartEl, {
-    placement: window.innerWidth > 600 ? "right" : "bottom",
-    backdrop: true,
-    bodyScrolling: false,
-    edge: false,
-    edgeOffset: "",
-    backdropClasses:
-      "bg-primary-black/30 [backdrop-filter:blur(4px)] fixed inset-0 z-30",
-  });
 
   if (!username) {
     location.pathname = "/pages/creators";
     return;
   }
 
+  const state = {
+    selectedGift: null,
+  };
+
+  const containerAllGifts = $("#container-all-gifts");
+  const $cartEl = document.getElementById("drawer-cart");
+  const $giftDetailsEl = document.getElementById("drawer-gift-details");
+
+  const drawerCart = new Drawer($cartEl, drawerOptions);
+  const drawerGiftDetails = new Drawer($giftDetailsEl, {
+    ...drawerOptions,
+    onHide() {
+      $("#text-title").text("");
+      $("#text-price").text("");
+      $("#text-desc").html("");
+      $("#img-product-main").prop("src", "");
+    },
+  });
+
   const hideOverlay = overlay();
-  const [user] = await fangiftService.get("/user", {
+  const [user] = await fangiftService.get("/customer/user", {
     params: {
       query: `name="${username}"`,
     },
@@ -38,6 +56,31 @@ $(async function () {
 
   // render creator's gift items to all gifts section
   products.forEach((prod) => containerAllGifts.append(templateCardGift(prod)));
+
+  $(".btn-gift-details").on("click", function () {
+    const giftId = $(this).data("wishlist");
+    const gift = products.find((g) => g.id === giftId);
+
+    if (gift) {
+      $("#text-title").text(gift.title);
+      $("#text-price").text(gift.price);
+      $("#text-desc").html(gift.description);
+      $("#img-product-main").prop("src", gift.imageUrl);
+      state.selectedGift = gift.variantId;
+
+      drawerGiftDetails.show();
+    }
+  });
+
+  $(".btn-close-drawer").on("click", function () {
+    drawerGiftDetails.hide();
+  });
+
+  $("#btn-add-cart").on("click", function () {
+    updateCart(state.selectedGift);
+    drawerGiftDetails.hide();
+    drawerCart.show();
+  });
 
   // add or remove gift items to cart
   const updateCart = function (variantId, remove) {
@@ -98,64 +141,33 @@ $(async function () {
     $(this).loading(true);
     const rawItems = localStorage.getItem("cart_items");
     const cartItems = rawItems ? JSON.parse(rawItems) : {};
+    const message = $("#text-message").val();
 
     if (cartItems[username]) {
-      const cart = await fangiftService.post("/shop/checkout", {
-        creator: username,
-        cartItems: cartItems[username].filter((variantId) =>
-          products.some((p) => p.variantId === variantId)
-        ),
-      });
-      cartItems[username] = [];
-      localStorage.setItem("cart_items", JSON.stringify(cartItems));
+      try {
+        const draftOrder = await fangiftService.post("/shop/checkout", {
+          username,
+          email: user.email,
+          customer: user.customer,
+          message,
+          cartItems: cartItems[username].filter((variantId) =>
+            products.some((p) => p.variantId === variantId)
+          ),
+        });
+        cartItems[username] = [];
+        localStorage.setItem("cart_items", JSON.stringify(cartItems));
+        $("#text-message").val("");
 
-      if (cart.checkoutUrl) {
-        window.location.href = cart.checkoutUrl;
-      } else {
-        $(this).loading(false);
+        if (draftOrder.invoiceUrl) {
+          window.open(draftOrder.invoiceUrl, "_blank").focus();
+        }
+      } catch (err) {
+        console.log(err);
       }
-    } else {
-      $(this).loading(false);
     }
+    $(this).loading(false);
+    drawerCart.hide();
   });
 
-  // initialize tab elements
-  // const tabElements = [
-  //   {
-  //     id: "wishlist",
-  //     triggerEl: document.querySelector("#wishlist-tab"),
-  //     targetEl: document.querySelector("#wishlist"),
-  //   },
-  //   {
-  //     id: "products",
-  //     triggerEl: document.querySelector("#products-tab"),
-  //     targetEl: document.querySelector("#products"),
-  //   },
-  //   {
-  //     id: "gifts",
-  //     triggerEl: document.querySelector("#gifts-tab"),
-  //     targetEl: document.querySelector("#gifts"),
-  //   },
-  // ];
-
-  // const options = {
-  //   defaultTabId: "wishlist",
-  //   activeClasses: "active",
-  //   inactiveClasses: "inactive",
-  //   onShow: async (event) => {
-  //     if (event._activeTab.id === "products") {
-  //       document.querySelector("#recent-gifters").classList.add("hidden");
-  //       document.querySelector("#leaderboard").classList.add("hidden");
-  //     } else {
-  //       document.querySelector("#recent-gifters").classList.remove("hidden");
-  //       document.querySelector("#leaderboard").classList.remove("hidden");
-  //     }
-  //   },
-  // };
-
-  // const tabs = new Tabs(tabElements, options);
-  // tabs.show("wishlist");
-
-  // close body overlay after successful initialization
   hideOverlay();
 });

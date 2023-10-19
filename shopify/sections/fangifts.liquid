@@ -30,8 +30,8 @@
             <h6 class="text-heading-h6 mb-4 text-black">Price</h6>
             <div id="slider-range" class="mb-4"></div>
             <div class="text-body-sm text-primary flex justify-between">
-              <span>Range</span>
-              <span id="amount"></span>
+              <span>Range:</span>
+              <span class="whitespace-nowrap" id="amount"></span>
             </div>
           </div>
           <div class="filter-box">
@@ -45,17 +45,6 @@
             <div class="filter-box-content">
               <div class="grid grid-cols-1 gap-4" id="container-categories"></div>
             </div>
-          </div>
-
-          <div class="filter-box">
-            <div class="filter-box-header">
-              <h6 class="text-heading-h6 text-black">Locations</h6>
-              <button class="btn btn-icon btn-filter-toggle">
-                {% render 'icon-arrow-down' : class: '[.toggled>&]:hidden' %}
-                {% render 'icon-arrow-up' : class: 'hidden [.toggled>&]:block' %}
-              </button>
-            </div>
-            <div class="filter-box-content"></div>
           </div>
         </div>
       </div>

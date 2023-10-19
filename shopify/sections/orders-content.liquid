@@ -24,97 +24,93 @@
     </div>
     <div class="py-6 px-2 bg-primary-white">
       <div class="relative overflow-x-auto">
-        <table class="w-full text-body-xs text-left" id="tab-content-wishlist">
+        <table class="w-full text-body-xs text-left table-fixed" id="tab-content-wishlist">
           <thead class="text-primary-text bg-primary-background rounded-[8px]">
             <tr>
               <th scope="col" class="px-4 py-2">Order ID</th>
-              <th scope="col" class="px-4 py-2">Gifted Item</th>
-              <th scope="col" class="px-4 py-2">Gifter</th>
-              <th scope="col" class="px-4 py-2">Your Message</th>
-              <th scope="col" class="px-4 py-2">Order Date</th>
-              <th scope="col" class="px-4 py-2">Status</th>
-              <th scope="col" class="px-4 py-2">Vendor</th>
+              <th
+                scope="col"
+                colspan="3"
+                class="px-4 py-2"
+              >
+                Gifted Item
+              </th>
+              <th
+                scope="col"
+                colspan="2"
+                class="px-4 py-2"
+              >
+                Gifter
+              </th>
+              <th
+                scope="col"
+                colspan="3"
+                class="px-4 py-2"
+              >
+                Gifter Message
+              </th>
+              <th
+                scope="col"
+                colspan="2"
+                class="px-4 py-2"
+              >
+                Order Date
+              </th>
+              <th
+                scope="col"
+                colspan="2"
+                class="px-4 py-2"
+              >
+                Status
+              </th>
               <th scope="col" class="px-4 py-2">Price</th>
             </tr>
           </thead>
-          <tbody class="text-primary-black">
-            <tr class="h-[72px] [&:not(last-child)]:border-b border-[#f0f5f8]">
-              <td class="px-4">
-                <a href="#" class="text-accent-blue underline">#1023</a>
-              </td>
-              <td class="px-4">Oculus Quest 2</td>
-              <td class="px-4">Anonymous</td>
-              <td class="px-4">Excited to see you in the VR world</td>
-              <td class="px-4">2023-06-01</td>
-              <td class="px-4">
-                <div class="py-[7px] px-[12px] bg-yellow/10 text-yellow text-center w-fit rounded-[8px]">
-                  Processing
-                </div>
-              </td>
-              <td class="px-4 text-accent-peach">@Amazon</td>
-              <td class="px-4">$299.00</td>
-            </tr>
-            <tr class="h-[72px]">
-              <td class="px-4">
-                <a href="#" class="text-accent-blue underline">#1023</a>
-              </td>
-              <td class="px-4">Oculus Quest 2</td>
-              <td class="px-4">Anonymous</td>
-              <td class="px-4">Excited to see you in the VR world</td>
-              <td class="px-4">2023-06-01</td>
-              <td class="px-4">
-                <div class="py-[7px] px-[12px] bg-green/10 text-green text-center w-fit rounded-[8px]">Completed</div>
-              </td>
-              <td class="px-4 text-accent-peach">@MyProtein</td>
-              <td class="px-4">$65.00</td>
-            </tr>
-          </tbody>
+          <tbody class="text-primary-black" id="tbody-my-gifts"></tbody>
         </table>
-        <table class="w-full text-body-xs text-left" id="tab-content-sent">
+        <table class="w-full text-body-xs text-left table-fixed" id="tab-content-sent">
           <thead class="text-primary-text bg-primary-background rounded-[8px]">
             <tr>
               <th scope="col" class="px-4 py-2">Order ID</th>
-              <th scope="col" class="px-4 py-2">Gifted Item</th>
-              <th scope="col" class="px-4 py-2">Gifted to</th>
-              <th scope="col" class="px-4 py-2">Your Message</th>
-              <th scope="col" class="px-4 py-2">Order Date</th>
-              <th scope="col" class="px-4 py-2">Status</th>
-              <th scope="col" class="px-4 py-2">Vendor</th>
+              <th
+                scope="col"
+                class="px-4 py-2"
+                colspan="3"
+              >
+                Gifted Item
+              </th>
+              <th
+                scope="col"
+                colspan="2"
+                class="px-4 py-2"
+              >
+                Gifted to
+              </th>
+              <th
+                scope="col"
+                class="px-4 py-2"
+                colspan="3"
+              >
+                Your Message
+              </th>
+              <th
+                scope="col"
+                colspan="2"
+                class="px-4 py-2"
+              >
+                Order Date
+              </th>
+              <th
+                scope="col"
+                colspan="2"
+                class="px-4 py-2"
+              >
+                Status
+              </th>
               <th scope="col" class="px-4 py-2">Price</th>
             </tr>
           </thead>
-          <tbody class="text-primary-black">
-            <tr class="h-[72px] [&:not(last-child)]:border-b border-[#f0f5f8]">
-              <td class="px-4">
-                <a href="#" class="text-accent-blue underline">#1023</a>
-              </td>
-              <td class="px-4">Oculus Quest 2</td>
-              <td class="px-4">Anonymous</td>
-              <td class="px-4">Excited to see you in the VR world</td>
-              <td class="px-4">2023-06-01</td>
-              <td class="px-4">
-                <div class="py-[7px] px-[12px] bg-yellow/10 text-yellow text-center w-fit rounded-[8px]">
-                  Processing
-                </div>
-              </td>
-              <td class="px-4 text-accent-peach">@Amazon</td>
-              <td class="px-4">$299.00</td>
-            </tr>
-            <tr class="h-[72px]">
-              <td class="px-4">
-                <a href="#" class="text-accent-blue underline">#1023</a>
-              </td>
-              <td class="px-4">Oculus Quest 2</td>
-              <td class="px-4">Anonymous</td>
-              <td class="px-4">Excited to see you in the VR world</td>
-              <td class="px-4">2023-06-01</td>
-              <td class="px-4">
-                <div class="py-[7px] px-[12px] bg-green/10 text-green text-center w-fit rounded-[8px]">Completed</div>
-              </td>
-              <td class="px-4 text-accent-peach">@MyProtein</td>
-              <td class="px-4">$65.00</td>
-            </tr>
-          </tbody>
+          <tbody class="text-primary-black" id="tbody-sent-gifts"></tbody>
         </table>
       </div>
     </div>

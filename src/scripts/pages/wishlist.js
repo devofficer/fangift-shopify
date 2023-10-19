@@ -35,7 +35,7 @@ $(function () {
       $("#text-product-price").val(0);
       $("#img-product-main").prop("src", "");
       $("#btn-add-wishlist").removeClass("hidden");
-      $("#btn-update-wishlist").addClass("hidden");
+      $("#btn-delete-wishlist").addClass("hidden");
     },
   });
   const drawerSuggestGift = new Drawer($suggestGiftEl, {
@@ -116,7 +116,7 @@ $(function () {
         $("#img-product-main").prop("src", prod.imageUrl);
         $("#text-desc").html(prod.description);
         $("#btn-add-wishlist").addClass("hidden");
-        $("#btn-update-wishlist").removeClass("hidden");
+        $("#btn-delete-wishlist").removeClass("hidden");
 
         if (prod.productUrl) {
           $("#wrapper-main-image").removeClass("pointer-events-none");
@@ -192,20 +192,30 @@ $(function () {
       window.location.href = LINKS.marketplace.path;
     } else if (state.giftSource === "product") {
       drawerGiftProduct.show();
-      $("#btn-update-wishlist").addClass("hidden");
+      $("#btn-delete-wishlist").addClass("hidden");
       $("#btn-add-wishlist").removeClass("hidden");
     }
   });
 
   $("#btn-product-link").on("click", function () {
     state.giftSource = "product";
-    $("#btn-update-wishlist").addClass("hidden");
+    $("#btn-delete-wishlist").addClass("hidden");
     $("#btn-add-wishlist").removeClass("hidden");
     drawerGiftProduct.show();
   });
 
+  $("#btn-delete-wishlist").on("click", function () {
+    state.deleteId = state.editWishlist.id;
+    drawerGiftDetails.hide();
+    confirmModal.show();
+  });
+
   $("#wrapper-suggest-image").on("click", function (e) {
     $("#file-suggest-image").trigger("click");
+  });
+
+  $("#btn-close-modal-delete").on("click", function () {
+    confirmModal.hide();
   });
 
   $("#file-suggest-image").on("change", function (e) {

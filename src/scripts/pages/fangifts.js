@@ -80,11 +80,13 @@ async function loadCategories() {
   const container = $("#container-categories");
   const cats = await fangiftService.get("/shop/product/types");
 
-  state.categories = cats.map((cat) => ({
-    id: convertLabelToId(cat),
-    label: cat,
-    checked: true,
-  }));
+  state.categories = cats
+    .filter((type) => !!type)
+    .map((cat) => ({
+      id: convertLabelToId(cat),
+      label: cat,
+      checked: false,
+    }));
 
   state.categories.forEach((cat) => container.append(templateCategory(cat)));
 
@@ -116,11 +118,11 @@ async function loadProduct(clear = false) {
     container.addClass("min-h-[600px]");
   }
   const cats = state.categories.filter((cat) => cat.checked);
-  const query = `variants.price:>=${state.priceMin} AND variants.price:<=${
-    state.priceMax
-  } ${
+  const query = `price:>=${state.priceMin} AND price:<=${state.priceMax} ${
     cats.length
-      ? `AND (${cats.map((cat) => `(product_type:${cat.label})`).join(" OR ")})`
+      ? `AND (${cats
+          .map((cat) => `(product_type:'${cat.label}')`)
+          .join(" OR ")})`
       : ""
   }`;
 
@@ -162,7 +164,7 @@ async function loadProduct(clear = false) {
 
     return pageInfo.hasNextPage;
   } catch (err) {
-    toastr.error(err.message);
+    // toastr.error(err.message);
   }
 }
 
@@ -226,8 +228,9 @@ function initSlider() {
   $("#slider-range").slider({
     range: true,
     min: 0,
-    max: 1000,
-    values: [0, 800],
+    max: 10000,
+    values: [0, 10000],
+    step: 100,
     slide: function (_event, ui) {
       $("#amount").html(`$${ui.values[0]} - $${ui.values[1]}`);
     },

@@ -11,7 +11,7 @@ $(async function () {
   container.append(spinner.spin().el);
 
   try {
-    const creators = await fangiftService.get("user/creators");
+    const creators = await fangiftService.get("/customer/user/creators");
     creators.forEach((creator) => {
       const bio = creator.bio ?? "";
       const bioWords = bio.split(" ");

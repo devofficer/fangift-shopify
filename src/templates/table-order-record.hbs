@@ -1,0 +1,33 @@
+<tr class="h-[72px] [&:not(last-child)]:border-b border-[#f0f5f8]">
+  <td class="px-4">
+    <a href="#" class="text-accent-blue underline">{{name}}</a>
+  </td>
+  <td class="px-4" colspan="3">
+    <ul class=" list-[disclosure-closed] list-inside">
+      {{#each items}}
+      <li class="text-ellipsis overflow-hidden whitespace-nowrap">{{this}}</li>
+      {{/each}}
+    </ul>
+  </td>
+  <td class="px-4" colspan="2">
+    {{#if anonymous}}
+    {{gifter}}
+    {{else}}
+    <a href="/{{gifter}}" target="_blank" class="text-accent-blue underline">{{gifter}}</a>
+    {{/if}}
+  </td>
+  <td class="px-4" colspan="3">{{message}}</td>
+  <td class="px-4" colspan="2">{{date}}</td>
+  <td class="px-4" colspan="2">
+    {{#if status}}
+    <div class="py-[7px] px-[12px] text-center w-fit bg-green/10 text-green rounded-[8px]">
+      COMPLETED
+    </div>
+    {{else}}
+    <div class="py-[7px] px-[12px] text-center w-fit bg-yellow/10 text-yellow rounded-[8px]">
+      PROCESSING
+    </div>
+    {{/if}}
+  </td>
+  <td class="px-4">${{price}}</td>
+</tr>

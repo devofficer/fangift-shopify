@@ -61,6 +61,12 @@ $(function () {
     editWishlist: null,
   };
 
+  const urlParams = new URLSearchParams(window.location.search);
+
+  if (urlParams.get("suggest_gift") === "true") {
+    drawerAddGift.show();
+  }
+
   $("#text-username").text(window.gUserInfo?.publicName.split(" ")[0]);
   $("#profile-link").prop(
     "href",

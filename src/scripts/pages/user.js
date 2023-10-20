@@ -150,7 +150,7 @@ $(async function () {
           message,
           email: user.email,
           customer: user.customer,
-          gifter: gUserInfo?.customer,
+          gifter: window.gUserInfo?.customer,
           cartItems: cartItems[username].filter((variantId) =>
             products.some((p) => p.variantId === variantId)
           ),

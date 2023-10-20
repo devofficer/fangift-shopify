@@ -176,7 +176,7 @@ $("#btn-add-wishlist").on("click", async function () {
 
   try {
     const formData = new FormData();
-    formData.append("userId", gUserInfo["cognito:username"]);
+    formData.append("userId", window.gUserInfo["cognito:username"]);
     formData.append("title", title);
     formData.append("price", price);
     formData.append("productId", product.id);

@@ -44,7 +44,7 @@ const loadOrders = async (sent = false) => {
 };
 
 $(function () {
-  if (gUserInfo.type === "fan") {
+  if (window.gUserInfo?.type === "fan") {
     $("#tab-order-buttons").remove();
     $("#tab-content-wishlist").remove();
     loadOrders(true);
@@ -63,7 +63,7 @@ $(function () {
     ];
 
     const options = {
-      defaultTabId: gUserInfo.type === "creator" ? "wishlist" : "sent",
+      defaultTabId: window.gUserInfo?.type === "creator" ? "wishlist" : "sent",
       activeClasses: "active",
       inactiveClasses: "inactive",
       onShow: ({ _activeTab: { id: tabId } }) => {

@@ -61,12 +61,12 @@ $(function () {
     editWishlist: null,
   };
 
-  $("#text-username").text(gUserInfo.publicName.split(" ")[0]);
+  $("#text-username").text(window.gUserInfo?.publicName.split(" ")[0]);
   $("#profile-link").prop(
     "href",
-    `//${window.location.host}/${gUserInfo.name}`
+    `//${window.location.host}/${window.gUserInfo?.name}`
   );
-  $("#profile-link").text(`${window.location.host}/${gUserInfo.name}`);
+  $("#profile-link").text(`${window.location.host}/${window.gUserInfo?.name}`);
 
   $selectGiftEl
     .querySelector(".btn-close-drawer")
@@ -148,7 +148,7 @@ $(function () {
 
     const wishlists = await fangiftService.get("/wishlist", {
       params: {
-        userId: gUserInfo["cognito:username"],
+        userId: window.gUserInfo["cognito:username"],
       },
     });
     state.wishlists = wishlists;
@@ -177,7 +177,7 @@ $(function () {
 
   $(".btn-copy-wishlist-link").on("click", function () {
     window.navigator.clipboard.writeText(
-      `${window.location.host}/${gUserInfo.name}`
+      `${window.location.host}/${window.gUserInfo?.name}`
     );
     toastr.info("Copied your wishlist link");
   });
@@ -283,7 +283,7 @@ $(function () {
 
     try {
       const formData = new FormData();
-      formData.append("userId", gUserInfo["cognito:username"]);
+      formData.append("userId", window.gUserInfo["cognito:username"]);
       formData.append("title", state.title);
       formData.append("price", state.price);
       formData.append("imageUrl", state.mainImage);
@@ -329,7 +329,7 @@ $(function () {
 
     try {
       const formData = new FormData();
-      formData.append("userId", gUserInfo["cognito:username"]);
+      formData.append("userId", window.gUserInfo["cognito:username"]);
       formData.append("title", title);
       formData.append("price", price);
       formData.append("imageUrl", state.mainImage);

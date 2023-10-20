@@ -16,7 +16,7 @@ export function updateUserInfo(userInfo) {
         {}
       )
     );
-    Object.defineProperty(window, "gUserInfo", {
+    Object.defineProperty(window, "window.gUserInfo", {
       configurable: false,
       writable: false,
     });
@@ -26,19 +26,19 @@ export function updateUserInfo(userInfo) {
 const showProfileMenu = async (page) => {
   if (
     page.role === PAGE_ROLES.creator &&
-    gUserInfo.type !== PAGE_ROLES.creator
+    window.gUserInfo?.type !== PAGE_ROLES.creator
   ) {
     window.location.href = LINKS.orders.path;
     return;
   }
 
-  if (gUserInfo.picture) {
-    $("#img-avatar").prop("src", getS3Url(gUserInfo.picture));
+  if (window.gUserInfo?.picture) {
+    $("#img-avatar").prop("src", getS3Url(window.gUserInfo?.picture));
   }
 
-  if (gUserInfo.type === PAGE_ROLES.creator) {
+  if (window.gUserInfo?.type === PAGE_ROLES.creator) {
     $("#logo").prop("href", LINKS.wishlist.path);
-    $("#link-public-wishlist").prop("href", `/${gUserInfo.name}`);
+    $("#link-public-wishlist").prop("href", `/${window.gUserInfo?.name}`);
     $(".shipping-country").addClass("md:flex");
     $(".shipping-country-mb").addClass("flex");
     $(".shipping-country-mb").removeClass("hidden");
@@ -47,7 +47,7 @@ const showProfileMenu = async (page) => {
     $(".creator-menu-mb").addClass("flex");
 
     try {
-      const country = await getCountryInfo(gUserInfo.country);
+      const country = await getCountryInfo(window.gUserInfo?.country);
       $(".img-shipping-country").prop("src", country.flags.png);
       $(".text-shipping-country").text(country.name.common);
     } catch (err) {
@@ -86,7 +86,7 @@ $(async function () {
     if (page.path === LINKS.home.path) {
       if (validExp) {
         const nextPage =
-          gUserInfo.type === PAGE_ROLES.creator
+          window.gUserInfo?.type === PAGE_ROLES.creator
             ? LINKS.wishlist.path
             : LINKS.orders.path;
         window.location.href = nextPage;

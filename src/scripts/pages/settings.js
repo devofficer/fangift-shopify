@@ -47,12 +47,12 @@ $(function () {
 
 function showProfileTab() {
   let avatarFile;
-  $("#username").val(gUserInfo.name);
-  $("#bio").val(gUserInfo.bio);
-  $("#public-name").val(gUserInfo.publicName);
+  $("#username").val(window.gUserInfo?.name);
+  $("#bio").val(window.gUserInfo?.bio);
+  $("#public-name").val(window.gUserInfo?.publicName);
 
-  if (gUserInfo.picture) {
-    $("#img-profile-avatar").prop("src", getS3Url(gUserInfo.picture));
+  if (window.gUserInfo?.picture) {
+    $("#img-profile-avatar").prop("src", getS3Url(window.gUserInfo?.picture));
   }
 
   initAvatar((file) => {

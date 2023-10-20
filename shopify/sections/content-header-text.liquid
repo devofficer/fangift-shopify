@@ -37,16 +37,16 @@
 }
 {% endschema %}
 
-<div class="{% if section.settings.title != "" %}min-h-[300px]{% endif %} bg-primary bg-[url(shop-bg.svg)] bg-no-repeat bg-cover bg-center">
-  <div class="container px-6 py-10 md:p-[100px]">
+<div class="{% if section.settings.title != "" %}md:min-h-[300px]{% endif %} bg-primary bg-[url(shop-bg.svg)] bg-no-repeat bg-cover bg-center">
+  <div class="container px-6 pt-4 pb-8 md:p-[100px]">
     <h2
-      class="text-heading-h3 md:text-heading-h2 text-primary-white mb-2 md:mb-6"
+      class="text-heading-h4 md:text-heading-h2 text-primary-white mb-2 md:mb-6"
       style="text-align:{{ section.settings.alignment }};"
     >
       {{ section.settings.title }}
     </h2>
     <p
-      class="{% if section.settings.alignment == 'left' %}md:pr-[270px]{% endif %} text-body-xl text-primary-white/80"
+      class="{% if section.settings.alignment == 'left' %}md:pr-[270px]{% endif %} text-body-md md:text-body-xl text-primary-white/80"
       style="text-align:{{ section.settings.alignment }};"
     >
       {{ section.settings.content }}

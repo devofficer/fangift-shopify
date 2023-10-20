@@ -1,12 +1,13 @@
 import axios from "axios";
+import { Modal } from "flowbite";
+import select2 from "select2";
+import toastr from "toastr";
 import fangiftService from "../services/fangiftService";
 import templateCardProduct from "../templates/card.product";
-import templateCategory from "../templates/category";
-import spinner from "../utils/snip";
-import { Modal } from "flowbite";
-import { convertLabelToId } from "../utils/string";
 import { ITEMS_PER_PAGE } from "../utils/constants";
-import toastr from "toastr";
+import spinner from "../utils/snip";
+
+select2(window, $);
 
 /*
  * $targetEl: required
@@ -54,7 +55,7 @@ $(async function () {
 
 function initWidgets() {
   initAccordin();
-  initSlider();
+  // initSlider();
 
   $("#btn-load-more").on("click", loadMore);
   $(".btn-close-drawer").on("click", () => addWishlistDrawer.hide());
@@ -77,28 +78,31 @@ function initWidgets() {
 }
 
 async function loadCategories() {
-  const container = $("#container-categories");
   const cats = await fangiftService.get("/shop/product/types");
 
-  state.categories = cats
-    .filter((type) => !!type)
-    .map((cat) => ({
-      id: convertLabelToId(cat),
-      label: cat,
-      checked: false,
-    }));
+  $("#select-category").select2({
+    width: "100%",
+    data: [
+      { id: "", text: "All categories" },
+      ...cats
+        .filter((type) => !!type)
+        .map((type) => ({
+          id: type,
+          text: type,
+        })),
+    ],
+    templateResult: (state) => {
+      const $state = $(
+        `<div class="flex items-center gap-2">
+            <span>${state.text}</span>
+        </div>`
+      );
+      return $state;
+    },
+  });
 
-  state.categories.forEach((cat) => container.append(templateCategory(cat)));
-
-  $(".checkbox-category").on("change", function (e) {
-    state.categories = state.categories.map((cat) =>
-      cat.id === e.target.name
-        ? {
-            ...cat,
-            checked: e.target.checked,
-          }
-        : cat
-    );
+  $("#select-category").on("select2:select", function (e) {
+    state.category = e.params.data.id;
     loadProduct(true);
   });
 }
@@ -117,14 +121,7 @@ async function loadProduct(clear = false) {
     container.append(spinner.spin().el);
     container.addClass("min-h-[600px]");
   }
-  const cats = state.categories.filter((cat) => cat.checked);
-  const query = `price:>=${state.priceMin} AND price:<=${state.priceMax} ${
-    cats.length
-      ? `AND (${cats
-          .map((cat) => `(product_type:'${cat.label}')`)
-          .join(" OR ")})`
-      : ""
-  }`;
+  const query = state.category ? `product_type:'${state.category}'` : "";
 
   // create cancellation token
   state.cancelToken = axios.CancelToken.source();
@@ -222,28 +219,4 @@ function initAccordin() {
       $(this).closest(".filter-box").addClass("toggled");
     }
   });
-}
-
-function initSlider() {
-  $("#slider-range").slider({
-    range: true,
-    min: 0,
-    max: 10000,
-    values: [0, 10000],
-    step: 100,
-    slide: function (_event, ui) {
-      $("#amount").html(`$${ui.values[0]} - $${ui.values[1]}`);
-    },
-    change: function (event, ui) {
-      state.priceMin = ui.values[0];
-      state.priceMax = ui.values[1];
-      loadProduct(true);
-    },
-  });
-
-  const val0 = $("#slider-range").slider("values", 0);
-  const val1 = $("#slider-range").slider("values", 1);
-  state.priceMin = val0;
-  state.priceMax = val1;
-  $("#amount").html(`$${val0} - $${val1}`);
 }

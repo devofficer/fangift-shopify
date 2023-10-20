@@ -95,7 +95,7 @@ $(function () {
   $suggestGiftEl
     .querySelector(".btn-close-drawer")
     .addEventListener("click", function () {
-      drawerSelectGift.hide();
+      drawerSuggestGift.hide();
     });
 
   const bindEventHandlers = () => {

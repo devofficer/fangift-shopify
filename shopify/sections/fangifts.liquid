@@ -1,11 +1,11 @@
 {{ 'collection.min.css' | asset_url | stylesheet_tag }}
 
 <div class="bg-primary-background">
-  <div class="container px-6 pb-10 md:px-[100px] md:pb-[100px]">
+  <div class="container px-6 pb-6 md:px-[100px] md:pb-[100px]">
     <div class="grid">
-      <div class="mt-[-42px] mb-9 bg-primary-white rounded-[8px] p-6 shadow-[0_18px_37.5px_0_rgba(0,0,0,0.05)]">
+      <div class="mt-[-16px] mb-4 md:mb-9 bg-primary-white rounded-[8px] p-6 shadow-[0_18px_37.5px_0_rgba(0,0,0,0.05)]">
         <div class="text-body-sm text-primary-text mb-4">Vendor</div>
-        <div class="flex flex-col md:flex-row gap-6">
+        <div class="flex gap-2 md:gap-6">
           <div class="relative flex-grow">
             <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
               {% render 'icon-search' : class: 'w-4 h-4 text-accent-purple' %}
@@ -17,36 +17,20 @@
             >
           </div>
           <button class="btn btn-primary flex items-center gap-[10px]">
-            <span>Search Marketplace</span>
+            <span class="hidden md:block">Search Marketplace</span>
             {% render 'icon-arrow-right' %}
           </button>
         </div>
       </div>
     </div>
-    <div class="flex flex-col gap-y-[60px] lg:grid lg:grid-cols-12 gap-x-[60px]">
+    <div class="flex flex-col gap-6 lg:gap-[60px] lg:grid lg:grid-cols-12">
       <div class="lg:col-span-3">
-        <div class="grid grid-cols-1 gap-4 md:gap-8">
-          <div class="filter-box">
-            <h6 class="text-heading-h6 mb-4 text-black">Price</h6>
-            <div id="slider-range" class="mb-4"></div>
-            <div class="text-body-sm text-primary flex justify-between">
-              <span>Range:</span>
-              <span class="whitespace-nowrap" id="amount"></span>
-            </div>
-          </div>
-          <div class="filter-box">
-            <div class="filter-box-header">
-              <h6 class="text-heading-h6 text-black">Categories</h6>
-              <button class="btn btn-icon btn-filter-toggle">
-                {% render 'icon-arrow-down' : class: '[.toggled>&]:hidden' %}
-                {% render 'icon-arrow-up' : class: 'hidden [.toggled>&]:block' %}
-              </button>
-            </div>
-            <div class="filter-box-content">
-              <div class="grid grid-cols-1 gap-4" id="container-categories"></div>
-            </div>
-          </div>
-        </div>
+        <select
+          id="select-category"
+          placeholder="Category"
+          class="btn-dropdown"
+          autocomplete="off"
+        ></select>
       </div>
       <div class="lg:col-span-9">
         <div

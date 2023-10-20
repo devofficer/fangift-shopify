@@ -26,6 +26,7 @@ const state = {
   products: [],
   imageFile: null,
   addProductId: null,
+  search: "",
 };
 
 const addWishlistDrawer = new Drawer(
@@ -51,6 +52,58 @@ $(async function () {
   initWidgets();
   loadProduct(true);
   loadCategories();
+
+  $("#input-search").on("input", function (e) {
+    state.search = $(this).val();
+  });
+
+  $("#input-search").on("keydown", function (e) {
+    if (e.key === "Enter") {
+      loadProduct(true);
+    }
+  });
+
+  $("#btn-search-fangifts").on("click", function () {
+    loadProduct(true);
+  });
+
+  $("#btn-add-wishlist").on("click", async function () {
+    $(this).loading(true);
+
+    const product = state.products.find((p) => p.id === state.addProductId);
+    const title = product.title;
+    const price = product.priceRangeV2.minVariantPrice.amount;
+    const imageUrl = $("#img-product-main").prop("src");
+    const description = product.descriptionHtml;
+
+    try {
+      const formData = new FormData();
+      formData.append("userId", window.gUserInfo["cognito:username"]);
+      formData.append("title", title);
+      formData.append("price", price);
+      formData.append("productId", product.id);
+      formData.append("variantId", product.variants[0].id);
+      formData.append("description", description);
+
+      if (state.imageFile) {
+        formData.append("imageFile", state.imageFile);
+      } else {
+        formData.append("imageUrl", imageUrl);
+      }
+
+      await fangiftService.post("/wishlist", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      addWishlistDrawer.hide();
+      modalAddSuccess.show();
+    } catch (err) {
+      toastr.error(err.message);
+    }
+
+    $(this).loading(false);
+  });
 });
 
 function initWidgets() {
@@ -121,7 +174,12 @@ async function loadProduct(clear = false) {
     container.append(spinner.spin().el);
     container.addClass("min-h-[600px]");
   }
-  const query = state.category ? `product_type:'${state.category}'` : "";
+  const query = [
+    state.category ? `product_type:'${state.category}'` : "",
+    state.search ? `title:*${state.search}*` : "",
+  ]
+    .filter((q) => !!q)
+    .join(" AND ");
 
   // create cancellation token
   state.cancelToken = axios.CancelToken.source();
@@ -161,47 +219,9 @@ async function loadProduct(clear = false) {
 
     return pageInfo.hasNextPage;
   } catch (err) {
-    // toastr.error(err.message);
-  }
-}
-
-$("#btn-add-wishlist").on("click", async function () {
-  $(this).loading(true);
-
-  const product = state.products.find((p) => p.id === state.addProductId);
-  const title = product.title;
-  const price = product.priceRangeV2.minVariantPrice.amount;
-  const imageUrl = $("#img-product-main").prop("src");
-  const description = product.descriptionHtml;
-
-  try {
-    const formData = new FormData();
-    formData.append("userId", window.gUserInfo["cognito:username"]);
-    formData.append("title", title);
-    formData.append("price", price);
-    formData.append("productId", product.id);
-    formData.append("variantId", product.variants[0].id);
-    formData.append("description", description);
-
-    if (state.imageFile) {
-      formData.append("imageFile", state.imageFile);
-    } else {
-      formData.append("imageUrl", imageUrl);
-    }
-
-    await fangiftService.post("/wishlist", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    addWishlistDrawer.hide();
-    modalAddSuccess.show();
-  } catch (err) {
     toastr.error(err.message);
   }
-
-  $(this).loading(false);
-});
+}
 
 async function loadMore() {
   $(this).loading(true);

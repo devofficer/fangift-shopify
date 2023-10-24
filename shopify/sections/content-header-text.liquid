@@ -38,7 +38,7 @@
 {% endschema %}
 
 <div class="{% if section.settings.title != "" %}md:min-h-[300px]{% endif %} bg-primary bg-[url(shop-bg.svg)] bg-no-repeat bg-cover bg-center">
-  <div class="container px-6 pt-4 pb-8 md:p-[100px]">
+  <div class="container {% if section.settings.title != "" %}px-6 pt-4 pb-8 {% endif %} md:p-[100px]">
     <h2
       class="text-heading-h4 md:text-heading-h2 text-primary-white mb-2 md:mb-6"
       style="text-align:{{ section.settings.alignment }};"

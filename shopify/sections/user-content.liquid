@@ -1,15 +1,24 @@
 <div class="bg-primary-background flex flex-col">
-  <div class="container px-6 py-10 md:px-[45px] md:pb-[100px]">
+  <div class="container px-6 py-4 md:px-[45px] md:pb-[100px]">
     <div class="grid grid-cols-10">
       <div class="col-span-10 md:col-span-3 md:mt-[-150px]">
-        <div id="profile" class="bg-primary-white rounded-[8px] px-6 py-4 mb-5">
-          <div class="w-[120px] h-[120px] mx-auto mb-6 avatar flex items-center justify-center">
-            <img class="rounded-full w-full h-full object-cover" id="img-user-picture">
+        <div id="profile" class="bg-primary-white rounded-[8px] px-6 py-4 mb-5 relative">
+          <div class="flex md:flex-col mb-2 md:mb-0 gap-2">
+            <div class="w-[80px] h-[80px] md:w-[120px] md:h-[120px] md:mx-auto md:mb-6 avatar flex items-center justify-center">
+              <img class="rounded-full w-full h-full object-cover" id="img-user-picture">
+            </div>
+            <div>
+              <h4 class="text-heading-h4 text-black md:mb-2 text-center flex justify-center items-center gap-1">
+                <span id="text-public-name"></span>
+                <button class="btn btn-icon md:hidden btn-share-profile">
+                  {% render 'icon-link' %}
+                </button>
+              </h4>
+              <p class="text-body-lg text-accent-peach text-center md:mb-6" id="text-username"></p>
+            </div>
           </div>
-          <h4 class="text-heading-h4 text-black mb-2 text-center" id="text-public-name">Public Name</h4>
-          <p class="text-body-lg text-accent-peach text-center mb-6" id="text-username">@username</p>
-          <p class="text-body-sm text-primary-text text-center mb-6" id="text-bio">Short Bio.</p>
-          <button class="btn btn-link mb-6">
+          <p class="text-body-sm text-primary-text md:mb-6" id="text-bio"></p>
+          <button class="btn btn-link mb-6 hidden md:flex btn-share-profile">
             {% render 'icon-link' %}
             <span>Share</span>
           </button>

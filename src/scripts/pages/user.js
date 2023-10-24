@@ -1,8 +1,11 @@
+import toastr from "toastr";
 import fangiftService from "../services/fangiftService";
 import templateCardGift from "../templates/card.gift";
 import templateCartItem from "../templates/cart-item";
 import { overlay } from "../utils/snip";
 import { getS3Url } from "../utils/string";
+
+toastr.options.positionClass = "toast-bottom-center bottom-10";
 
 const drawerOptions = {
   placement: window.innerWidth > 600 ? "right" : "bottom",
@@ -160,7 +163,8 @@ $(async function () {
         $("#text-message").val("");
 
         if (draftOrder.invoiceUrl) {
-          window.open(draftOrder.invoiceUrl, "_blank").focus();
+          window.location.href = draftOrder.invoiceUrl;
+          // window.open(draftOrder.invoiceUrl, "_blank").focus();
         }
       } catch (err) {
         console.log(err);
@@ -168,6 +172,11 @@ $(async function () {
     }
     $(this).loading(false);
     drawerCart.hide();
+  });
+
+  $(".btn-share-profile").on("click", function () {
+    window.navigator.clipboard.writeText(`${window.location.host}/${username}`);
+    toastr.info("Copied wishlist link");
   });
 
   hideOverlay();

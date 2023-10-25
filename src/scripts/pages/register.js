@@ -24,6 +24,7 @@ $(function () {
     avatarImg = file;
   });
 
+  $(".password").password();
   $("#form-details").on("submit", function (e) {
     e.preventDefault();
 

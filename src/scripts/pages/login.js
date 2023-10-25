@@ -5,6 +5,8 @@ import fangiftService from "../services/fangiftService";
 toastr.options.positionClass = "toast-bottom-center bottom-10";
 
 $(function () {
+  $(".password").password();
+
   $("#form-login").on("submit", function (e) {
     e.preventDefault();
 

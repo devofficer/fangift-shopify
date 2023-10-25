@@ -294,6 +294,7 @@ $(function () {
       formData.append("price", state.price);
       formData.append("imageUrl", state.mainImage);
       formData.append("description", state.description);
+      formData.append("productUpdatedAt", state.productUpdatedAt);
 
       if (state.productId && state.variantId) {
         formData.append("productId", state.productId);
@@ -491,13 +492,12 @@ $(function () {
         state.variantId = product.variants[0].id;
         state.mainImage = product.featuredImage.url;
         state.description = product.descriptionHtml;
+        state.productUpdatedAt = new Date(product.updatedAt).getTime();
         state.title = product.title;
         state.price = product.priceRangeV2.minVariantPrice.amount;
         $("#text-product-title").text(product.title);
         $("#text-product-price").text(`$${state.price}`);
         $("#img-product-main").prop("src", product.featuredImage.url);
-
-        // $("#wrapper-main-image").addClass("pointer-events-none");
         $("#text-desc").html(state.description);
 
         drawerGiftDetails.show();

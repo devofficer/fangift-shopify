@@ -119,6 +119,7 @@ $(function () {
       addrId: addr?.id,
     };
 
+    $("#select-country").off("change");
     $("#select-country").select2({
       width: "100%",
       data: [
@@ -146,21 +147,22 @@ $(function () {
     });
 
     setTimeout(() => {
-      $("#select-country").val(window.gUserInfo?.country).trigger("change");
+      $("#select-country")
+        .val(addr?.countryCode ?? window.gUserInfo?.country)
+        .trigger("change");
+      $("#select-country").on("change", function (e) {
+        state.countryCode = $(e.target).val();
+        if (state.countryCode) {
+          $("label[for=select-country]").removeClass("text-red-500");
+
+          if (state.countryCode !== window.gUserInfo?.country) {
+            modalChangeCountry.show();
+          }
+        }
+      });
     }, 100);
 
-    $("#select-country").on("change", function (e) {
-      state.countryCode = $(e.target).val();
-      if (state.countryCode) {
-        $("label[for=select-country]").removeClass("text-red-500");
-
-        if (state.countryCode !== window.gUserInfo?.country) {
-          modalChangeCountry.show();
-        }
-      }
-    });
-
-    $(".btn-cancel-change-country,.btn-close-change-country")
+    $(".btn-cancel-change-country,#btn-close-change-country")
       .off("click")
       .on("click", function () {
         $("#select-country").val(window.gUserInfo?.country).trigger("change");

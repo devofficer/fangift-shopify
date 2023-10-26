@@ -96,17 +96,17 @@
       id="img-product-main"
     >
   </div>
-  <h4 class="text-heading-h4 mb-4" id="text-product-title"></h4>
-  <h5 class="text-heading-h5 mb-4" id="text-product-price"></h5>
-  <h3 class="text-body-md mb-2">Product Description</h3>
-  <div class="text-body-sm flex-grow mb-8 text-gray-500" id="text-desc"></div>
+  <h4 class="text-heading-h4 mb-4" id="text-title"></h4>
+  <h5 class="text-heading-h5 mb-4">$<span id="text-price"></span></h5>
   <button
     type="button"
-    class="btn btn-primary w-full"
+    class="btn btn-primary w-full mb-4"
     id="btn-add-cart"
   >
     Add to Cart
   </button>
+  <h3 class="text-body-md mb-2">Product Description</h3>
+  <div class="text-body-sm flex-grow text-gray-500" id="text-desc"></div>
 </div>
 
 {{ 'user.min.js' | asset_url | script_tag }}

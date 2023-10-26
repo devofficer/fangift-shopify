@@ -38,14 +38,7 @@ $(function () {
       $("#btn-delete-wishlist").addClass("hidden");
     },
   });
-  const drawerSuggestGift = new Drawer($suggestGiftEl, {
-    ...drawerDefaultOptions,
-    onHide() {
-      $("#text-suggest-title").val("");
-      $("#text-suggest-price").val(0);
-      $("#img-suggest-main").prop("src", "");
-    },
-  });
+  const drawerSuggestGift = new Drawer($suggestGiftEl, drawerDefaultOptions);
   const drawerGiftProduct = new Drawer($giftProductEl, drawerDefaultOptions);
   const confirmModal = new Modal($confirmModalEl);
 
@@ -246,37 +239,25 @@ $(function () {
     $(this).loading(true);
 
     try {
-      const prodInfo = await fangiftService.get("/scraper/product", {
-        params: {
-          url: state.url,
-        },
+      await fangiftService.post("/wishlist/suggest", {
+        productUrl: state.url,
       });
-      state.mainImage = prodInfo.mainImage;
-
-      $("#text-suggest-title").val(prodInfo.title);
-      $("#text-suggest-price").val(prodInfo.price);
-      $("#img-suggest").prop(
-        "src",
-        prodInfo.mainImage || $("#img-product-main").data("placeholder")
-      );
-      $("#text-suggest-desc").val(prodInfo.description);
-
-      // reset product link url textfield
-      $("#text-product-link").val("");
-
-      if (!prodInfo.mainImage && !prodInfo.title) {
-        toastr.warning(
-          "Failed to parse product. Please try to fill out fields manually."
-        );
-      }
-
       drawerGiftProduct.hide();
       drawerSuggestGift.show();
+      $("#text-product-link").val("");
     } catch (err) {
       toastr.warning("Please enter valid product URL!");
     }
 
     $(this).loading(false);
+  });
+
+  $("#btn-suggest-close").on("click", function () {
+    drawerSuggestGift.hide();
+  });
+  $("#btn-suggest-another").on("click", function () {
+    drawerGiftProduct.show();
+    drawerSuggestGift.hide();
   });
 
   $("#btn-add-wishlist").on("click", async function () {

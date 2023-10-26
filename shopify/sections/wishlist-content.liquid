@@ -139,55 +139,31 @@
   <button type="button" class="btn-close-drawer">
     {% render 'icon-close' : class: 'w-3 h-3' %}
   </button>
-  <h4 class="text-heading-h4 mb-4 md:mb-[76px]">Gift Details</h4>
-  <input
-    type="file"
-    class="hidden"
-    name="suggest-image"
-    id="file-suggest-image"
-  >
-  <div class="mb-4 relative w-full md:w-[340px] rounded-[16px] group cursor-pointer" id="wrapper-suggest-image">
-    <div class="absolute transition-all inset-0 z-10 items-center justify-center cursor-pointer hidden group-hover:flex text-[24px] text-primary-white">
-      Click to upload image
-    </div>
-    <img
-      alt="product image"
-      data-placeholder="{{ 'placeholder-image.png' | asset_url }}"
-      class="w-[400px] h-[300px] object-contain rounded-[16px] transition-all group-hover:blur-sm"
-      id="img-suggest"
-    >
-  </div>
-  <div class="flex items-center gap-4">
-    <input
-      type="text"
-      name="suggest-title"
-      placeholder="Title"
-      class="textfield mb-4"
-      id="text-suggest-title"
-    >
-    <div class="textfield-first-symbol mb-4">
-      <span class="text-accent-purple">$</span>
-      <input
-        name="price"
-        type="number"
-        placeholder="Price"
-        value="0.0"
-        id="text-suggest-price"
+  <h4 class="text-heading-h4 mb-10 md:mb-[76px]">Add a gift 🎁</h4>
+  <div class="text-body-md text-[#3f6d85] mb-6 md:mb-[100px] bg-[#cdeafa] p-6 rounded-[16px]">
+    <h5 class="text-heading-h5 mb-4">Product Submitted</h5>
+    <p>
+      We have received your product submission and our team is in the process of confirming if we can deliver to your
+      area. Once we have finalized our review we will notify you by email. In the meantime if you have any questions
+      please feel free to
+      <a
+        class="font-bold underline"
+        href="https://fangift.zendesk.com/hc/en-us/sections/20000965359892-Creator-Support"
+        target="_blank"
+        >contact us</a
       >
-    </div>
+    </p>
   </div>
-  <textarea
-    id="text-suggest-desc"
-    rows="4"
-    class="textarea mb-8 min-h-[100px]"
-    placeholder="Description..."
-  ></textarea>
   <button
     type="button"
-    class="btn btn-primary w-full"
-    id="btn-suggest-gift"
+    class="btn btn-primary w-full mb-4 md:mb-[75px]"
+    id="btn-suggest-close"
   >
-    💜 Add to Wishlist
+    Close
+  </button>
+  <hr class="border-primary-border mb-4 md:mb-[76px]">
+  <button class="block text-accent-purple underline text-body-md text-center w-full" id="btn-suggest-another">
+    Suggest another gift
   </button>
 </div>
 
@@ -266,11 +242,11 @@
     type="button"
     class="btn btn-primary w-full mb-4 md:mb-[75px]"
   >
-    Next 👉
+    Submit
   </button>
   <hr class="border-primary-border mb-4 md:mb-[76px]">
   <a href="/pages/fangifts" class="block text-accent-purple underline text-body-md text-center w-full">
-    Found a perfect gift on FanGift?
+    Find the perfect gift for your wishlist
   </a>
 </div>
 

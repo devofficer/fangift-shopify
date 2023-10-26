@@ -80,7 +80,7 @@ $(function () {
   });
 
   $("#btn-resend").on("click", async function (e) {
-    $(this).loading(true);
+    $(this).prop("disabled", true);
 
     try {
       await fangiftService.get("/auth/resend-code", { params: { email } });
@@ -89,7 +89,7 @@ $(function () {
       toastr.error(err.response.data.message);
     }
 
-    $(this).loading(false);
+    $(this).prop("disabled", false);
   });
 
   getAllCountries().then((data) => {

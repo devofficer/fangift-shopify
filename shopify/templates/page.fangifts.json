@@ -12,10 +12,7 @@
         "title": "Welcome to the FanGift Global Marketplace!",
         "content": "Discover an incredible collection of products from talented creators and vendors worldwide."
       }
-    },
-    "footer": {
-      "type": "footer"
     }
   },
-  "order": ["header", "content-header", "main", "footer"]
+  "order": ["header", "content-header", "main"]
 }

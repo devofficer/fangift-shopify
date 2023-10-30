@@ -3,15 +3,17 @@
     <div class="col-span-12 lg:col-span-5 px-5 py-10 lg:pl-[100px] lg:py-[100px] flex items-center order-2 lg:order-1">
       <div class="grid grid-cols-1 gap-6">
         <div class="w-fit px-5 py-3 bg-accent-blue/10 text-accent-blue text-[18px] rounded-[16px]">
-          🛍️ Become a Vendor
+          🛍️ Create your own store
         </div>
-        <h2 class="text-heading-h4 lg:text-heading-h2 text-primary-black">Sell Your Creations Directly to Your Fans</h2>
+        <h2 class="text-heading-h4 lg:text-heading-h2 text-primary-black">Sell your Products Directly to Your Fans</h2>
         <p class="text-body-md text-primary-text">
-          Turn your creative passion into a business. You can easily add your products to your Fangift store. All you
-          need are the details and images of your product, and we handle the rest – connecting your creations directly
-          to your fans.
+          Finally, sell your custom products to your fans from your own virtual store. We take care of the billing and
+          shipping for you. Private and secure.
         </p>
-        {% render 'button-forward': label: 'Learn More' %}
+        {%
+          render 'button-forward' : label: 'Learn More'
+          , href: '/pages/how-it-works'
+        %}
       </div>
     </div>
     {{

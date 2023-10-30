@@ -1,4 +1,4 @@
-<nav role="navigation" class="hidden static lg:flex items-center">
+<nav role="navigation" class="hidden static lg:flex items-center flex-grow">
   <ul class="flex flex-col lg:flex-row gap-[40px]">
     {% for link in linklists['main-menu'].links %}
       {% capture clsx -%}
@@ -14,7 +14,6 @@
           {%- echo "last " -%}
         {%- endif -%}
       {%- endcapture %}
-
       {% if link.url == '/pages/marketplace' %}
         {% if link.active or dark %}
           {% continue %}

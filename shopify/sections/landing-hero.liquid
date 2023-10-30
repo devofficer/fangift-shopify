@@ -2,19 +2,24 @@
   <div class="grid lg:grid-cols-2 grid-cols-1 gap-6 mb-12">
     <div class="flex flex-col items-center lg:order-1 order-2">
       <h1 class="lg:text-heading-h1 text-center lg:text-left text-heading-h3 text-primary-black mb-6">
-        Let Your Fans <span class="text-accent-peach">Support</span> You
+        The Free
+        <span class="text-accent-peach">Wishlist</span>
+        For
+        <span class="text-accent-peach">Creators</span>. Get Started Today!
       </h1>
       <p class="text-body-md lg:text-body-xl text-center lg:text-left text-primary-text mb-8">
-        Create your personal wishlist for fans to gift from and sell your unique creations directly to your supporters.
-        All without compromising your privacy.
+        Receive gifts from your fans privately and securely with your own wishlist link. Also, sell products directly to
+        your fans from your own online store.
       </p>
       <div class="w-full flex items-center justify-center lg:justify-start gap-4 mb-8">
         {{ 'landing-users.png' | asset_url | img_tag: 'users', 'h-[43px] lg:h-[60px]', 'x60' }}
-        <span class="text-body-md lg:text-body-xl text-primary-black">250K creators joined us!</span>
+        <span class="text-body-sm lg:text-body-md text-primary-black"
+          >Create your FREE account now. It’s fast & easy.</span
+        >
       </div>
       <div class="w-full flex items-center justify-center lg:justify-start gap-7">
         <a class="btn btn-primary !py-4" href="/account/register"> 🔥 Create Page </a>
-        <a class="btn btn-text-primary flex items-center gap-[10px]" href="#">
+        <a class="btn btn-text-primary flex items-center gap-[10px]" href="/pages/how-it-works">
           <span>Learn More</span>
           <svg
             class="{{ class }}"
@@ -24,14 +29,22 @@
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path d="m14.43 6.68 6.07 6.07-6.07 6.07M3.5 12.75h16.83" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path
+              d="m14.43 6.68 6.07 6.07-6.07 6.07M3.5 12.75h16.83"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
           </svg>
         </a>
       </div>
     </div>
     {{ 'landing-img0.png' | asset_url | img_tag: 'landing-img0', 'w-full order-1 lg:order-2', '600x' }}
   </div>
-  <p class="text-body-sm text-primary-text text-center mb-16">Connect with your audience, no matter where they are.</p>
+  <p class="text-body-sm text-primary-text text-center mb-16">
+    Link your custom wishlist or store from your social media accounts
+  </p>
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-7 opacity-40">
     <div class="flex items-center justify-center">
       {% render 'logo-tiktok.liquid' %}

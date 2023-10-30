@@ -59,7 +59,7 @@ $(function () {
     formData.append("country", country[0].id);
     formData.append("avatar", avatarImg);
     formData.append("publicName", publicName);
-    formData.append("bio", bio);
+    formData.append("bio", bio || "");
 
     $("#btn-about").loading(true);
 

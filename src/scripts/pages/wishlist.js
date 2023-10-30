@@ -231,7 +231,7 @@ $(function () {
   $("#btn-next-product").on("click", async function () {
     state.url = $("#text-product-link").val();
 
-    if (!isUrl(state.url)) {
+    if (!state.url) {
       toastr.error("Please enter a valid product url.");
       return;
     }

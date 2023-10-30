@@ -138,7 +138,13 @@ $(async function () {
   $("#text-username").text(`@${user.name}`);
   $("#text-public-name").text(user.publicName);
   $("#text-bio").text(user.bio);
-  $("#img-user-picture").prop("src", getS3Url(user.picture));
+  if (user.picture) {
+    $("#img-user-picture").prop("src", getS3Url(user.picture));
+  }
+  $("#text-message").prop(
+    "placeholder",
+    `Your gift message to ${user.publicName}...`
+  );
 
   $("#btn-checkout").on("click", async function () {
     $(this).loading(true);

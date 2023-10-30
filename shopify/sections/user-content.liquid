@@ -5,7 +5,11 @@
         <div id="profile" class="bg-primary-white rounded-[8px] px-6 py-4 mb-5 relative">
           <div class="flex md:flex-col mb-2 md:mb-0 gap-2">
             <div class="w-[80px] h-[80px] md:w-[120px] md:h-[120px] md:mx-auto md:mb-6 avatar flex items-center justify-center">
-              <img class="rounded-full w-full h-full object-cover" id="img-user-picture">
+              <img
+                class="rounded-full w-full h-full object-cover"
+                src="{{ 'user-anonymous.png' | asset_url }}"
+                id="img-user-picture"
+              >
             </div>
             <div>
               <h4 class="text-heading-h4 text-black md:mb-2 text-center flex justify-center items-center gap-1">

@@ -65,5 +65,9 @@ const LINKS = {
     path: "/pages/confirm-password",
     role: PAGE_ROLES.public,
   },
+  myStore: {
+    path: "/pages/my-store",
+    role: PAGE_ROLES.creator,
+  },
 };
 export default LINKS;

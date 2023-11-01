@@ -16,6 +16,6 @@
   }
 
   .textarea {
-    @apply flex-grow block p-2.5 w-full resize-none text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500;
+    @apply block p-2.5 w-full resize-none text-gray-900 bg-primary-white rounded-[16px] border border-gray-300 focus:ring-blue-500 focus:border-blue-500 placeholder-primary-border;
   }
 }

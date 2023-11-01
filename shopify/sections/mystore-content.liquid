@@ -1,0 +1,242 @@
+<div class="bg-[url(bg-mystore.svg)] bg-no-repeat bg-contain bg-bottom">
+  <div class="xl:container px-6 py-10 xl:px-[45px] xl:py-[100px] gap-[32px] flex flex-col lg:flex-row">
+    <div class="lg:w-[60%]">
+      <h1 class="text-heading-h3 lg:text-heading-h1 text-center lg:text-left mb-6">
+        🛍️ Sell your products with FanGift Store
+      </h1>
+      <p class="text-body-lg lg:text-body-xl mb-10 text-center lg:text-left">
+        FanGift Store enables you to sell your products directly to your fans. Create your free store page, upload
+        products, and set your prices. Share your store link and let us do the rest!
+      </p>
+      <button
+        id="btn-create-store"
+        class="btn btn-primary mx-auto lg:mx-0"
+        type="button"
+      >
+        🔥 Create Store
+      </button>
+    </div>
+    <div class="lg:w-[40%] flex items-center justify-center lg:justify-end">
+      <div class="border border-[#d9d9d9] bg-white px-6 py-8 lg:px-[43px] lg:py-[32px] w-fit rounded-md">
+        <ul class="list-none text-body-sm lg:text-body-lg leading-8 lg:leading-10">
+          <li>✅ Create your free store page</li>
+          <li>✅ Upload products and set prices</li>
+          <li>✅ We take care of billing & shipping</li>
+          <li>✅ Sell your products across the globe</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="xl:container px-6 py-10 xl:px-[45px] xl:py-[100px] flex gap-8 xl:gap-[140px] flex-col lg:flex-row">
+  <div class="w-[300px]">
+    <h2 class="text-heading-h3 lg:text-heading-h2 text-primay">Frequently Asked Questions</h2>
+  </div>
+  <div class="grid grid-cols-1 gap-6 flex-grow">
+    <div class="accordion">
+      <h4 class="text-heading-h6 lg:text-heading-h4 text-black">How do I sign up for a Fangift account?</h4>
+      {% render 'icon-arrow-down.liquid' %}
+    </div>
+    <div class="accordion">
+      <h4 class="text-heading-h6 lg:text-heading-h4 text-black">How do I create a wishlist?</h4>
+      {% render 'icon-arrow-down.liquid' %}
+    </div>
+    <div class="accordion">
+      <h4 class="text-heading-h6 lg:text-heading-h4 text-black">Can my fans see my personal information?</h4>
+      {% render 'icon-arrow-down.liquid' %}
+    </div>
+    <div class="accordion">
+      <h4 class="text-heading-h6 lg:text-heading-h4 text-black">
+        What happens when a fan buys a gift from my wishlist?
+      </h4>
+      {% render 'icon-arrow-down.liquid' %}
+    </div>
+  </div>
+</div>
+
+<div
+  id="drawer-store-details"
+  class="drawer"
+  tabindex="-1"
+  aria-labelledby="drawer-label"
+>
+  <button
+    type="button"
+    class="btn-close-drawer"
+    id="btn-close-store-details"
+  >
+    {% render 'icon-close' : class: 'w-3 h-3' %}
+  </button>
+  <h4 class="text-heading-h4 mb-[76px]">🛍️ Create Store</h4>
+  <p class="text-body-md mb-4">
+    Begin your journey with FanGift by setting up your personalized store. Fill out the details below to showcase your
+    products to a global audience.
+  </p>
+  <div class="grid grid-cols-1 gap-4 mb-8">
+    <input
+      type="text"
+      name="name-of-store"
+      placeholder="Name of Store"
+      class="textfield"
+      id="input-store-name"
+    >
+    <input
+      type="text"
+      name="full-name"
+      placeholder="Owner's Full Name"
+      class="textfield"
+      id="input-full-name"
+    >
+    <input
+      type="email"
+      name="email"
+      placeholder="Email"
+      class="textfield"
+      id="input-email"
+    >
+    <input
+      type="text"
+      name="phone"
+      placeholder="Phone"
+      class="textfield"
+      id="input-phone"
+    >
+  </div>
+  <button
+    type="button"
+    class="btn btn-primary w-full"
+    id="btn-next-store-details"
+  >
+    Next 👉
+  </button>
+</div>
+
+<div
+  id="drawer-categories"
+  class="drawer"
+  tabindex="-1"
+  aria-labelledby="drawer-label"
+>
+  <button
+    type="button"
+    class="btn-close-drawer"
+    id="btn-close-categories"
+  >
+    {% render 'icon-close' : class: 'w-3 h-3' %}
+  </button>
+  <div class="flex gap-1 mb-[76px]">
+    <button
+      type="button"
+      class="btn-icon p-2"
+      id="btn-back-categories"
+    >
+      <svg
+        class="w-6 h-6"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          d="M9.57 5.93 3.5 12l6.07 6.07M20.5 12H3.67"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+    <h4 class="text-heading-h4 ]">🛍️ Create Store</h4>
+  </div>
+  <p class="text-body-md mb-4">Product Categories</p>
+  <p class="text-body-md mb-4">
+    Choose the categories that best represent the products you offer, ensuring a seamless shopping experience for your
+    customers.
+  </p>
+  <ul class="flex flex-wrap gap-4 mb-8" id="categories"></ul>
+  <button
+    type="button"
+    class="btn btn-primary w-full"
+    id="btn-next-categories"
+  >
+    Next 👉
+  </button>
+</div>
+
+<div
+  id="drawer-product"
+  class="drawer"
+  tabindex="-1"
+  aria-labelledby="drawer-label"
+>
+  <button
+    type="button"
+    class="btn-close-drawer"
+    id="btn-close-product"
+  >
+    {% render 'icon-close' : class: 'w-3 h-3' %}
+  </button>
+  <div class="flex gap-1 mb-[76px]">
+    <button
+      type="button"
+      class="btn-icon p-2"
+      id="btn-back-product"
+    >
+      <svg
+        class="w-6 h-6"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          d="M9.57 5.93 3.5 12l6.07 6.07M20.5 12H3.67"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+    <h4 class="text-heading-h4">Add new products</h4>
+  </div>
+  <div class="flex items-center gap-4">
+    <input
+      type="text"
+      name="product-title"
+      placeholder="Product Title"
+      class="textfield mb-4"
+      id="text-product-title"
+    >
+    <div class="textfield-first-symbol mb-4">
+      <span class="text-accent-purple">$</span>
+      <input
+        name="price"
+        type="number"
+        placeholder="0.00"
+        value="0.0"
+        id="text-product-price"
+      >
+    </div>
+  </div>
+  <textarea
+    id="text-product-desc"
+    rows="4"
+    class="mb-4 textarea"
+    placeholder="Product Description"
+  ></textarea>
+  <button
+    type="button"
+    class="btn btn-primary w-full mb-8"
+    id="btn-add-product"
+  >
+    Add
+  </button>
+  <p class="text-body-md mb-4">Your products</p>
+  <div class="grid gird-cols-1 gap-4" id="products"></div>
+</div>
+
+{%
+  render 'modal-confirm' : id: 'modal-delete-mystore-product'
+  , content: 'Are you sure you want to delete this product?'
+%}
+
+{{ 'mystore.min.js' | asset_url | script_tag }}

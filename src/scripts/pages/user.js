@@ -146,6 +146,27 @@ $(async function () {
     `Your gift message to ${user.publicName}...`
   );
 
+  $(".btn-share").on("click", function () {
+    const shareData = {
+      title: "Share Example",
+      text: "Check out this awesome website!",
+      url: window.location.href,
+    };
+
+    if (navigator.share && navigator.canShare(shareData)) {
+      // Use the Web Share API to invoke the share dialog
+      navigator
+        .share(shareData)
+        .then(() => console.log("Shared successfully"))
+        .catch((error) => console.error("Share failed:", error));
+    } else {
+      // Fallback action (e.g., open a mailto link)
+      window.location.href =
+        "mailto:?subject=Check out this website&body=" +
+        encodeURIComponent(window.location.href);
+    }
+  });
+
   $("#btn-checkout").on("click", async function () {
     $(this).loading(true);
     const rawItems = localStorage.getItem("cart_items");

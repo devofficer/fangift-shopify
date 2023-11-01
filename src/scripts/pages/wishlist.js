@@ -57,7 +57,7 @@ $(function () {
   const urlParams = new URLSearchParams(window.location.search);
 
   if (urlParams.get("suggest_gift") === "true") {
-    drawerAddGift.show();
+    drawerGiftProduct.show();
   }
 
   $("#text-username").text(window.gUserInfo?.publicName.split(" ")[0]);
@@ -400,6 +400,27 @@ $(function () {
 
   $(".btn-cancel-modal-delete").on("click", function () {
     confirmModal.hide();
+  });
+
+  $("#btn-share").on("click", function () {
+    const shareData = {
+      title: "Share Example",
+      text: "Check out this awesome website!",
+      url: window.location.href,
+    };
+
+    if (navigator.share && navigator.canShare(shareData)) {
+      // Use the Web Share API to invoke the share dialog
+      navigator
+        .share(shareData)
+        .then(() => console.log("Shared successfully"))
+        .catch((error) => console.error("Share failed:", error));
+    } else {
+      // Fallback action (e.g., open a mailto link)
+      window.location.href =
+        "mailto:?subject=Check out this website&body=" +
+        encodeURIComponent(window.location.href);
+    }
   });
 
   $("#carousel-products").slick({

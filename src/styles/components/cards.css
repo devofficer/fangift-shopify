@@ -31,4 +31,8 @@
     @apply fixed bottom-0 left-0 right-0 z-40 flex flex-col w-full px-6 py-10 overflow-y-auto transition-transform translate-y-[100dvh] h-[90dvh] rounded-t-[16px] md:rounded-none
       md:top-0 md:right-0 md:left-[unset] md:bottom-[unset] md:h-screen md:p-6 md:px-[40px] md:py-[44px] md:translate-y-0 md:translate-x-full bg-primary-background md:w-[600px];
   }
+
+  .accordion {
+    @apply p-6 flex items-center justify-between border border-primary-border w-full h-fit cursor-pointer;
+  }
 }

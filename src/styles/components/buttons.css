@@ -48,7 +48,7 @@
   }
 
   .btn-link {
-    @apply h-[40px] px-[46px] text-body-sm w-full rounded-[8px] bg-primary-white border border-primary-border flex items-center justify-center gap-4;
+    @apply h-[40px] px-[46px] text-body-sm rounded-[8px] bg-primary-white border border-primary-border flex items-center justify-center gap-4;
   }
 
   .btn-view-details {

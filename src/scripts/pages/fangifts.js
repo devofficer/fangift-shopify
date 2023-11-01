@@ -110,13 +110,13 @@ function initWidgets() {
   initAccordin();
 
   $("#btn-load-more").on("click", loadMore);
-  $(window).on("scroll", function () {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      if (!$("#btn-load-more").prop("disabled")) {
-        $("#btn-load-more").trigger("click");
-      }
-    }
-  });
+  // $(window).on("scroll", function () {
+  //   if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+  //     if (!$("#btn-load-more").prop("disabled")) {
+  //       $("#btn-load-more").trigger("click");
+  //     }
+  //   }
+  // });
 
   $(".btn-close-drawer").on("click", () => addWishlistDrawer.hide());
   $(".btn-close-add-success").on("click", () => modalAddSuccess.hide());

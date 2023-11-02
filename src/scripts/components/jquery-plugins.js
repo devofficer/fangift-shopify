@@ -6,6 +6,7 @@ $.fn.loading = function (isLoading = true, opt) {
   };
 
   if (isLoading) {
+    this.width(this.width());
     const content = this.html();
     this.data("content", content);
     this.html(`

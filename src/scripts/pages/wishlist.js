@@ -406,7 +406,7 @@ $(function () {
     const shareData = {
       title: "Share Example",
       text: "Check out this awesome website!",
-      url: window.location.href,
+      url: ` https://fangift.com/${gUserInfo.name}`,
     };
 
     if (navigator.share && navigator.canShare(shareData)) {
@@ -419,7 +419,7 @@ $(function () {
       // Fallback action (e.g., open a mailto link)
       window.location.href =
         "mailto:?subject=Check out this website&body=" +
-        encodeURIComponent(window.location.href);
+        encodeURIComponent(shareData.url);
     }
   });
 

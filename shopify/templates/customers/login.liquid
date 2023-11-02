@@ -5,7 +5,7 @@
     {% section 'header-landing' %}
 
     <div class="container md:px-[100px] flex-grow flex items-end md:items-center">
-      <div class="grid grid-cols-1 gap-[60px] xl:grid-cols-2 w-full">
+      <div class="grid grid-cols-1 gap-[60px] xl:grid-cols-2 mb-10 w-full">
         <form
           class="card-auth"
           onsubmit="return false;"
@@ -71,7 +71,9 @@
             <a href="{{ routes.account_register_url }}" class="text-accent-peach underline">Signup</a>
           </div>
         </form>
-        {{ 'auth-img0.png' | asset_url | img_tag: 'main-bg', 'hidden xl:block', '600x' }}
+        <div class="flex items-center justify-center">
+          {{ 'auth-img0.png' | asset_url | img_tag: 'main-bg', 'hidden xl:block', '600x' }}
+        </div>
       </div>
     </div>
   </div>

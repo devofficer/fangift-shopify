@@ -135,7 +135,7 @@ $(async function () {
   $("#btn-close-cart").on("click", () => drawerCart.hide());
 
   // update creator profile section info
-  $("#text-username").text(`@${user.name}`);
+  $("#text-username").text(user.name);
   $("#text-public-name").text(user.publicName);
   $("#text-bio").text(user.bio);
   if (user.picture) {
@@ -150,7 +150,7 @@ $(async function () {
     const shareData = {
       title: "Share Example",
       text: "Check out this awesome website!",
-      url: window.location.href,
+      url: ` https://fangift.com/${username}`,
     };
 
     if (navigator.share && navigator.canShare(shareData)) {
@@ -163,7 +163,7 @@ $(async function () {
       // Fallback action (e.g., open a mailto link)
       window.location.href =
         "mailto:?subject=Check out this website&body=" +
-        encodeURIComponent(window.location.href);
+        encodeURIComponent(shareData.url);
     }
   });
 

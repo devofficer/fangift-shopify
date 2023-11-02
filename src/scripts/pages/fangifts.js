@@ -27,6 +27,7 @@ const state = {
   imageFile: null,
   addProductId: null,
   search: "",
+  timestamp: null,
 };
 
 const addWishlistDrawer = new Drawer(
@@ -110,13 +111,13 @@ function initWidgets() {
   initAccordin();
 
   $("#btn-load-more").on("click", loadMore);
-  // $(window).on("scroll", function () {
-  //   if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-  //     if (!$("#btn-load-more").prop("disabled")) {
-  //       $("#btn-load-more").trigger("click");
-  //     }
-  //   }
-  // });
+  $(window).on("scroll", function () {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      if (!$("#btn-load-more").prop("disabled")) {
+        $("#btn-load-more").trigger("click");
+      }
+    }
+  });
 
   $(".btn-close-drawer").on("click", () => addWishlistDrawer.hide());
   $(".btn-close-add-success").on("click", () => modalAddSuccess.hide());
@@ -197,6 +198,7 @@ async function loadProduct(clear = false) {
       params: { after: state.after, first: ITEMS_PER_PAGE, query },
       cancelToken: state.cancelToken.token,
     });
+    state.timestamp = new Date().getTime();
     state.products = [...state.products, ...products];
     state.after = pageInfo.hasNextPage ? pageInfo.endCursor : null;
     container.removeClass("min-h-[600px]");
@@ -232,6 +234,15 @@ async function loadProduct(clear = false) {
 
 async function loadMore() {
   $(this).loading(true);
+  await new Promise((resolve) => {
+    if (state.timestamp === null) {
+      resolve();
+    } else {
+      const delta = new Date().getTime() - state.timestamp;
+      const delay = 3000 - delta;
+      setTimeout(resolve, delay);
+    }
+  });
   const hasNexPage = await loadProduct();
   $(this).loading(false, { keepDisabled: !hasNexPage });
 }

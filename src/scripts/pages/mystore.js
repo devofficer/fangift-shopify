@@ -1,5 +1,10 @@
 // import templateCardMyStoreProduct from "../templates/card-mystore-product";
 
+import {
+  getMyStoreDetails,
+  updateMyStoreDetails,
+} from "../services/mystoreService";
+
 const categories = [
   "shoes",
   "jewelry",
@@ -54,12 +59,38 @@ $(function () {
   `)
   );
 
-  $("#btn-create-store").on("click", function () {
-    drawerStoreDetails.show();
+  $("#btn-create-store").on("click", async function () {
+    $(this).loading(true);
+    try {
+      const details = await getMyStoreDetails(gUserInfo.sub);
+      $("#input-store-name").val(details.storeName);
+      $("#input-full-name").val(details.FullName);
+      $("#input-email").val(details.email);
+      $("#input-phone").val(details.contactNumber);
+
+      drawerStoreDetails.show();
+    } catch (err) {
+      console.log(err);
+    }
+    $(this).loading(false);
   });
-  $("#btn-next-store-details").on("click", function (e) {
-    drawerStoreDetails.hide();
-    drawerCategories.show();
+  $("#btn-next-store-details").on("click", async function (e) {
+    const details = {
+      country: window.gUserInfo.country,
+      storeName: $("#input-store-name").val(),
+      FullName: $("#input-full-name").val(),
+      email: $("#input-email").val(),
+      contactNumber: $("#input-phone").val(),
+    };
+    $(this).loading(true);
+    try {
+      await updateMyStoreDetails(window.gUserInfo.sub, details);
+      drawerStoreDetails.hide();
+      drawerCategories.show();
+    } catch (err) {
+      console.log(err);
+    }
+    $(this).loading(false);
   });
   $("#btn-next-categories").on("click", function () {
     drawerCategories.hide();

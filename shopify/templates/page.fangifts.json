@@ -17,5 +17,5 @@
       "type": "footer"
     }
   },
-  "order": ["header", "content-header", "main", "footer"]
+  "order": ["header", "content-header", "main"]
 }

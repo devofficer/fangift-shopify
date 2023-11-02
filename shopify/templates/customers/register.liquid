@@ -5,7 +5,7 @@
     {% section 'header-landing' %}
 
     <div class="container md:px-[100px] flex-grow flex items-end md:items-center">
-      <div class="grid grid-cols-1 gap-[60px] xl:grid-cols-2 w-full">
+      <div class="grid grid-cols-1 gap-[60px] xl:grid-cols-2 mb-10 w-full">
         {% render 'register-form-role' %}
         {% render 'register-form-username', id: 'creator', title: '💡️ Creator' %}
         {% render 'register-form-username', id: 'fan', title: '🎉️ Fan' %}
@@ -14,7 +14,9 @@
         {% render 'register-form-about' %}
         {% render 'register-form-email' %}
 
-        {{ 'auth-img0.png' | asset_url | img_tag: 'main-bg', 'hidden xl:block', '600x' }}
+        <div class="flex items-center justify-center">
+          {{ 'auth-img0.png' | asset_url | img_tag: 'main-bg', 'hidden xl:block', '600x' }}
+        </div>
       </div>
     </div>
   </div>

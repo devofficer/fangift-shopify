@@ -27,7 +27,7 @@
       </div>
     </div>
   </div>
-  <div class="border-b border-primary-border md:bg-[url(settings-bg.svg)] bg-cover bg-[#FAFAFA]">
+  <div class="border-b border-primary-border lg:bg-[url(settings-bg.svg)] bg-cover bg-[#FAFAFA]">
     <div class="container px-6 py-5 md:px-[100px] md:py-[40px]">
       <div id="profile">
         <div class="md:w-[550px] md:mx-auto md:py-12 pb-12 md:px-20 md:bg-white md:rounded-[16px]">
@@ -112,7 +112,7 @@
         </div>
       </div>
       <div id="address" class="relative">
-        <div class="md:w-[800px] md:mx-auto px-6 py-4 bg-[#ffffdb] rounded-[16px] mb-4">
+        <div class="lg:mx-auto max-w-[800px] w-full px-6 py-4 bg-[#ffffdb] rounded-[16px] mb-4">
           <div class="w-fit mx-auto flex items-center justify-center gap-4 mb-4">
             <div class="w-[50px] h-[50px] rounded-full flex items-center justify-center bg-blue-500 shrink-0">
               {% render 'icon-hidden' %}
@@ -124,9 +124,9 @@
             personnel. You can feel safe entering your address below.
           </p>
         </div>
-        <div class="md:w-[800px] md:mx-auto md:py-12 pb-12 md:px-20 md:bg-white md:rounded-[16px] blur-sm content">
+        <div class="lg:mx-auto max-w-[800px] w-full lg:py-12 pb-12 lg:px-20 lg:bg-white lg:rounded-[16px] blur-sm content">
           <h3 class="text-heading-h3 mb-8">Your Shipping Address</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
             <div>
               <label for="first-name" class="text-body-sm mb-2 block required"> First Name </label>
               <input
@@ -173,7 +173,7 @@
               autocomplete="off"
             ></select>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
             <div>
               <label for="city" class="text-body-sm mb-2 block required"> City </label>
               <input
@@ -253,35 +253,35 @@
             d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
         </svg>
       </button>
-      <div class="p-6">
+      <div class="px-6 py-10">
         <h3 class="mb-5 text-lg font-normal text-center text-red-600">Are you sure you have changed countries?</h3>
         <p class="text-body-md mb-8">
           Warning. You are about to change your "Ship to" country. This may result in existing products in your wishlist
           to not be available to be shipped to the new country.
         </p>
-        <div class="flex justify-center gap-2">
-          <div class="flex gap-1">
-            <div class="error" error="Enter correct username!">
-              <input
-                type="text"
-                class="textfield px-2 py-1 rounded-[8px]"
-                id="input-username-country-change"
-                placeholder="Enter your username"
-              >
-            </div>
+        <div class="flex justify-center gap-2 md:flex-row flex-col ">
+          <div class="error" error="Enter correct username!">
+            <input
+              type="text"
+              class="textfield px-2 py-1 rounded-[8px]"
+              id="input-username-country-change"
+              placeholder="Enter your username"
+            >
+          </div>
+          <div class="grid grid-cols-2 gap-2 flex-shrink-0">
             <button
               type="button"
-              class="btn-sure-change-country h-fit flex-shrink-0 text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+              class="btn-sure-change-country h-fit text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex justify-center items-center px-5 py-2.5 text-center"
             >
               Yes, I understand
             </button>
+            <button
+              type="button"
+              class="btn-cancel-change-country h-fit text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+            >
+              No, cancel
+            </button>
           </div>
-          <button
-            type="button"
-            class="btn-cancel-change-country h-fit flex-shrink-0 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-          >
-            No, cancel
-          </button>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { getS3Url } from "../utils/string";
 import toastr from "toastr";
 import select2 from "select2";
 import sniper from "../utils/snip";
+import { refreshSession } from "../utils/session";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
 
@@ -262,6 +263,7 @@ $(function () {
 
         try {
           await fangiftService.put("/customer", data);
+          refreshSession();
           toastr.success("Successfully updated your address!");
         } catch (err) {
           toastr.error(err.response.data.message);

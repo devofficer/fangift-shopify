@@ -1,16 +1,15 @@
 <nav
   role="navigation"
-  class="hidden fixed z-10 inset-0 bg-cover bg-[url(landing-hamburger.svg)] bg-white body:overflow-hidden"
+  class="hidden fixed z-10 inset-0 bg-white body:overflow-hidden"
   id="navbar-landing-hamburger"
 >
-  <div class="flex flex-col justify-between px-5 h-full">
-    <div class="flex items-center justify-between h-[98px]">
-      <a id="logo" href="/">
-        {% render 'logo.liquid' %}
-      </a>
-    </div>
-
-    <ul class="flex flex-col flex-grow gap-[40px]">
+  <div class="px-5 flex items-center justify-between h-[98px] bg-[url(landing-hamburger.svg)]">
+    <a id="logo" href="/">
+      {% render 'logo.liquid' %}
+    </a>
+  </div>
+  <div class="flex flex-col px-5 py-8 h-full gap-10">
+    <ul class="flex flex-col items-center gap-[40px]">
       {% for link in linklists['main-menu'].links %}
         {% capture clsx -%}
           {%- if link.active -%}
@@ -41,7 +40,7 @@
           </li>
         {% else %}
           <li>
-            <a href="{{ link.url }}" class="{{clsx}} flex gap-[10px] items-center text-[16px]">
+            <a href="{{ link.url }}" class="{{clsx}} flex gap-[10px] items-center text-body-md">
               {{ link.title }}
             </a>
           </li>
@@ -49,8 +48,8 @@
       {% endfor %}
     </ul>
 
-    <div class="pb-[13vh] w-[110px]">
-      <a href="/account/login" class="btn btn-text-primary justify-start !px-0 py-3 mb-[32px]">Login</a>
+    <div class="flex gap-4 justify-center items-center">
+      <a href="/account/login" class="btn btn-text-primary justify-center px-4 py-3 text-accent">Login</a>
       <a href="/account/register" class="btn btn-primary font-plus-bold">Signup</a>
     </div>
   </div>

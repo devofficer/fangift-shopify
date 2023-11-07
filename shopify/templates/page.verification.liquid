@@ -3,11 +3,14 @@
     {% section 'header-landing' %}
 
     <div class="container md:px-[100px] flex-grow flex items-end md:items-center">
-      <div class="grid grid-cols-1 gap-[60px] xl:grid-cols-2 mb-10">
+      <div class="grid grid-cols-1 xl:gap-[60px] xl:grid-cols-2 xl:mb-10 w-full">
         <div class="card-auth relative">
           <div class="flex flex-col justify-center h-full">
             <div class="text-center mb-12">
-              <h1 class="text-primary-black text-heading-h3 mb-2" id="text-title"></h1>
+              <h1
+                class="text-primary-black text-heading-h3 flex items-center justify-center gap-2 mb-2"
+                id="text-title"
+              ></h1>
               <div class="text-center text-primary-text text-body-md" id="text-subtitle"></div>
             </div>
             <a
@@ -22,7 +25,7 @@
               id="btn-login"
               href="/account/login"
             >
-              Login
+              Login Again
             </a>
           </div>
         </div>

@@ -148,7 +148,7 @@ $(async function () {
 
   $(".btn-share").on("click", function () {
     const shareData = {
-      title: "Share Example",
+      title: "Checkout my FanGift wishlist",
       text: "Check out this awesome website!",
       url: ` https://fangift.com/${username}`,
     };

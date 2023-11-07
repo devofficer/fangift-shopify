@@ -23,6 +23,7 @@ $.fn.loading = function (isLoading = true, opt) {
     `);
     this.prop("disabled", true);
   } else {
+    this.width("auto");
     this.html(this.data("content"));
     this.data("content", null);
     this.prop("disabled", options.keepDisabled);

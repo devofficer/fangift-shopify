@@ -27,15 +27,33 @@ export async function updateMyStoreDetails(userId, details) {
   return data;
 }
 
+export async function getMyStoreCategories(userId) {
+  const data = await myStoreService.get(
+    `/app/user/${userId}/preregister/vendor/categories/?lang=en`
+  );
+  return data;
+}
 export async function updateCategories(userId, categories) {
   const data = await myStoreService.put(
     `app/user/${userId}/preregister/vendor/categories/?lang=en`,
     categories
   );
-  return data;
+  return data.vendor_products;
 }
 
-export async function createProduct(userId, product) {
+export async function getMyStoreProducts(userId) {
+  const data = await myStoreService.get(
+    `app/user/${userId}/preregister/vendor/product`,
+    {
+      params: {
+        lang: "en",
+      },
+    }
+  );
+  return data.vendor_products;
+}
+
+export async function createMyStoreProduct(userId, product) {
   const data = await myStoreService.post(
     `app/user/${userId}/preregister/vendor/product/?lang=en`,
     product
@@ -43,8 +61,16 @@ export async function createProduct(userId, product) {
   return data;
 }
 
-export async function deleteProduct(userId, product) {
-  const data = await myStoreService.post(
+export async function deleteMyStoreProduct(userId, productId) {
+  const data = await myStoreService.delete(
+    `app/user/${userId}/preregister/vendor/product/?lang=en`,
+    { productId }
+  );
+  return data;
+}
+
+export async function updateMyStoreProduct(userId, product) {
+  const data = await myStoreService.put(
     `app/user/${userId}/preregister/vendor/product/?lang=en`,
     product
   );

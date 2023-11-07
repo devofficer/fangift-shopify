@@ -41,9 +41,9 @@ $(function () {
   const userId = window.gUserInfo.sub;
   const uploadWidget = cloudinary.createUploadWidget(
     {
-      cloudName: "dk8krvgwg",
-      uploadPreset: "gjzdxeij",
-      folder: "mystore-products",
+      cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+      uploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET,
+      folder: process.env.CLOUDINARY_UPLOAD_FOLDER,
     },
     (error, result) => {
       if (!error && result && result.event === "success") {
@@ -80,7 +80,7 @@ $(function () {
         value="${cat}"
         class="hidden peer checkbox-category"
         required>
-      <label for="cat-${cat}" class="p-6 cursor-pointer select-none text-body-sm bg-primary-border rounded-[100px] peer-checked:bg-accent-purple peer-checked:text-white capitalize">
+      <label for="cat-${cat}" class="px-4 py-2 md:p-6 cursor-pointer select-none text-body-sm bg-primary-border rounded-[100px] peer-checked:bg-accent-purple peer-checked:text-white capitalize">
         ${cat.replace("_", " ")}
       </label>
     </li>

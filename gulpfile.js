@@ -134,6 +134,8 @@ function templateStream(filepath) {
 }
 
 function watchHandler(done) {
+  dotenv.config({ path: '.env.dev', override: true });
+
   const deleteFile = (filepath, isMinified = false) => {
     let filename = path.basename(filepath);
     if (isMinified) {

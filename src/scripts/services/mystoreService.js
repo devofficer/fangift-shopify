@@ -64,7 +64,9 @@ export async function createMyStoreProduct(userId, product) {
 export async function deleteMyStoreProduct(userId, productId) {
   const data = await myStoreService.delete(
     `app/user/${userId}/preregister/vendor/product/?lang=en`,
-    { productId }
+    {
+      product_id: productId,
+    }
   );
   return data;
 }

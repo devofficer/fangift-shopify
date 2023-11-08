@@ -23,6 +23,15 @@
               <span class="[.active>&]:text-accent-purple">Address</span>
             </button>
           </li>
+          <li>
+            <button
+              id="size-tab"
+              data-tabs-target="#address"
+              class="inline-flex items-center gap-2 justify-center py-4"
+            >
+              <span class="[.active>&]:text-accent-purple">My Sizes</span>
+            </button>
+          </li>
         </ul>
       </div>
     </div>
@@ -57,43 +66,6 @@
             placeholder="Public name"
             class="textfield mb-4"
           >
-          {% comment %}
-            <div class="flex gap-2">
-            <div class="relative w-full">
-            <button
-            id="dropdown-toggle-month"
-            data-dropdown-toggle="dropdown-month"
-            class="btn-dropdown mb-4 h-[60px]"
-            type="button"
-            >
-            <span class="displayed-value">Jan</span>
-            {% render 'icon-arrow-dropdown' %}
-            </button>
-            <!-- Dropdown menu -->
-            <div id="dropdown-month" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-full">
-            <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdown-toggle-month">
-            {% assign months = 'Jan,Feb,March,April,May,June,July,August,September,October,November,December'
-            | split: ','
-            %}
-            {% for month in months %}
-            <li class="block px-4 py-2 hover:bg-gray-100" data-value="{{ forloop.index }}">
-            {{ month }}
-            </li>
-            {% endfor %}
-            </ul>
-            </div>
-            </div>
-            <input
-            type="number"
-            id="day"
-            name="day"
-            min="1"
-            max="12"
-            placeholder="Day"
-            class="textfield mb-4"
-            >
-            </div>
-          {% endcomment %}
           <label for="bio" class="text-body-sm mb-2 block"> Short bio </label>
           <textarea
             id="bio"
@@ -221,6 +193,134 @@
             Save Changes
           </button>
         </div>
+      </div>
+      <div id="size" class="relative">
+        <div class="lg:mx-auto max-w-[800px] w-full px-6 py-4 bg-[#caddfb] rounded-[16px] mb-4">
+          <div class="w-fit mx-auto flex items-center justify-center gap-4 mb-4">
+            <div class="w-[50px] h-[50px] rounded-full flex items-center justify-center bg-blue-500 shrink-0">
+              {% render 'icon-hidden' %}
+            </div>
+            <h4 class="text-heading-h4">Get the right sizes</h4>
+          </div>
+          <p class="text-body-md">
+            We want to give you the ultimate experience. Enter your personal sizes below. We NEVER share this
+            information. Get the right size gifts without giving up your privacy.
+          </p>
+        </div>
+        <form class="lg:mx-auto max-w-[800px] min-h-[70vh] w-full lg:py-12 pb-12 lg:px-20 lg:bg-white lg:rounded-[16px] content blur-sm">
+          <h3 class="text-heading-h3 mb-8">Your Sizes</h3>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label for="sizeStandard" class="text-body-sm mb-2 block required"> Size Standard </label>
+              <select
+                id="sizeStandard"
+                placeholder="Size Standard"
+                class="btn-dropdown"
+                value=""
+                autocomplete="off"
+              >
+                <option
+                  value=""
+                  disabled
+                  selected
+                  hidden
+                ></option>
+                <option value="us">US Sizes</option>
+                <option value="uk">UK Sizes</option>
+                <option value="europe">Europe Sizes</option>
+              </select>
+            </div>
+            <div>
+              <label for="gender" class="text-body-sm mb-2 block required"> Gender </label>
+              <select
+                id="gender"
+                placeholder="Gender"
+                class="btn-dropdown"
+                autocomplete="off"
+              >
+                <option
+                  value=""
+                  disabled
+                  selected
+                  hidden
+                ></option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-12">
+            <div class="female-size male-size hidden">
+              <label for="shirtSize" class="text-body-sm mb-2 block"> Shirt Size </label>
+              <input
+                type="text"
+                id="shirtSize"
+                name="shirt-size"
+                placeholder="Shirt Size"
+                class="textfield"
+              >
+            </div>
+            <div class="female-size male-size hidden">
+              <label for="pantSize" class="text-body-sm mb-2 block"> Pant Size </label>
+              <input
+                type="number"
+                id="pantSize"
+                name="pant-size"
+                placeholder="Pant Size"
+                class="textfield"
+              >
+            </div>
+            <div class="female-size hidden">
+              <label for="dressSize" class="text-body-sm mb-2 block"> Dress Size </label>
+              <input
+                type="number"
+                id="dressSize"
+                name="dress-size"
+                placeholder="Dress Size"
+                class="textfield"
+              >
+            </div>
+            <div class="female-size male-size hidden">
+              <label for="shoeSize" class="text-body-sm mb-2 block"> Shoe Size </label>
+              <input
+                type="number"
+                id="shoeSize"
+                name="shoe-size"
+                placeholder="Shoe Size"
+                class="textfield"
+              >
+            </div>
+            <div class="female-size hidden">
+              <label for="braSize" class="text-body-sm mb-2 block"> Bra Size </label>
+              <input
+                type="number"
+                id="braSize"
+                name="bra-size"
+                placeholder="Bra Size"
+                class="textfield"
+              >
+            </div>
+            <div class="female-size hidden">
+              <label for="underwearSize" class="text-body-sm mb-2 block"> Underwear Size </label>
+              <input
+                type="number"
+                id="underwearSize"
+                name="underwear-size"
+                placeholder="Underwear Size"
+                class="textfield"
+              >
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary w-full hidden"
+            id="btn-save-sizes"
+          >
+            Save Changes
+          </button>
+        </form>
       </div>
     </div>
   </div>

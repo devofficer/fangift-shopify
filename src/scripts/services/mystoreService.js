@@ -1,10 +1,7 @@
 import axios from "axios";
 
 const myStoreService = axios.create({
-  baseURL: process.env.MYSTORE_API_URL,
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  },
+  baseURL: `${process.env.MYSTORE_API_URL}/app/user`,
 });
 
 myStoreService.interceptors.response.use((res) => {
@@ -15,13 +12,13 @@ export default myStoreService;
 
 export function getMyStoreDetails(userId) {
   return myStoreService.get(
-    `app/user/${userId}/preregister/vendor/store-details/?lang=en`
+    `${userId}/preregister/vendor/store-details/?lang=en`
   );
 }
 
 export async function updateMyStoreDetails(userId, details) {
   const data = await myStoreService.put(
-    `app/user/${userId}/preregister/bio/?lang=en`,
+    `${userId}/preregister/bio/?lang=en`,
     details
   );
   return data;
@@ -29,13 +26,13 @@ export async function updateMyStoreDetails(userId, details) {
 
 export async function getMyStoreCategories(userId) {
   const data = await myStoreService.get(
-    `/app/user/${userId}/preregister/vendor/categories/?lang=en`
+    `/${userId}/preregister/vendor/categories/?lang=en`
   );
   return data;
 }
 export async function updateCategories(userId, categories) {
   const data = await myStoreService.put(
-    `app/user/${userId}/preregister/vendor/categories/?lang=en`,
+    `${userId}/preregister/vendor/categories/?lang=en`,
     categories
   );
   return data.vendor_products;
@@ -43,7 +40,7 @@ export async function updateCategories(userId, categories) {
 
 export async function getMyStoreProducts(userId) {
   const data = await myStoreService.get(
-    `app/user/${userId}/preregister/vendor/product`,
+    `${userId}/preregister/vendor/product`,
     {
       params: {
         lang: "en",
@@ -55,7 +52,7 @@ export async function getMyStoreProducts(userId) {
 
 export async function createMyStoreProduct(userId, product) {
   const data = await myStoreService.post(
-    `app/user/${userId}/preregister/vendor/product/?lang=en`,
+    `${userId}/preregister/vendor/product/?lang=en`,
     product
   );
   return data;
@@ -63,7 +60,7 @@ export async function createMyStoreProduct(userId, product) {
 
 export async function deleteMyStoreProduct(userId, productId) {
   const data = await myStoreService.delete(
-    `app/user/${userId}/preregister/vendor/product/?lang=en`,
+    `${userId}/preregister/vendor/product/?lang=en`,
     {
       product_id: productId,
     }
@@ -73,8 +70,27 @@ export async function deleteMyStoreProduct(userId, productId) {
 
 export async function updateMyStoreProduct(userId, product) {
   const data = await myStoreService.put(
-    `app/user/${userId}/preregister/vendor/product/?lang=en`,
+    `${userId}/preregister/vendor/product/?lang=en`,
     product
+  );
+  return data;
+}
+
+export async function getMySizes(userId) {
+  const data = await myStoreService.get(`${userId}/preregister/sizes/?lang=en`);
+  return Object.entries(data).reduce(
+    (acc, [key, val]) => ({
+      ...acc,
+      [key.replace(/_([a-z])/g, (g) => g[1].toUpperCase())]: val,
+    }),
+    {}
+  );
+}
+
+export async function updateMySizes(userId, sizes) {
+  const data = await myStoreService.put(
+    `${userId}/preregister/sizes/?lang=en`,
+    sizes
   );
   return data;
 }

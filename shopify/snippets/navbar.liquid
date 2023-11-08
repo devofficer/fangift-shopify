@@ -1,5 +1,5 @@
 <nav role="navigation" class="flex items-center h-full">
-  <ul class="hidden gap-[40px] h-full creator-menu">
+  <ul class="hidden gap-[40px] h-full creator-menu-desktop">
     {% for link in linklists['creator-menu'].links %}
       {% capture active_class -%}
         {%- if link.active -%}
@@ -19,6 +19,28 @@
           href="{{ link.url }}"
           class="{{ active_class }} border-b-[3px] h-full flex gap-[10px] items-center text-[16px]"
         >
+          {{ link.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+  <ul class="hidden gap-6 h-full creator-menu-mobile lg:hidden">
+    {% for link in linklists['creator-menu-mobile'].links %}
+      {% capture active_class -%}
+        {%- if link.active -%}
+          {%- echo "text-accent-peach border-accent-peach " -%}
+        {% else %}
+          {%- echo "text-primary-border border-transparent hover:text-accent-peach " -%}
+        {%- endif -%}
+
+        {%- if forloop.first -%}
+          {%- echo "first " -%}
+        {%- elsif forloop.last -%}
+          {%- echo "last " -%}
+        {%- endif -%}
+      {%- endcapture %}
+      <li class="h-full">
+        <a href="{{ link.url }}" class="{{ active_class }} border-b-[3px] h-full flex items-center text-[16px]">
           {{ link.title }}
         </a>
       </li>

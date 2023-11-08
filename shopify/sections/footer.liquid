@@ -13,22 +13,16 @@
           <div class="text-primary-white font-plus-semi text-[16px] mb-8">General</div>
           <ul class="text-body-sm text-primary-gray grid grid-cols-1 gap-4">
             <li>
-              <a href="#" class="cursor-pointer hover:underline">Home</a>
+              <a href="/" class="cursor-pointer hover:underline">Home</a>
             </li>
             <li>
-              <a href="#" class="cursor-pointer hover:underline">Wishlist</a>
-            </li>
-            <li>
-              <a href="#" class="cursor-pointer hover:underline">Vendors</a>
+              <a href="/pages/how-it-works" class="cursor-pointer hover:underline">How It Works</a>
             </li>
           </ul>
         </div>
         <div class="lg:pl-4">
           <div class="text-primary-white font-plus-semi text-[16px] mb-8">Help</div>
           <ul class="text-body-sm text-primary-gray grid grid-cols-1 gap-4">
-            <li>
-              <a href="#" class="cursor-pointer hover:underline">How it works</a>
-            </li>
             <li>
               <a href="/pages/faq" class="cursor-pointer hover:underline">FAQ</a>
             </li>
@@ -41,13 +35,20 @@
           <div class="text-primary-white font-plus-semi text-[16px] mb-8">Legal</div>
           <ul class="text-body-sm text-primary-gray grid grid-cols-1 gap-4">
             <li>
-              <a href="/pages/terms-of-service" class="cursor-pointer hover:underline">Terms of Service</a>
+              <a
+                href="{{'terms-of-service.pdf' | asset_url}}"
+                target="_blank"
+                class="cursor-pointer hover:underline"
+                >Terms of Service</a
+              >
             </li>
             <li>
-              <a href="#" class="cursor-pointer hover:underline">Privacy Policy</a>
-            </li>
-            <li>
-              <a href="#" class="cursor-pointer hover:underline">Data Security</a>
+              <a
+                href="{{'privacy-policy.pdf' | asset_url}}"
+                target="_blank"
+                class="cursor-pointer hover:underline"
+                >Privacy Policy</a
+              >
             </li>
           </ul>
         </div>

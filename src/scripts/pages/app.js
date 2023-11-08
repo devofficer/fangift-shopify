@@ -42,9 +42,9 @@ const showProfileMenu = async (page) => {
     $(".shipping-country").addClass("md:flex");
     $(".shipping-country-mb").addClass("flex");
     $(".shipping-country-mb").removeClass("hidden");
-    $(".creator-menu").addClass("lg:flex");
-    $(".creator-menu-mb").removeClass("hidden");
-    $(".creator-menu-mb").addClass("flex");
+    $(".creator-menu-desktop").addClass("lg:flex");
+    $(".creator-menu-mobile").removeClass("hidden").addClass("flex");
+    $(".creator-menu-mb").removeClass("hidden").addClass("flex");
 
     try {
       const country = await getCountryInfo(window.gUserInfo?.country);

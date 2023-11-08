@@ -149,8 +149,8 @@ $(async function () {
   $(".btn-share").on("click", function () {
     const shareData = {
       title: "Checkout my FanGift wishlist",
-      text: "Check out this awesome website!",
-      url: ` https://fangift.com/${username}`,
+      text: "Checkout my FanGift wishlist!",
+      url: `https://fangift.com/${username}`,
     };
 
     if (navigator.share && navigator.canShare(shareData)) {

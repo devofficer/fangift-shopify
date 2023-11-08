@@ -1,17 +1,18 @@
-import fangiftService from "../services/fangiftService";
-import restcountriesService from "../services/restcountriesService";
-import initAvatar from "../components/avatar";
-import { getS3Url } from "../utils/string";
-import toastr from "toastr";
 import select2 from "select2";
-import sniper from "../utils/snip";
+import toastr from "toastr";
+import initAvatar from "../components/avatar";
+import fangiftService from "../services/fangiftService";
+import { getMySizes, updateMySizes } from "../services/mystoreService";
+import restcountriesService from "../services/restcountriesService";
 import { refreshSession } from "../utils/session";
+import sniper from "../utils/snip";
+import { getS3Url } from "../utils/string";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
 
 select2(window, $);
 
-const tabIds = ["profile", "address"];
+const tabIds = ["profile", "address", "size"];
 
 $(function () {
   const tabElements = tabIds.map((tabId) => ({
@@ -22,9 +23,9 @@ $(function () {
   const modalChangeCountry = new Modal(
     document.getElementById("modal-change-country")
   );
-
+  const urlParams = new URLSearchParams(window.location.search);
   const options = {
-    defaultTabId: tabIds[0],
+    defaultTabId: urlParams.get("tab") ?? tabIds[0],
     activeClasses: "active",
     inactiveClasses: "inactive",
     onShow: ({ _activeTab: { id: tabId } }) => {
@@ -34,6 +35,9 @@ $(function () {
           break;
         case "profile":
           showProfileTab();
+          break;
+        case "size":
+          showSizeTab();
           break;
         default:
           showProfileTab();
@@ -46,9 +50,9 @@ $(function () {
   };
 
   const tabs = new Tabs(tabElements, options);
-  tabs.show(tabIds[0]);
+  tabs.show(urlParams.get("tab") ?? tabIds[0]);
 
-  function showProfileTab() {
+  async function showProfileTab() {
     let avatarFile;
     $("#username").val(window.gUserInfo?.name);
     $("#bio").val(window.gUserInfo?.bio);
@@ -271,5 +275,81 @@ $(function () {
 
         $(this).loading(false);
       });
+  }
+
+  async function showSizeTab() {
+    $("#size").append(sniper.spin().el);
+
+    const userId = window.gUserInfo?.sub;
+    const sizes = await getMySizes(userId);
+
+    sniper.stop();
+    $("#size>.content").removeClass("blur-sm");
+
+    const state = {
+      sizeStandard: "",
+      gender: "",
+      shirtSize: "",
+      pantSize: "",
+      dressSize: "",
+      shoeSize: "",
+      braSize: "",
+      underwearSize: "",
+      ...sizes,
+    };
+
+    Object.entries(state).forEach(([key, val]) => {
+      $(`#${key}`).val(val);
+    });
+
+    function switchView() {
+      if (state.sizeStandard && state.gender) {
+        if (state.gender === "female" || state.gender === "other") {
+          $(".male-size").addClass("hidden");
+          $(".female-size").removeClass("hidden");
+        } else if (state.gender === "male") {
+          $(".female-size").addClass("hidden");
+          $(".male-size").removeClass("hidden");
+        }
+        $("#btn-save-sizes").removeClass("hidden");
+      } else {
+        $("#btn-save-sizes").addClass("hidden");
+        $(".female-size,.male-size").addClass("hidden");
+      }
+    }
+
+    switchView();
+
+    $("#sizeStandard").on("change", function (e) {
+      state.sizeStandard = $(this).val();
+      switchView();
+    });
+
+    $("#gender").on("change", function (e) {
+      state.gender = $(this).val();
+      switchView();
+    });
+
+    $("#btn-save-sizes").on("click", async function () {
+      $(this).loading(true);
+
+      const sizes = Object.keys(state).reduce(
+        (acc, key) => ({
+          ...acc,
+          [key]: $(`#${key}`).val(),
+        }),
+        {}
+      );
+
+      try {
+        await updateMySizes(userId, sizes);
+        toastr.success("Successfully updated your sizes!");
+      } catch (err) {
+        console.log(err);
+        toastr.error("Get failed to update your sizes!");
+      }
+
+      $(this).loading(false);
+    });
   }
 });

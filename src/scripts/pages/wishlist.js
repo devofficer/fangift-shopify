@@ -405,8 +405,8 @@ $(function () {
   $("#btn-share").on("click", function () {
     const shareData = {
       title: "Checkout my FanGift wishlist",
-      text: "Check out this awesome website!",
-      url: ` https://fangift.com/${gUserInfo.name}`,
+      text: "Checkout my FanGift wishlist!",
+      url: `https://fangift.com/${gUserInfo.name}`,
     };
 
     if (navigator.share && navigator.canShare(shareData)) {

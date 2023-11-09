@@ -203,7 +203,14 @@ async function loadProduct(clear = false) {
     state.after = pageInfo.hasNextPage ? pageInfo.endCursor : null;
     container.removeClass("min-h-[600px]");
     // add products to container
-    products.forEach((prod) => container.append(templateCardProduct(prod)));
+    products.forEach((prod) =>
+      container.append(
+        templateCardProduct({
+          ...prod,
+          price: Number(prod.priceRangeV2.minVariantPrice.amount).toFixed(2),
+        })
+      )
+    );
 
     $(".just-created .btn-add-product").on("click", async function () {
       const productId = $(this).data("product");

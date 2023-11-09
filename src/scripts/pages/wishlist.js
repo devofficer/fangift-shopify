@@ -157,7 +157,12 @@ $(function () {
       $("#no-gifts").removeClass("flex");
 
       wishlists.forEach((product) =>
-        container.append(templateCardWishlist(product))
+        container.append(
+          templateCardWishlist({
+            ...product,
+            price: Number(product.price).toFixed(2),
+          })
+        )
       );
 
       bindEventHandlers();
@@ -480,7 +485,10 @@ $(function () {
       $("#carousel-products").slick(
         "slickAdd",
         `<div class="w-[200px] rounded-[16px] mx-2 border border-gray-100">${templateCardProduct(
-          prod
+          {
+            ...prod,
+            price: Number(prod.priceRangeV2.minVariantPrice.amount).toFixed(2),
+          }
         )}</div>`
       );
     });

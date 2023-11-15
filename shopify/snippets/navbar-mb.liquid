@@ -88,6 +88,52 @@
       {% endfor %}
     </ul>
 
+    <div class="user-page:flex hidden flex-col px-5 py-8 h-full gap-10">
+      <ul class="flex flex-col items-center gap-[40px]">
+        {% for link in linklists['main-menu'].links %}
+          {% capture clsx -%}
+            {%- if link.active -%}
+              {%- echo "text-accent-purple underline " -%}
+            {% else %}
+              {%- echo " text-primary/70 hover:text-accent-purple " -%}
+            {%- endif -%}
+  
+            {%- if forloop.first -%}
+              {%- echo "first " -%}
+            {%- elsif forloop.last -%}
+              {%- echo "last " -%}
+            {%- endif -%}
+          {%- endcapture %}
+          {% if link.url == '/pages/marketplace' %}
+            {% if link.active or dark %}
+              {% continue %}
+            {% endif %}
+            <li>
+              <a
+                href="{{ link.url }}"
+                target="_blank"
+                class="flex gap-[10px] items-center text-accent-purple text-[16px] font-plus-medium hover:font-bold"
+              >
+                {{ link.title }}
+                {% render 'icon-external.liquid' %}
+              </a>
+            </li>
+          {% else %}
+            <li>
+              <a href="{{ link.url }}" class="{{clsx}} flex gap-[10px] items-center text-body-md">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+
+      <div class="flex gap-4 justify-center items-center">
+        <a href="/account/login" class="btn btn-text-primary justify-center px-4 py-3 text-accent">Login</a>
+        <a href="/account/register" class="btn btn-primary font-plus-bold">Signup</a>
+      </div>
+    </div>
+
     <div class="items-center gap-2 mb-10 hidden shipping-country-mb">
       <span class="text-body-md">Ship to Country:</span>
       <div class="flex items-center gap-2 bg-white/30 rounded-[8px] py-1 px-2">

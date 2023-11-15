@@ -49,6 +49,7 @@ module.exports = {
     require("flowbite/plugin"),
     plugin(function ({ addVariant }) {
       addVariant('body', 'body:has(&:not(.hidden))');
+      addVariant('user-page', '#user-page &');
     }),
   ],
 };

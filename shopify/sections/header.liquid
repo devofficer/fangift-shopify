@@ -9,20 +9,20 @@
       {% render 'navbar-mb' %}
     </div>
 
-    <div class="flex items-center gap-4" id="profile-settings">
-      <div class="items-center gap-2 hidden shipping-country">
+    <div class="flex items-center gap-4 user-page:flex" id="profile-settings">
+      <div class="items-center gap-2 hidden shipping-country user-page:hidden">
         <span class="text-white">Ship to Country:</span>
         <div class="flex items-center gap-2 ship-hidden:bg-white/30 text-white rounded-[8px] ship-hidden:py-1 ship-hidden:px-2">
           <img src="#" class="img-shipping-country w-[28px] h-[18px]">
           <span class="text-shipping-country hidden ship-hidden:inline"></span>
         </div>
       </div>
-      <a href="/pages/settings" class="btn btn-icon-filled">
+      <a href="/pages/settings" class="btn btn-icon-filled user-page:hidden">
         {% render 'icon-setting.liquid' %}
       </a>
       {% render 'profile-dropdown' %}
       <button
-        class="btn btn-icon-menu z-20 hidden"
+        class="btn btn-icon-menu z-20 hidden user-page:flex user-page:md:hidden"
         data-collapse-toggle="navbar-hamburger"
         type="button"
       >

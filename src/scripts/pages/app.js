@@ -83,7 +83,7 @@ $(async function () {
   if (page === undefined || page.role === PAGE_ROLES.unknown) {
     window.location.href = LINKS.home.path;
   } else if (page.role === PAGE_ROLES.public) {
-    if (page.path === LINKS.home.path) {
+    if (page.path === LINKS.home.path || page.path === LINKS.login.path) {
       if (validExp) {
         const nextPage =
           window.gUserInfo?.type === PAGE_ROLES.creator

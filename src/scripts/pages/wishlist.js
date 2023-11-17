@@ -479,7 +479,7 @@ $(function () {
 
   const loadProducts = async () => {
     const { products } = await fangiftService.get("/shop/product", {
-      params: { first: 15 },
+      params: { first: 15, featured: true },
     });
     products.forEach((prod) => {
       $("#carousel-products").slick(

@@ -28,6 +28,7 @@ const state = {
   addProductId: null,
   search: "",
   timestamp: null,
+  featured: true,
 };
 
 const addWishlistDrawer = new Drawer(
@@ -194,13 +195,23 @@ async function loadProduct(clear = false) {
 
   try {
     // fetch products
-    const { products, pageInfo } = await fangiftService.get("/shop/product", {
-      params: { after: state.after, first: ITEMS_PER_PAGE, query },
-      cancelToken: state.cancelToken.token,
-    });
+    const { products, pageInfo, featured } = await fangiftService.get(
+      "/shop/product",
+      {
+        params: {
+          after: state.after,
+          first: ITEMS_PER_PAGE,
+          query,
+          featured: state.featured,
+        },
+        cancelToken: state.cancelToken.token,
+      }
+    );
     state.timestamp = new Date().getTime();
     state.products = [...state.products, ...products];
     state.after = pageInfo.hasNextPage ? pageInfo.endCursor : null;
+    state.featured = featured;
+
     container.removeClass("min-h-[600px]");
     // add products to container
     products.forEach((prod) =>

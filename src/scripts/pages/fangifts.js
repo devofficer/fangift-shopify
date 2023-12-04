@@ -6,6 +6,7 @@ import fangiftService from "../services/fangiftService";
 import templateCardProduct from "../templates/card.product";
 import { ITEMS_PER_PAGE } from "../utils/constants";
 import spinner from "../utils/snip";
+import myStoreService from "../services/mystoreService";
 
 select2(window, $);
 
@@ -18,7 +19,7 @@ toastr.options.positionClass = "toast-bottom-center bottom-10";
 const modalAddSuccess = new Modal(document.getElementById("popup-add-success"));
 
 const state = {
-  after: null,
+  page: null,
   priceMin: 0,
   priceMax: Infinity,
   categories: [],
@@ -72,19 +73,21 @@ $(async function () {
   $("#btn-add-wishlist").on("click", async function () {
     $(this).loading(true);
 
-    const product = state.products.find((p) => p.id === state.addProductId);
+    const product = state.products.find(
+      (p) => p.productId === state.addProductId
+    );
     const title = product.title;
-    const price = product.priceRangeV2.minVariantPrice.amount;
+    const price = product.price;
     const imageUrl = $("#img-product-main").prop("src");
-    const description = product.descriptionHtml;
+    const description = product.description;
 
     try {
       const formData = new FormData();
       formData.append("userId", window.gUserInfo["cognito:username"]);
       formData.append("title", title);
       formData.append("price", price);
-      formData.append("productId", product.id);
-      formData.append("variantId", product.variants[0].id);
+      formData.append("productId", product.productId);
+      formData.append("variantId", product.variantId);
       formData.append("description", description);
 
       if (state.imageFile) {
@@ -178,39 +181,32 @@ async function loadProduct(clear = false) {
   }
 
   if (clear) {
-    state.after = null;
+    state.page = 1;
     container.empty();
     container.append(spinner.spin().el);
     container.addClass("min-h-[600px]");
   }
-  const query = [
-    state.category ? `product_type:'${state.category}'` : "",
-    state.search ? `title:*${state.search}*` : "",
-  ]
-    .filter((q) => !!q)
-    .join(" AND ");
 
   // create cancellation token
   state.cancelToken = axios.CancelToken.source();
 
   try {
     // fetch products
-    const { products, pageInfo, featured } = await fangiftService.get(
-      "/shop/product",
+    const { results: products, totalPages } = await myStoreService.get(
+      "/products",
       {
         params: {
-          after: state.after,
-          first: ITEMS_PER_PAGE,
-          query,
-          featured: state.featured,
+          country: window.gUserInfo.country,
+          resultsPerPage: ITEMS_PER_PAGE,
+          category: state.category,
+          page: state.page,
         },
         cancelToken: state.cancelToken.token,
       }
     );
     state.timestamp = new Date().getTime();
     state.products = [...state.products, ...products];
-    state.after = pageInfo.hasNextPage ? pageInfo.endCursor : null;
-    state.featured = featured;
+    state.page = state.page > totalPages ? totalPages : state.page + 1;
 
     container.removeClass("min-h-[600px]");
     // add products to container
@@ -218,23 +214,21 @@ async function loadProduct(clear = false) {
       container.append(
         templateCardProduct({
           ...prod,
-          price: Number(prod.priceRangeV2.minVariantPrice.amount).toFixed(2),
+          price: Number(prod.price).toFixed(2),
         })
       )
     );
 
     $(".just-created .btn-add-product").on("click", async function () {
-      const productId = $(this).data("product");
-      const product = products.find((p) => p.id === productId);
+      const productId = $(this).data("product").toString();
+      const product = state.products.find((p) => p.productId === productId);
       state.addProductId = productId;
 
       if (product) {
         $("#text-product-title").text(product.title);
-        $("#text-product-price").text(
-          `$${product.priceRangeV2.minVariantPrice.amount}`
-        );
-        $("#img-product-main").prop("src", product.featuredImage.url);
-        $("#text-desc").html(product.descriptionHtml);
+        $("#text-product-price").text(`$${product.price}`);
+        $("#img-product-main").prop("src", product.imageUrl);
+        $("#text-desc").html(product.description);
         addWishlistDrawer.show();
       }
     });
@@ -242,9 +236,9 @@ async function loadProduct(clear = false) {
     spinner.stop();
     state.cancelToken = null;
     $(".just-created").removeClass("just-created");
-    $("#btn-load-more").prop("disabled", !pageInfo.hasNextPage);
+    $("#btn-load-more").prop("disabled", state.page > totalPages);
 
-    return pageInfo.hasNextPage;
+    return state.page <= totalPages;
   } catch (err) {
     toastr.error(err.message);
   }
@@ -252,15 +246,6 @@ async function loadProduct(clear = false) {
 
 async function loadMore() {
   $(this).loading(true);
-  await new Promise((resolve) => {
-    if (state.timestamp === null) {
-      resolve();
-    } else {
-      const delta = new Date().getTime() - state.timestamp;
-      const delay = 3000 - delta;
-      setTimeout(resolve, delay);
-    }
-  });
   const hasNexPage = await loadProduct();
   $(this).loading(false, { keepDisabled: !hasNexPage });
 }

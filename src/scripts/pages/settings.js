@@ -2,9 +2,13 @@ import select2 from "select2";
 import toastr from "toastr";
 import initAvatar from "../components/avatar";
 import fangiftService from "../services/fangiftService";
-import { getMySizes, updateMySizes } from "../services/mystoreService";
+import {
+  getAddress,
+  getMySizes,
+  updateAddress,
+  updateMySizes,
+} from "../services/mystoreService";
 import restcountriesService from "../services/restcountriesService";
-import { refreshSession } from "../utils/session";
 import sniper from "../utils/snip";
 import { getS3Url } from "../utils/string";
 
@@ -62,8 +66,22 @@ $(function () {
       $("#img-profile-avatar").prop("src", getS3Url(window.gUserInfo?.picture));
     }
 
-    initAvatar((file) => {
+    initAvatar(async (file) => {
       avatarFile = file;
+      const form = new FormData();
+      form.append("avatar", avatarFile);
+
+      const { picture } = await fangiftService.put("/customer/user", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const payload = JSON.parse(localStorage.getItem("payload"));
+      payload.picture = picture;
+      $("#img-avatar").attr("src", getS3Url(picture));
+      localStorage.setItem("payload", JSON.stringify(payload));
+      toastr.success("Updated your profile picture successfully!");
     }, "profile-avatar");
 
     $("#btn-save-profile")
@@ -82,7 +100,6 @@ $(function () {
         try {
           const form = new FormData();
           form.append("publicName", publicName);
-          form.append("avatar", avatarFile);
           form.append("bio", bio);
           const { picture } = await fangiftService.put("/customer/user", form, {
             headers: {
@@ -115,13 +132,12 @@ $(function () {
     const countries = await restcountriesService.get(
       "all?fields=name,flags,cca2"
     );
-    const { defaultAddress: addr } = await fangiftService.get("/customer");
+    const addr = await getAddress(window.gUserInfo?.sub);
     sniper.stop();
     $("#address>.content").removeClass("blur-sm");
 
     const state = {
-      countryCode: addr?.countryCode,
-      addrId: addr?.id,
+      country: addr?.country,
     };
 
     $("#select-country").off("change");
@@ -153,14 +169,14 @@ $(function () {
 
     setTimeout(() => {
       $("#select-country")
-        .val(addr?.countryCode ?? window.gUserInfo?.country)
+        .val(addr?.country ?? window.gUserInfo?.country)
         .trigger("change");
       $("#select-country").on("change", function (e) {
-        state.countryCode = $(e.target).val();
-        if (state.countryCode) {
+        state.country = $(e.target).val();
+        if (state.country) {
           $("label[for=select-country]").removeClass("text-red-500");
 
-          if (state.countryCode !== window.gUserInfo?.country) {
+          if (state.country !== window.gUserInfo?.country) {
             modalChangeCountry.show();
           }
         }
@@ -190,16 +206,16 @@ $(function () {
       });
 
     if (addr) {
-      $("#select-country").val(addr.countryCode);
+      $("#select-country").val(addr.country);
       $("#select-country").trigger("change");
-      $("#first-name").val(addr.firstName);
-      $("#last-name").val(addr.lastName);
-      $("#address1").val(addr.address1);
-      $("#address2").val(addr.address2);
+      $("#first-name").val(addr.first_name);
+      $("#last-name").val(addr.last_name);
+      $("#address1").val(addr.address_1);
+      $("#address2").val(addr.address_2);
       $("#city").val(addr.city);
-      $("#state").val(addr.province);
-      $("#zip").val(addr.zip);
-      $("#phone-number").val(addr.phone);
+      $("#state").val(addr.state_province);
+      $("#zip").val(addr.postal_code);
+      $("#phone-number").val(addr.phone_number);
     }
 
     $("#address .textfield")
@@ -213,21 +229,20 @@ $(function () {
       .off("click")
       .on("click", async function () {
         const data = {
-          id: state.addrId,
           firstName: $("#first-name").val(),
           lastName: $("#last-name").val(),
-          countryCode: state.countryCode,
+          country: state.country,
           address1: $("#address1").val(),
           address2: $("#address2").val(),
           city: $("#city").val(),
-          province: $("#state").val(),
-          zip: $("#zip").val(),
-          phone: $("#phone-number").val(),
+          stateProvince: $("#state").val(),
+          postalCode: $("#zip").val(),
+          phoneNumber: $("#phone-number").val(),
         };
 
         let invalid = false;
 
-        if (!data.countryCode) {
+        if (!data.country) {
           $("label[for=select-country]").addClass("text-red-500");
           invalid = true;
         }
@@ -247,15 +262,15 @@ $(function () {
           $("label[for=address1]").addClass("text-red-500");
           invalid = true;
         }
-        if (!data.province) {
+        if (!data.stateProvince) {
           $("label[for=state]").addClass("text-red-500");
           invalid = true;
         }
-        if (!data.zip) {
+        if (!data.postalCode) {
           $("label[for=zip]").addClass("text-red-500");
           invalid = true;
         }
-        if (!data.phone) {
+        if (!data.phoneNumber) {
           $("label[for=phone-number]").addClass("text-red-500");
           invalid = true;
         }
@@ -266,8 +281,7 @@ $(function () {
         $(this).loading(true);
 
         try {
-          await fangiftService.put("/customer", data);
-          refreshSession();
+          await updateAddress(window?.gUserInfo.sub, data);
           toastr.success("Successfully updated your address!");
         } catch (err) {
           toastr.error(err.response.data.message);

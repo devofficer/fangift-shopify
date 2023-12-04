@@ -1,9 +1,10 @@
 import toastr from "toastr";
-import fangiftService from "../services/fangiftService";
-import templateCardWishlist from "../templates/card.wishlist";
-import templateCardProduct from "../templates/card.product";
-import spinner from "../utils/snip";
 import LINKS from "../constants/links";
+import fangiftService from "../services/fangiftService";
+import myStoreService from "../services/mystoreService";
+import templateCardProduct from "../templates/card.product";
+import templateCardWishlist from "../templates/card.wishlist";
+import spinner from "../utils/snip";
 import { isUrl } from "../utils/string";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
@@ -478,8 +479,8 @@ $(function () {
   });
 
   const loadProducts = async () => {
-    const { products } = await fangiftService.get("/shop/product", {
-      params: { first: 15, featured: true },
+    const { results: products } = await myStoreService.get("/products", {
+      params: { page: 1, country: gUserInfo.country, resultsPerPage: 20 },
     });
     products.forEach((prod) => {
       $("#carousel-products").slick(
@@ -487,27 +488,27 @@ $(function () {
         `<div class="w-[200px] rounded-[16px] mx-2 border border-gray-100">${templateCardProduct(
           {
             ...prod,
-            price: Number(prod.priceRangeV2.minVariantPrice.amount).toFixed(2),
+            price: Number(prod.price).toFixed(2),
           }
         )}</div>`
       );
     });
 
     $(".just-created .btn-add-product").on("click", async function () {
-      const productId = $(this).data("product");
-      const product = products.find((p) => p.id === productId);
+      const productId = $(this).data("product").toString();
+      const product = products.find((p) => p.productId === productId);
 
       if (product) {
         state.productId = productId;
-        state.variantId = product.variants[0].id;
-        state.mainImage = product.featuredImage.url;
-        state.description = product.descriptionHtml;
-        state.productUpdatedAt = new Date(product.updatedAt).getTime();
+        state.variantId = product.variantId;
+        state.mainImage = product.imageUrl;
+        state.description = product.description;
+        state.productUpdatedAt = new Date(product.updated_at).getTime();
         state.title = product.title;
-        state.price = product.priceRangeV2.minVariantPrice.amount;
+        state.price = product.price;
         $("#text-product-title").text(product.title);
         $("#text-product-price").text(`$${state.price}`);
-        $("#img-product-main").prop("src", product.featuredImage.url);
+        $("#img-product-main").prop("src", product.imageUrl);
         $("#text-desc").html(state.description);
 
         drawerGiftDetails.show();

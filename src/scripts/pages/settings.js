@@ -11,6 +11,7 @@ import {
 import restcountriesService from "../services/restcountriesService";
 import sniper from "../utils/snip";
 import { getS3Url } from "../utils/string";
+import { refreshSession } from "../utils/session";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
 
@@ -282,7 +283,11 @@ $(function () {
 
         try {
           await updateAddress(window?.gUserInfo.sub, data);
+          await fangiftService.put("/customer/country", {
+            country: data.country,
+          });
           toastr.success("Successfully updated your address!");
+          refreshSession();
         } catch (err) {
           toastr.error(err.response.data.message);
         }

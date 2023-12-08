@@ -140,6 +140,12 @@ $(function () {
     $(`#form-${role}`).show();
   });
 
+  $(".label-role").on("click", function () {
+    role = $(this).data("role");
+    $("#form-role").hide();
+    $(`#form-${role}`).show();
+  });
+
   // handle submit of fan form
   $("#form-fan").on("submit", function (e) {
     e.preventDefault();

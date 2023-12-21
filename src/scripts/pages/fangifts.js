@@ -168,6 +168,8 @@ async function loadCategories() {
 
   $("#select-category").on("select2:select", function (e) {
     state.category = e.params.data.id;
+    state.search = "";
+    $("#input-search").val("");
     loadProduct(true);
   });
 }
@@ -193,13 +195,14 @@ async function loadProduct(clear = false) {
   try {
     // fetch products
     const { results: products, totalPages } = await myStoreService.get(
-      "/products",
+      state.search ? "/products/search" : "/products",
       {
         params: {
           country: window.gUserInfo.country,
           resultsPerPage: ITEMS_PER_PAGE,
           category: state.category,
           page: state.page,
+          text: state.search,
         },
         cancelToken: state.cancelToken.token,
       }

@@ -5,8 +5,10 @@ import fangiftService from "../services/fangiftService";
 import {
   getAddress,
   getMySizes,
+  getMySocial,
   updateAddress,
   updateMySizes,
+  updateMySocial,
 } from "../services/mystoreService";
 import restcountriesService from "../services/restcountriesService";
 import sniper from "../utils/snip";
@@ -17,7 +19,7 @@ toastr.options.positionClass = "toast-bottom-center bottom-10";
 
 select2(window, $);
 
-const tabIds = ["profile", "address", "size"];
+const tabIds = ["profile", "address", "size", "social"];
 
 $(function () {
   const tabElements = tabIds.map((tabId) => ({
@@ -43,6 +45,9 @@ $(function () {
           break;
         case "size":
           showSizeTab();
+          break;
+        case "social":
+          showSocialTab();
           break;
         default:
           showProfileTab();
@@ -130,6 +135,8 @@ $(function () {
 
   async function showAddressTab() {
     $("#address").append(sniper.spin().el);
+    $("#address>.content").addClass("blur-sm");
+
     const countries = await restcountriesService.get(
       "all?fields=name,flags,cca2"
     );
@@ -298,6 +305,7 @@ $(function () {
 
   async function showSizeTab() {
     $("#size").append(sniper.spin().el);
+    $("#size>.content").addClass("blur-sm");
 
     const userId = window.gUserInfo?.sub;
     const sizes = await getMySizes(userId);
@@ -370,5 +378,45 @@ $(function () {
 
       $(this).loading(false);
     });
+  }
+
+  async function showSocialTab() {
+    $("#social").append(sniper.spin().el);
+    $("#social>.content").addClass("blur-sm");
+
+    const userId = window.gUserInfo?.sub;
+    const socials = await getMySocial(userId);
+
+    sniper.stop();
+    $("#social>.content").removeClass("blur-sm");
+
+    if (socials) {
+      $("#facebook").val(socials.facebook);
+      $("#instagram").val(socials.instagram);
+      $("#twitter").val(socials.twitter);
+      $("#tiktok").val(socials.tiktok);
+    }
+
+    $("#btn-save-socials")
+      .off("click")
+      .on("click", async function () {
+        const socials = {
+          facebookAccount: $("#facebook").val(),
+          instagramAccount: $("#instagram").val(),
+          twitterAccount: $("#twitter").val(),
+          tiktokAccount: $("#tiktok").val(),
+        };
+
+        $(this).loading(true);
+
+        try {
+          await updateMySocial(userId, socials);
+          toastr.success("Successfully updated your socials!");
+        } catch (err) {
+          toastr.error(err.response.data.message);
+        }
+
+        $(this).loading(false);
+      });
   }
 });

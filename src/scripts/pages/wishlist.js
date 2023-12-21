@@ -1,7 +1,10 @@
 import toastr from "toastr";
 import LINKS from "../constants/links";
 import fangiftService from "../services/fangiftService";
-import myStoreService from "../services/mystoreService";
+import myStoreService, {
+  getMySocial,
+  updateMySocial,
+} from "../services/mystoreService";
 import templateCardProduct from "../templates/card.product";
 import templateCardWishlist from "../templates/card.wishlist";
 import spinner from "../utils/snip";
@@ -42,6 +45,44 @@ $(function () {
   const drawerSuggestGift = new Drawer($suggestGiftEl, drawerDefaultOptions);
   const drawerGiftProduct = new Drawer($giftProductEl, drawerDefaultOptions);
   const confirmModal = new Modal($confirmModalEl);
+  const socialModal = new Modal(document.getElementById("social-modal"));
+
+  if (localStorage.getItem("doNotShowSocial") !== "true") {
+    getMySocial(window.gUserInfo?.sub).then((socials) => {
+      if (socials) {
+        $("#facebook").val(socials.facebook);
+        $("#instagram").val(socials.instagram);
+        $("#twitter").val(socials.twitter);
+        $("#tiktok").val(socials.tiktok);
+      }
+      socialModal.show();
+    });
+
+    $("#btn-save-socials").on("click", async function () {
+      const socials = {
+        facebookAccount: $("#facebook").val(),
+        instagramAccount: $("#instagram").val(),
+        twitterAccount: $("#twitter").val(),
+        tiktokAccount: $("#tiktok").val(),
+      };
+
+      $(this).loading(true);
+
+      try {
+        await updateMySocial(window.gUserInfo?.sub, socials);
+        toastr.success("Successfully updated your socials!");
+      } catch (err) {
+        toastr.error(err.response.data.message);
+      } finally {
+        socialModal.hide();
+        $(this).loading(false);
+      }
+    });
+
+    $("#do-not-show-social").on("change", function () {
+      localStorage.setItem("doNotShowSocial", this.checked);
+    });
+  }
 
   const state = {
     url: "",

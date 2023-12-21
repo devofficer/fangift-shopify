@@ -26,7 +26,7 @@ export async function updateMyStoreDetails(userId, details) {
 
 export async function getMyStoreCategories(userId) {
   const data = await myStoreService.get(
-    `/${userId}/preregister/vendor/categories/?lang=en`
+    `user/${userId}/preregister/vendor/categories/?lang=en`
   );
   return data;
 }
@@ -122,4 +122,19 @@ export async function updateAddress(userId, data) {
     data
   );
   return res;
+}
+
+export async function getMySocial(userId) {
+  const data = await myStoreService.get(
+    `/user/${userId}/account/social/?lang=en`
+  );
+  return data;
+}
+
+export async function updateMySocial(userId, socials) {
+  const data = await myStoreService.put(
+    `/user/${userId}/account/social/?lang=en`,
+    socials
+  );
+  return data;
 }

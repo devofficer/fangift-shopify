@@ -70,6 +70,7 @@ $(function () {
 
       try {
         await updateMySocial(window.gUserInfo?.sub, socials);
+        localStorage.setItem("doNotShowSocial", true);
         toastr.success("Successfully updated your socials!");
       } catch (err) {
         toastr.error(err.response.data.message);
@@ -81,6 +82,10 @@ $(function () {
 
     $("#do-not-show-social").on("change", function () {
       localStorage.setItem("doNotShowSocial", this.checked);
+    });
+
+    $("#btn-close-social").on("click", function () {
+      socialModal.hide();
     });
   }
 

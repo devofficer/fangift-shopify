@@ -4,7 +4,6 @@ import select2 from "select2";
 import toastr from "toastr";
 import fangiftService from "../services/fangiftService";
 import templateCardProduct from "../templates/card.product";
-import { ITEMS_PER_PAGE } from "../utils/constants";
 import spinner from "../utils/snip";
 import myStoreService from "../services/mystoreService";
 
@@ -70,7 +69,7 @@ $(async function () {
     loadProduct(true);
   });
 
-  $("#btn-add-wishlist").on("click", async function () {
+  $(".btn-add-wishlist").on("click", async function () {
     $(this).loading(true);
 
     const product = state.products.find(
@@ -199,7 +198,6 @@ async function loadProduct(clear = false) {
       {
         params: {
           country: window.gUserInfo.country,
-          resultsPerPage: ITEMS_PER_PAGE,
           category: state.category,
           page: state.page,
           text: state.search,

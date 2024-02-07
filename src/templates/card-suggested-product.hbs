@@ -1,0 +1,22 @@
+<div class="card-product just-created">
+  <div class="grid grid-cols-1 gap-2">
+    <div class="h-[96px] bg-primary-background rounded-[8px] relative cursor-pointer group overflow-hidden btn-add-product" data-product="{{ productId }}">
+      <img class="w-full h-full object-contain group-hover:scale-110 transition-transform" src="{{ imageUrl }}" loading="lazy">
+    </div>
+    <span class="text-body-sm text-black text-ellipsis overflow-hidden whitespace-nowrap">
+      {{ title }}
+    </span>
+    <div class="flex items-center justify-between gap-2">
+      <div class="border border-primary-border p-1 rounded-[8px] text-center text-body-xs text-black">${{
+        price }}
+      </div>
+      <input
+        id="product-{{ productId }}"
+        type="checkbox"
+        checked
+        data-product="{{ productId }}"
+        class="checkbox-suggested-product w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+        required>
+    </div>
+  </div>
+</div>

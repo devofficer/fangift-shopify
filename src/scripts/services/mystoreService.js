@@ -138,3 +138,37 @@ export async function updateMySocial(userId, socials) {
   );
   return data;
 }
+
+export async function getSuggestedProducts(country) {
+  const { results } = await myStoreService.get(
+    `/products/welcome/?lang=en&country=${country}`
+  );
+  return results.reduce(
+    (acc, prod) => ({
+      ...acc,
+      [prod.category]: acc[prod.category]
+        ? acc[prod.category].length >= 3
+          ? acc[prod.category]
+          : [...acc[prod.category], prod]
+        : [prod],
+    }),
+    {}
+  );
+}
+
+export async function addSuggestedProducts(userId, products) {
+  const data = await myStoreService.post(
+    `/user/${userId}/welcome-products/?lang=en`,
+    {
+      productArray: products.map((prod) => ({
+        productId: prod.productId,
+        variantId: prod.variantId,
+        price: prod.price,
+        description: prod.description,
+        title: prod.title,
+        imageUrl: prod.imageUrl,
+      })),
+    }
+  );
+  return data;
+}

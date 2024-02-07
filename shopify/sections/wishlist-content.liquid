@@ -271,8 +271,7 @@
         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Your social</h3>
         <button
           type="button"
-          id="btn-close-social"
-          class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+          class="btn-close-social end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
         >
           <svg
             class="w-3 h-3"
@@ -384,10 +383,10 @@
           class="btn btn-primary w-full mb-4"
           id="btn-save-socials"
         >
-          Save Changes
+          Save & Next
         </button>
-        <div class="flex items-center justify-end gap-1">
-          <div class="flex items-center h-5">
+        <div class="flex items-center justify-between gap-4 px-3">
+          <div class="flex items-center gap-1">
             <input
               id="do-not-show-social"
               type="checkbox"
@@ -395,10 +394,73 @@
               class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
               required
             >
+            <label for="do-not-show-social" class="text-md font-medium text-gray-900 dark:text-gray-300"
+              >Do not show me this again</label
+            >
           </div>
-          <label for="do-not-show-social" class="text-md font-medium text-gray-900 dark:text-gray-300"
-            >Do not show me this again</label
+          <button
+            type="button"
+            id="btn-skip-social"
+            class="btn-close-social text-gray-500 text-md font-medium"
           >
+            Skip
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Suggested Wishlist Products Modal -->
+<div
+  id="suggested-modal"
+  tabindex="-1"
+  aria-hidden="true"
+  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+>
+  <div class="relative p-4 w-full max-w-xl max-h-full">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <!-- Modal header -->
+      <div class="flex items-center justify-between px-4 pt-4 rounded-t">
+        <button
+          type="button"
+          class="btn-close-suggested end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+        >
+          <svg
+            class="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Modal body -->
+      <div class="px-6 pt-2 pb-4 flex flex-col">
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">Suggested Wishlist Product</h3>
+        <p class="text-md text-gray-600 mb-4">Get your wishlist started by adding our featured products below.</p>
+        <p class="text-md text-gray-600 mb-2">
+          Interests are used to personalize your experience and will be visible on your profile.
+        </p>
+        <div class="container-suggested-products overflow-auto max-h-[50vh] mb-4"></div>
+        <div class="flex items-center justify-between gap-4 px-3">
+          <button
+            type="button"
+            class="btn btn-primary mb-4 flex-grow"
+            id="btn-add-suggested"
+          >
+            Add & Next
+          </button>
+          <button type="button" class="btn-close-suggested text-gray-500 text-md font-medium">Skip</button>
         </div>
       </div>
     </div>

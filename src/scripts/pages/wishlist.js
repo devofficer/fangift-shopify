@@ -2,11 +2,14 @@ import toastr from "toastr";
 import LINKS from "../constants/links";
 import fangiftService from "../services/fangiftService";
 import myStoreService, {
+  addSuggestedProducts,
   getMySocial,
+  getSuggestedProducts,
   updateMySocial,
 } from "../services/mystoreService";
 import templateCardProduct from "../templates/card.product";
 import templateCardWishlist from "../templates/card.wishlist";
+import templateCardSuggestedProduct from "../templates/card-suggested-product";
 import spinner from "../utils/snip";
 import { isUrl } from "../utils/string";
 
@@ -46,6 +49,20 @@ $(function () {
   const drawerGiftProduct = new Drawer($giftProductEl, drawerDefaultOptions);
   const confirmModal = new Modal($confirmModalEl);
   const socialModal = new Modal(document.getElementById("social-modal"));
+  const suggestedModel = new Modal(document.getElementById("suggested-modal"));
+
+  const state = {
+    url: "",
+    title: "",
+    imageFile: null,
+    mainImage: "",
+    shippingPrice: 0,
+    digitalGood: false,
+    after: null,
+    deleteId: null,
+    editWishlist: null,
+    suggestedProducts: {},
+  };
 
   if (localStorage.getItem("doNotShowSocial") !== "true") {
     getMySocial(window.gUserInfo?.sub).then((socials) => {
@@ -72,8 +89,43 @@ $(function () {
         await updateMySocial(window.gUserInfo?.sub, socials);
         localStorage.setItem("doNotShowSocial", true);
         toastr.success("Successfully updated your socials!");
+
+        const products = await getSuggestedProducts(window?.gUserInfo?.country);
+        const $container = $(".container-suggested-products");
+
+        Object.entries(products).forEach(([category, products]) => {
+          $container.append(
+            `<h2 class="text-lg font-bold mt-4 mb-2">${category}</h2>`
+          );
+          const $categoryBox = $(
+            `<div class="grid grid-cols-3 gap-2 p-2 rounded-[16px] bg-gray-100"></div>`
+          );
+          $container.append($categoryBox);
+
+          products.forEach((prod) => {
+            state.suggestedProducts[prod.productId] = {
+              ...prod,
+              checked: true,
+            };
+            $categoryBox.append(
+              templateCardSuggestedProduct({
+                ...prod,
+                price: Number(prod.price).toFixed(2),
+              })
+            );
+          });
+        });
+
+        $container
+          .find(".checkbox-suggested-product")
+          .on("change", function () {
+            const id = $(this).data("product");
+            state.suggestedProducts[id].checked = this.checked;
+          });
+
+        suggestedModel.show();
       } catch (err) {
-        toastr.error(err.response.data.message);
+        toastr.error(err);
       } finally {
         socialModal.hide();
         $(this).loading(false);
@@ -84,22 +136,39 @@ $(function () {
       localStorage.setItem("doNotShowSocial", this.checked);
     });
 
-    $("#btn-close-social").on("click", function () {
+    $(".btn-close-social").on("click", function () {
       socialModal.hide();
     });
-  }
 
-  const state = {
-    url: "",
-    title: "",
-    imageFile: null,
-    mainImage: "",
-    shippingPrice: 0,
-    digitalGood: false,
-    after: null,
-    deleteId: null,
-    editWishlist: null,
-  };
+    $(".btn-close-suggested").on("click", function () {
+      suggestedModel.hide();
+    });
+
+    $("#btn-add-suggested").on("click", async function () {
+      const selectedProducts = Object.values(state.suggestedProducts).filter(
+        (p) => p.checked
+      );
+      if (selectedProducts.length) {
+        $(this).loading(true);
+        try {
+          await addSuggestedProducts(window.gUserInfo?.sub, selectedProducts);
+          toastr.success(
+            "Successfully added suggested products to your wishlist!"
+          );
+          loadWishlist(true);
+        } catch (err) {
+          toastr.error(err);
+        } finally {
+          $(this).loading(false);
+          suggestedModel.hide();
+        }
+      } else {
+        toastr.warning(
+          "Please select at least one product to add to your wishlist!"
+        );
+      }
+    });
+  }
 
   const urlParams = new URLSearchParams(window.location.search);
 

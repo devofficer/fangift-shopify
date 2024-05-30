@@ -1,6 +1,6 @@
 import LINKS from "../constants/links";
 import PAGE_ROLES from "../constants/pageRoles";
-import { getCountryInfo } from "../services/restcountriesService";
+import { countries } from "country-flags-svg";
 import { refreshSession } from "../utils/session";
 import { getS3Url } from "../utils/string";
 
@@ -46,12 +46,10 @@ const showProfileMenu = async (page) => {
     $(".creator-menu-mobile").removeClass("hidden").addClass("flex");
     $(".creator-menu-mb").removeClass("hidden").addClass("flex");
 
-    try {
-      const country = await getCountryInfo(window.gUserInfo?.country);
-      $(".img-shipping-country").prop("src", country.flags.png);
-      $(".text-shipping-country").text(country.name.common);
-    } catch (err) {
-      console.log(err);
+    const country = countries.find((c) => c.iso2 === window.gUserInfo?.country);
+    if (country) {
+      $(".img-shipping-country").prop("src", country.flag);
+      $(".text-shipping-country").text(country.name);
     }
   } else {
     $("#logo").prop("href", LINKS.orders.path);

@@ -1,3 +1,4 @@
+import { countries } from "country-flags-svg";
 import select2 from "select2";
 import toastr from "toastr";
 import initAvatar from "../components/avatar";
@@ -10,10 +11,9 @@ import {
   updateMySizes,
   updateMySocial,
 } from "../services/mystoreService";
-import restcountriesService from "../services/restcountriesService";
+import { refreshSession } from "../utils/session";
 import sniper from "../utils/snip";
 import { getS3Url } from "../utils/string";
-import { refreshSession } from "../utils/session";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
 
@@ -137,9 +137,6 @@ $(function () {
     $("#address").append(sniper.spin().el);
     $("#address>.content").addClass("blur-sm");
 
-    const countries = await restcountriesService.get(
-      "all?fields=name,flags,cca2"
-    );
     const addr = await getAddress(window.gUserInfo?.sub);
     sniper.stop();
     $("#address>.content").removeClass("blur-sm");
@@ -155,9 +152,9 @@ $(function () {
         { id: "", text: "Select Country of Residence", flag: "" },
         ...countries
           .map((item) => ({
-            id: item.cca2,
-            text: item.name.common,
-            flag: item.flags.png,
+            id: item.iso2,
+            text: item.name,
+            flag: item.flag,
           }))
           .sort((a, b) => (a.text > b.text ? 1 : -1)),
       ],

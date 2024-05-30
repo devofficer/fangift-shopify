@@ -2,7 +2,7 @@ import select2 from "select2";
 import toastr from "toastr";
 import initAvatar from "../components/avatar";
 import fangiftService from "../services/fangiftService";
-import { getAllCountries } from "../services/restcountriesService";
+import { countries } from "country-flags-svg";
 import { isEmail, isValidUsername } from "../utils/string";
 
 toastr.options.positionClass = "toast-bottom-center bottom-10";
@@ -92,44 +92,42 @@ $(function () {
     $(this).prop("disabled", false);
   });
 
-  getAllCountries().then((data) => {
-    $("#select-country").select2({
-      width: "100%",
-      data: [
-        { id: "", text: "Select Country of Residence", flag: "" },
-        ...data
-          .map((item) => ({
-            id: item.cca2,
-            text: item.name.common,
-            flag: item.flags.png,
-          }))
-          .sort((a, b) => (a.text > b.text ? 1 : -1)),
-      ],
-      templateResult: (state) => {
-        if (!state.flag) {
-          return state.text;
-        }
-        const $state = $(
-          `<div class="flex items-center gap-2">
+  $("#select-country").select2({
+    width: "100%",
+    data: [
+      { id: "", text: "Select Country of Residence", flag: "" },
+      ...countries
+        .map((item) => ({
+          id: item.iso2,
+          text: item.name,
+          flag: item.flag,
+        }))
+        .sort((a, b) => (a.text > b.text ? 1 : -1)),
+    ],
+    templateResult: (state) => {
+      if (!state.flag) {
+        return state.text;
+      }
+      const $state = $(
+        `<div class="flex items-center gap-2">
             ${state.flag ? `<img src="${state.flag}" class="w-[32px]" />` : ""}
             <span>${state.text}</span>
           </div>`
-        );
-        return $state;
-      },
-    });
-
-    $("#select-country").on("select2:select", function (e) {
-      country = e.params.data;
-      $("#btn-next-country").prop("disabled", !country.id);
-    });
-
-    country = $("#select-country").select2("data");
-
-    if (!country.id) {
-      $("#btn-next-country").prop("disabled", true);
-    }
+      );
+      return $state;
+    },
   });
+
+  $("#select-country").on("select2:select", function (e) {
+    country = e.params.data;
+    $("#btn-next-country").prop("disabled", !country.id);
+  });
+
+  country = $("#select-country").select2("data");
+
+  if (!country.id) {
+    $("#btn-next-country").prop("disabled", true);
+  }
 
   // handle submit of role selection form
   $("#form-role").on("submit", function (e) {
